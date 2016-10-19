@@ -1,0 +1,196 @@
+
+(rules PCB eprisc_mach
+  (snap_angle 
+    fortyfive_degree
+  )
+  (autoroute_settings
+    (fanout off)
+    (autoroute on)
+    (postroute on)
+    (vias on)
+    (via_costs 50)
+    (plane_via_costs 5)
+    (start_ripup_costs 100)
+    (start_pass_no 1835)
+    (layer_rule F.Cu
+      (active on)
+      (preferred_direction horizontal)
+      (preferred_direction_trace_costs 1.0)
+      (against_preferred_direction_trace_costs 2.5)
+    )
+    (layer_rule Gnd.Cu
+      (active off)
+      (preferred_direction horizontal)
+      (preferred_direction_trace_costs 1.0)
+      (against_preferred_direction_trace_costs 2.5)
+    )
+    (layer_rule Pwr.Cu
+      (active off)
+      (preferred_direction horizontal)
+      (preferred_direction_trace_costs 1.0)
+      (against_preferred_direction_trace_costs 2.5)
+    )
+    (layer_rule B.Cu
+      (active on)
+      (preferred_direction vertical)
+      (preferred_direction_trace_costs 1.0)
+      (against_preferred_direction_trace_costs 1.7)
+    )
+  )
+  (rule
+    (width 152.4)
+    (clear 152.6)
+    (clear 76.2 (type smd_to_turn_gap))
+    (clear 38.2 (type smd_smd))
+  )
+  (padstack "Via[0-3]_600:300_um"
+    (shape
+      (circle F.Cu 600.0 0.0 0.0)
+    )
+    (shape
+      (circle Gnd.Cu 600.0 0.0 0.0)
+    )
+    (shape
+      (circle Pwr.Cu 600.0 0.0 0.0)
+    )
+    (shape
+      (circle B.Cu 600.0 0.0 0.0)
+    )
+    (attach off)
+  )
+  (via 
+    "Via[0-3]_600:300_um" "Via[0-3]_600:300_um" default
+  )
+  (via 
+    "Via[0-3]_600:300_um-kicad_default" "Via[0-3]_600:300_um" "kicad_default"
+  )
+  (via 
+    "Via[0-3]_600:300_um-Bus" "Via[0-3]_600:300_um" Bus
+  )
+  (via 
+    "Via[0-3]_600:300_um-Memory" "Via[0-3]_600:300_um" Memory
+  )
+  (via_rule
+    default "Via[0-3]_600:300_um"
+  )
+  (via_rule
+    "kicad_default" "Via[0-3]_600:300_um-kicad_default"
+  )
+  (via_rule
+    Bus "Via[0-3]_600:300_um-Bus"
+  )
+  (via_rule
+    Memory "Via[0-3]_600:300_um-Memory"
+  )
+  (class default
+    (clearance_class default)
+    (via_rule default)
+    (rule
+      (width 152.4)
+    )
+    (layer_rule Gnd.Cu
+      (rule 
+        (width 0.0) 
+      )
+    )
+    (layer_rule Pwr.Cu
+      (rule 
+        (width 0.0) 
+      )
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+  (class "kicad_default"
+    VCC GND VEE +3V3 VAA +5V "Net-(CON1-Pad1)" "/SPI_MISO"
+    "/SPI_SCLK" "/SPI_MOSI" "/SPI_SS0" "Net-(D1-Pad2)" "Net-(D2-Pad2)" "Net-(D3-Pad2)" "Net-(D4-Pad2)" "Net-(P1-Pad6)"
+    "Net-(P1-Pad7)" "/PRI_CONFSEL" "/PRI_DBG0" "/PRI_FDBG" "/PRI_DBG1" "/PRI_DBGRX" "/PRI_DBG2" "/PRI_DBGTX"
+    "/PRI_DBG3" "/PRI_DBG5" "/PRI_DBG4" "/AUX_CONFSEL" "/AUX_DBG2" "/AUX_DBG0" "/AUX_DBG3" "/AUX_DBG1"
+    "/AUX_DBG4" "/AUX_JTAGEN" "Net-(P5-Pad1)" "Net-(P5-Pad2)" "Net-(P5-Pad3)" "Net-(P5-Pad4)" "Net-(P5-Pad9)" "/GIO_PIN0"
+    "/GIO_PIN8" "/GIO_PIN1" "/GIO_PIN9" "/GIO_PIN2" "/GIO_PIN10" "/GIO_PIN3" "/GIO_PIN11" "/GIO_PIN4"
+    "/GIO_PIN12" "/GIO_PIN5" "/GIO_PIN13" "/GIO_PIN6" "/GIO_PIN14" "/GIO_PIN7" "/GIO_PIN15" "/EXB_MISO0"
+    "/EXB_MOSI0" "/EXB_MISO1" "/EXB_MOSI1" "/EXB_MISO2" "/EXB_MOSI2" "/EXB_MISO3" "/EXB_MOSI3" "/EXB_SS0"
+    "/EXB_SS1" "/EXB_INT" "/EXB_CLK" "/TTL_RX" "/TTL_TX" "/TTL_RTS" "Net-(P9-Pad9)" "/SER_CTS"
+    "/SER_RTS" "/SER_DSR" "/SER_DTR" "/SER_TX" "/SER_RX" "/SER_DCD" "Net-(R3-Pad1)" "Net-(R4-Pad1)"
+    "Net-(R5-Pad1)" "/PRI_INT" "/PRI_RST" "/PRI_CONFDONE" "/PRI_FHLT" "/PRI_NSTATUS" "/PRI_CRCERR" "/PRI_DEVCLRN"
+    "/PRI_DEVOE" "/PRI_NCONFIG" "/AUX_NCONFIG" "/VGA_R0" "/VGA_R1" "/VGA_R2" "/VGA_G0" "/VGA_G1"
+    "/VGA_G2" "/VGA_B0" "/VGA_B1" "/VGA_HS" "Net-(P5-Pad13)" "Net-(P5-Pad14)" "/VGA_VS" "/AUX_DEVCLRN"
+    "/AUX_DEVOE" "/AUX_CONFDONE" "/AUX_NSTATUS" "/AUX_CRCERR" "/AUX_RST" "/SPI_SS1" "/SPI_SS2" "/PRI_CLK"
+    "Net-(U2-Pad1)" "Net-(U2-Pad4)" "Net-(U4-Pad14)" "Net-(U4-Pad30)" "/AUX_CLK" "/SPI_WP0" "/SPI_WP1" "/SPI_CD0"
+    "/SPI_CD1" "Net-(CON3-Pad9)" "Net-(CON3-Pad8)" "Net-(CON4-Pad8)" "Net-(CON4-Pad9)" "Net-(P5-Pad11)" "Net-(P5-Pad12)" "Net-(P5-Pad15)"
+    "Net-(P10-Pad2)" "Net-(P10-Pad6)" "Net-(U2-Pad16)" "Net-(U2-Pad15)" "Net-(U2-Pad9)" "Net-(U4-Pad73)" "Net-(U4-Pad70)" "Net-(U4-Pad69)"
+    "Net-(U4-Pad57)" "Net-(C80-Pad1)" "Net-(C81-Pad1)" "Net-(C81-Pad2)" "Net-(C82-Pad2)" "Net-(C83-Pad1)" "Net-(C83-Pad2)" "/AUX_DBG5"
+    "Net-(P9-Pad3)" "Net-(P9-Pad2)" "Net-(P9-Pad1)" "Net-(P9-Pad4)" "Net-(P9-Pad8)" "Net-(P9-Pad7)" "Net-(P9-Pad6)" "/PS2_CLK"
+    "/PS2_DAT" "Net-(U8-Pad8)" "Net-(U8-Pad19)" "Net-(U8-Pad20)" "Net-(U8-Pad21)" "/JTAG_TCK" "/JTAG_TDO" "/JTAG_TMS"
+    "/JTAG_TDI" "Net-(P3-Pad8)" "/SPI_SS3" "/BETW_TDO"
+    (clearance_class "kicad_default")
+    (via_rule kicad_default)
+    (rule
+      (width 152.4)
+    )
+    (layer_rule Gnd.Cu
+      (rule 
+        (width 0.0) 
+      )
+    )
+    (layer_rule Pwr.Cu
+      (rule 
+        (width 0.0) 
+      )
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+  (class Bus
+    "/BUS_INT" "/BUS_SS1" "/BUS_CLK" "/BUS_MISO7" "/BUS_SS0" "/BUS_MISO5" "/BUS_MISO4" "/BUS_MISO6"
+    "/BUS_MISO3" "/BUS_MISO2" "/BUS_MISO1" "/BUS_MISO0" "/BUS_MOSI7" "/BUS_MOSI6" "/BUS_MOSI5" "/BUS_MOSI4"
+    "/BUS_MOSI3" "/BUS_MOSI2" "/BUS_MOSI1" "/BUS_MOSI0"
+    (clearance_class Bus)
+    (via_rule Bus)
+    (rule
+      (width 152.4)
+    )
+    (layer_rule Gnd.Cu
+      (rule 
+        (width 0.0) 
+      )
+    )
+    (layer_rule Pwr.Cu
+      (rule 
+        (width 0.0) 
+      )
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+  (class Memory
+    "/MEM_CASn" "/MEM_WEn" "/MEM_CSn" "/MEM_RASn" "/MEM_CLK" "/MEM_CKE" "/MEM_A10" "/MEM_A9"
+    "/MEM_A8" "/MEM_A6" "/MEM_A7" "/MEM_A5" "/MEM_A4" "/MEM_A11" "/MEM_A3" "/MEM_A2"
+    "/MEM_A1" "/MEM_A0" "/MEM_DQ31" "/MEM_DQ30" "/MEM_DQ29" "/MEM_DQ7" "/MEM_DQ9" "/MEM_DQ6"
+    "/MEM_DQ8" "/MEM_DQ5" "/MEM_DQ11" "/MEM_DQ4" "/MEM_DQ10" "/MEM_DQ1" "/MEM_DQ3" "/MEM_DQ0"
+    "/MEM_DQ2" "/MEM_BA1" "/MEM_BA0" "/MEM_DQ23" "/MEM_DQ22" "/MEM_DQ15" "/MEM_DQ14" "/MEM_DQ13"
+    "/MEM_DQ12" "/MEM_DQ19" "/MEM_DQ18" "/MEM_DQ28" "/MEM_DQ17" "/MEM_DQ16" "/MEM_DQ27" "/MEM_DQ26"
+    "/MEM_DQ25" "/MEM_DQ24" "/MEM_DQ21" "/MEM_DQ20" "/MEM_DQM3" "/MEM_DQM2" "/MEM_DQM1" "/MEM_DQM0"
+    (clearance_class Memory)
+    (via_rule Memory)
+    (rule
+      (width 152.4)
+    )
+    (layer_rule Gnd.Cu
+      (rule 
+        (width 0.0) 
+      )
+    )
+    (layer_rule Pwr.Cu
+      (rule 
+        (width 0.0) 
+      )
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+)
