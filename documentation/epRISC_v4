@@ -1,0 +1,267 @@
+
+How to read this document:
+
+<REG/INST>_<NAME>   Identifies a component of a register or instruction.
+                    ex) "CS_Z"      Core Status register, Zero flag
+                    ex) "SWAP_D"    SWAP instruction, Destination register selection
+                    
+<h/b/o/d>0000       Represents a value in the given base (hexadecimal, binary, octal, decimal). Decimal is implied.
+                    Non-decimal numbers are padded with zeroes to represent maximum length.
+                    ex) "h0D34"     A 16-bit hexadecimal number, with a value of 0xD34 (3380)
+                    ex) "b11101010" An 8-bit binary number, with a value of 0xEA (234)
+                    ex) "31"        A decimal number (31)
+
+bt00                Represents a position at bit n within a larger word.
+                    ex) "bt19"      Bit 19 of a word
+                   
+Word Descriptors (see Fig. 1 below)
+
+Non-overlapping sections are always present in the selection (like 'o' and 'r' below).
+Overlapping sections are mutually exclusive (like 'v' and 'xf' below).
+The description to the side describes the selection. Different types are separated by '/'s (like 'x' and 'f' below).
+
+Fig. 1:
+
+3                 1 1                 0
+1                 6 5                 0
+nnnn nnnn nnnn nnnn nnnn nnnn nnnn nnnn     32-bit word - the base size   
+oooo oooo                                   8-bit value at bt31
+          rrrr rr                           6-bit value at bt23
+                 vv vvvv vv                 8-bit value at bt17
+                 xx xxxx xxff ff            8-bit value at bt19/4-bit value at bt9
+
+
+-----------------------------------------------------------------------------------------------------------------------
+
+epRISC architecture specification v4, r3
+
+(c) 2016 John C. Lemme - jclemme (at) proportionallabs (dot) (com)
+This file is part of the epRISC project, released under the MIT license. See "LICENSE" for details.
+
+-----
+
+Registers
+
+The base system includes 64 32-bit registers, mapped into 4 pages of 16 registers.
+The first 32 of these are general-purpose. The last 32 are reserved for system control registers.
+The currently selected register page is mapped with the letters W, X, Y, and Z:
+
+   w        x        y        z
+W Ww (IP)  Wx (SP)  Wy (CS)  Wz (GL)
+X Xw       Xx       Xy       Xz
+Y Yw       Yx       Yy       Yz
+Z Zw       Zx       Zy       Zz
+
+Registers Ww, Wx, Wy, and Wz are special; they are mapped to system registers IP, SP, CS, and GL.
+Register CS is explained in further detail below.
+
+IP  Instruction Pointer     Current location of execution
+SP  Stack Pointer           Current location of the top of the stack
+CS  Core Status             Core status and control flags 
+GL  Global Register         Maintains state throughout page changes
+
+The system sets the selected register page to page 0 on reset.
+The first four registers of the first system page (page three) are defined below:
+
+H0  Priority 0 Int          Interrupt vector for low-priority (priority zero) interrupts
+H1  Priority 1 Int          Interrupt vector for medium-priority (priority one) interrupts
+H2  Priority 2 Int          Interrupt vector for high-priority (priority two) interrupts
+H3  Priority 3 Int          Interrupt vector for extreme-priority (priority three) interrupts
+
+Interrupt behavior is defined in greater detail in the interrupt section below.
+
+-----
+
+Conditional execution (*borrowed* from ARM)
+
+All instructions can execute conditionally - that is, only if a certain CS flag is set/reset.
+This condition is set by the INST_COND field of the instruction.
+
+0h  ALC     ALl Conditions              Always executes.
+1h  EQL     EQuaL                       Executes if CS_Z is set.
+2h  NEQ     Not EQual                   Executes if CS_Z is reset.
+3h  HOS     Higher Or Same              Executes if CS_C is set.
+4h  LOW     LOWer                       Executes if CS_C is reset.
+5h  NEG     NEGative                    Executes if CS_N is set.
+6h  POZ     Positive Or Zero            Executes if CS_N is reset.
+7h  OVF     OVerFlow                    Executes if CS_V is set.
+8h  NOV     No OVerflow                 Executes if CS_V is reset.
+9h  HIG     HIGher                      Executes if CS_C is set and CS_Z is clear.
+Ah  LOS     Lower Or Same               Executes if CS_C is clear or if CS_Z is set.
+Bh  GET     Greater/Equal To            Executes if CS_N and CS_V are equal.
+Ch  LET     Less/Equal To               Executes if CS_N and CS_V are unequal.
+Dh  GRT     GReater Than                Executes if CS_Z is reset and CS_N and CS_V are equal.
+Eh  LST     LeSs Than                   Executes if CS_Z is set or if CS_N and CS_V are unequal.
+
+-----
+
+System control via flags
+
+The system is controlled by a number of flags. These flags reside in the CS register.
+Flags determine how the machine runs. Set flags take effect after the current instruction executes.
+Below is the mapping of the CS register:
+
+3                 1 1                 0
+1                 6 5                 0
+nnnn nnnn nnnn nnnn nnnn nnnn nnnn nnnn     32-bit word 
+                    pppp                    Register Page setting
+                         llll               Global Link Register setting 
+                              s             Hide Special Registers flag
+                               i            Allow Interrupts flag
+                                x           ALU Sign Extension flag
+                                 f          Inhibit Flag Set flag
+                                   cznv     Carry/Zero/Negative/Overflow flags
+                             
+CS_INHIB_SPEC can cause a Catch-22 condition, by disabling access to the CS register.
+To combat this, an instruction is provided that can re-enable its access. It is described below.
+
+-----
+
+Memory access
+
+The system is designed according to RISC guidelines, which recommends instructions not access memory more than once.
+No instruction performs more than one memory access at a time.
+
+-----
+
+Reset
+
+The system begins execution at location h00000000. 
+
+-----
+
+Interrupts  
+    
+Interrupts are serviced through handler offset registers. These addresses have the interrupt ID added to them to form the handler address.
+Standard and medium priority interrupts perform a memory access to store the IP.
+High and critical priority interrupts store their return address in the link register to save cycles.
+
+-----
+
+Instruction Set
+
+
+ALU Operations
+
+Math operations operate with B on A - ex) A+B, A-B, A&B, A<<B, etc.
+Single-operand operations work on A - ex) A++, ~A, etc.
+
+00h addr    ADD Registers                       (a + b)
+01h subr    SUBtract Registers                  (a - b)
+02h masl    MAsk and Shift Left                 ((a & v) << s) or ((a & v) << b)  
+03h masr    MAsk and Shift Right                ((a & v) >> s) or ((a & v) >> b)
+04h andb    AND register Bitwise                (a & b)
+05h orbt    OR register BiTwise                 (a | b)
+06h xorb    eXclusive OR register Bitwise       (a ^ b)
+07h notb    NOT register Bitwise                (~a)
+08h arsl    ARithmetic Shift register Left      (a << b)
+09h arsr    ARithmetic Shift register Right     (a >> b)
+0Ah losr    Logic Shift register Right          (a >> b) without sign extension
+0Bh rotl    ROTate register Left                (a r< b)
+0Ch rotr    ROTate register Right               (a r> b)
+0Dh cmpr    CoMPaRe registers                   (a - b) without result store
+0Eh test    TEST registers                      (a & b) without result store
+0Fh masi    MASk Inverse                        (a & ~b)
+
+Miscellaneous Instructions
+
+00h noop    NO OPeration
+01h swin    SoftWare INterrupt      SWIN_V(8-bit value, no shift)
+02h halt    HALT core
+03h srpg    Set Register PaGe       SRPG_D(1-bit value, disable 0) SRPG_P(4-bit value max, no shift)
+              
+                         
+3                 1 1                 0
+1                 6 5                 0
+nnnn nnnn nnnn nnnn nnnn nnnn nnnn nnnn     32-bit word  
+cccc                                        Condition
+     b                                      Branch select (implied 1)
+      r                                     Alter select
+       s                                    Save/Restore select
+        l                                   Link/stack select   
+          rrrr                              Base address register
+               i                            Alter interrupt select
+                ooo oooo oooo oooo oooo     Offset (19-bit, +-256kW) 
+
+
+3                 1 1                 0
+1                 6 5                 0
+nnnn nnnn nnnn nnnn nnnn nnnn nnnn nnnn     32-bit word  
+cccc                                        Condition
+     b                                      Branch select (implied 0)
+      r                                     Register select (implied 1)   
+       a                                    Arithmetic select (implied 1)
+        s                                   Second operand select (implied 1)
+          dddd                              Destination register
+               aaaa                         Term A register
+                    ssss                    Even left shift
+                         vvvv vvvv          Value (8-bit, +-128)
+                                   oooo     Operation
+
+
+3                 1 1                 0
+1                 6 5                 0
+nnnn nnnn nnnn nnnn nnnn nnnn nnnn nnnn     32-bit word  
+cccc                                        Condition
+     b                                      Branch select (implied 0)
+      r                                     Register select (implied 1)   
+       a                                    Arithmetic select (implied 1)
+        s                                   Second operand select (implied 0)
+          dddd                              Destination register
+               aaaa                         Term A register
+                    bbbb                    Term B register
+                         vvvv vvvv          Value (8-bit, +-128)
+                                   oooo     Operation
+
+
+3                 1 1                 0
+1                 6 5                 0
+nnnn nnnn nnnn nnnn nnnn nnnn nnnn nnnn     32-bit word  
+cccc                                        Condition
+     b                                      Branch select (implied 0)
+      r                                     Register select (implied 1)   
+       a                                    Arithmetic select (implied 0)
+        v                                   Value select (implied 1)
+          dddd                              Destination register
+               ssss                         Left shift
+                    vvvv vvvv vvvv vvvv     Value (16-bit, +-32768)
+
+
+3                 1 1                 0
+1                 6 5                 0
+nnnn nnnn nnnn nnnn nnnn nnnn nnnn nnnn     32-bit word  
+cccc                                        Condition
+     b                                      Branch select (implied 0)
+      r                                     Register select (implied 1)   
+       a                                    Arithmetic select (implied 0)
+        v                                   Value select (implied 0)
+          dddd                              Destination register
+               ssss                         Source register
+                    w                       Exchange select
+     
+     
+3                 1 1                 0
+1                 6 5                 0
+nnnn nnnn nnnn nnnn nnnn nnnn nnnn nnnn     32-bit word  
+cccc                                        Condition
+     b                                      Branch select (implied 0)
+      r                                     Register select (implied 0)   
+       l                                    Load select (implied 1)   
+        d                                   Direction select (0 load, 1 store)                           
+          rrrr                              Base address register
+               sdsd                         Source/destination register
+                    oooo oooo oooo oooo     Offset (16-bit, +-32kW)
+
+
+3                 1 1                 0
+1                 6 5                 0
+nnnn nnnn nnnn nnnn nnnn nnnn nnnn nnnn     32-bit word  
+cccc                                        Condition
+     b                                      Branch select (implied 0)
+      r                                     Register select (implied 0)   
+       l                                    Load select (implied 0)   
+        c                                   Core select (implied 1)
+          oooo                              Operation
+               dddd dddd dddd dddd dddd     Data
+
+
