@@ -2,12 +2,80 @@
 epRISC architecture specification v5, r0
 
 (c) 2015-2016 John C. Lemme - jclemme (at) proportionallabs (dot) com
-The file, and the core documented within, are released under the MIT license. See "license.txt" for details.
+The file, and the ISA documented within, are released under the epRISC license. See "license.txt" and "license-eprisc.txt" for details.
 
 -------------------------
 
+Registers
 
+The CPU supports up to 224 32-bit registers, split into fourteen pages of sixteen registers each.
+The last two register pages, pages hE and hF, are virtual; they exist to access system control registers.
 
+The currently selected register page is mapped with the letters W, X, Y, and Z:
+
+   w        x        y        z
+W Ww (IP)  Wx (SP)  Wy (CS)  Wz (GL)
+X Xw       Xx       Xy       Xz
+Y Yw       Yx       Yy       Yz
+Z Zw       Zx       Zy       Zz
+
+Registers Ww, Wx, Wy, and Wz are special; they are mapped to system registers IP, SP, CS, and GL.
+
+IP  Instruction Pointer     Current location of execution
+SP  Stack Pointer           Current location of the top of the stack
+CS  Core Status             Core status and control flags 
+GL  Global Register         Maintains state throughout page changes
+
+The flags and fields of the CS register control CPU behavior.
+Modified flags or fields take effect after the execution of the current instruction.
+
+3                 1 1                 0
+1                 6 5                 0
+nnnn nnnn nnnn nnnn nnnn nnnn nnnn nnnn     32-bit word 
+                    pppp                    Register Page field                     Sets the current register page.
+                         llll               Global Link Register field              Sets the link register for branch instructions.
+                              s             Hide Special Registers flag             When true, allows use of registers Ww through Wz as general purpose registers.
+                               i            Allow Interrupts flag                   When true, enables interrupts.
+                                x           ALU Sign Extension flag                 When true, performs sign extension on the value field of arithmetic instructions.
+                                 f          Inhibit Flag Set flag                   When true, prevents instructions setting the carry, zero, negative, and overflow flags.
+                                   cznv     Carry/Zero/Negative/Overflow flags      Flags set as the result of arithmetic instructions.
+
+A number of race conditions can occur through accidental modification of the "Register Page" field and the "Hide Special Registers" flag of the CS register. 
+Because of this, it is recommended to use the "Set Register Page" core instruction to alter these fields.
+
+-------------------------
+
+Memory Access
+
+As a RISC ISA, epRISC performs a maximum of one memory access per instruction. Only the load, store, and branch instructions access memory.
+Low priority, medium priority, and software interrupts store their return address on the stack, and perform a memory access doing so.
+
+-------------------------
+
+Reset
+
+Instruction execution begins at h00000000.
+All system registers (IP, SP, CS, and GL) are set to zero after reset. The reset value of all other registers is undefined.
+
+-------------------------
+
+Interrupts
+
+Interrupts are split into four priority levels - low, medium, high, and critical. The handler address for these interrupts is stored in the HD (Ww) register of register page hF.
+The handler address called on an interrupt is created by adding the priority of the interrupt (zero through three) to the HD register.
+Software interrupts have their eight-bit interrupt ID added to the HD register in the same way; because of this, software interrupts zero through three correspond to hardware interrupts low through critical.
+
+*** Figure out how to do interrupt priority management ***
+
+-------------------------
+
+Instruction Set
+
+Instruction words are broken up into six categories. The fields for each instruction category are listed below.
+Generally, instructions will take some combination of single bit flags, four bit register IDs, and multi-bit values.
+Fields labeled with "Reserved and unused" should be set to zero. Instruction behavior with non-zero values in these fields is undefined.
+
+Branch instructions control program flow. They can take a condition code to cause a conditional branch.
 
 3                 1 1                 0
 1                 6 5                 0
@@ -18,9 +86,11 @@ b                                           Branch select (implied 1)
    r                                        Save/restore select
      cccc                                   Condition code
           rrrr                              Base address register
-               i                            Interrupt alter select
+               e                            Interrupt return flag
                 ooo oooo oooo oooo oooo     Offset (19-bit, +-256kW)
 
+
+Load/store instructions manipulate values in memory, loading them into or storing them from the CPU's registers.
 
 3                 1 1                 0
 1                 6 5                 0
@@ -34,6 +104,8 @@ b                                           Branch select (implied 0)
                oooo oooo oooo oooo oooo     Offset (20-bit, +-512kW)
 
 
+Direct move instructions move values into CPU registers.
+
 3                 1 1                 0
 1                 6 5                 0
 nnnn nnnn nnnn nnnn nnnn nnnn nnnn nnnn     32-bit word  
@@ -45,6 +117,8 @@ b                                           Branch select (implied 0)
           ssss                              Left shift
                vvvv vvvv vvvv vvvv vvvv     Value (20-bit, +-524288)
 
+
+Arithmetic instructions perform mathematical operations on the contents of CPU registers.
 
 3                 1 1                 0
 1                 6 5                 0
@@ -62,6 +136,8 @@ b                                           Branch select (implied 0)
                          ssss vvvv vvvv     Even left shift/Value (8-bit, +-128)
 
 
+Register move operations transfer the value of one CPU register to another. They can also exchange the contents of two registers.
+
 3                 1 1                 0
 1                 6 5                 0
 nnnn nnnn nnnn nnnn nnnn nnnn nnnn nnnn     32-bit word  
@@ -77,6 +153,8 @@ b                                           Branch select (implied 0)
                     iiii iiii iiii iiii     Reserved and unused
 
 
+Core instructions control the CPU. They implement things like no-operation instructions, software interrupt instructions, and the halt instruction.
+
 3                 1 1                 0
 1                 6 5                 0
 nnnn nnnn nnnn nnnn nnnn nnnn nnnn nnnn     32-bit word  
@@ -88,3 +166,53 @@ b                                           Branch select (implied 0)
       c                                     Core select (implied 1)
        oo oooo                              Operation
                dddd dddd dddd dddd dddd     Data
+               
+                   
+Branch instructions expect a four-bit condition code that defines when the branch should be performed.
+All sixteen possible condition codes are defined. The branch will execute when the chosen condition is true.
+
+0h      Always True                 Always executes.
+1h      Equal                       Executes if the zero flag is set.
+2h      Not Equal                   Executes if the zero flag is reset.
+3h      Higher or Same              Executes if the carry flag is set.
+4h      Lower                       Executes if the carry flag is reset.
+5h      Negative                    Executes if the negative flag is set.
+6h      Positive or Zero            Executes if the negative flag is reset.
+7h      Overflow                    Executes if the overflow flag is set.
+8h      No Overflow                 Executes if the overflow flag is reset.
+9h      Higher                      Executes if the carry flag is set and the zero flag is reset.
+Ah      Lower or Same               Executes if the carry flag is reset or if zero flag is set.
+Bh      Greater/Equal To            Executes if the negative and overflow flags are equal.
+Ch      Less/Equal To               Executes if the negative and overflow flags are inequal.
+Dh      Greater Than                Executes if the zero flag is reset and the negative and overflow flags are equal.
+Eh      Less Than                   Executes if the zero flag is set or if the negative and zero flags are inequal.
+
+
+Arithmetic instructions expect a five-bit opcode that defines the operation to be performed. 
+Only the first sixteen of these operations are currently defined.
+
+00h     Add                         (a + b)
+01h     Subtract                    (a - b)
+02h     Bitwise AND                 (a & b)
+03h     Bitwise OR                  (a | b)
+04h     Bitwise XOR                 (a ^ b)
+05h     Bitwise NOT                 (~a)
+06h     Arithmetic Shift Left       (a << b)
+07h     Arithmetic Shift Right      (a >> b)
+08h     Logical Shift Right         (a >> b) without sign extension
+09h     Rotate Left                 (a r< b)
+0Ah     Rotate Right                (a r> b)
+0Bh     Inverse Mask                (a & ~b)
+0Ch     Mask and Shift Left         ((a & v) << s) or ((a & v) << b)  
+0Dh     Mask and Shift Right        ((a & v) >> s) or ((a & v) >> b)
+0Eh     Compare                     (a - b) without result store
+0Fh     Test                        (a & b) without result store
+
+
+Core instructions expect a six-bit opcode that defines the operation to be performed.
+Only the first four of these operations are currently defined.
+
+00h     No Operation                iiii iiii iiii iiii iiii    Reserved and unused
+01h     Software Interrupt          dddd dddd iiii iiii iiii    Interrupt ID (8-bit, +256)/Reserved and unused
+02h     Halt                        iiii iiii iiii iiii iiii    Reserved and unused
+03h     Set Register Page           pppp hiii iiii iiii iiii    Register Page (4-bit, +16)/Hide Special Registers (1-bit, flag)/Reserved and unused
