@@ -9,6 +9,7 @@ This file, and the ISA documented within, are released under the epRISC license.
 Registers
 
 The CPU supports up to 224 32-bit registers, split into fourteen pages of sixteen registers each.
+Implementations are not required to and likely will not implement all 224 registers. The contents and behavior of unimplemented register pages is undefined.
 The last two register pages, pages hE and hF, are virtual; they exist to access system control registers.
 
 The currently selected register page is mapped with the letters W, X, Y, and Z:
@@ -35,7 +36,7 @@ Modified flags or fields take effect after the execution of the current instruct
 3                 1 1                 0
 1                 6 5                 0
 nnnn nnnn nnnn nnnn nnnn nnnn nnnn nnnn     32-bit word 
-                m                           Critical Interrupts flag                When true, will always allow critical interrupts to be called.
+                m                           Force Critical Interrupts flag          When true, will always allow critical interrupts to be called.
                  rr                         Interrupt Priority field                Current allowed interrupt priority.
                     pppp                    Register Page field                     Sets the current register page.
                          llll               Global Link Register field              Sets the link register for branch instructions.
