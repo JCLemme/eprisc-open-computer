@@ -35,10 +35,12 @@ Modified flags or fields take effect after the execution of the current instruct
 3                 1 1                 0
 1                 6 5                 0
 nnnn nnnn nnnn nnnn nnnn nnnn nnnn nnnn     32-bit word 
+                m                           Critical Interrupts flag                When true, will always allow critical interrupts to be called.
+                 rr                         Interrupt Priority field                Current allowed interrupt priority.
                     pppp                    Register Page field                     Sets the current register page.
                          llll               Global Link Register field              Sets the link register for branch instructions.
                               s             Hide Special Registers flag             When true, allows use of registers Ww through Wz as general purpose registers.
-                               i            Allow Interrupts flag                   When true, enables interrupts.
+                               w            Wide Handlers flag                      When true, enables wide interrupt handlers. See below.
                                 x           ALU Sign Extension flag                 When true, performs sign extension on the value field of arithmetic instructions.
                                  f          Inhibit Flag Set flag                   When true, prevents instructions setting the carry, zero, negative, and overflow flags.
                                    cznv     Carry/Zero/Negative/Overflow flags      Flags set as the result of arithmetic instructions.
@@ -64,11 +66,40 @@ All system registers (IP, SP, CS, and GL) are set to zero after reset. The reset
 
 Interrupts
 
-Interrupts are split into four priority levels - low, medium, high, and critical. The handler address for these interrupts is stored in the HD (Ww) register of register page hF.
-The handler address called on an interrupt is created by adding the priority of the interrupt (zero through three) to the HD register.
-Software interrupts have their eight-bit interrupt ID added to the HD register in the same way; because of this, software interrupts zero through three correspond to hardware interrupts low through critical.
+Interrupts are split into four priority levels - low, medium, high, and critical.
 
-*** Figure out how to do interrupt priority management ***
+The handler address called on an interrupt is created by adding the priority of the interrupt (zero through three) to the handler base address.
+Software interrupts have their eight-bit interrupt ID added to the handler base address in the same way; because of this, software interrupts zero through three correspond to hardware interrupts low through critical.
+
+Low priority, medium priority, and software interrupts store their return address on the stack. 
+High and critical priority interrupts store their return address in their respective link registers, to avoid a memory access.
+
+The interrupt control system utilizes four control registers, mapped to Xw through Xz of register page hF.
+
+HB  Handler Base            Base address for interrupt handlers.
+PS  Priority Stack          Single-word stack used to store pushed priority settings. 
+LH  Link High               Link register for high priority interrupt calls.
+LC  Link Critical           Link register for critical priority interrupt calls.
+
+The handler base address has two modes, controlled by the "Wide handlers" flag of the CS register.
+When wide handlers are disabled, the address called when an interrupt is called will equal the interrupt priority or ID plus the base address.
+When wide handlers are enabled, hardware interrupt priorities are multiplied by 32. This leaves a 32-word space for each interrupt priority in the interrupt table for implementation of interrupt handlers. 
+This space allows removing the second jump to an interrupt handler, speeding up interrupt service.
+
+The priority stack allows correct priority restoration when returning from an interrupt. 
+When an interrupt is called, the current priority setting is pushed to the rightmost side of the stack word, left shifting the rest of the word in the process.
+The current priority setting is then replaced with the one that blocks the level of the interrupt called.
+When returning from an interrupt, the last pushed priority setting is popped from the same side and replaces the current priority setting, and the rest of the word is right shifted.
+
+Interrupt priorities control which interrupts are blocked, rather than which are allowed, in an "equal or greater" fashion.
+The "Force Critical Interrupts" flag of the CS register prevents blocking of critical interrupts. 
+ 
+b00     Block Low                   Block low, medium, high, and critical priority interrupts.
+b01     Block Medium                Block medium, high, and critical priority interrupts.
+b10     Block High                  Block high and critical priority interrupts.
+b11     Block Critical              Block critical priority interrupts.
+
+Branch instructions are used to return from interrupts. These returns will automatically restore the previous priority setting and load the return address from the correct source.
 
 -------------------------
 
@@ -85,13 +116,10 @@ Branch instructions control program flow. They can take a condition code to crea
 1                 6 5                 0
 nnnn nnnn nnnn nnnn nnnn nnnn nnnn nnnn     32-bit word  
 b                                           Branch select (implied 1)               Flag identifying the instruction as a branch instruction.
- a                                          Alter mode select                       When true, switches the branch to the stack/link mode.
-  l                                         Link/stack select                       When true, saves return addresses to the stack as opposed to the link register.
-   r                                        Save/restore select                     When true, attempts to load a return address to branch to as opposed to saving the address branched from.
+ aaa                                        Type code                               Identifies the type of branch to be performed. See below.
      cccc                                   Condition code                          Controls conditional branching. See below.
           rrrr                              Base address register                   Register containing the base address for the branch.
-               e                            Interrupt return flag                   When true, attempts to return from a previous interrupt.
-                ooo oooo oooo oooo oooo     Offset (19-bit, +-256kW)                Offset applied to the address in the base address register.
+                ooo oooo oooo oooo oooo     Offset (20-bit, +-512kW)                Offset applied to the address in the base address register.
 
 
 Load/store instructions manipulate values in memory, loading them into or storing them from the CPU's registers.
@@ -171,6 +199,19 @@ b                                           Branch select (implied 0)           
        oo oooo dddd dddd dddd dddd dddd     Operation/Data                          Operation to be performed and its data. See below.
                
                    
+Branch instructions expect a three-bit type code that defines the behavior of the branch.
+When the most significant bit of the code is zero, the branch behaves normally.
+When the most significant bit of the code is one, the branch behaves as a call instruction, either saving or restoring the previous address of execution according to the two least significant bits.
+A special case occurs when the MSB is zero, while the LSBs are both one; the branch will then attempt to return from an interrupt using the interrupt control registers and CS register.
+
+b000    Branch                      Branches to the supplied address.
+b100    Call, save link             Branches, saving the current location of execution to the link register set by the CS register.
+b101    Call, save stack            Branches, saving the current location of execution to the stack.
+b110    Call, restore link          Branches to the address stored in the link register set by the CS register.
+b111    Call, restore stack         Branches to the address stored on the stack.
+b011    Interrupt return            Branches either from the stack or an interrupt link register, performing priority restoration in the process.
+
+
 Branch instructions expect a four-bit condition code that defines when the branch should be performed.
 Condition codes determine their result by querying the carry, zero, negative, and overflow flags of the CS register.
 All sixteen possible condition codes are defined. The branch will execute when the chosen condition is true.
@@ -190,6 +231,7 @@ h0B     Greater/Equal To            Executes if the negative and overflow flags 
 h0C     Less/Equal To               Executes if the negative and overflow flags are inequal.
 h0D     Greater Than                Executes if the zero flag is reset and the negative and overflow flags are equal.
 h0E     Less Than                   Executes if the zero flag is set or if the negative and zero flags are inequal.
+h0F     Always False                Never executes.
 
 
 Arithmetic instructions expect a five-bit opcode that defines the operation to be performed. 
