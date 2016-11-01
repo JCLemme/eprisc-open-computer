@@ -15,10 +15,10 @@ The last two register pages, pages hE and hF, are virtual; they exist to access 
 The currently selected register page is mapped with the letters W, X, Y, and Z:
 
    w        x        y        z
-W Ww (IP)  Wx (SP)  Wy (CS)  Wz (GL)
-X Xw       Xx       Xy       Xz
-Y Yw       Yx       Yy       Yz
-Z Zw       Zx       Zy       Zz
+W Ww (0)   Wx (1)   Wy (2)   Wz (3)
+X Xw (4)   Xx (5)   Xy (6)   Xz (7)
+Y Yw (8)   Yx (9)   Yy (10)  Yz (11)
+Z Zw (12)  Zx (13)  Zy (14)  Zz (15)
 
 Registers Ww, Wx, Wy, and Wz are special; they are mapped to system registers IP, SP, CS, and GL.
 
@@ -26,6 +26,9 @@ IP  Instruction Pointer     Current location of execution
 SP  Stack Pointer           Current location of the top of the stack
 CS  Core Status             Core status and control flags 
 GL  Global Register         Maintains state throughout page changes
+
+The IP register holds the current location of execution for the CPU. Relative addressing for branch, load, and store instructions can be achieved by using the IP register as their base address register.
+The IP register should not be modified outside of a branch instruction. Write behavior for the IP register is undefined. 
 
 The SP register is used to implement the CPU's stack. The stack grows up; pushed values increase the stack pointer and popped values decrease the stack pointer.
 When used as the base address register of a load or store instruction, the SP register will automatically adjust to implement a push or pop.
@@ -48,6 +51,9 @@ nnnn nnnn nnnn nnnn nnnn nnnn nnnn nnnn     32-bit word
 
 A number of race conditions can occur through accidental modification of the "Register Page" field and the "Hide Special Registers" flag of the CS register. 
 Because of this, it is recommended to use the "Set Register Page" core instruction to alter these fields.
+
+The GL register, as a system register, is not affected by register page changes. This makes it useful for moving values between registers in different register pages.
+Otherwise, the GL register holds no special purpose.
 
 -------------------------
 
@@ -85,7 +91,7 @@ LC  Link Critical           Link register for critical priority interrupt calls.
 The handler base address has two modes, controlled by the "Wide handlers" flag of the CS register.
 When wide handlers are disabled, the address called when an interrupt is called will equal the interrupt priority or ID plus the base address.
 When wide handlers are enabled, hardware interrupt priorities are multiplied by 32. This leaves a 32-word space for each interrupt priority in the interrupt table for implementation of interrupt handlers. 
-This space allows removing the second jump to an interrupt handler, speeding up interrupt service.
+This space allows removing the second jump to an interrupt handler, speeding up interrupt service. However, it prevents access to software interrupts below 128.
 
 The priority stack allows correct priority restoration when returning from an interrupt. 
 When an interrupt is called, the current priority setting is pushed to the rightmost side of the stack word, left shifting the rest of the word in the process.
@@ -93,7 +99,7 @@ The current priority setting is then replaced with the one that blocks the level
 When returning from an interrupt, the last pushed priority setting is popped from the same side and replaces the current priority setting, and the rest of the word is right shifted.
 
 Interrupt priorities control which interrupts are blocked, rather than which are allowed, in an "equal or greater" fashion.
-The "Force Critical Interrupts" flag of the CS register prevents blocking of critical interrupts. 
+The "Force Critical Interrupts" flag of the CS register prevents blocking of critical interrupts.  
  
 b00     Block Low                   Block low, medium, high, and critical priority interrupts.
 b01     Block Medium                Block medium, high, and critical priority interrupts.
@@ -213,7 +219,7 @@ b111    Call, restore stack         Branches to the address stored on the stack.
 b011    Interrupt return            Branches either from the stack or an interrupt link register, performing priority restoration in the process.
 
 
-Branch instructions expect a four-bit condition code that defines when the branch should be performed.
+Branch instructions also expect a four-bit condition code that defines when the branch should be performed.
 Condition codes determine their result by querying the carry, zero, negative, and overflow flags of the CS register.
 All sixteen possible condition codes are defined. The branch will execute when the chosen condition is true.
 
