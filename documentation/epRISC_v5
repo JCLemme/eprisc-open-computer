@@ -22,10 +22,10 @@ Z Zw (12)  Zx (13)  Zy (14)  Zz (15)
 
 Registers Ww, Wx, Wy, and Wz are special; they are mapped to system registers IP, SP, CS, and GL.
 
-IP  Instruction Pointer     Current location of execution
-SP  Stack Pointer           Current location of the top of the stack
-CS  Core Status             Core status and control flags 
-GL  Global Register         Maintains state throughout page changes
+IP      Instruction Pointer     Current location of execution
+SP      Stack Pointer           Current location of the top of the stack
+CS      Core Status             Core status and control flags 
+GL      Global Register         Maintains state throughout page changes
 
 The IP register holds the current location of execution for the CPU. Relative addressing for branch, load, and store instructions can be achieved by using the IP register as their base address register.
 The IP register should not be modified outside of a branch instruction. Write behavior for the IP register is undefined. 
@@ -39,12 +39,10 @@ Modified flags or fields take effect after the execution of the current instruct
 3                 1 1                 0
 1                 6 5                 0
 nnnn nnnn nnnn nnnn nnnn nnnn nnnn nnnn     32-bit word 
-                m                           Force Critical Interrupts flag          When true, will always allow critical interrupts to be called.
-                 rr                         Interrupt Priority field                Current allowed interrupt priority.
                     pppp                    Register Page field                     Sets the current register page.
                          llll               Global Link Register field              Sets the link register for branch instructions.
                               s             Hide Special Registers flag             When true, allows use of registers Ww through Wz as general purpose registers.
-                               w            Wide Handlers flag                      When true, enables wide interrupt handlers. See below.
+                               i            Enable Interrupts flag                  When true, allows use of interrupts.
                                 x           ALU Sign Extension flag                 When true, performs sign extension on the value field of arithmetic instructions.
                                  f          Inhibit Flag Set flag                   When true, prevents instructions setting the carry, zero, negative, and overflow flags.
                                    cznv     Carry/Zero/Negative/Overflow flags      Flags set as the result of arithmetic instructions.
@@ -71,42 +69,24 @@ All system registers (IP, SP, CS, and GL) are set to zero after reset. The reset
 
 -------------------------
 
-Interrupts
+Interrupts (basic)
 
-Interrupts are split into four priority levels - low, medium, high, and critical.
+The basic interrupt controller includes two hardware interrupts - one maskable and the other non-maskable.
+The interrupt controller uses four registers, Xw through Xz, of register page hF for control.
 
-The handler address called on an interrupt is created by adding the priority of the interrupt (zero through three) to the handler base address.
-Software interrupts have their eight-bit interrupt ID added to the handler base address in the same way; because of this, software interrupts zero through three correspond to hardware interrupts low through critical.
+IB      Interrupt Base          Base address for interrupt handlers.
+IR      Interrupt Return        Three-level return stack for return addresses, with Xx at the top.
 
-Low priority, medium priority, and software interrupts store their return address on the stack. 
-High and critical priority interrupts store their return address in their respective link registers, to avoid a memory access.
+The maskable interrupt line calls address IB when it is triggered. The non-maskable interrupt calls IB+h80 when it is triggered.
+Software interrupts call address IB+ID when called, where ID is the identifier provided to the software interrupt call.
 
-The interrupt control system utilizes four control registers, mapped to Xw through Xz of register page hF.
+The current location of execution is stored in the return stack, implemented from registers Xx through Xz of register page hF.
+Register Xx is the top of the stack.
 
-HB  Handler Base            Base address for interrupt handlers.
-PS  Priority Stack          Single-word stack used to store pushed priority settings. 
-LH  Link High               Link register for high priority interrupt calls.
-LC  Link Critical           Link register for critical priority interrupt calls.
+The maskable interrupts and software interrupts can be disabled by resetting the "Enable interrupts" flag of the CS register. This flag is automatically set when the maskable interrupt is triggered.
+The non-maskable interrupt will always execute when triggered.
 
-The handler base address has two modes, controlled by the "Wide handlers" flag of the CS register.
-When wide handlers are disabled, the address called when an interrupt is called will equal the interrupt priority or ID plus the base address.
-When wide handlers are enabled, hardware interrupt priorities are multiplied by 32. This leaves a 32-word space for each interrupt priority in the interrupt table for implementation of interrupt handlers. 
-This space allows removing the second jump to an interrupt handler, speeding up interrupt service. However, it prevents access to software interrupts below 128.
-
-The priority stack allows correct priority restoration when returning from an interrupt. 
-When an interrupt is called, the current priority setting is pushed to the rightmost side of the stack word, left shifting the rest of the word in the process.
-The current priority setting is then replaced with the one that blocks the level of the interrupt called.
-When returning from an interrupt, the last pushed priority setting is popped from the same side and replaces the current priority setting, and the rest of the word is right shifted.
-
-Interrupt priorities control which interrupts are blocked, rather than which are allowed, in an "equal or greater" fashion.
-The "Force Critical Interrupts" flag of the CS register prevents blocking of critical interrupts.  
- 
-b00     Block Low                   Block low, medium, high, and critical priority interrupts.
-b01     Block Medium                Block medium, high, and critical priority interrupts.
-b10     Block High                  Block high and critical priority interrupts.
-b11     Block Critical              Block critical priority interrupts.
-
-Branch instructions are used to return from interrupts. These returns will automatically restore the previous priority setting and load the return address from the correct source.
+Interrupts can be returned from with a branch intstruction. Using this mode of the branch instruction will automatically branch to the return address and set the "Enable interrupts" flag of the CS register.
 
 -------------------------
 
