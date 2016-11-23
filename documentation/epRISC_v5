@@ -106,7 +106,7 @@ b                                           Branch select (implied 1)           
  aaa                                        Type code                               Identifies the type of branch to be performed. See below.
      cccc                                   Condition code                          Controls conditional branching. See below.
           rrrr                              Base address register                   Register containing the base address for the branch.
-                ooo oooo oooo oooo oooo     Offset (20-bit, +-512kW)                Offset applied to the address in the base address register.
+               oooo oooo oooo oooo oooo     Offset (20-bit, +-512kW)                Offset applied to the address in the base address register.
 
 
 Load/store instructions manipulate values in memory, loading them into or storing them from the CPU's registers.
@@ -119,7 +119,7 @@ b                                           Branch select (implied 0)           
   d                                         Direction select                        When true, performs a store operation as opposed to a load operation.
    i                                        Reserved and unused                     Set to zero.
      rrrr                                   Base address register                   Register containing the base address for the load/store operation.
-          sdsd                              Source/destination register             Register where values are stored from or loaded to during a load/store operation.
+          sdsd                              Target register                         Register where values are stored from or loaded to during a load/store operation.
                oooo oooo oooo oooo oooo     Offset (20-bit, +-512kW)                Offset applied to the address in the base address register.
 
 
@@ -223,7 +223,7 @@ h0F     Always False                Never executes.
 
 Arithmetic instructions expect a five-bit opcode that defines the operation to be performed. 
 Most arithmetic operations operate on two terms (A and B); however, some operations work on one term (A) or three terms (A, B, and V).
-Only the first sixteen of these operations are currently defined.
+Only the first sixteen of these operations are currently defined. Behavior of undefined operations is undefined.
 
 h00     Add                         (a + b)
 h01     Subtract                    (a - b)
@@ -244,9 +244,14 @@ h0F     Test                        (a & b) without result store
 
 
 Core instructions expect a six-bit opcode that defines the operation to be performed, along with a twenty-bit data field.
-Only the first four of these operations are currently defined.
+Only the first four of these operations are currently defined. Behavior of undefined operations is undefined.
 
 h00     No Operation                iiii iiii iiii iiii iiii    Reserved and unused
 h01     Software Interrupt          dddd dddd iiii iiii iiii    Interrupt ID (8-bit, +256)/Reserved and unused
 h02     Halt                        iiii iiii iiii iiii iiii    Reserved and unused
 h03     Set Register Page           pppp hiii iiii iiii iiii    Register Page (4-bit, +16)/Hide Special Registers (1-bit, flag)/Reserved and unused
+
+
+
+
+

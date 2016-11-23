@@ -38,14 +38,39 @@ Branch instructions are used to return from interrupts. These returns will autom
 
 ---
 
-Interrupts are split into eight priority levels, with seven being the lowest priority and zero being the highest.
+Interrupts are split into sixteen priority levels, with fifteen being the lowest priority and zero being the highest.
+When the controller is enabled, interrupts will be serviced on a highest-priority basis, with the ability for higher priority interrupts to pause execution of lower-priority interrupts.
+
+Interrupts are level-triggered by default. This can be changed on a per-interrupt basis by altering the Trigger field of the EC register.
+Interrupts can be individually enabled and disabled by altering the Enable field of the EC register.
+The global Interrupt Enable flag of the CS register is respected by the interrupt controller - when this flag is set, no interrupts will be serviced.
+When an interrupt is called, the previous address of execution and priority level are pushed to an internal return stack.
+The branch instruction uses this stack in Interrupt mode to return from an interrupt and restore the priority level.
+
 
 The interrupt control system utilizes four control registers, mapped to Xw through Xz of register page hF.
 
 IC      Interrupt Control           Control register for the interrupt controller.
+EC      Enable Control              Enable state and triggering settings for interrupts.
 HB      Hardware Base               Base address for hardware interrupts.
 SB      Software Base               Base address for software interrupts.
 
+The IC register holds configuration data for the interrupt controller.
 
-
-
+3                 1 1                 0
+1                 6 5                 0
+nnnn nnnn nnnn nnnn nnnn nnnn nnnn nnnn     32-bit word 
+                            m               Mask Zero flag - when true, allows execution of interrupt zero regardless of enabled state.
+                              llll          Current interrupt priority level.
+                                   pppp     Pointer into return stack.
+                                   
+                                   
+                                   
+                                   
+                                   
+                                   
+                                   
+                                   
+                                   
+                                   
+                                   
