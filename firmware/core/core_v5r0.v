@@ -18,12 +18,12 @@
 module epRISC_gpr(iClk, iRst, iAddrA, iDInA, oDOutA, iWriteA, iAddrB, iDInB, oDOutB, iWriteB);
 
     input iClk, iRst, iWriteA, iWriteB;
-    input [5:0] iAddrA, iAddrB;
+    input [7:0] iAddrA, iAddrB;
     input [31:0] iDInA, iDInB;
     output reg [31:0] oDOutA, oDOutB;
     
-    reg [6:0] rClr;
-    reg [31:0] rContents[0:63];
+    reg [7:0] rClr;
+    reg [31:0] rContents[0:255];
         
     always @(posedge iClk) begin
         if(iWriteA) begin
@@ -85,7 +85,7 @@ module epRISC_core(iClk, iRst, oAddr, bData, oWrite, iMaskInt, iNonMaskInt, oHal
     
     // Internal bus paths
     wire [31:0] wBusInA, wBusInB, wBusOutA, wBusOutB;
-    wire [6:0] wBusInAddrA, wBusInAddrB, wBusOutAddrA, wBusOutAddrB;
+    wire [7:0] wBusInAddrA, wBusInAddrB, wBusOutAddrA, wBusOutAddrB;
     wire wBusOutWriteA, wBusOutWriteB;
     
     
@@ -114,7 +114,7 @@ module epRISC_core(iClk, iRst, oAddr, bData, oWrite, iMaskInt, iNonMaskInt, oHal
     assign oWrite = (rPipeState == `sPipeMemory && (mLoadStore || mBranchSaveStack)) ? 1'b1 : 1'b0;
     assign bData = (oWrite) ? 32'bz : rRegM;
     
-    assign wClkInt = 
+    assign wClkInt = iClk;
     assign wALUOperation = (mALU) ? (fALUOperation) : ((mDirect && mDirectOR) ? (3) : (0));
     
     // Assignment - instruction flags
@@ -174,11 +174,11 @@ module epRISC_core(iClk, iRst, oAddr, bData, oWrite, iMaskInt, iNonMaskInt, oHal
     wire [31:0] wBusInA, wBusInB, 
     wBusOutA = (mALU) ? rRegR[31:0] : ((mRegisterSwap) ? rRegB : rRegA);
     wBusOutB = (mRegisterSwap) ? rRegA : rRegB;
-    wBusInAddrA = 
-    wBusInAddrB = 
-    wBusOutAddrA = 
-    wBusOutAddrB = 
-    wBusOutWriteA = (mALU || mRegisterSwap || mLoadStore) ? 1'b1 : 1'b0;
+    wBusInAddrA = (mBranch) ? fBranchBase : ((mLoad) ? fLoadBase : ((mDirect) ? mDirectDestination : ((mALU) ? fALUTermA : ((mRegister) ? fRegisterDestination : 8'hFF))));
+    wBusInAddrB = (mLoad) ? fLoadTarget : ((mALU) ? fALUTermB : ((mRegister) ? fRegisterSource : 8'hFF));
+    wBusOutAddrA = (mRegister) ? fRegisterSource : ((mALU) ? fALUDestination : ((mLoad) ? fLoadTarget : 8'hFF);
+    wBusOutAddrB = (mRegister) ? fRegisterDestination : ();
+    wBusOutWriteA = (mALU || mRegisterSwap || mLoadLoad) ? 1'b1 : 1'b0;
     wBusOutWriteB = (mRegister || mDirect) ? 1'b1 : 1'b0;
     
     epRISC_gpr registers(wClkInt, iRst, (rPipeState==`sPipeDecode)?wBusInAddrA:wBusOutAddrA, wBusOutA, wBusInA, wBusOutWriteA, (rPipeState==`sPipeDecode)?wBusInAddrB:wBusOutAddrB, wBusOutB, wBusInB, wBusOutWriteB);
