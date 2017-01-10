@@ -1,16 +1,61 @@
-// epRISC Core, v1.1
+// epRISC Core, v4
 // (C) 2016 by John C. Lemme - jclemme (at) proportionallabs (dot) (com)
+
+// This file is part of the epRISC project, released under the epRISC license. See "license.txt" for details.
+
+// This is the CPU, implementing the epRISC v4 ISA. It's pretty buggy right now, and I make no promises that it works.
+// It also might not adhere exactly to the specification, especially around interrupts and the ALU. 
 
 // This file is part of the epRISC project, released under the MIT license. See "LICENSE" for details.
 
-// This is the CPU, implementing the epRISC ISA. It's pretty buggy right now, and I make no promises that it works.
-// It also might not adhere exactly to the specification, especially around interrupts and the ALU. 
-// If you have any questions, feel free to email me or message me through hackaday.io.
-
-
-`include "core_defs.v"
-
 /* verilator lint_off WIDTH */
+ 
+`define sPipeFetch          1
+`define sPipeDecodeDelay    10
+`define sPipeDecode         2
+`define sPipeArithmetic     3
+`define sPipeMemory         4
+`define sPipeWriteback      5
+`define sPipeIncCatch       6
+`define sPipeIntCatch       7
+`define sPipeFetchDelay     8
+`define sPipeMemoryDelay    9
+`define sUndefined          0
+
+
+module GPR_epRISC(iClk, iRst, iAddrA, iDInA, oDOutA, iWriteA, iAddrB, iDInB, oDOutB, iWriteB);
+
+    input iClk, iRst, iWriteA, iWriteB;
+    input [5:0] iAddrA, iAddrB;
+    input [31:0] iDInA, iDInB;
+    output reg [31:0] oDOutA, oDOutB;
+    
+    reg [6:0] rClr;
+    reg [31:0] rContents[0:63];
+        
+    always @(posedge iClk) begin
+        if(iWriteA) begin
+            rContents[iAddrA] <= iDInA;
+        end
+        
+        if(iWriteB) begin
+            rContents[iAddrB] <= iDInB;
+        end
+    end
+    
+    always @(posedge iClk) begin
+        if(!iWriteA) begin
+            oDOutA <= rContents[iAddrA];
+        end
+    end
+    
+    always @(posedge iClk) begin
+        if(!iWriteB) begin
+            oDOutB <= rContents[iAddrB];
+        end
+    end
+            
+endmodule
 
 module Core_epRISC(iClk, iRst, iInt, oHalt, oAddr, bData, oWrite);
     
