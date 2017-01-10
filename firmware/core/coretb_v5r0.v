@@ -27,8 +27,8 @@ module epRISC_coreTB();
         wRst = 0;
     end
     
-    always begin
-        wClk = #4 !wClk;
+    initial begin
+        forever wClk = #4 !wClk;
     end
     
     initial begin 
@@ -80,10 +80,11 @@ module epRISC_testROM(iClk, iAddr, oData, iEnable);
     end
     
     initial begin
-        rContents[0] = 32'h04000000;
-        rContents[1] = 32'h04000000;
-        rContents[2] = 32'h04000000;
-        rContents[3] = 32'h800FFFFF;
+        rContents[0] = 32'h21000009;
+        rContents[1] = 32'h2300000D;
+        rContents[2] = 32'h08310000;
+        //rContents[2] = 32'h09310000;
+        rContents[3] = 32'h04200000;
     end
 
 endmodule
