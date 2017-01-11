@@ -180,8 +180,8 @@ module epRISC_core(iClk, iRst, oAddr, bData, oWrite, iMaskInt, iNonMaskInt, oHal
     assign fCSOver = rRegCS[0];
     
     // Assignment - register pathway
-    assign wBusInA = (wBusInAddrA == 0 && !fCSHideRegs) ? rRegIP : ((wBusInAddrA == 1 && !fCSHideRegs) ? ((mLoadStore && fLoadBase == 4'h2) ? (rRegSP-1) : rRegSP) : ((wBusInAddrA == 2 && !fCSHideRegs) ? rRegCS : ((wBusInAddrA == 3 && !fCSHideRegs) ? rRegGL : (wBusRegA))));
-    assign wBusInB = (wBusInAddrB == 0 && !fCSHideRegs) ? rRegIP : ((wBusInAddrB == 1 && !fCSHideRegs) ? ((mLoadStore && fLoadBase == 4'h2) ? (rRegSP-1) : rRegSP) : ((wBusInAddrB == 2 && !fCSHideRegs) ? rRegCS : ((wBusInAddrB == 3 && !fCSHideRegs) ? rRegGL : (wBusRegB))));
+    assign wBusInA = (wBusInAddrA == 0 && !fCSHideRegs) ? rRegIP : ((wBusInAddrA == 1 && !fCSHideRegs) ? ((mLoadLoad && fLoadBase == 4'h2) ? (rRegSP-1) : rRegSP) : ((wBusInAddrA == 2 && !fCSHideRegs) ? rRegCS : ((wBusInAddrA == 3 && !fCSHideRegs) ? rRegGL : (wBusRegA))));
+    assign wBusInB = (wBusInAddrB == 0 && !fCSHideRegs) ? rRegIP : ((wBusInAddrB == 1 && !fCSHideRegs) ? ((mLoadLoad && fLoadBase == 4'h2) ? (rRegSP-1) : rRegSP) : ((wBusInAddrB == 2 && !fCSHideRegs) ? rRegCS : ((wBusInAddrB == 3 && !fCSHideRegs) ? rRegGL : (wBusRegB))));
     assign wBusOutA = (mALU) ? rRegR[31:0] : ((mLoadLoad) ? rRegM : rRegA);
     assign wBusOutB = rRegB;
     assign wBusInAddrA = (mBranch) ? fBranchBase : ((mLoad) ? fLoadBase : ((mDirect) ? fDirectDestination : ((mALU) ? fALUTermA : ((mRegister) ? fRegisterDestination : 8'hFF))));
