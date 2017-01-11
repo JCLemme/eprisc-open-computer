@@ -31,7 +31,7 @@ The IP register holds the current location of execution for the CPU. Relative ad
 The IP register should not be modified outside of a branch instruction. Write behavior for the IP register is undefined. 
 
 The SP register is used to implement the CPU's stack. The stack grows up; pushed values increase the stack pointer and popped values decrease the stack pointer.
-When used as the base address register of a load or store instruction, the SP register will automatically adjust to implement a push or pop.
+When used as the base address register of a load or store instruction, the SP register will automatically increment or decrement to implement a push or pop.
 
 The flags and fields of the CS register control CPU behavior.
 Modified flags or fields take effect after the execution of the current instruction.

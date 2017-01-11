@@ -4,9 +4,10 @@ module epRISC_coreTB();
     wire wWrite;
     wire [31:0] wAddr, wData;
     
-    wire w1, w2, w3, w4, w5, w6;
+    reg wInt, wNMInt;
+    wire w3, w4, w5, w6;
     
-    epRISC_core core(wClk, wRst, wAddr, wData, wWrite, w1, w2, w3, w4, w5, w6); 
+    epRISC_core core(wClk, wRst, wAddr, wData, wWrite, wInt, wNMInt, w3, w4, w5, w6); 
     epRISC_testROM rom(wMemClk, wAddr[7:0], wData, (!wAddr[8] && !wWrite));
     epRISC_testRAM ram(wMemClk, wRst, wAddr[7:0], wData, wWrite, wAddr[8]);
     
@@ -17,6 +18,8 @@ module epRISC_coreTB();
         wClk = 0;
         wMemClk = 0;
         wRst = 0;
+        wInt = 0;
+        wNMInt = 0;
     end
     
     initial #5 begin
@@ -25,6 +28,14 @@ module epRISC_coreTB();
     
     initial #20 begin
         wRst = 0;
+    end
+    
+    initial #500 begin
+        wInt = 1;
+    end
+    
+    initial #520 begin
+        wInt = 0;
     end
     
     initial begin
@@ -80,11 +91,19 @@ module epRISC_testROM(iClk, iAddr, oData, iEnable);
     end
     
     initial begin
-        rContents[0] = 32'h21000009;
-        rContents[1] = 32'h2300000D;
-        rContents[2] = 32'h08310000;
-        //rContents[2] = 32'h09310000;
-        rContents[3] = 32'h04200000;
+        rContents[0] = 32'h043F0000;
+        rContents[1] = 32'h24000006;
+        rContents[2] = 32'h18322301;
+        //rContents[2] = 32'h04000000;
+        rContents[3] = 32'h04000000;
+        rContents[4] = 32'h04000000;
+        rContents[5] = 32'h800FFFFE;
+        rContents[6] = 32'h04000000;
+        rContents[7] = 32'h04000000;
+        rContents[8] = 32'h04000000;
+        rContents[9] = 32'h04000000;
+        rContents[10] = 32'h23000008;
+        rContents[11] = 32'hB0000000;
     end
 
 endmodule

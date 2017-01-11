@@ -16,6 +16,7 @@
 `define sPipeWriteback      5
 `define sPipeHalt           6
 `define sPipeWriteSkip      7
+`define sPipeInterrupt      8
 `define sUndefined          0
 
 // Registers for use in simulation environments. Can (and should) be replaced with a synchronous, dual-port RAM for synthesis on FPGAs.
@@ -90,6 +91,10 @@ module epRISC_core(iClk, iRst, oAddr, bData, oWrite, iMaskInt, iNonMaskInt, oHal
 
     wire wClkInt;
     wire [4:0] wALUOperation;
+    
+    // Interrupt control registers
+    reg [31:0] rRegInterruptBase;
+    reg [95:0] rRegInterruptStack;
     
     // Internal bus paths
     wire [31:0] wBusInA, wBusInB, wBusRegA, wBusRegB, wBusOutA, wBusOutB;
@@ -180,8 +185,8 @@ module epRISC_core(iClk, iRst, oAddr, bData, oWrite, iMaskInt, iNonMaskInt, oHal
     assign fCSOver = rRegCS[0];
     
     // Assignment - register pathway
-    assign wBusInA = (wBusInAddrA == 0 && !fCSHideRegs) ? rRegIP : ((wBusInAddrA == 1 && !fCSHideRegs) ? ((mLoadLoad && fLoadBase == 4'h2) ? (rRegSP-1) : rRegSP) : ((wBusInAddrA == 2 && !fCSHideRegs) ? rRegCS : ((wBusInAddrA == 3 && !fCSHideRegs) ? rRegGL : (wBusRegA))));
-    assign wBusInB = (wBusInAddrB == 0 && !fCSHideRegs) ? rRegIP : ((wBusInAddrB == 1 && !fCSHideRegs) ? ((mLoadLoad && fLoadBase == 4'h2) ? (rRegSP-1) : rRegSP) : ((wBusInAddrB == 2 && !fCSHideRegs) ? rRegCS : ((wBusInAddrB == 3 && !fCSHideRegs) ? rRegGL : (wBusRegB))));
+    assign wBusInA = (wBusInAddrA == 0 && !fCSHideRegs) ? rRegIP : ((wBusInAddrA == 1 && !fCSHideRegs) ? ((mLoadLoad && fLoadBase == 4'h2) ? (rRegSP-1) : rRegSP) : ((wBusInAddrA == 2 && !fCSHideRegs) ? rRegCS : ((wBusInAddrA == 3 && !fCSHideRegs) ? rRegGL : ((fCSRegisterPage == 4'hF && wBusInAddrA == 4) ? rRegInterruptBase : wBusRegA))));
+    assign wBusInB = (wBusInAddrB == 0 && !fCSHideRegs) ? rRegIP : ((wBusInAddrB == 1 && !fCSHideRegs) ? ((mLoadLoad && fLoadBase == 4'h2) ? (rRegSP-1) : rRegSP) : ((wBusInAddrB == 2 && !fCSHideRegs) ? rRegCS : ((wBusInAddrB == 3 && !fCSHideRegs) ? rRegGL : ((fCSRegisterPage == 4'hF && wBusInAddrB == 4) ? rRegInterruptBase : wBusRegB))));
     assign wBusOutA = (mALU) ? rRegR[31:0] : ((mLoadLoad) ? rRegM : rRegA);
     assign wBusOutB = rRegB;
     assign wBusInAddrA = (mBranch) ? fBranchBase : ((mLoad) ? fLoadBase : ((mDirect) ? fDirectDestination : ((mALU) ? fALUTermA : ((mRegister) ? fRegisterDestination : 8'hFF))));
@@ -211,12 +216,13 @@ module epRISC_core(iClk, iRst, oAddr, bData, oWrite, iMaskInt, iNonMaskInt, oHal
             `sPipeDecode: rPipeNextState = `sPipeArithmetic; 
             `sPipeArithmetic: rPipeNextState = `sPipeMemory; 
             `sPipeMemory: rPipeNextState = (rExec) ? `sPipeWriteback : `sPipeWriteSkip; 
-            `sPipeWriteback: rPipeNextState = ((mCore && fCoreOperation == 6'h2) ? `sPipeHalt : `sPipeFetch);
+            `sPipeWriteback: rPipeNextState = ((mCore && fCoreOperation == 6'h2) ? `sPipeHalt : ((iMaskInt && fCSInterruptEn) || iNonMaskInt) ? `sPipeInterrupt : `sPipeFetch);
             
+            `sPipeInterrupt: rPipeNextState = `sPipeFetch;
             `sPipeWriteSkip: rPipeNextState = ((mCore && fCoreOperation == 6'h2) ? `sPipeHalt : `sPipeFetch);
             `sPipeHalt: rPipeNextState = `sPipeHalt;
-            `sUndefined: rPipeNextState = `sPipeFetch;
             
+            `sUndefined: rPipeNextState = `sPipeFetch;
             default: rPipeNextState = `sUndefined;
         endcase
     end
@@ -228,13 +234,20 @@ module epRISC_core(iClk, iRst, oAddr, bData, oWrite, iMaskInt, iNonMaskInt, oHal
         end else begin
             if(rPipeState == `sPipeWriteback) begin
                 if(mBranch) begin
-                    if(mBranchLoadStack)
+                    if(mBranchLoadStack) begin
                         rRegIP <= rRegM;
-                    else
+                    end else if(mBranchInterrupt) begin
+                        rRegIP <= rRegInterruptStack[95:64];
+                    end else begin
                         rRegIP <= rRegR[31:0];
+                    end
+                end else if(mCore && fCoreOperation == 6'h1 && fCSInterruptEn) begin
+                    rRegIP <= rRegInterruptBase + fCoreData;
                 end else begin
                     rRegIP <= rRegIP + 32'h1;
                 end
+            end else if(rPipeState == `sPipeInterrupt) begin
+                rRegIP <= rRegInterruptBase;
             end
         end
     end
@@ -276,10 +289,16 @@ module epRISC_core(iClk, iRst, oAddr, bData, oWrite, iMaskInt, iNonMaskInt, oHal
                     rRegCS[7] <= fCoreData[15];
                 end
                 
+                if(mBranchInterrupt) begin
+                    rRegCS[6] <= 1'h1;                    
+                end
+                
                 if(!fCSHideRegs && wBusOutAddrA == 32'h2 && wBusOutWriteA)
                     rRegCS <= wBusOutA;
                 else if(!fCSHideRegs && wBusOutAddrB == 32'h2 && wBusOutWriteB)
                     rRegCS <= wBusOutB;
+            end else if(rPipeState == `sPipeInterrupt) begin
+                rRegCS[6] <= 1'h0;
             end
         end
     end
@@ -409,6 +428,33 @@ module epRISC_core(iClk, iRst, oAddr, bData, oWrite, iMaskInt, iNonMaskInt, oHal
             endcase
         end else begin
             rExec = 1'b1;
+        end
+    end
+    
+    // Interrupt controller
+    always @(negedge wClkInt) begin
+        if(iRst) begin
+            rRegInterruptBase <= 96'h0;
+        end else begin
+            if(rPipeState == `sPipeWriteback) begin
+                if(fCSRegisterPage == 4'hF && wBusOutAddrA == 4'h4 && wBusOutWriteA == 1'h1)
+                    rRegInterruptBase <= wBusOutA;
+                if(fCSRegisterPage == 4'hF && wBusOutAddrB == 4'h4 && wBusOutWriteB == 1'h1)
+                    rRegInterruptBase <= wBusOutB;
+            end
+        end
+    end
+    
+    always @(negedge wClkInt) begin
+        if(iRst) begin
+            rRegInterruptStack <= 96'h0;
+        end else begin
+            if(rPipeState == `sPipeInterrupt) begin
+                rRegInterruptStack <= rRegInterruptStack >> 32;
+                rRegInterruptStack[95:64] <= rRegIP;
+            end else if(rPipeState == `sPipeWriteback && mBranchInterrupt) begin
+                rRegInterruptStack <= rRegInterruptStack << 32;
+            end
         end
     end
     
