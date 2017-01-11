@@ -58,7 +58,7 @@ endmodule
 
 // Synthesizable, non-pipelined version of the CPU. Mostly working as of this commit.
 
-module epRISC_core(iClk, iRst, oAddr, bData, oWrite, iMaskInt, iNonMaskInt, oHalt, iDbg, iStep, oFlg);  
+module epRISC_core(iClk, iRst, oAddr, bData, oWrite, iMaskInt, iNonMaskInt, oHalt, oFlg);  
            
     // System control signals        
     input iClk, iRst;

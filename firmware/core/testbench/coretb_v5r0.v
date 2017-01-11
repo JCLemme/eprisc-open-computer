@@ -5,9 +5,9 @@ module epRISC_coreTB();
     wire [31:0] wAddr, wData;
     
     reg wInt, wNMInt;
-    wire w3, w4, w5, w6;
+    wire wHalt, wFlag;
     
-    epRISC_core core(wClk, wRst, wAddr, wData, wWrite, wInt, wNMInt, w3, w4, w5, w6); 
+    epRISC_core core(wClk, wRst, wAddr, wData, wWrite, wInt, wNMInt, wHalt, wFlag); 
     epRISC_testROM rom(wMemClk, wAddr[7:0], wData, (!wAddr[8] && !wWrite));
     epRISC_testRAM ram(wMemClk, wRst, wAddr[7:0], wData, wWrite, wAddr[8]);
     
