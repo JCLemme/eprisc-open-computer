@@ -72,7 +72,6 @@ module epRISC_core(iClk, iRst, oAddr, bData, oWrite, iMaskInt, iNonMaskInt, oHal
     input iMaskInt, iNonMaskInt;
     
     // Debugging signals
-    input iDbg, iStep;
     output wire oFlg, oHalt;
     
     
@@ -225,6 +224,13 @@ module epRISC_core(iClk, iRst, oAddr, bData, oWrite, iMaskInt, iNonMaskInt, oHal
             `sUndefined: rPipeNextState = `sPipeFetch;
             default: rPipeNextState = `sUndefined;
         endcase
+    end
+    
+    always @(*) begin
+        if(rPipeState == `sPipeHalt)
+            oHalt <= 1'h1;
+        else
+            oHalt <= 1'h0;
     end
     
     // System registers

@@ -1,0 +1,27 @@
+
+sysX bus specification v1, r0
+
+(c) 2016-2017 John C. Lemme - jclemme (at) proportionallabs (dot) com
+This file, and the ISA documented within, are released under the epRISC license. See "license.txt" and "license-eprisc.txt" for details.
+
+-------------------------
+
+Overview
+
+The sysX bus is a full-duplex and synchronous data transmission bus. It is similar in operation to the SPI bus. 
+Make this better later.
+
+-------------------------
+
+Electrical
+
+The sysX bus uses four distinct signals to transmit data: SCLK, MISO, MOSI, and CS.
+
+SCLK    Slave clock                 Clock for slave devices. Controlled by the bus master.
+MISO    Master in, slave out        Data from the selected slave device to the bus master.
+MOSI    Master out, slave in        Data from the bus master to the selected slave device.
+CS      Chip select                 Selection 
+
+-------------------------
+
+Logical

@@ -1,0 +1,241 @@
+
+epRISC assembly specification v5, r0
+
+(c) 2016-2017 John C. Lemme - jclemme (at) proportionallabs (dot) com
+This file, and the ISA documented within, are released under the epRISC license. See "license.txt" and "license-eprisc.txt" for details.
+
+**** THIS FILE IS A WORK IN PROGRESS - TREAD WITH CAUTION ****
+
+-------------------------
+
+Instruction Format
+
+Instructions consist of an opcode and a number of operands. Each instruction takes up its own line, with its operands immediately following it.
+
+Operands come in several different types.
+
+Enum        Object representing a number. 
+Value       Plain numeric value.
+Address     Used for memory operations and offset calculation.
+
+Enums are generally used for special instruction fields, like condition codes or ALU operations. They are prefixed with the "%" symbol.
+Values can be represented in a number of different bases, and are converted into a two's compliment representation trimmed to the size of the value field of the instruction.
+Addresses can either be given as an absolute address or as a label defined in the program. They are functionally identical to values, but use a unique type to allow calculation of indirect addresses.
+
+Operands are identified by a one-letter ID and a colon (in the form "c:" or "f:"), followed by the operand.
+Operands can be given to an instruction in any order. Some operands can be omitted, in lieu of a default value provided by the instruction definition.
+
+-------------------------
+
+Labels
+
+Labels define a memory location in the executable. They can be global or local.
+Global labels persist through the entire source file and all included files.
+Local labels only exist within labeled "zones", defined with the "!zone" preprocessor directive. They are prefixed with periods.
+
+Labels can be given as both addresses and values.
+When provided as an address, it will be assembled as an offset between the label's location and the current instruction's location.
+When provided as a value, it will be assembled as a 32-bit value, truncated to the target length.
+
+-------------------------
+
+Preprocessor Directives
+
+The assembler can be commanded through the use of preprocessor directives that control how the source is assembled. 
+The most common of these is the line comment. A semicolon will be ignored by the assembler, along with everything following it on the line. 
+
+Several other directives exist:
+
+!def SSSS XXXX          Define                      Replaces the term "SSSS" in the source with the pattern "XXXX".
+!include "XXXX.asm"     Include File                Imports the source file "XXXX.asm" to be compiled into the current executable.
+!zone XXXX              Define Zone                 Sets the local label zone to "XXXX".
+!data hXXXX ...         Insert Data                 Inserts the provided numeric values, one per word, at the given location. 
+!str "XXXX"             Insert String               Inserts a string of characters, one per word (at the LSB), at the given location.
+!pstr "XXXX"            Insert Packed String        Inserts a string of characters, four per word (MSB to LSB), at the given location.
+!ip hXXXX               Set Instruction Pointer     Sets the address to assemble at. Required at least once, at the beginning of the program.
+
+-------------------------
+
+Enums
+
+The register enum is built into the assembler.
+
+IP      0
+SP      1
+CS      2
+GL      3
+WW      0
+WX      1
+WY      2
+WZ      3
+XW      4
+XX      5
+XY      6
+XZ      7
+YW      8
+YX      9
+YY      10
+YZ      11
+ZW      12
+ZX      13
+ZY      14
+ZZ      15
+
+The assembler also includes a boolean enum, for use with single-bit flags.
+
+TRUE    1
+FALSE   0
+
+-------------------------
+
+Instruction Set
+
+Branch instructions control program flow.
+
+brch.o c:CONDITION(ALW) r:REGISTER(IP) o:VALUE(h0000)
+brch.a c:CONDITION(ALW) r:REGISTER(IP) a:ADDRESS
+call.o c:CONDITION(ALW) r:REGISTER(IP) o:VALUE(h0000)
+call.a c:CONDITION(ALW) r:REGISTER(IP) a:ADDRESS
+cals.o c:CONDITION(ALW) r:REGISTER(IP) o:VALUE(h0000)
+cals.a c:CONDITION(ALW) r:REGISTER(IP) a:ADDRESS
+rtrn.i
+rint.i
+
+Load/store instructions manipulate values in memory.
+
+load.o r:REGISTER(IP) d:REGISTER o:VALUE(h0000)
+load.a r:REGISTER(IP) d:REGISTER a:ADDRESS
+stor.o r:REGISTER(IP) s:REGISTER o:VALUE(h0000)
+stor.a r:REGISTER(IP) s:REGISTER a:ADDRESS
+
+Direct move instructions move values into CPU registers.
+
+3                 1 1                 0
+1                 6 5                 0
+nnnn nnnn nnnn nnnn nnnn nnnn nnnn nnnn     32-bit word  
+b                                           Branch select (implied 0)               Set to zero.
+ l                                          Load select (implied 0)                 Set to zero.
+  d                                         Direct move select (implied 1)          Flag identifying the instruction as a direct move instruction.
+   o                                        Bitwise OR select                       When true, performs a bitwise OR on the contents of the destination register and the value as opposed to replacement.
+     dddd                                   Destination register                    Register to store the value into.
+          ssss                              Left shift                              Shift for the value to be stored.
+               vvvv vvvv vvvv vvvv vvvv     Value (20-bit, +-524288)                Value to store into the destination register.
+
+
+Arithmetic instructions perform mathematical operations on the contents of CPU registers.
+
+3                 1 1                 0
+1                 6 5                 0
+nnnn nnnn nnnn nnnn nnnn nnnn nnnn nnnn     32-bit word  
+b                                           Branch select (implied 0)               Set to zero.
+ l                                          Load select (implied 0)                 Set to zero.
+  d                                         Direct move select (implied 0)          Set to zero.
+   a                                        Arithmetic select (implied 1)           Flag identifying the instruction as an arithmetic instruction.
+     s                                      Second operand select                   When true, uses the value provided as the chosen operation's B term.
+      ii                                    Reserved and unused                     Set to zero.
+        o oooo                              Operation                               Operation to perform on the provided terms. See below.
+               dddd                         Destination register                    Register to store the result of the chosen operation into.
+                    aaaa                    Term A register                         Register containing the A term of the operation.
+                         bbbb vvvv vvvv     Term B register/Value (8-bit, +-128)    Register containing the B term of the operation, and a value for certain operations.
+                         ssss vvvv vvvv     Even left shift/Value (8-bit, +-128)    The B term of the operation, created by shifting the value left by two for as many times specified by the shift.
+
+
+Register move operations transfer the value of one CPU register to another. They can also exchange the contents of two registers.
+
+3                 1 1                 0
+1                 6 5                 0
+nnnn nnnn nnnn nnnn nnnn nnnn nnnn nnnn     32-bit word  
+b                                           Branch select (implied 0)               Set to zero.
+ l                                          Load select (implied 0)                 Set to zero.
+  d                                         Direct move select (implied 0)          Set to zero.
+   a                                        Arithmetic select (implied 0)           Set to zero.
+     r                                      Register select (implied 1)             Flag identifying the instruction as a register move instruction.
+      ii                                    Reserved and unused                     Set to zero.
+        x                                   Exchange select                         When true, swaps the contents of the two registers.
+          dddd                              Destination register                    Register to move the contents of the source register into.
+               ssss                         Source register                         Register whose contents are to be moved into the destination register.
+                    iiii iiii iiii iiii     Reserved and unused                     Set to zero.
+
+
+Core instructions control the CPU. They implement things like the no-operation instruction, the software interrupt instruction, and the halt instruction.
+
+3                 1 1                 0
+1                 6 5                 0
+nnnn nnnn nnnn nnnn nnnn nnnn nnnn nnnn     32-bit word  
+b                                           Branch select (implied 0)               Set to zero.
+ l                                          Load select (implied 0)                 Set to zero.
+  d                                         Direct move select (implied 0)          Set to zero.
+   a                                        Arithmetic select (implied 0)           Set to zero.
+     r                                      Register select (implied 0)             Set to zero.
+      c                                     Core select (implied 1)                 Flag identifying the instruction as a core instruction.
+       oo oooo dddd dddd dddd dddd dddd     Operation/Data                          Operation to be performed and its data. See below.
+               
+                   
+Branch instructions expect a three-bit type code that defines the behavior of the branch.
+When the most significant bit of the code is zero, the branch behaves normally.
+When the most significant bit of the code is one, the branch behaves as a call instruction, either saving or restoring the previous address of execution according to the two least significant bits.
+A special case occurs when the MSB is zero, while the LSBs are both one; the branch will then attempt to return from an interrupt using the interrupt control registers and CS register.
+
+b000    Branch                      Branches to the supplied address.
+b100    Call, save link             Branches, saving the current location of execution to the link register set by the CS register.
+b101    Call, save stack            Branches, saving the current location of execution to the stack.
+b110    Call, restore link          Branches to the address stored in the link register set by the CS register.
+b111    Call, restore stack         Branches to the address stored on the stack.
+b011    Interrupt return            Branches either from the stack or an interrupt link register, performing priority restoration in the process.
+
+
+Branch instructions also expect a four-bit condition code that defines when the branch should be performed.
+Condition codes determine their result by querying the carry, zero, negative, and overflow flags of the CS register.
+All sixteen possible condition codes are defined. The branch will execute when the chosen condition is true.
+
+h00     Always True                 Always executes.
+h01     Equal                       Executes if the zero flag is set.
+h02     Not Equal                   Executes if the zero flag is reset.
+h03     Higher or Same              Executes if the carry flag is set.
+h04     Lower                       Executes if the carry flag is reset.
+h05     Negative                    Executes if the negative flag is set.
+h06     Positive or Zero            Executes if the negative flag is reset.
+h07     Overflow                    Executes if the overflow flag is set.
+h08     No Overflow                 Executes if the overflow flag is reset.
+h09     Higher                      Executes if the carry flag is set and the zero flag is reset.
+h0A     Lower or Same               Executes if the carry flag is reset or if zero flag is set.
+h0B     Greater/Equal To            Executes if the negative and overflow flags are equal.
+h0C     Less/Equal To               Executes if the negative and overflow flags are inequal.
+h0D     Greater Than                Executes if the zero flag is reset and the negative and overflow flags are equal.
+h0E     Less Than                   Executes if the zero flag is set or if the negative and zero flags are inequal.
+h0F     Always False                Never executes.
+
+
+Arithmetic instructions expect a five-bit opcode that defines the operation to be performed. 
+Most arithmetic operations operate on two terms (A and B); however, some operations work on one term (A) or three terms (A, B, and V).
+Only the first sixteen of these operations are currently defined. Behavior of undefined operations is undefined.
+
+h00     Add                         (a + b)
+h01     Subtract                    (a - b)
+h02     Bitwise AND                 (a & b)
+h03     Bitwise OR                  (a | b)
+h04     Bitwise XOR                 (a ^ b)
+h05     Bitwise NOT                 (~a)
+h06     Arithmetic Shift Left       (a << b)
+h07     Arithmetic Shift Right      (a >> b)
+h08     Logical Shift Right         (a >> b) without sign extension
+h09     Rotate Left                 (a r< b)
+h0A     Rotate Right                (a r> b)
+h0B     Inverse Mask                (a & ~b)
+h0C     Mask and Shift Left         ((a & v) << s) or ((a & v) << b)  
+h0D     Mask and Shift Right        ((a & v) >> s) or ((a & v) >> b)
+h0E     Compare                     (a - b) without result store
+h0F     Test                        (a & b) without result store
+
+
+Core instructions expect a six-bit opcode that defines the operation to be performed, along with a twenty-bit data field.
+Only the first four of these operations are currently defined. Behavior of undefined operations is undefined.
+
+h00     No Operation                iiii iiii iiii iiii iiii    Reserved and unused
+h01     Software Interrupt          dddd dddd iiii iiii iiii    Interrupt ID (8-bit, +256)/Reserved and unused
+h02     Halt                        iiii iiii iiii iiii iiii    Reserved and unused
+h03     Set Register Page           pppp hiii iiii iiii iiii    Register Page (4-bit, +16)/Hide Special Registers (1-bit, flag)/Reserved and unused
+
+
+
+
