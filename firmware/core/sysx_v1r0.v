@@ -28,7 +28,7 @@ module epRISC_sysXMaster(iClock, iReset, iAddress, bData, iWrite, oInterrupt, iB
     inout [0:31] bData;
 
     // Internal control registers
-    reg
+    reg [0:3] rPipeState, rPipePrevState;
     reg [0:7] rCounterMISO, rCounterMOSI;
     reg [0:31] rConfig, rDirectMOSI, rDirectMISO;
     
@@ -41,4 +41,8 @@ module epRISC_sysXMaster(iClock, iReset, iAddress, bData, iWrite, oInterrupt, iB
                    (iAddress == 'h4) wDataMOSI :
                    (iAddress == 'h5) rCounterMISO :
                    (iAddress == 'h6) wDataMISO : 32'h0BADC0DE;
+
+    
+    // System pipeline controller
+    always @(posedge 
 endmodule
