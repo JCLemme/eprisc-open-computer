@@ -25,3 +25,20 @@ CS      Chip select                 Selection
 -------------------------
 
 Logical
+
+-- 
+
+Patterns of things:
+CS changes to desired device
+Receive on falling edge
+Place on rising edge
+Host starts placing on first rising edge after CS
+
+R CS change to active device
+F
+R Host places high
+F Device reads high
+R Host places low
+F Device reads high
+R CS change to loopback
+F
