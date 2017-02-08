@@ -38,10 +38,6 @@ module epRISC_machine(iBoardClock, iBoardReset, iBoardSense, oBoardAcknowledge, 
     assign bBoardDebug4 = 1'bz;
     assign bBoardDebug5 = 1'bz;
 
-    assign oBusClock = 1'h0;
-    assign oBusSelect = 2'h0;
-    assign oBusMOSI = 8'h0;
-
     assign oMemoryCKE = 1'h0;
     assign oMemoryCLK = 1'h0;
     assign oMemoryWE = 1'h0;
@@ -67,6 +63,6 @@ module epRISC_machine(iBoardClock, iBoardReset, iBoardSense, oBoardAcknowledge, 
     
     
     // Modules on the FSB
-    epRISC_core core(wCoreBusClock, wCoreBusReset, wCoreBusAddress, wCoreBusData, wCoreBusWrite, wCoreBusInterrupt, wCoreBusNMInterrupt, wCoreHalt, wCoreFlag); 
-
+    epRISC_core       core(wCoreBusClock, wCoreBusReset, wCoreBusAddress, wCoreBusData, wCoreBusWrite, wCoreBusInterrupt, wCoreBusNMInterrupt, wCoreHalt, wCoreFlag); 
+    epRISC_sysXMaster  bus(wCoreBusClock, wCoreBusReset, wCoreBusAddress, wCoreBusData, wCoreBusWrite, wCoreBusInterrupt, wCoreBusClock, iBusMISO, oBusMOSI, oBusClock, iBusInterrupt, oBusSelect);
 endmodule

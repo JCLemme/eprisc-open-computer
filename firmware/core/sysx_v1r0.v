@@ -54,7 +54,7 @@ module epRISC_sysXMaster(iClock, iReset, iAddress, bData, iWrite, oInterrupt, iM
 
     // External I/O
     input iClock, iReset, iWrite, iMasterClock, iBusInterrupt;
-    input [0:?] iAddress;
+    input [0:3] iAddress;
     input [0:7] iBusMISO;
     output wire oInterrupt, oBusClock;
     output wire [0:1] oBusSelect;
@@ -63,9 +63,14 @@ module epRISC_sysXMaster(iClock, iReset, iAddress, bData, iWrite, oInterrupt, iM
 
     // Internal control registers
     reg [0:7] rCounterMISO, rCounterMOSI;
-    reg [0:31] rConfig, rClockConfig, rDirectMOSI, rDirectMISO;
+    reg [0:31] rConfig, rDirectMOSI, rDirectMISO;
     wire [0:31] wDataMOSI, wDataMISO;
-
+   
+    wire fBeginSingle, fBeginBlock, fReceive;
+    wire [0:1] fChipSelect;
+    wire [0:7] fTransferCount;
+    wire [0:11] fClockStep;
+    
     // Bus clock control registers
     reg rDerivedClock;
     reg [0:11] rMasterClockCount;
@@ -84,28 +89,40 @@ module epRISC_sysXMaster(iClock, iReset, iAddress, bData, iWrite, oInterrupt, iM
     epRISC_sysXBuffer bufferMOSI(iClock, rDerivedClock, iReset, iCounterMOSI, wDataMOSI, wDataOutMOSI, (iWrite&&iAddress=='h5) ? 1'h1 : 1'h0, rCounterMOSI, 32'h0BADC0DE, wInternalDataMOSI, 0);
 
     assign bData = (iWrite) ? 32'bz :
-                   (iAddress == 'h0) rConfig :
-                   (iAddress == 'h1) rClockConfig :
-                   (iAddress == 'h2) rDirectMOSI :
-                   (iAddress == 'h3) rDirectMISO :
-                   (iAddress == 'h4) rCounterMOSI : //pad this
-                   (iAddress == 'h5) wDataMOSI :
-                   (iAddress == 'h6) rCounterMISO : //pad this
-                   (iAddress == 'h7) wDataMISO : 32'h0BADC0DE;
+                   ((iAddress == 4'h0) rConfig :
+                   (iAddress == 4'h1) rDirectMOSI :
+                   (iAddress == 4'h2) rDirectMISO :
+                   (iAddress == 4'h3) {24'h0, rCounterMOSI} : 
+                   (iAddress == 4'h4) wDataMOSI :
+                   (iAddress == 4'h5) {24'h0, rCounterMISO} :
+                   (iAddress == 4'h6) wDataMISO : 32'h0BADC0DE);
     
-    assign oBusClock = (rPipeState == `sPipeIdle) ? 1'h0 : rDerivedClock;
-    assign oBusSelect = (rPipeState == `sPipeIdle) ? 2'h0 : // Config chip sleect goes here
+    assign oBusClock = (rPipeState == `sPipeIdle) ? 1'h1 : rDerivedClock;
+    assign oBusSelect = (rPipeState == `sPipeIdle) ? 2'h0 : fChipSelect;
+    assign oInterrupt = iBusInterrupt;
+    assign oBusMOSI = (rReceive) ? 8'hFF : 
+                      ((rPipeState == `sPipeLoLo) ? wInternalDataMOSI[7:0] :
+                      (rPipeState == `sPipeLo) ? wInternalDataMOSI[15:8] :
+                      (rPipeState == `sPipeHi) ? wInternalDataMOSI[23:16] :
+                      (rPipeState == `sPipeHiHi) ? wInternalDataMOSI[31:24] : 8'h0);
+
     assign wDataMISO = (iWrite && iAddress == 'h7) ? 32'bz : wDataOutMISO;
     assign wDataMOSI = (iWrite && iAddress == 'h5) ? 32'bz : wDataOutMOSI;
     assign wInternalWriteMISO = (rPipeState == `sPipeStore) ? 1'h1 : 1'h0;
     
-    
+    assign fBeginSingle = rConfig[0];
+    assign fBeginBlock = rConfig[1];
+    assign fChipSelect = rConfig[3:2];
+    assign fReceive = rConfig[4];
+    assign fTransferCount = rConfig[15:8];
+    assign fClockStep = rConfig[27:16];
+
     // Clock controller
     always @(posedge iMasterClock) begin
         if(iReset) begin
             rMasterClockCount <= 12'h0;
         end else begin
-            if(rMasterClockCount == rClockConfig[11:0])
+            if(rMasterClockCount == fClockStep)
                 rMasterClockCount <= 12'h0;
 
             rMasterClockCount <= rMasterClockCount + 12'h1;
@@ -116,7 +133,7 @@ module epRISC_sysXMaster(iClock, iReset, iAddress, bData, iWrite, oInterrupt, iM
         if(iReset) begin
             rDerivedClock <= 1'h0;
         end else begin
-            if(rMasterClockCount == rClockConfig[11:0])
+            if(rMasterClockCount == fClockStep)
                 rDerivedClock <= !rDerivedClock;
         end
     end
@@ -134,15 +151,88 @@ module epRISC_sysXMaster(iClock, iReset, iAddress, bData, iWrite, oInterrupt, iM
 
     always @(*) begin
         case(rPipeState)
-            `sPipeIdle: 
-            `sPipeLoad:
-            `sPipeLowLow:
-            `sPipeLow:
-            `sPipeHigh:
-            `sPipeHighHigh:
-            `sPipeStore:
+            `sPipeIdle: rPipeNextState = (fBeginSingle || fBeginBlock) ? `sPipeLoad : `sPipeIdle;
+            `sPipeLoad: rPipeNextState = `sPipeLoLo;
+            `sPipeLoLo: rPipeNextState = `sPipeLo;
+            `sPipeLo: rPipeNextState =  `sPipeHi;
+            `sPipeHi: rPipeNextState = `sPipeHiHi;
+            `sPipeHiHi: rPipeNextState = `sPipeStore;
+            `sPipeStore: rPipeNextState = (fTransferCount == 8'h0) ? `sPipeIdle : `sPipeLoad;
             default:
         endcase
     end
 
+    // Register controllers
+    always @(negedge rDerivedClock) begin
+        if(iReset) begin
+            rCounterMISO <= 8'h0;
+        end else begin
+            if(rPipePrevState == `sPipeStore && fBeginBlock)
+                rCounterMISO <= rCounterMISO + 8'h1;
+            if(iAddress == 4'h5 && iWrite)
+                rCounterMISO <= bData[7:0];
+        end
+    end
+
+    always @(negedge rDerivedClock) begin
+        if(iReset) begin
+            rCounterMOSI <= 8'h0;
+        end else begin
+            if(rPipeState == `sPipeStore && fBeginBlock)
+                rCounterMOSI <= rCounterMOSI + 8'h1;
+            if(iAddress == 4'h3 && iWrite)
+                rCounterMOSI <= bData[7:0];
+        end
+    end
+
+    always @(negedge rDerivedClock) begin
+        if(iReset) begin
+            rConfig <= 32'h0;
+        end else begin
+            if(iAddress == 4'h0 && iWrite)
+                rConfig <= bData;
+            if(rPipePrevState == `sPipeStore && fBeginSingle)
+                rConfig[0] <= 1'h0;
+            if(rPipePrevState == `sPipeStore && fBeginBlock)
+                rConfig[1] <= 1'h0;
+            if(rPipeState == `sPipeLoad && fBeginBlock)
+                rConfig[15:8] <= rConfig[15:8] - 8'h1;
+        end
+    end
+
+    always @(negedge rDerivedClock) begin
+        if(iReset) begin
+            rDirectMOSI <= 32'h0;
+        end else begin
+            if(iAddress == 4'h1 && iWrite) 
+                rDirectMOSI <= bData;
+        end
+    end
+
+    always @(negedge rDerivedClock) begin
+        if(iReset) begin
+            rDirectMISO <= 32'h0;
+        end else begin
+            if(iAddress == 'h2 && iWrite)
+                rDirectMISO <= bData;
+            if(fBeginSingle && rPipeState == `sPipeStore)
+                rDirectMISO <= rInternalDataMISO;
+        end
+    end
+
+    always @(negedge rDerivedClock) begin
+        if(iReset) begin
+            rInternalDataMISO <= 0;
+        end else begin
+            if(rPipeState == `sPipeLoLo)
+                rInternalDataMISO[7:0] <= iBusMISO;
+            if(rPipeState == `sPipeLo)
+                rInternalDataMISO[15:8] <= iBusMISO;
+            if(rPipeState == `sPipeHi)
+                rInternalDataMISO[23:16] <= iBusMISO;
+            if(rPipeState == `sPipeHiHi)
+                rInternalDataMISO[31:24] <= iBusMISO;
+        end
+    end
+   
 endmodule
