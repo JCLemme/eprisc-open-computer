@@ -140,7 +140,7 @@ module epRISC_sysXMaster(iClock, iReset, iAddress, bData, iWrite, oInterrupt, iM
             `sPipeLow:
             `sPipeHigh:
             `sPipeHighHigh:
-            `sPipeWrite:
+            `sPipeStore:
             default:
         endcase
     end
