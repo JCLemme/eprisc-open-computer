@@ -1,23 +1,33 @@
 module epRISC_coreTB();
 
-    reg wClk, wMemClk, wRst;
-    wire wWrite;
-    wire [31:0] wAddr, wData;
-    
-    reg wInt, wNMInt;
-    wire wHalt, wFlag;
-    
-    epRISC_core core(wClk, wRst, wAddr, wData, wWrite, wInt, wNMInt, wHalt, wFlag); 
-    epRISC_testROM rom(wMemClk, wAddr[7:0], wData, (!wAddr[8] && !wWrite));
-    epRISC_testRAM ram(wMemClk, wRst, wAddr[7:0], wData, wWrite, wAddr[8]);
+    wire iBoardClk, iBoardReset, iBoardSense, iBoardReceive;
+    wire oBoardAcknowledge, oBoardTransmit;
+    wire bBoardDebug0, bBoardDebug1, bBoardDebug2, bBoardDebug3, bBoardDebug4, bBoardDebug5;
+
+    wire iBusInterrupt;
+    wire [0:7] iBusMISO;
+    wire oBusClock;
+    wire [0:1] oBusSelect;
+    wire [0:7] oBusMOSI;
+
+    wire oMemoryCKE, oMemoryCLK, oMemoryWE, oMemoryCAS, oMemoryRAS, oMemoryCS;
+    wire [0:1] oMemoryBank;
+    wire [0:3] oMemoryDQM;
+    wire [0:11] oMemoryAddress;
+    wire [0:32] bMemoryData;
+
+    epRISC_machine(iBoardClock, iBoardReset, iBoardSense, oBoardAcknowledge, iBoardReceive, oBoardTransmit,
+                      bBoardDebug0, bBoardDebug1, bBoardDebug2. bBoardDebug3, bBoardDebug4, bBoardDebug5,
+                      oBusMOSI, iBusMISO, oBusClock, iBusInterrupt, oBusSelect,
+                      bMemoryData, oMemoryAddress, oMemoryBank, oMemoryDQM, oMemoryCKE, oMemoryCLK, oMemoryWE, oMemoryCAS, oMemoryRAS, oMemoryCS);
+
     
     initial begin
         $dumpfile("coredump.vcd");
         $dumpvars();
         
-        wClk = 0;
-        wMemClk = 0;
-        wRst = 0;
+        iBoardClock = 0;
+        iBoardReset = 0;
         wInt = 0;
         wNMInt = 0;
     end
