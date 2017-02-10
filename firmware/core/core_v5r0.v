@@ -31,6 +31,9 @@ module epRISC_gpr(iClk, iRst, iAddrA, iDInA, oDOutA, iWriteA, iAddrB, iDInB, oDO
     reg [7:0] rClr;
     reg [31:0] rContents[0:255];
         
+    wire debug;
+    assign debug = (rContents[5] < 10) ? 1 : 0;
+
     always @(posedge iClk) begin
         if(iWriteA) begin
             rContents[iAddrA] <= iDInA;
@@ -72,8 +75,8 @@ module epRISC_core(iClk, iRst, oAddr, bData, oWrite, iMaskInt, iNonMaskInt, oHal
     input iMaskInt, iNonMaskInt;
     
     // Debugging signals
-    output wire oFlg, oHalt;
-    
+    output wire oFlg;
+    output reg oHalt;  
     
     // System registers
     reg [31:0] rRegIP, rRegSP, rRegCS, rRegGL;
@@ -122,7 +125,7 @@ module epRISC_core(iClk, iRst, oAddr, bData, oWrite, iMaskInt, iNonMaskInt, oHal
     
     
     //Assignment - system 
-    assign oAddr = (rPipeState == `sPipeFetch) ? rRegIP : rRegR[31:0];
+    assign oAddr = (rPipeState == `sPipeFetch) ? rRegIP : (((mLoad || mBranchSaveStack || mBranchLoadStack) && rPipeState == `sPipeMemory) ? rRegR[31:0] : 32'h0);
     assign oWrite = (rPipeState == `sPipeMemory && (mLoadStore || mBranchSaveStack)) ? 1'b1 : 1'b0;
     assign bData = (!oWrite) ? 32'bz : rRegM;
     
@@ -192,10 +195,10 @@ module epRISC_core(iClk, iRst, oAddr, bData, oWrite, iMaskInt, iNonMaskInt, oHal
     assign wBusInAddrB = (mLoad) ? fLoadTarget : ((mALU) ? fALUTermB : ((mRegister) ? fRegisterSource : 8'hFF));
     assign wBusOutAddrA = (mRegister) ? fRegisterSource : ((mALU) ? fALUDestination : ((mLoad) ? fLoadTarget : 8'hFF));
     assign wBusOutAddrB = (mRegister) ? fRegisterDestination : ((mDirect) ? fDirectDestination : 8'hFF);
-    assign wBusOutWriteA = (mALU || mRegisterSwap || mLoadLoad) ? 1'b1 : 1'b0;
-    assign wBusOutWriteB = (mRegister || mDirect) ? 1'b1 : 1'b0;
+    assign wBusOutWriteA = (rPipeState == `sPipeWriteback && (mALU || mRegisterSwap || mLoadLoad)) ? 1'b1 : 1'b0;
+    assign wBusOutWriteB = (rPipeState == `sPipeWriteback && (mRegister || mDirect)) ? 1'b1 : 1'b0;
     
-    epRISC_gpr registers(wClkInt, iRst, (fCSRegisterPage<<4)+(rPipeState==`sPipeDecode)?wBusInAddrA:wBusOutAddrA, wBusOutA, wBusRegA, wBusOutWriteA, (fCSRegisterPage<<4)+(rPipeState==`sPipeDecode)?wBusInAddrB:wBusOutAddrB, wBusOutB, wBusRegB, wBusOutWriteB);
+    epRISC_gpr registers(wClkInt, iRst, (fCSRegisterPage<<4)+((rPipeState==`sPipeDecode||rPipeState==`sPipeFetch)?wBusInAddrA:wBusOutAddrA), wBusOutA, wBusRegA, wBusOutWriteA, (fCSRegisterPage<<4)+((rPipeState==`sPipeDecode||rPipeState==`sPipeFetch)?wBusInAddrB:wBusOutAddrB), wBusOutB, wBusRegB, wBusOutWriteB);
     
     
     // System pipeline controller
