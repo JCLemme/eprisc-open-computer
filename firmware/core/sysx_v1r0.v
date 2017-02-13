@@ -98,7 +98,7 @@ module epRISC_sysXMaster(iClock, iReset, iAddress, bData, iWrite, iEnable, oInte
                    (iAddress == 4'h5) ? {24'h0, rCounterMISO} :
                    (iAddress == 4'h6) ? wDataMISO : 32'h0BADC0DE);
     
-    assign oBusClock = (rPipeState == `sPipeIdle || rPipeState == `sPipeStore) ? 1'h1 : rDerivedClock;
+    assign oBusClock = (rPipeState == `sPipeIdle) ? 1'h1 : rDerivedClock;
     assign oBusSelect = (rPipeState == `sPipeIdle) ? 2'h0 : fChipSelect;
     assign oInterrupt = iBusInterrupt;
     assign oBusMOSI = (fReceive) ? 8'hFF : 
