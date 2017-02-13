@@ -70,7 +70,7 @@ module epRISC_testROM(iClk, iAddr, oData, iEnable);
         rContents[30] = 32'h66500003;
         rContents[31] = 32'h25000000;
         rContents[32] = 32'h66500003;
-        rContents[33] = 32'h27050406;
+        rContents[33] = 32'h27010406;
         rContents[34] = 32'h66700000;
         rContents[35] = 32'h04200000;
     end
