@@ -24,6 +24,20 @@ Send all        8 */
 `define sIdle       13
 `define sWait       14
 
+module epRISC_UART(iBusClock, iBusReset, oBusInterrupt, iBusAddress, iBusDataIn, oBusDataOut, iBusWrite, iSerialClock, iSerialRX, oSerialTX);
+
+    // Input/output definitions
+    input iBusClock, iBusReset, iBusWrite, iSerialClock, iSerialRX;
+    input [9:0] iBusAddress;
+    input [15:0] iBusDataIn;
+    output wire oBusInterrupt, oSerialTX;
+    output wire [15:0] oBusDataOut;
+
+    // Internal control registers
+    reg [3:0] rSendState, rSendPrevState, rSendNextState, rRecvState, rRecvPrevState, rRecvNextState;
+    reg [15:0] rControl, rDirectIn, rDirectOut;
+endmodule
+
 module UART_epRISC(iClk, iRst, oInt, iAddr, bData, iWrite, iEnable, iSClk, iRX, oTX);
 
     input iClk, iRst, iWrite, iEnable, iSClk, iRX;

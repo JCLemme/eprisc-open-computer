@@ -20,10 +20,9 @@
 `define sUndefined          0
 
 // Registers for use in simulation environments. Can (and should) be replaced with a synchronous, dual-port RAM for synthesis on FPGAs.
+module epRISC_gpr(iAddrA, iAddrB, iClk, iDInA, iDInB, iWriteA, iWriteB, oDOutA, oDOutB);
 
-module epRISC_gpr(iClk, iRst, iAddrA, iDInA, oDOutA, iWriteA, iAddrB, iDInB, oDOutB, iWriteB);
-
-    input iClk, iRst, iWriteA, iWriteB;
+    input iClk, iWriteA, iWriteB;
     input [7:0] iAddrA, iAddrB;
     input [31:0] iDInA, iDInB;
     output reg [31:0] oDOutA, oDOutB;
@@ -198,8 +197,7 @@ module epRISC_core(iClk, iRst, oAddr, bData, oWrite, iMaskInt, iNonMaskInt, oHal
     assign wBusOutWriteA = (rPipeState == `sPipeWriteback && (mALU || mRegisterSwap || mLoadLoad)) ? 1'b1 : 1'b0;
     assign wBusOutWriteB = (rPipeState == `sPipeWriteback && (mRegister || mDirect)) ? 1'b1 : 1'b0;
     
-    epRISC_gpr registers(wClkInt, iRst, (fCSRegisterPage<<4)+((rPipeState==`sPipeDecode||rPipeState==`sPipeFetch)?wBusInAddrA:wBusOutAddrA), wBusOutA, wBusRegA, wBusOutWriteA, (fCSRegisterPage<<4)+((rPipeState==`sPipeDecode||rPipeState==`sPipeFetch)?wBusInAddrB:wBusOutAddrB), wBusOutB, wBusRegB, wBusOutWriteB);
-    
+    epRISC_gpr registers((fCSRegisterPage<<4)+((rPipeState==`sPipeDecode||rPipeState==`sPipeFetch)?wBusInAddrA:wBusOutAddrA), (fCSRegisterPage<<4)+((rPipeState==`sPipeDecode||rPipeState==`sPipeFetch)?wBusInAddrB:wBusOutAddrB), wClkInt, wBusOutA, wBusOutB, wBusOutWriteA, wBusOutWriteB, wBusRegA, wBusRegB);
     
     // System pipeline controller
     always @(posedge wClkInt) begin

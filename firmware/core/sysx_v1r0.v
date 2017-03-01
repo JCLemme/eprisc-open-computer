@@ -208,6 +208,8 @@ module epRISC_sysXMaster(iClock, iReset, iAddress, bData, iWrite, iEnable, oInte
         end
     end
 
+    // This needs some kind of "Acknowledge" flag to block that clocking bug
+    // from the last system.
     always @(negedge iClock) begin
         if(iReset) begin
             rConfig <= 32'h0;
