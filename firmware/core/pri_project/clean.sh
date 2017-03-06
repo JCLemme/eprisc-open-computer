@@ -3,7 +3,6 @@ rm -rf *.chg
 rm -rf *.log
 rm -rf *.htm
 rm -rf *.eqn
-rm -rf *.pin
 rm -rf *.sof
 rm -rf *.pof
 rm -rf *.summary

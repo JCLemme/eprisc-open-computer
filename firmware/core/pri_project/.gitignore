@@ -3,7 +3,6 @@
 *.log
 *.htm
 *.eqn
-*.pin
 *.sof
 *.pof
 *.summary
