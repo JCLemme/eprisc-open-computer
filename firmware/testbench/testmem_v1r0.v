@@ -1,23 +1,20 @@
 
-module epRISC_testRAM(iClk, iRst, iAddr, bData, iWrite, iEnable);
+module epRISC_testRAM(iAddr, iClk, iData, iWrite, oData);
 
-    input iClk, iRst, iWrite, iEnable;
+    input iClk, iWrite;
     input [7:0] iAddr;
-    inout [31:0] bData;
-    
+    input [31:0] iData;
+    output wire [31:0] oData;
+
     reg [31:0] rDataOut, rContents[0:255];
     
-    assign bData = (iWrite || !iEnable) ? 32'bz : rDataOut;
+    assign oData = rDataOut;
     
     always @(posedge iClk) begin
-        if(iRst) begin
-            $display("Reset");
-        end else begin
-            if(iWrite)
-                rContents[iAddr] = bData;
-            else
-                rDataOut = rContents[iAddr];
-        end
+        if(iWrite)
+            rContents[iAddr] = iData;
+        else
+            rDataOut = rContents[iAddr];
     end
     
 endmodule

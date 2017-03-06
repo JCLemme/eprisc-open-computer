@@ -16,9 +16,9 @@
 `define sPipeStore      6
 `define sPipeInvalid    7
 
-module epRISC_sysXBuffer(iClkA, iClkB, iRst, iAddrA, iDInA, oDOutA, iWriteA, iAddrB, iDInB, oDOutB, iWriteB);
+module epRISC_sysXBuffer(iAddrA, iAddrB, iClkA, iClkB, iDInA, iDInB, iWriteA, iWriteB, oDOutA, oDOutB);     
 
-    input iClkA, iClkB, iRst, iWriteA, iWriteB;
+    input iClkA, iClkB, iWriteA, iWriteB;
     input [7:0] iAddrA, iAddrB;
     input [31:0] iDInA, iDInB;
     output reg [31:0] oDOutA, oDOutB;
@@ -86,8 +86,13 @@ module epRISC_sysXMaster(iClock, iReset, iAddress, bData, iWrite, iEnable, oInte
     wire [31:0] wInternalDataMOSI, wDistributionMOSI;
     wire [31:0] wDataOutMISO, wDataOutMOSI, wTrashMISO;
 
-    epRISC_sysXBuffer bufferMISO(iClock, rDerivedClock, iReset, rCounterMISO, wDataMISO, wDataOutMISO, (iWrite&&iAddress=='h6) ? 1'h1 : 1'h0, rInternalCounterMISO, rInternalDataMISO, wTrashMISO, wInternalWriteMISO);
-    epRISC_sysXBuffer bufferMOSI(iClock, rDerivedClock, iReset, rCounterMOSI, wDataMOSI, wDataOutMOSI, (iWrite&&iAddress=='h4) ? 1'h1 : 1'h0, rInternalCounterMOSI, 32'h0BADC0DE, wInternalDataMOSI, 1'h0);
+    `ifdef EMULATED
+    epRISC_sysXBuffer bufferMISO(rCounterMISO, rInternalCounterMISO, iClock, rDerivedClock, wDataMISO, rInternalDataMISO, (iWrite&&iAddress==4'h6) ? 1'h1 : 1'h0, wInternalWriteMISO, wDataOutMISO, wTrashMISO);
+    epRISC_sysXBuffer bufferMOSI(rCounterMOSI, rInternalCounterMOSI, iClock, rDerivedClock, wDataMOSI, 32'h1BADC0DE, (iWrite&&iAddress==4'h4) ? 1'h1 : 1'h0, 1'h0, wDataOutMOSI, wInternalDataMOSI);
+    `else
+    OnChipBuffer      bufferMISO(rCounterMISO, rInternalCounterMISO, iClock, rDerivedClock, wDataMISO, rInternalDataMISO, (iWrite&&iAddress==4'h6) ? 1'h1 : 1'h0, wInternalWriteMISO, wDataOutMISO, wTrashMISO);
+    OnChipBuffer      bufferMOSI(rCounterMOSI, rInternalCounterMOSI, iClock, rDerivedClock, wDataMOSI, 32'h1BADC0DE, (iWrite&&iAddress==4'h4) ? 1'h1 : 1'h0, 1'h0, wDataOutMOSI, wInternalDataMOSI);
+    `endif
 
     assign bData = (iWrite || !iEnable) ? 32'bz :
                    ((iAddress == 4'h0) ? rConfig :

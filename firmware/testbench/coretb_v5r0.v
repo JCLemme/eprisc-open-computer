@@ -1,3 +1,5 @@
+`define EMULATED 1
+
 module epRISC_coreTB();
 
     reg iBoardClock, iBoardReset; 

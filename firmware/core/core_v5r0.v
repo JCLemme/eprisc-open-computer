@@ -197,8 +197,12 @@ module epRISC_core(iClk, iRst, oAddr, bData, oWrite, iMaskInt, iNonMaskInt, oHal
     assign wBusOutWriteA = (rPipeState == `sPipeWriteback && (mALU || mRegisterSwap || mLoadLoad)) ? 1'b1 : 1'b0;
     assign wBusOutWriteB = (rPipeState == `sPipeWriteback && (mRegister || mDirect)) ? 1'b1 : 1'b0;
     
+    `ifdef EMULATED
     epRISC_gpr registers((fCSRegisterPage<<4)+((rPipeState==`sPipeDecode||rPipeState==`sPipeFetch)?wBusInAddrA:wBusOutAddrA), (fCSRegisterPage<<4)+((rPipeState==`sPipeDecode||rPipeState==`sPipeFetch)?wBusInAddrB:wBusOutAddrB), wClkInt, wBusOutA, wBusOutB, wBusOutWriteA, wBusOutWriteB, wBusRegA, wBusRegB);
-    
+    `else    
+    OnChipRegs registers((fCSRegisterPage<<4)+((rPipeState==`sPipeDecode||rPipeState==`sPipeFetch)?wBusInAddrA:wBusOutAddrA), (fCSRegisterPage<<4)+((rPipeState==`sPipeDecode||rPipeState==`sPipeFetch)?wBusInAddrB:wBusOutAddrB), wClkInt, wBusOutA, wBusOutB, wBusOutWriteA, wBusOutWriteB, wBusRegA, wBusRegB);
+    `endif
+
     // System pipeline controller
     always @(posedge wClkInt) begin
         if(iRst) begin

@@ -6,8 +6,8 @@
 // Gonna need this later
 /* verilator lint_off WIDTH */
 
-module clocksplit(iReset, iIn, oOut, oOutNinety);
-    input iReset, iIn;
+module EmulatedPLL(iIn, oOut, oOutNinety);
+    input iIn;
     output reg oOut, oOutNinety;
 
     reg [1:0] rClockSplit;
@@ -31,15 +31,25 @@ module clocksplit(iReset, iIn, oOut, oOutNinety);
 
 endmodule
 
+module BusConverter(iEnable, iData, bData);
+    
+    input iEnable;
+    input [31:0] iData;
+    inout [31:0] bData;
+
+    assign bData = (iEnable) ? iData : 32'hz;
+
+endmodule
+
 module epRISC_machine(iBoardClock, iBoardReset, iBoardSense, oBoardAcknowledge, iBoardReceive, oBoardTransmit,
-                      bBoardDebug0, bBoardDebug1, bBoardDebug2, bBoardDebug3, bBoardDebug4, bBoardDebug5,
+                      bBoardDebug0, bBoardDebug2, bBoardDebug3, bBoardDebug4, bBoardDebug5,
                       oBusMOSI, iBusMISO, oBusClock, iBusInterrupt, oBusSelect,
                       bMemoryData, oMemoryAddress, oMemoryBank, oMemoryDQM, oMemoryCKE, oMemoryCLK, oMemoryWE, oMemoryCAS, oMemoryRAS, oMemoryCS);
 
     // External I/O 
     input iBoardClock, iBoardReset, iBoardSense, iBoardReceive;
     output wire oBoardAcknowledge, oBoardTransmit;
-    inout bBoardDebug0, bBoardDebug1, bBoardDebug2, bBoardDebug3, bBoardDebug4, bBoardDebug5;
+    inout bBoardDebug0, bBoardDebug2, bBoardDebug3, bBoardDebug4, bBoardDebug5;
 
     input iBusInterrupt;
     input [0:7] iBusMISO;
@@ -57,7 +67,6 @@ module epRISC_machine(iBoardClock, iBoardReset, iBoardSense, oBoardAcknowledge, 
     assign oBoardAcknowledge = 1'h1;
     assign oBoardTransmit = 1'h1;
     assign bBoardDebug0 = 1'bz;
-    assign bBoardDebug1 = 1'bz;
     assign bBoardDebug2 = 1'bz;
     assign bBoardDebug3 = 1'bz;
     assign bBoardDebug4 = 1'bz;
@@ -77,7 +86,7 @@ module epRISC_machine(iBoardClock, iBoardReset, iBoardSense, oBoardAcknowledge, 
 
     // Front-side bus
     wire wCoreBusClock, wCoreBusMemClock, wCoreBusReset, wCoreBusWrite, wCoreBusInterrupt, wCoreBusNMInterrupt;
-    wire [0:31] wCoreBusAddress, wCoreBusData;
+    wire [0:31] wCoreBusAddress, wCoreBusData, wRAMData;
 
     wire wEnableRAM, wEnableROM, wEnableBusControl;
 
@@ -86,7 +95,6 @@ module epRISC_machine(iBoardClock, iBoardReset, iBoardSense, oBoardAcknowledge, 
 
     // FSB assign statements
     assign wCoreBusReset = iBoardReset;
-    assign wCoreBusInterrupt = 0;
     assign wCoreBusNMInterrupt = 0;
 
     assign wEnableROM = (wCoreBusAddress >= 32'h0 && wCoreBusAddress < 32'hFF) ? 1'h1 : 1'h0;
@@ -94,12 +102,22 @@ module epRISC_machine(iBoardClock, iBoardReset, iBoardSense, oBoardAcknowledge, 
     assign wEnableBusControl = (wCoreBusAddress >= 32'h200 && wCoreBusAddress < 32'h210) ? 1'h1 : 1'h0;
     
     // Modules on the FSB
-    clocksplit       clock(wCoreBusReset, iBoardClock, wCoreBusClock, wCoreBusMemClock);
+    `ifdef EMULATED
+    emupll              clock(iBoardClock, wCoreBusClock, wCoreBusMemClock);
+    `else
+    OnChipPLL           clock(iBoardClock, wCoreBusClock, wCoreBusMemClock);
+    `endif
 
-    epRISC_core       core(wCoreBusClock, wCoreBusReset, wCoreBusAddress, wCoreBusData, wCoreBusWrite, wCoreBusInterrupt, wCoreBusNMInterrupt, wCoreHalt, wCoreFlag); 
-    epRISC_sysXMaster  bus(wCoreBusMemClock, wCoreBusReset, wCoreBusAddress, wCoreBusData, wCoreBusWrite, wEnableBusControl, wCoreBusInterrupt, wCoreBusMemClock, iBusMISO, oBusMOSI, oBusClock, iBusInterrupt, oBusSelect);
+    epRISC_core         core(wCoreBusClock, wCoreBusReset, wCoreBusAddress, wCoreBusData, wCoreBusWrite, wCoreBusInterrupt, wCoreBusNMInterrupt, wCoreHalt, wCoreFlag); 
+    epRISC_sysXMaster   bus(wCoreBusMemClock, wCoreBusReset, wCoreBusAddress, wCoreBusData, wCoreBusWrite, wEnableBusControl, wCoreBusInterrupt, wCoreBusMemClock, iBusMISO, oBusMOSI, oBusClock, iBusInterrupt, oBusSelect);
+    
+    epRISC_embeddedROM  tbrom(wCoreBusMemClock, wCoreBusAddress, wCoreBusData, wEnableROM); 
 
-    epRISC_testRAM   tbram(wCoreBusMemClock, wCoreBusReset, wCoreBusAddress, wCoreBusData, wCoreBusWrite, wEnableRAM); 
-    epRISC_testROM   tbrom(wCoreBusMemClock, wCoreBusAddress, wCoreBusData, wEnableROM); 
+    BusConverter        bcram(wEnableRAM&&(!iWrite), wRAMData, wCoreBusData);
+    `ifdef EMULATED
+    epRISC_testRAM      tbram(wCoreBusAddress, wCoreBusMemClock, wCoreBusData, wCoreBusWrite, wRAMData); 
+    `else
+    OnChipRAM           tbram(wCoreBusAddress, wCoreBusMemClock, wCoreBusData, wCoreBusWrite, wRAMData); 
+    `endif
 
 endmodule
