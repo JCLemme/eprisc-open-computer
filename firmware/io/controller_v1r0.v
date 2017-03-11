@@ -28,7 +28,7 @@ module epRISC_controlRAM(iClk, iRst, iAddr, iData, oData, iWrite, iEnable);
 
     reg [31:0] rContents[0:255];
     
-    assign oData = rContents[iAddr];
+    assign oData = (iWrite || !iEnable) ? 16'hz : rContents[iAddr];
     
     always @(posedge iClk) begin
         if(iRst) begin
@@ -102,7 +102,7 @@ module epRISC_iocontroller(iBusClock, iBusSelect, iBusMOSI, oBusInterrupt, oBusM
     // Bus assign statements
     assign mBusAddress = rInternalMOSI[30:16];
     assign mBusData = rInternalMOSI[15:0];
-    assign mBusWrite = (rPipeState == `sPipeStore && rInternalMOSI[31]) 1'h1 : 1'h0;
+    assign mBusWrite = (rPipeState == `sPipeStore && rInternalMOSI[31]) ? 1'h1 : 1'h0;
 
     assign wEnableGPIO = (mBusAddress >= 15'h0 && mBusAddress < 15'hFF) ? 1'h1 : 1'h0;
     assign wEnableRAM = (mBusAddress >= 15'h100 && mBusAddress < 15'h1FF) ? 1'h1 : 1'h0;
@@ -113,12 +113,14 @@ module epRISC_iocontroller(iBusClock, iBusSelect, iBusMOSI, oBusInterrupt, oBusM
                       (rPipeState == `sPipeHiHi) ? wInternalMISO[31:24] : 8'h0;
 
     
-    epRISC_GPIO         gpio(iBusClock, iBoardReset, oBusInterrupt, mBusAddress, mBusData, wInternalMISO, mBusWrite, iEnable, bPort0, bPort1, bPort2, bPort3, bPort4, bPort5, bPort6, bPort7);
-    epRISC_controlRAM   mem(iBusClock, iBoardReset, mBusAddress, rInternalMOSI, wInternalMISO, mBusWrite, 1);
+    epRISC_GPIO         gpio(iBusClock, iBoardReset, oBusInterrupt, mBusAddress, mBusData, wInternalMISO, mBusWrite, wEnableGPIO, 
+                             bGPIO0, bGPIO1, bGPIO2, bGPIO3, bGPIO4, bGPIO5, bGPIO6, bGPIO7, bGPIO8, bGPIO9, bGPIO10, bGPIO11, bGPIO12, bGPIO13, bGPIO14, bGPIO15);
+                             
+    epRISC_controlRAM   mem(iBusClock, iBoardReset, mBusAddress, rInternalMOSI, wInternalMISO, mBusWrite, wEnableRAM);
 
     // Pipeline controller
     always @(posedge iBusClock) begin
-        if(iReset || iBusSelect == 2'h0) begin
+        if(iBoardReset || iBusSelect == 2'h0) begin
             rPipePrevState <= `sPipeLoad;
             rPipeState <= `sPipeLoad;
         end else begin
@@ -140,7 +142,7 @@ module epRISC_iocontroller(iBusClock, iBusSelect, iBusMOSI, oBusInterrupt, oBusM
     end
     
     always @(negedge iBusClock) begin
-        if(iReset) begin
+        if(iBoardReset) begin
             rInternalMOSI <= 0;
         end else begin
             if(rPipeState == `sPipeLoLo)

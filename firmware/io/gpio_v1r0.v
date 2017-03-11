@@ -14,7 +14,7 @@ module epRISC_GPIO(iClock, iReset, oInterrupt, iAddress, iData, oData, iWrite, i
 
     input iClock, iReset, iWrite, iEnable;
     input [1:0] iAddress;
-    inout bPort0, bPort1, bPort2, bPort3, bPort4, bPort5, bPort6, bPort7;    
+    inout bPort0, bPort1, bPort2, bPort3, bPort4, bPort5, bPort6, bPort7, bPort8, bPort9, bPort10, bPort11, bPort12, bPort13, bPort14, bPort15;    
     input [15:0] iData;
     output wire [15:0] oData;
     output reg oInterrupt;
@@ -31,7 +31,15 @@ module epRISC_GPIO(iClock, iReset, oInterrupt, iAddress, iData, oData, iWrite, i
     assign bPort5 = (rDirection[5]) ? rValue[5] : 1'bz;
     assign bPort6 = (rDirection[6]) ? rValue[6] : 1'bz;
     assign bPort7 = (rDirection[7]) ? rValue[7] : 1'bz;   
-   
+    assign bPort8 = (rDirection[8]) ? rValue[8] : 1'bz;
+    assign bPort9 = (rDirection[9]) ? rValue[9] : 1'bz; 
+    assign bPort10 = (rDirection[10]) ? rValue[10] : 1'bz;
+    assign bPort11 = (rDirection[11]) ? rValue[11] : 1'bz;
+    assign bPort12 = (rDirection[12]) ? rValue[12] : 1'bz;
+    assign bPort13 = (rDirection[13]) ? rValue[13] : 1'bz;
+    assign bPort14 = (rDirection[14]) ? rValue[14] : 1'bz;
+    assign bPort15 = (rDirection[15]) ? rValue[15] : 1'bz;   
+    
     always @(posedge iClock) begin
         if(iReset) begin
             oInterrupt <= 0;
@@ -76,6 +84,14 @@ module epRISC_GPIO(iClock, iReset, oInterrupt, iAddress, iData, oData, iWrite, i
                 rValue[5] <= (rDirection[5]) ? rValue[5] : bPort5;
                 rValue[6] <= (rDirection[6]) ? rValue[6] : bPort6;
                 rValue[7] <= (rDirection[7]) ? rValue[7] : bPort7;
+                rValue[8] <= (rDirection[8]) ? rValue[8] : bPort8;
+                rValue[9] <= (rDirection[9]) ? rValue[9] : bPort9;
+                rValue[10] <= (rDirection[10]) ? rValue[10] : bPort10;
+                rValue[11] <= (rDirection[11]) ? rValue[11] : bPort11;
+                rValue[12] <= (rDirection[12]) ? rValue[12] : bPort12;
+                rValue[13] <= (rDirection[13]) ? rValue[13] : bPort13;
+                rValue[14] <= (rDirection[14]) ? rValue[14] : bPort14;
+                rValue[15] <= (rDirection[15]) ? rValue[15] : bPort15;
             end
         end
     end  

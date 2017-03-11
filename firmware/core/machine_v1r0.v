@@ -52,16 +52,16 @@ module epRISC_machine(iBoardClock, iBoardReset, iBoardSense, oBoardAcknowledge, 
     inout bBoardDebug0, bBoardDebug2, bBoardDebug3, bBoardDebug4, bBoardDebug5;
 
     input iBusInterrupt;
-    input [0:7] iBusMISO;
+    input [7:0] iBusMISO;
     output wire oBusClock;
-    output wire [0:1] oBusSelect;
-    output wire [0:7] oBusMOSI;
+    output wire [1:0] oBusSelect;
+    output wire [7:0] oBusMOSI;
 
     output wire oMemoryCKE, oMemoryCLK, oMemoryWE, oMemoryCAS, oMemoryRAS, oMemoryCS;
-    output wire [0:1] oMemoryBank;
-    output wire [0:3] oMemoryDQM;
-    output wire [0:11] oMemoryAddress;
-    inout [0:32] bMemoryData;
+    output wire [1:0] oMemoryBank;
+    output wire [3:0] oMemoryDQM;
+    output wire [11:0] oMemoryAddress;
+    inout [31:0] bMemoryData;
 
     // Temporary assign statements, to make sure I/O is safe when internally disconnected
     assign oBoardAcknowledge = 1'h1;
