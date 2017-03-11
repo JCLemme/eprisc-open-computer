@@ -89,17 +89,32 @@ module epRISC_iocontroller(iBusClock, iBusSelect, iBusMOSI, oBusInterrupt, oBusM
     reg [31:0] rInternalMOSI;
     wire [31:0] wInternalMISO;
 
+    // Internal bus definitions
+    wire mBusWrite;
+    wire [14:0] mBusAddress;
+    wire [15:0] mBusData;
+
+    wire wEnableGPIO, wEnableUART, wEnableSPI, wEnableVideo, wEnablePS2, wEnableRAM;
+
     // Pipeline controller registers
     reg [3:0] rPipeState, rPipePrevState, rPipeNextState;
 
     // Bus assign statements
+    assign mBusAddress = rInternalMOSI[30:16];
+    assign mBusData = rInternalMOSI[15:0];
+    assign mBusWrite = (rPipeState == `sPipeStore && rInternalMOSI[31]) 1'h1 : 1'h0;
+
+    assign wEnableGPIO = (mBusAddress >= 15'h0 && mBusAddress < 15'hFF) ? 1'h1 : 1'h0;
+    assign wEnableRAM = (mBusAddress >= 15'h100 && mBusAddress < 15'h1FF) ? 1'h1 : 1'h0;
+
     assign oBusMISO = (rPipeState == `sPipeLoLo) ? wInternalMISO[7:0] :
                       (rPipeState == `sPipeLo) ? wInternalMISO[15:8] :
                       (rPipeState == `sPipeHi) ? wInternalMISO[23:16] :
                       (rPipeState == `sPipeHiHi) ? wInternalMISO[31:24] : 8'h0;
 
-
-    epRISC_controlRAM testing(iBusClock, iReset, rInternalMOSI[15:8], rInternalMOSI, wInternalMISO, (rPipeState==`sPipeStore&&rInternalMOSI[16])?1:0, 1);
+    
+    epRISC_GPIO         gpio(iBusClock, iBoardReset, oBusInterrupt, mBusAddress, mBusData, wInternalMISO, mBusWrite, iEnable, bPort0, bPort1, bPort2, bPort3, bPort4, bPort5, bPort6, bPort7);
+    epRISC_controlRAM   mem(iBusClock, iBoardReset, mBusAddress, rInternalMOSI, wInternalMISO, mBusWrite, 1);
 
     // Pipeline controller
     always @(posedge iBusClock) begin

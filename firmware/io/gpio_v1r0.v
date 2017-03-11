@@ -1,17 +1,27 @@
-module GPIO_epRISC(iClk, iRst, oInt, iAddr, bData, iWrite, iEnable, oDisplayAddr, oDisplayData, bPort0, bPort1, bPort2, bPort3, bPort4, bPort5, bPort6, bPort7);
+// epRISC I/O module - GPIO controller
+//
+// written by John C. Lemme, jclemme (at) proportionallabs (dot) com
+// this file is part of the epRISC project, released under the epRISC license - see "license.txt" for details.
 
-    input iClk, iRst, iWrite, iEnable;
-    input [1:0] iAddr;
+// Everything here is unfinished and/or broken.
+// Below there be dragons.
+
+// Gonna need this later
+/* verilator lint_off WIDTH */
+
+
+module epRISC_GPIO(iClock, iReset, oInterrupt, iAddress, iData, oData, iWrite, iEnable, bPort0, bPort1, bPort2, bPort3, bPort4, bPort5, bPort6, bPort7);
+
+    input iClock, iReset, iWrite, iEnable;
+    input [1:0] iAddress;
     inout bPort0, bPort1, bPort2, bPort3, bPort4, bPort5, bPort6, bPort7;    
-    inout [31:0] bData;
-    output reg oInt;
-    output wire [3:0] oDisplayAddr;
-    output wire [7:0] oDisplayData;
+    input [15:0] iData;
+    output wire [15:0] oData;
+    output reg oInterrupt;
     
-    reg [1:0] rDisplayDigit;
-    reg [31:0] rDirection, rInterrupt, rValue, rDisplay;
+    reg [15:0] rDirection, rInterrupt, rValue;
     
-    assign bData = (iWrite || !iEnable) ? 32'bz : (iAddr == 0) ? rDirection : (iAddr == 1) ? rInterrupt : (iAddr == 2) ? rValue : (iAddr == 3) ? rDisplay : 32'hEA;
+    assign oData = (iWrite || !iEnable) ? 16'hz : (iAddress == 2'h0) ? rDirection : (iAddr == 2'h1) ? rInterrupt : (iAddr == 2'h2) ? rValue : 32'hEA;
     
     assign bPort0 = (rDirection[0]) ? rValue[0] : 1'bz;
     assign bPort1 = (rDirection[1]) ? rValue[1] : 1'bz; 
@@ -22,44 +32,41 @@ module GPIO_epRISC(iClk, iRst, oInt, iAddr, bData, iWrite, iEnable, oDisplayAddr
     assign bPort6 = (rDirection[6]) ? rValue[6] : 1'bz;
     assign bPort7 = (rDirection[7]) ? rValue[7] : 1'bz;   
    
-    assign oDisplayAddr = 4'h1 << rDisplayDigit;
-    assign oDisplayData = ~((rDisplay & (8'hFF << ((rDisplayDigit) * 8))) >> ((rDisplayDigit) * 8));
-    
-    always @(posedge iClk) begin
-        if(iRst) begin
-            oInt <= 0;
+    always @(posedge iClock) begin
+        if(iReset) begin
+            oInterrupt <= 0;
         end else begin
-            oInt <= (rDirection & rValue & rInterrupt) ? 1 : 0;
+            oInterrupt <= (rDirection & rValue & rInterrupt) ? 1 : 0;
             
-            if(!iWrite && iEnable && iAddr == 1)
-                oInt <= 0;
+            if(!iWrite && iEnable && iAddress == 1)
+                oInterrupt <= 0;
         end
     end
     
-    always @(posedge iClk) begin
-        if(iRst) begin
+    always @(posedge iClock) begin
+        if(iReset) begin
             rDirection <= 0;
         end else begin
-            if(iWrite && iEnable && iAddr == 0)
-                rDirection <= bData;
+            if(iWrite && iEnable && iAddress == 0)
+                rDirection <= iData;
         end
     end
     
-    always @(posedge iClk) begin
-        if(iRst) begin
+    always @(posedge iClock) begin
+        if(iReset) begin
             rInterrupt <= 0;
         end else begin
-            if(iWrite && iEnable && iAddr == 1)
-                rInterrupt <= bData;
+            if(iWrite && iEnable && iAddress == 1)
+                rInterrupt <= iData;
         end
     end
     
-    always @(posedge iClk) begin
-        if(iRst) begin
+    always @(posedge iClock) begin
+        if(iReset) begin
             rValue <= 0;
         end else begin
-            if(iWrite && iEnable && iAddr == 2) begin
-                rValue <= bData;
+            if(iWrite && iEnable && iAddress == 2) begin
+                rValue <= iData;
             end else begin
                 rValue[0] <= (rDirection[0]) ? rValue[0] : bPort0;
                 rValue[1] <= (rDirection[1]) ? rValue[1] : bPort1;
@@ -72,23 +79,6 @@ module GPIO_epRISC(iClk, iRst, oInt, iAddr, bData, iWrite, iEnable, oDisplayAddr
             end
         end
     end  
-    
-    always @(posedge iClk) begin
-        if(iRst) begin
-            rDisplay <= 0;
-        end else begin
-            if(iWrite && iEnable && iAddr == 3)
-                rDisplay <= bData;
-        end
-    end
-    
-    always @(posedge iClk) begin
-        if(iRst) begin
-            rDisplayDigit <= 0;
-        end else begin
-            rDisplayDigit <= rDisplayDigit + 1;
-        end
-    end
     
 endmodule
 
