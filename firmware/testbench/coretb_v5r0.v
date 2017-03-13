@@ -42,7 +42,7 @@ module epRISC_coreTB();
     wire bPS2Data, bPS2Clock;
 
     epRISC_machine machine(iBoardClock, iBoardReset, iBoardSense, oBoardAcknowledge, iBoardReceive, oBoardTransmit,
-                      bBoardDebug0, bBoardDebug1, bBoardDebug2, bBoardDebug3, bBoardDebug4, bBoardDebug5,
+                      bBoardDebug0, bBoardDebug2, bBoardDebug3, bBoardDebug4, bBoardDebug5,
                       oBusMOSI, iBusMISO, oBusClock, iBusInterrupt, oBusSelect,
                       bMemoryData, oMemoryAddress, oMemoryBank, oMemoryDQM, oMemoryCKE, oMemoryCLK, oMemoryWE, oMemoryCAS, oMemoryRAS, oMemoryCS);
 

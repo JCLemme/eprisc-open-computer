@@ -10,7 +10,8 @@
 /* verilator lint_off WIDTH */
 
 
-module epRISC_GPIO(iClock, iReset, oInterrupt, iAddress, iData, oData, iWrite, iEnable, bPort0, bPort1, bPort2, bPort3, bPort4, bPort5, bPort6, bPort7);
+module epRISC_GPIO(iClock, iReset, oInterrupt, iAddress, iData, oData, iWrite, iEnable, 
+                   bPort0, bPort1, bPort2, bPort3, bPort4, bPort5, bPort6, bPort7, bPort8, bPort9, bPort10, bPort11, bPort12, bPort13, bPort14, bPort15);
 
     input iClock, iReset, iWrite, iEnable;
     input [1:0] iAddress;
@@ -21,7 +22,7 @@ module epRISC_GPIO(iClock, iReset, oInterrupt, iAddress, iData, oData, iWrite, i
     
     reg [15:0] rDirection, rInterrupt, rValue;
     
-    assign oData = (iWrite || !iEnable) ? 16'hz : (iAddress == 2'h0) ? rDirection : (iAddr == 2'h1) ? rInterrupt : (iAddr == 2'h2) ? rValue : 32'hEA;
+    assign oData = (iWrite || !iEnable) ? 16'hz : (iAddress == 2'h0) ? rDirection : (iAddress == 2'h1) ? rInterrupt : (iAddress == 2'h2) ? rValue : 16'hEA;
     
     assign bPort0 = (rDirection[0]) ? rValue[0] : 1'bz;
     assign bPort1 = (rDirection[1]) ? rValue[1] : 1'bz; 

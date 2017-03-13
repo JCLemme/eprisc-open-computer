@@ -103,7 +103,7 @@ module epRISC_machine(iBoardClock, iBoardReset, iBoardSense, oBoardAcknowledge, 
     
     // Modules on the FSB
     `ifdef EMULATED
-    emupll              clock(iBoardClock, wCoreBusClock, wCoreBusMemClock);
+    EmulatedPLL         clock(iBoardClock, wCoreBusClock, wCoreBusMemClock);
     `else
     OnChipPLL           clock(iBoardClock, wCoreBusClock, wCoreBusMemClock);
     `endif

@@ -133,7 +133,7 @@ b                                           Branch select (implied 0)           
   d                                         Direct move select (implied 1)          Flag identifying the instruction as a direct move instruction.
    o                                        Bitwise OR select                       When true, performs a bitwise OR on the contents of the destination register and the value as opposed to replacement.
      dddd                                   Destination register                    Register to store the value into.
-          ssss                              Left shift                              Shift for the value to be stored.
+          ssss                              Even left shift                         Shift for the value to be stored.
                vvvv vvvv vvvv vvvv vvvv     Value (20-bit, +-524288)                Value to store into the destination register.
 
 

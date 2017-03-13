@@ -27,12 +27,17 @@ module epRISC_gpr(iAddrA, iAddrB, iClk, iDInA, iDInB, iWriteA, iWriteB, oDOutA, 
     input [31:0] iDInA, iDInB;
     output reg [31:0] oDOutA, oDOutB;
     
-    reg [7:0] rClr;
+    reg [8:0] rClr;
     reg [31:0] rContents[0:255];
-        
+    
     wire debug;
     assign debug = (rContents[5] < 10) ? 1 : 0;
 
+    initial begin
+        for(rClr=0;rClr<256;rClr=rClr+1)
+            rContents[rClr] = 0;
+    end
+    
     always @(posedge iClk) begin
         if(iWriteA) begin
             rContents[iAddrA] <= iDInA;
@@ -189,7 +194,7 @@ module epRISC_core(iClk, iRst, oAddr, bData, oWrite, iMaskInt, iNonMaskInt, oHal
     assign wBusInA = (wBusInAddrA == 0 && !fCSHideRegs) ? rRegIP : ((wBusInAddrA == 1 && !fCSHideRegs) ? ((mLoadLoad && fLoadBase == 4'h2) ? (rRegSP-1) : rRegSP) : ((wBusInAddrA == 2 && !fCSHideRegs) ? rRegCS : ((wBusInAddrA == 3 && !fCSHideRegs) ? rRegGL : ((fCSRegisterPage == 4'hF && wBusInAddrA == 4) ? rRegInterruptBase : wBusRegA))));
     assign wBusInB = (wBusInAddrB == 0 && !fCSHideRegs) ? rRegIP : ((wBusInAddrB == 1 && !fCSHideRegs) ? ((mLoadLoad && fLoadBase == 4'h2) ? (rRegSP-1) : rRegSP) : ((wBusInAddrB == 2 && !fCSHideRegs) ? rRegCS : ((wBusInAddrB == 3 && !fCSHideRegs) ? rRegGL : ((fCSRegisterPage == 4'hF && wBusInAddrB == 4) ? rRegInterruptBase : wBusRegB))));
     assign wBusOutA = (mALU) ? rRegR[31:0] : ((mLoadLoad) ? rRegM : rRegA);
-    assign wBusOutB = rRegB;
+    assign wBusOutB = (mDirectOR) ? rALUOut : rRegB;
     assign wBusInAddrA = (mBranch) ? fBranchBase : ((mLoad) ? fLoadBase : ((mDirect) ? fDirectDestination : ((mALU) ? fALUTermA : ((mRegister) ? fRegisterDestination : 8'hFF))));
     assign wBusInAddrB = (mLoad) ? fLoadTarget : ((mALU) ? fALUTermB : ((mRegister) ? fRegisterSource : 8'hFF));
     assign wBusOutAddrA = (mRegister) ? fRegisterSource : ((mALU) ? fALUDestination : ((mLoad) ? fLoadTarget : 8'hFF));
@@ -349,9 +354,9 @@ module epRISC_core(iClk, iRst, oAddr, bData, oWrite, iMaskInt, iNonMaskInt, oHal
                 else if(mLoad)
                     rRegB <= (fCSSignExtend) ? (32'hFFF00000 + fLoadOffset) : (fLoadOffset);
                 else if(mDirect)
-                    rRegB <= (fDirectValue << fDirectShift);
+                    rRegB <= fDirectValue << {fDirectShift, 1'h0};
                 else if(mALU && !mALURegisters)
-                    rRegB <= fALUValue << (fALUShift << 1);
+                    rRegB <= fALUValue << {fALUShift, 1'h0};
                 else if(mALU && !mALURegisters && (fALUOperation == 5'd12 || fALUOperation == 5'd13))
                     rRegB <= (fALUShift << 1);
                 else
