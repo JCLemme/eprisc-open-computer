@@ -78,8 +78,9 @@ module epRISC_iocontroller(iBusClock, iBusSelect, iBusMOSI, oBusInterrupt, oBusM
     output wire [3:0] oExtBusMOSI;
                            
     input iSPIMISO, iSPIDetect0, iSPIDetect1, iSPIWrite0, iSPIWrite1;
-    output wire oSPIMOSI, oSPISelect, oSPIClock;
-                           
+    output wire oSPIMOSI, oSPIClock;
+    output wire [3:0] oSPISelect;
+	 
     output wire oVGAHorizontal, oVGAVertical;
     output wire [7:0] oVGAColor; 
                            
