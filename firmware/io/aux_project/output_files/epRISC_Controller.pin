@@ -1,0 +1,216 @@
+ -- Copyright (C) 1991-2016 Altera Corporation. All rights reserved.
+ -- Your use of Altera Corporation's design tools, logic functions 
+ -- and other software and tools, and its AMPP partner logic 
+ -- functions, and any output files from any of the foregoing 
+ -- (including device programming or simulation files), and any 
+ -- associated documentation or information are expressly subject 
+ -- to the terms and conditions of the Altera Program License 
+ -- Subscription Agreement, the Altera Quartus Prime License Agreement,
+ -- the Altera MegaCore Function License Agreement, or other 
+ -- applicable license agreement, including, without limitation, 
+ -- that your use is for the sole purpose of programming logic 
+ -- devices manufactured by Altera and sold by Altera or its 
+ -- authorized distributors.  Please refer to the applicable 
+ -- agreement for further details.
+ -- 
+ -- This is a Quartus Prime output file. It is for reporting purposes only, and is
+ -- not intended for use as a Quartus Prime input file. This file cannot be used
+ -- to make Quartus Prime pin assignments - for instructions on how to make pin
+ -- assignments, please see Quartus Prime help.
+ ---------------------------------------------------------------------------------
+
+
+
+ ---------------------------------------------------------------------------------
+ -- NC            : No Connect. This pin has no internal connection to the device.
+ -- DNU           : Do Not Use. This pin MUST NOT be connected.
+ -- VCCINT        : Dedicated power pin, which MUST be connected to VCC  (1.2V).
+ -- VCCIO         : Dedicated power pin, which MUST be connected to VCC
+ --                 of its bank.
+ --                  Bank 1A:       2.5V
+ --                  Bank 1B:       2.5V
+ --                  Bank 2:       2.5V
+ --                  Bank 3:       2.5V
+ --                  Bank 4:       2.5V
+ --                  Bank 5:       2.5V
+ --                  Bank 6:       2.5V
+ --                  Bank 7:       2.5V
+ --                  Bank 8:       2.5V
+ -- GND           : Dedicated ground pin. Dedicated GND pins MUST be connected to GND.
+ --                  It can also be used to report unused dedicated pins. The connection
+ --                  on the board for unused dedicated pins depends on whether this will
+ --                  be used in a future design. One example is device migration. When
+ --                  using device migration, refer to the device pin-tables. If it is a
+ --                  GND pin in the pin table or if it will not be used in a future design
+ --                  for another purpose the it MUST be connected to GND. If it is an unused
+ --                  dedicated pin, then it can be connected to a valid signal on the board
+ --                  (low, high, or toggling) if that signal is required for a different
+ --                  revision of the design.
+ -- GND+          : Unused input pin. It can also be used to report unused dual-purpose pins.
+ --                  This pin should be connected to GND. It may also be connected  to a
+ --                  valid signal  on the board  (low, high, or toggling)  if that signal
+ --                  is required for a different revision of the design.
+ -- GND*          : Unused  I/O  pin. Connect each pin marked GND* directly to GND
+ --                  or leave it unconnected.
+ -- RESERVED      : Unused I/O pin, which MUST be left unconnected.
+ -- RESERVED_INPUT    : Pin is tri-stated and should be connected to the board.
+ -- RESERVED_INPUT_WITH_WEAK_PULLUP    : Pin is tri-stated with internal weak pull-up resistor.
+ -- RESERVED_INPUT_WITH_BUS_HOLD       : Pin is tri-stated with bus-hold circuitry.
+ -- RESERVED_OUTPUT_DRIVEN_HIGH        : Pin is output driven high.
+ ---------------------------------------------------------------------------------
+
+
+
+ ---------------------------------------------------------------------------------
+ -- Pin directions (input, output or bidir) are based on device operating in user mode.
+ ---------------------------------------------------------------------------------
+
+Quartus Prime Version 16.0.0 Build 211 04/27/2016 SJ Lite Edition
+CHIP  "epRISC_Controller"  ASSIGNED TO AN: 10M16SCE144C8G
+
+Pin Name/Usage               : Location  : Dir.   : I/O Standard      : Voltage : I/O Bank  : User Assignment
+-------------------------------------------------------------------------------------------------------------
+VCC_ONE                      : 1         : power  :                   : 3.0V/3.3V :           :                
+VCCA6                        : 2         : power  :                   : 3.0V/3.3V :           :                
+GND                          : 3         : gnd    :                   :         :           :                
+GND                          : 4         : gnd    :                   :         :           :                
+VCCA3                        : 5         : power  :                   : 3.0V/3.3V :           :                
+iBusMOSI[7]                  : 6         : input  : 2.5 V             :         : 1A        : Y              
+iBusMOSI[6]                  : 7         : input  : 2.5 V             :         : 1A        : Y              
+iBusMOSI[5]                  : 8         : input  : 2.5 V             :         : 1A        : Y              
+VCCIO1A                      : 9         : power  :                   : 2.5V    : 1A        :                
+iBusMOSI[4]                  : 10        : input  : 2.5 V             :         : 1A        : Y              
+iBusMOSI[3]                  : 11        : input  : 2.5 V             :         : 1A        : Y              
+iBusMOSI[2]                  : 12        : input  : 2.5 V             :         : 1A        : Y              
+iBusMOSI[1]                  : 13        : input  : 2.5 V             :         : 1A        : Y              
+iBusMOSI[0]                  : 14        : input  : 2.5 V             :         : 1A        : Y              
+RESERVED_INPUT_WITH_WEAK_PULLUP : 15        :        :                   :         : 1B        :                
+~ALTERA_TMS~ / RESERVED_INPUT_WITH_WEAK_PULLUP : 16        : input  : 2.5 V Schmitt Trigger :         : 1B        : N              
+bBoardDebug4                 : 17        : bidir  : 2.5 V             :         : 1B        : Y              
+~ALTERA_TCK~ / RESERVED_INPUT : 18        : input  : 2.5 V Schmitt Trigger :         : 1B        : N              
+~ALTERA_TDI~ / RESERVED_INPUT_WITH_WEAK_PULLUP : 19        : input  : 2.5 V Schmitt Trigger :         : 1B        : N              
+~ALTERA_TDO~                 : 20        : output : 2.5 V             :         : 1B        : N              
+bBoardDebug0                 : 21        : bidir  : 2.5 V             :         : 1B        : Y              
+bBoardDebug1                 : 22        : bidir  : 2.5 V             :         : 1B        : Y              
+VCCIO1B                      : 23        : power  :                   : 2.5V    : 1B        :                
+bBoardDebug2                 : 24        : bidir  : 2.5 V             :         : 1B        : Y              
+bBoardDebug3                 : 25        : bidir  : 2.5 V             :         : 1B        : Y              
+iBusClock                    : 26        : input  : 2.5 V             :         : 2         : Y              
+oBusMISO[0]                  : 27        : output : 2.5 V             :         : 2         : Y              
+iBoardClock                  : 28        : input  : 2.5 V             :         : 2         : Y              
+oBusMISO[1]                  : 29        : output : 2.5 V             :         : 2         : Y              
+oBusMISO[4]                  : 30        : output : 2.5 V             :         : 2         : Y              
+VCCIO2                       : 31        : power  :                   : 2.5V    : 2         :                
+oBusMISO[3]                  : 32        : output : 2.5 V             :         : 2         : Y              
+oBusMISO[2]                  : 33        : output : 2.5 V             :         : 2         : Y              
+VCCA2                        : 34        : power  :                   : 3.0V/3.3V :           :                
+VCCA1                        : 35        : power  :                   : 3.0V/3.3V :           :                
+VCC_ONE                      : 36        : power  :                   : 3.0V/3.3V :           :                
+VCC_ONE                      : 37        : power  :                   : 3.0V/3.3V :           :                
+oBusMISO[5]                  : 38        : output : 2.5 V             :         : 3         : Y              
+oBusMISO[6]                  : 39        : output : 2.5 V             :         : 3         : Y              
+VCCIO3                       : 40        : power  :                   : 2.5V    : 3         :                
+oBusMISO[7]                  : 41        : output : 2.5 V             :         : 3         : Y              
+GND                          : 42        : gnd    :                   :         :           :                
+iSPIMISO                     : 43        : input  : 2.5 V             :         : 3         : Y              
+oSPIMOSI                     : 44        : output : 2.5 V             :         : 3         : Y              
+oSPISelect[0]                : 45        : output : 2.5 V             :         : 3         : Y              
+bGPIO4                       : 46        : bidir  : 2.5 V             :         : 3         : Y              
+bGPIO5                       : 47        : bidir  : 2.5 V             :         : 3         : Y              
+oSPISelect[1]                : 48        : output : 2.5 V             :         : 3         : Y              
+VCCIO3                       : 49        : power  :                   : 2.5V    : 3         :                
+bGPIO6                       : 50        : bidir  : 2.5 V             :         : 3         : Y              
+VCC_ONE                      : 51        : power  :                   : 3.0V/3.3V :           :                
+iTTLSerialRX                 : 52        : input  : 2.5 V             :         : 3         : Y              
+GND                          : 53        : gnd    :                   :         :           :                
+iTTLSerialRST                : 54        : input  : 2.5 V             :         : 3         : Y              
+iSPIDetect0                  : 55        : input  : 2.5 V             :         : 3         : Y              
+iSPIDetect1                  : 56        : input  : 2.5 V             :         : 3         : Y              
+iSPIWrite0                   : 57        : input  : 2.5 V             :         : 3         : Y              
+iSPIWrite1                   : 58        : input  : 2.5 V             :         : 3         : Y              
+oSPISelect[2]                : 59        : output : 2.5 V             :         : 3         : Y              
+oSPIClock                    : 60        : output : 2.5 V             :         : 3         : Y              
+bGPIO13                      : 61        : bidir  : 2.5 V             :         : 4         : Y              
+iBusSelect[0]                : 62        : input  : 2.5 V             :         : 4         : Y              
+GND                          : 63        : gnd    :                   :         :           :                
+bGPIO10                      : 64        : bidir  : 2.5 V             :         : 4         : Y              
+bGPIO11                      : 65        : bidir  : 2.5 V             :         : 4         : Y              
+iBusSelect[1]                : 66        : input  : 2.5 V             :         : 4         : Y              
+VCCIO4                       : 67        : power  :                   : 2.5V    : 4         :                
+GND                          : 68        : gnd    :                   :         :           :                
+iSerialDSR                   : 69        : input  : 2.5 V             :         : 4         : Y              
+bGPIO12                      : 70        : bidir  : 2.5 V             :         : 4         : Y              
+VCCA5                        : 71        : power  :                   : 3.0V/3.3V :           :                
+VCC_ONE                      : 72        : power  :                   : 3.0V/3.3V :           :                
+VCC_ONE                      : 73        : power  :                   : 3.0V/3.3V :           :                
+bGPIO9                       : 74        : bidir  : 2.5 V             :         : 5         : Y              
+bGPIO7                       : 75        : bidir  : 2.5 V             :         : 5         : Y              
+iSerialDCD                   : 76        : input  : 2.5 V             :         : 5         : Y              
+bGPIO8                       : 77        : bidir  : 2.5 V             :         : 5         : Y              
+iSerialCTS                   : 78        : input  : 2.5 V             :         : 5         : Y              
+iSerialRX                    : 79        : input  : 2.5 V             :         : 5         : Y              
+oSerialTX                    : 80        : output : 2.5 V             :         : 5         : Y              
+oSerialRTS                   : 81        : output : 2.5 V             :         : 5         : Y              
+VCCIO5                       : 82        : power  :                   : 2.5V    : 5         :                
+GND                          : 83        : gnd    :                   :         :           :                
+oTTLSerialTX                 : 84        : output : 2.5 V             :         : 5         : Y              
+oSerialDTR                   : 85        : output : 2.5 V             :         : 5         : Y              
+oVGAHorizontal               : 86        : output : 2.5 V             :         : 5         : Y              
+oVGAVertical                 : 87        : output : 2.5 V             :         : 5         : Y              
+oVGAColor[1]                 : 88        : output : 2.5 V             :         : 6         : Y              
+oVGAColor[0]                 : 89        : output : 2.5 V             :         : 6         : Y              
+oVGAColor[4]                 : 90        : output : 2.5 V             :         : 6         : Y              
+oVGAColor[3]                 : 91        : output : 2.5 V             :         : 6         : Y              
+oVGAColor[2]                 : 92        : output : 2.5 V             :         : 6         : Y              
+oVGAColor[7]                 : 93        : output : 2.5 V             :         : 6         : Y              
+VCCIO6                       : 94        : power  :                   : 2.5V    : 6         :                
+GND                          : 95        : gnd    :                   :         :           :                
+oVGAColor[6]                 : 96        : output : 2.5 V             :         : 6         : Y              
+oVGAColor[5]                 : 97        : output : 2.5 V             :         : 6         : Y              
+oExtBusMOSI[0]               : 98        : output : 2.5 V             :         : 6         : Y              
+iExtBusMISO[0]               : 99        : input  : 2.5 V             :         : 6         : Y              
+oExtBusMOSI[1]               : 100       : output : 2.5 V             :         : 6         : Y              
+iExtBusMISO[1]               : 101       : input  : 2.5 V             :         : 6         : Y              
+oExtBusMOSI[2]               : 102       : output : 2.5 V             :         : 6         : Y              
+VCCIO6                       : 103       : power  :                   : 2.5V    : 6         :                
+GND                          : 104       : gnd    :                   :         :           :                
+iExtBusMISO[2]               : 105       : input  : 2.5 V             :         : 6         : Y              
+oExtBusMOSI[3]               : 106       : output : 2.5 V             :         : 6         : Y              
+VCCA3                        : 107       : power  :                   : 3.0V/3.3V :           :                
+VCC_ONE                      : 108       : power  :                   : 3.0V/3.3V :           :                
+VCC_ONE                      : 109       : power  :                   : 3.0V/3.3V :           :                
+iExtBusMISO[3]               : 110       : input  : 2.5 V             :         : 7         : Y              
+oExtBusSS[1]                 : 111       : output : 2.5 V             :         : 7         : Y              
+oExtBusSS[0]                 : 112       : output : 2.5 V             :         : 7         : Y              
+bGPIO14                      : 113       : bidir  : 2.5 V             :         : 7         : Y              
+bGPIO15                      : 114       : bidir  : 2.5 V             :         : 7         : Y              
+VCC_ONE                      : 115       : power  :                   : 3.0V/3.3V :           :                
+GND                          : 116       : gnd    :                   :         :           :                
+VCCIO7                       : 117       : power  :                   : 2.5V    : 7         :                
+oExtBusClock                 : 118       : output : 2.5 V             :         : 7         : Y              
+iExtBusInterrupt             : 119       : input  : 2.5 V             :         : 7         : Y              
+bGPIO0                       : 120       : bidir  : 2.5 V             :         : 8         : Y              
+RESERVED_INPUT_WITH_WEAK_PULLUP : 121       :        :                   :         : 8         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : 122       :        :                   :         : 8         :                
+oSPISelect[3]                : 123       : output : 2.5 V             :         : 8         : Y              
+oBusInterrupt                : 124       : output : 2.5 V             :         : 8         : Y              
+GND                          : 125       : gnd    :                   :         :           :                
+~ALTERA_CONFIG_SEL~ / RESERVED_INPUT : 126       : input  : 2.5 V             :         : 8         : N              
+bGPIO1                       : 127       : bidir  : 2.5 V             :         : 8         : Y              
+VCCIO8                       : 128       : power  :                   : 2.5V    : 8         :                
+~ALTERA_nCONFIG~ / RESERVED_INPUT : 129       : input  : 2.5 V Schmitt Trigger :         : 8         : N              
+iBoardReset                  : 130       : input  : 2.5 V             :         : 8         : Y              
+bGPIO2                       : 131       : bidir  : 2.5 V             :         : 8         : Y              
+bGPIO3                       : 132       : bidir  : 2.5 V             :         : 8         : Y              
+GND                          : 133       : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : 134       :        :                   :         : 8         :                
+bBoardDebug5                 : 135       : bidir  : 2.5 V             :         : 8         : Y              
+~ALTERA_nSTATUS~ / RESERVED_INPUT : 136       : input  : 2.5 V Schmitt Trigger :         : 8         : N              
+GND                          : 137       : gnd    :                   :         :           :                
+~ALTERA_CONF_DONE~ / RESERVED_INPUT : 138       : input  : 2.5 V Schmitt Trigger :         : 8         : N              
+VCCIO8                       : 139       : power  :                   : 2.5V    : 8         :                
+bPS2Data                     : 140       : bidir  : 2.5 V             :         : 8         : Y              
+bPS2Clock                    : 141       : bidir  : 2.5 V             :         : 8         : Y              
+GND                          : 142       : gnd    :                   :         :           :                
+VCCA4                        : 143       : power  :                   : 3.0V/3.3V :           :                
+VCC_ONE                      : 144       : power  :                   : 3.0V/3.3V :           :                

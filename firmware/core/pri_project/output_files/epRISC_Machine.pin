@@ -1,0 +1,216 @@
+ -- Copyright (C) 1991-2016 Altera Corporation. All rights reserved.
+ -- Your use of Altera Corporation's design tools, logic functions 
+ -- and other software and tools, and its AMPP partner logic 
+ -- functions, and any output files from any of the foregoing 
+ -- (including device programming or simulation files), and any 
+ -- associated documentation or information are expressly subject 
+ -- to the terms and conditions of the Altera Program License 
+ -- Subscription Agreement, the Altera Quartus Prime License Agreement,
+ -- the Altera MegaCore Function License Agreement, or other 
+ -- applicable license agreement, including, without limitation, 
+ -- that your use is for the sole purpose of programming logic 
+ -- devices manufactured by Altera and sold by Altera or its 
+ -- authorized distributors.  Please refer to the applicable 
+ -- agreement for further details.
+ -- 
+ -- This is a Quartus Prime output file. It is for reporting purposes only, and is
+ -- not intended for use as a Quartus Prime input file. This file cannot be used
+ -- to make Quartus Prime pin assignments - for instructions on how to make pin
+ -- assignments, please see Quartus Prime help.
+ ---------------------------------------------------------------------------------
+
+
+
+ ---------------------------------------------------------------------------------
+ -- NC            : No Connect. This pin has no internal connection to the device.
+ -- DNU           : Do Not Use. This pin MUST NOT be connected.
+ -- VCCINT        : Dedicated power pin, which MUST be connected to VCC  (1.2V).
+ -- VCCIO         : Dedicated power pin, which MUST be connected to VCC
+ --                 of its bank.
+ --                  Bank 1A:       2.5V
+ --                  Bank 1B:       2.5V
+ --                  Bank 2:       2.5V
+ --                  Bank 3:       2.5V
+ --                  Bank 4:       2.5V
+ --                  Bank 5:       2.5V
+ --                  Bank 6:       2.5V
+ --                  Bank 7:       2.5V
+ --                  Bank 8:       2.5V
+ -- GND           : Dedicated ground pin. Dedicated GND pins MUST be connected to GND.
+ --                  It can also be used to report unused dedicated pins. The connection
+ --                  on the board for unused dedicated pins depends on whether this will
+ --                  be used in a future design. One example is device migration. When
+ --                  using device migration, refer to the device pin-tables. If it is a
+ --                  GND pin in the pin table or if it will not be used in a future design
+ --                  for another purpose the it MUST be connected to GND. If it is an unused
+ --                  dedicated pin, then it can be connected to a valid signal on the board
+ --                  (low, high, or toggling) if that signal is required for a different
+ --                  revision of the design.
+ -- GND+          : Unused input pin. It can also be used to report unused dual-purpose pins.
+ --                  This pin should be connected to GND. It may also be connected  to a
+ --                  valid signal  on the board  (low, high, or toggling)  if that signal
+ --                  is required for a different revision of the design.
+ -- GND*          : Unused  I/O  pin. Connect each pin marked GND* directly to GND
+ --                  or leave it unconnected.
+ -- RESERVED      : Unused I/O pin, which MUST be left unconnected.
+ -- RESERVED_INPUT    : Pin is tri-stated and should be connected to the board.
+ -- RESERVED_INPUT_WITH_WEAK_PULLUP    : Pin is tri-stated with internal weak pull-up resistor.
+ -- RESERVED_INPUT_WITH_BUS_HOLD       : Pin is tri-stated with bus-hold circuitry.
+ -- RESERVED_OUTPUT_DRIVEN_HIGH        : Pin is output driven high.
+ ---------------------------------------------------------------------------------
+
+
+
+ ---------------------------------------------------------------------------------
+ -- Pin directions (input, output or bidir) are based on device operating in user mode.
+ ---------------------------------------------------------------------------------
+
+Quartus Prime Version 16.0.0 Build 211 04/27/2016 SJ Lite Edition
+CHIP  "epRISC_Machine"  ASSIGNED TO AN: 10M16SCE144C8G
+
+Pin Name/Usage               : Location  : Dir.   : I/O Standard      : Voltage : I/O Bank  : User Assignment
+-------------------------------------------------------------------------------------------------------------
+VCC_ONE                      : 1         : power  :                   : 3.0V/3.3V :           :                
+VCCA6                        : 2         : power  :                   : 3.0V/3.3V :           :                
+GND                          : 3         : gnd    :                   :         :           :                
+GND                          : 4         : gnd    :                   :         :           :                
+VCCA3                        : 5         : power  :                   : 3.0V/3.3V :           :                
+oBusMOSI[0]                  : 6         : output : 2.5 V             :         : 1A        : Y              
+oBusMOSI[1]                  : 7         : output : 2.5 V             :         : 1A        : Y              
+oBusMOSI[2]                  : 8         : output : 2.5 V             :         : 1A        : Y              
+VCCIO1A                      : 9         : power  :                   : 2.5V    : 1A        :                
+oBusMOSI[3]                  : 10        : output : 2.5 V             :         : 1A        : Y              
+oBusMOSI[4]                  : 11        : output : 2.5 V             :         : 1A        : Y              
+oBusMOSI[5]                  : 12        : output : 2.5 V             :         : 1A        : Y              
+oBusMOSI[6]                  : 13        : output : 2.5 V             :         : 1A        : Y              
+oBusMOSI[7]                  : 14        : output : 2.5 V             :         : 1A        : Y              
+RESERVED_INPUT_WITH_WEAK_PULLUP : 15        :        :                   :         : 1B        :                
+altera_reserved_tms          : 16        : input  : 2.5 V Schmitt Trigger :         : 1B        : N              
+bBoardDebug0                 : 17        : bidir  : 2.5 V             :         : 1B        : Y              
+altera_reserved_tck          : 18        : input  : 2.5 V Schmitt Trigger :         : 1B        : N              
+altera_reserved_tdi          : 19        : input  : 2.5 V Schmitt Trigger :         : 1B        : N              
+altera_reserved_tdo          : 20        : output : 2.5 V             :         : 1B        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : 21        :        :                   :         : 1B        :                
+bBoardDebug3                 : 22        : bidir  : 2.5 V             :         : 1B        : Y              
+VCCIO1B                      : 23        : power  :                   : 2.5V    : 1B        :                
+iBoardSense                  : 24        : input  : 2.5 V             :         : 1B        : Y              
+iBoardReset                  : 25        : input  : 2.5 V             :         : 1B        : Y              
+iBoardClock                  : 26        : input  : 2.5 V             :         : 2         : Y              
+RESERVED_INPUT_WITH_WEAK_PULLUP : 27        :        :                   :         : 2         :                
+bMemoryData[0]               : 28        : bidir  : 2.5 V             :         : 2         : Y              
+bMemoryData[1]               : 29        : bidir  : 2.5 V             :         : 2         : Y              
+bMemoryData[2]               : 30        : bidir  : 2.5 V             :         : 2         : Y              
+VCCIO2                       : 31        : power  :                   : 2.5V    : 2         :                
+bMemoryData[3]               : 32        : bidir  : 2.5 V             :         : 2         : Y              
+oBusClock                    : 33        : output : 2.5 V             :         : 2         : Y              
+VCCA2                        : 34        : power  :                   : 3.0V/3.3V :           :                
+VCCA1                        : 35        : power  :                   : 3.0V/3.3V :           :                
+VCC_ONE                      : 36        : power  :                   : 3.0V/3.3V :           :                
+VCC_ONE                      : 37        : power  :                   : 3.0V/3.3V :           :                
+bMemoryData[4]               : 38        : bidir  : 2.5 V             :         : 3         : Y              
+bMemoryData[5]               : 39        : bidir  : 2.5 V             :         : 3         : Y              
+VCCIO3                       : 40        : power  :                   : 2.5V    : 3         :                
+bMemoryData[6]               : 41        : bidir  : 2.5 V             :         : 3         : Y              
+GND                          : 42        : gnd    :                   :         :           :                
+bMemoryData[7]               : 43        : bidir  : 2.5 V             :         : 3         : Y              
+oMemoryDQM[0]                : 44        : output : 2.5 V             :         : 3         : Y              
+oMemoryWE                    : 45        : output : 2.5 V             :         : 3         : Y              
+oMemoryCAS                   : 46        : output : 2.5 V             :         : 3         : Y              
+oMemoryRAS                   : 47        : output : 2.5 V             :         : 3         : Y              
+oMemoryCS                    : 48        : output : 2.5 V             :         : 3         : Y              
+VCCIO3                       : 49        : power  :                   : 2.5V    : 3         :                
+oMemoryAddress[11]           : 50        : output : 2.5 V             :         : 3         : Y              
+VCC_ONE                      : 51        : power  :                   : 3.0V/3.3V :           :                
+oMemoryBank[0]               : 52        : output : 2.5 V             :         : 3         : Y              
+GND                          : 53        : gnd    :                   :         :           :                
+bBoardDebug4                 : 54        : bidir  : 2.5 V             :         : 3         : Y              
+bMemoryData[15]              : 55        : bidir  : 2.5 V             :         : 3         : Y              
+bMemoryData[14]              : 56        : bidir  : 2.5 V             :         : 3         : Y              
+bMemoryData[13]              : 57        : bidir  : 2.5 V             :         : 3         : Y              
+bMemoryData[12]              : 58        : bidir  : 2.5 V             :         : 3         : Y              
+bMemoryData[11]              : 59        : bidir  : 2.5 V             :         : 3         : Y              
+bMemoryData[10]              : 60        : bidir  : 2.5 V             :         : 3         : Y              
+bMemoryData[9]               : 61        : bidir  : 2.5 V             :         : 4         : Y              
+oBoardAcknowledge            : 62        : output : 2.5 V             :         : 4         : Y              
+GND                          : 63        : gnd    :                   :         :           :                
+bMemoryData[8]               : 64        : bidir  : 2.5 V             :         : 4         : Y              
+oMemoryDQM[1]                : 65        : output : 2.5 V             :         : 4         : Y              
+oBoardTransmit               : 66        : output : 2.5 V             :         : 4         : Y              
+VCCIO4                       : 67        : power  :                   : 2.5V    : 4         :                
+GND                          : 68        : gnd    :                   :         :           :                
+oMemoryCLK                   : 69        : output : 2.5 V             :         : 4         : Y              
+oMemoryCKE                   : 70        : output : 2.5 V             :         : 4         : Y              
+VCCA5                        : 71        : power  :                   : 3.0V/3.3V :           :                
+VCC_ONE                      : 72        : power  :                   : 3.0V/3.3V :           :                
+VCC_ONE                      : 73        : power  :                   : 3.0V/3.3V :           :                
+oMemoryAddress[9]            : 74        : output : 2.5 V             :         : 5         : Y              
+oMemoryAddress[8]            : 75        : output : 2.5 V             :         : 5         : Y              
+oMemoryAddress[7]            : 76        : output : 2.5 V             :         : 5         : Y              
+oMemoryAddress[6]            : 77        : output : 2.5 V             :         : 5         : Y              
+oMemoryAddress[5]            : 78        : output : 2.5 V             :         : 5         : Y              
+oMemoryAddress[4]            : 79        : output : 2.5 V             :         : 5         : Y              
+oMemoryAddress[3]            : 80        : output : 2.5 V             :         : 5         : Y              
+oMemoryDQM[3]                : 81        : output : 2.5 V             :         : 5         : Y              
+VCCIO5                       : 82        : power  :                   : 2.5V    : 5         :                
+GND                          : 83        : gnd    :                   :         :           :                
+bMemoryData[31]              : 84        : bidir  : 2.5 V             :         : 5         : Y              
+bMemoryData[30]              : 85        : bidir  : 2.5 V             :         : 5         : Y              
+bMemoryData[29]              : 86        : bidir  : 2.5 V             :         : 5         : Y              
+bMemoryData[28]              : 87        : bidir  : 2.5 V             :         : 5         : Y              
+bMemoryData[27]              : 88        : bidir  : 2.5 V             :         : 6         : Y              
+bMemoryData[26]              : 89        : bidir  : 2.5 V             :         : 6         : Y              
+bMemoryData[25]              : 90        : bidir  : 2.5 V             :         : 6         : Y              
+bMemoryData[24]              : 91        : bidir  : 2.5 V             :         : 6         : Y              
+oMemoryBank[1]               : 92        : output : 2.5 V             :         : 6         : Y              
+oMemoryAddress[10]           : 93        : output : 2.5 V             :         : 6         : Y              
+VCCIO6                       : 94        : power  :                   : 2.5V    : 6         :                
+GND                          : 95        : gnd    :                   :         :           :                
+oMemoryAddress[0]            : 96        : output : 2.5 V             :         : 6         : Y              
+oMemoryAddress[1]            : 97        : output : 2.5 V             :         : 6         : Y              
+oMemoryAddress[2]            : 98        : output : 2.5 V             :         : 6         : Y              
+oMemoryDQM[2]                : 99        : output : 2.5 V             :         : 6         : Y              
+bMemoryData[16]              : 100       : bidir  : 2.5 V             :         : 6         : Y              
+bMemoryData[17]              : 101       : bidir  : 2.5 V             :         : 6         : Y              
+bMemoryData[18]              : 102       : bidir  : 2.5 V             :         : 6         : Y              
+VCCIO6                       : 103       : power  :                   : 2.5V    : 6         :                
+GND                          : 104       : gnd    :                   :         :           :                
+bMemoryData[19]              : 105       : bidir  : 2.5 V             :         : 6         : Y              
+bMemoryData[20]              : 106       : bidir  : 2.5 V             :         : 6         : Y              
+VCCA3                        : 107       : power  :                   : 3.0V/3.3V :           :                
+VCC_ONE                      : 108       : power  :                   : 3.0V/3.3V :           :                
+VCC_ONE                      : 109       : power  :                   : 3.0V/3.3V :           :                
+bMemoryData[21]              : 110       : bidir  : 2.5 V             :         : 7         : Y              
+bMemoryData[22]              : 111       : bidir  : 2.5 V             :         : 7         : Y              
+bMemoryData[23]              : 112       : bidir  : 2.5 V             :         : 7         : Y              
+bBoardDebug2                 : 113       : bidir  : 2.5 V             :         : 7         : Y              
+bBoardDebug5                 : 114       : bidir  : 2.5 V             :         : 7         : Y              
+VCC_ONE                      : 115       : power  :                   : 3.0V/3.3V :           :                
+GND                          : 116       : gnd    :                   :         :           :                
+VCCIO7                       : 117       : power  :                   : 2.5V    : 7         :                
+iBoardReceive                : 118       : input  : 2.5 V             :         : 7         : Y              
+oBusSelect[1]                : 119       : output : 2.5 V             :         : 7         : Y              
+iBusMISO[7]                  : 120       : input  : 2.5 V             :         : 8         : Y              
+RESERVED_INPUT_WITH_WEAK_PULLUP : 121       :        :                   :         : 8         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : 122       :        :                   :         : 8         :                
+oBusSelect[0]                : 123       : output : 2.5 V             :         : 8         : Y              
+iBusMISO[6]                  : 124       : input  : 2.5 V             :         : 8         : Y              
+GND                          : 125       : gnd    :                   :         :           :                
+~ALTERA_CONFIG_SEL~ / RESERVED_INPUT : 126       : input  : 2.5 V             :         : 8         : N              
+iBusMISO[5]                  : 127       : input  : 2.5 V             :         : 8         : Y              
+VCCIO8                       : 128       : power  :                   : 2.5V    : 8         :                
+~ALTERA_nCONFIG~ / RESERVED_INPUT : 129       : input  : 2.5 V Schmitt Trigger :         : 8         : N              
+iBusMISO[2]                  : 130       : input  : 2.5 V             :         : 8         : Y              
+iBusMISO[3]                  : 131       : input  : 2.5 V             :         : 8         : Y              
+iBusMISO[4]                  : 132       : input  : 2.5 V             :         : 8         : Y              
+GND                          : 133       : gnd    :                   :         :           :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : 134       :        :                   :         : 8         :                
+iBusInterrupt                : 135       : input  : 2.5 V             :         : 8         : Y              
+~ALTERA_nSTATUS~ / RESERVED_INPUT : 136       : input  : 2.5 V Schmitt Trigger :         : 8         : N              
+GND                          : 137       : gnd    :                   :         :           :                
+~ALTERA_CONF_DONE~ / RESERVED_INPUT : 138       : input  : 2.5 V Schmitt Trigger :         : 8         : N              
+VCCIO8                       : 139       : power  :                   : 2.5V    : 8         :                
+iBusMISO[1]                  : 140       : input  : 2.5 V             :         : 8         : Y              
+iBusMISO[0]                  : 141       : input  : 2.5 V             :         : 8         : Y              
+GND                          : 142       : gnd    :                   :         :           :                
+VCCA4                        : 143       : power  :                   : 3.0V/3.3V :           :                
+VCC_ONE                      : 144       : power  :                   : 3.0V/3.3V :           :                

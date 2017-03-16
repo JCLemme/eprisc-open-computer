@@ -1,0 +1,41 @@
+------------------------------------------------------------
+TimeQuest Timing Analyzer Summary
+------------------------------------------------------------
+
+Type  : Slow 1200mV 85C Model Setup 'iBusClock'
+Slack : -3.936
+TNS   : -230.532
+
+Type  : Slow 1200mV 85C Model Hold 'iBusClock'
+Slack : 0.345
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'iBusClock'
+Slack : -3.901
+TNS   : -147.973
+
+Type  : Slow 1200mV 0C Model Setup 'iBusClock'
+Slack : -3.691
+TNS   : -215.391
+
+Type  : Slow 1200mV 0C Model Hold 'iBusClock'
+Slack : 0.308
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'iBusClock'
+Slack : -3.901
+TNS   : -147.973
+
+Type  : Fast 1200mV 0C Model Setup 'iBusClock'
+Slack : -1.558
+TNS   : -72.997
+
+Type  : Fast 1200mV 0C Model Hold 'iBusClock'
+Slack : 0.146
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'iBusClock'
+Slack : -3.000
+TNS   : -99.498
+
+------------------------------------------------------------

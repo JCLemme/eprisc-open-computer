@@ -1,0 +1,133 @@
+Flow report for epRISC_Controller
+Tue Mar 14 09:50:00 2017
+Quartus Prime Version 16.0.0 Build 211 04/27/2016 SJ Lite Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Flow Summary
+  3. Flow Settings
+  4. Flow Non-Default Global Settings
+  5. Flow Elapsed Time
+  6. Flow OS Summary
+  7. Flow Log
+  8. Flow Messages
+  9. Flow Suppressed Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 1991-2016 Altera Corporation. All rights reserved.
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, the Altera Quartus Prime License Agreement,
+the Altera MegaCore Function License Agreement, or other 
+applicable license agreement, including, without limitation, 
+that your use is for the sole purpose of programming logic 
+devices manufactured by Altera and sold by Altera or its 
+authorized distributors.  Please refer to the applicable 
+agreement for further details.
+
+
+
++----------------------------------------------------------------------------------+
+; Flow Summary                                                                     ;
++------------------------------------+---------------------------------------------+
+; Flow Status                        ; Successful - Tue Mar 14 09:49:56 2017       ;
+; Quartus Prime Version              ; 16.0.0 Build 211 04/27/2016 SJ Lite Edition ;
+; Revision Name                      ; epRISC_Controller                           ;
+; Top-level Entity Name              ; epRISC_iocontroller                         ;
+; Family                             ; MAX 10                                      ;
+; Device                             ; 10M16SCE144C8G                              ;
+; Timing Models                      ; Final                                       ;
+; Total logic elements               ; 158 / 15,840 ( < 1 % )                      ;
+;     Total combinational functions  ; 146 / 15,840 ( < 1 % )                      ;
+;     Dedicated logic registers      ; 87 / 15,840 ( < 1 % )                       ;
+; Total registers                    ; 87                                          ;
+; Total pins                         ; 89 / 101 ( 88 % )                           ;
+; Total virtual pins                 ; 0                                           ;
+; Total memory bits                  ; 8,192 / 562,176 ( 1 % )                     ;
+; Embedded Multiplier 9-bit elements ; 0 / 90 ( 0 % )                              ;
+; Total PLLs                         ; 0 / 1 ( 0 % )                               ;
+; UFM blocks                         ; 0 / 1 ( 0 % )                               ;
+; ADC blocks                         ; 0                                           ;
++------------------------------------+---------------------------------------------+
+
+
++-----------------------------------------+
+; Flow Settings                           ;
++-------------------+---------------------+
+; Option            ; Setting             ;
++-------------------+---------------------+
+; Start date & time ; 03/14/2017 09:49:32 ;
+; Main task         ; Compilation         ;
+; Revision Name     ; epRISC_Controller   ;
++-------------------+---------------------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------+
+; Flow Non-Default Global Settings                                                                                                   ;
++-------------------------------------+---------------------------------------+-------------------+---------------------+------------+
+; Assignment Name                     ; Value                                 ; Default Value     ; Entity Name         ; Section Id ;
++-------------------------------------+---------------------------------------+-------------------+---------------------+------------+
+; COMPILER_SIGNATURE_ID               ; 0.148949937228081                     ; --                ; --                  ; --         ;
+; FLOW_ENABLE_POWER_ANALYZER          ; On                                    ; Off               ; --                  ; --         ;
+; MAX_CORE_JUNCTION_TEMP              ; 85                                    ; --                ; --                  ; --         ;
+; MIN_CORE_JUNCTION_TEMP              ; 0                                     ; --                ; --                  ; --         ;
+; PARTITION_COLOR                     ; 16764057                              ; --                ; epRISC_iocontroller ; Top        ;
+; PARTITION_FITTER_PRESERVATION_LEVEL ; PLACEMENT_AND_ROUTING                 ; --                ; epRISC_iocontroller ; Top        ;
+; PARTITION_NETLIST_TYPE              ; SOURCE                                ; --                ; epRISC_iocontroller ; Top        ;
+; POWER_BOARD_THERMAL_MODEL           ; None (CONSERVATIVE)                   ; --                ; --                  ; --         ;
+; POWER_DEFAULT_INPUT_IO_TOGGLE_RATE  ; 12.5 %                                ; 12.5%             ; --                  ; --         ;
+; POWER_PRESET_COOLING_SOLUTION       ; 23 MM HEAT SINK WITH 200 LFPM AIRFLOW ; --                ; --                  ; --         ;
+; PROJECT_OUTPUT_DIRECTORY            ; output_files                          ; --                ; --                  ; --         ;
+; TOP_LEVEL_ENTITY                    ; epRISC_iocontroller                   ; epRISC_Controller ; --                  ; --         ;
++-------------------------------------+---------------------------------------+-------------------+---------------------+------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------+
+; Flow Elapsed Time                                                                                                             ;
++---------------------------+--------------+-------------------------+---------------------+------------------------------------+
+; Module Name               ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
++---------------------------+--------------+-------------------------+---------------------+------------------------------------+
+; Analysis & Synthesis      ; 00:00:07     ; 1.0                     ; 1275 MB             ; 00:00:20                           ;
+; Fitter                    ; 00:00:05     ; 1.1                     ; 1588 MB             ; 00:00:07                           ;
+; Assembler                 ; 00:00:01     ; 1.0                     ; 1115 MB             ; 00:00:01                           ;
+; PowerPlay Power Analyzer  ; 00:00:02     ; 1.2                     ; 1248 MB             ; 00:00:02                           ;
+; TimeQuest Timing Analyzer ; 00:00:01     ; 1.2                     ; 1199 MB             ; 00:00:02                           ;
+; Total                     ; 00:00:16     ; --                      ; --                  ; 00:00:32                           ;
++---------------------------+--------------+-------------------------+---------------------+------------------------------------+
+
+
++-------------------------------------------------------------------------------------------+
+; Flow OS Summary                                                                           ;
++---------------------------+------------------+--------------+------------+----------------+
+; Module Name               ; Machine Hostname ; OS Name      ; OS Version ; Processor type ;
++---------------------------+------------------+--------------+------------+----------------+
+; Analysis & Synthesis      ; phoenix          ; Ubuntu 16.10 ; 16         ; x86_64         ;
+; Fitter                    ; phoenix          ; Ubuntu 16.10 ; 16         ; x86_64         ;
+; Assembler                 ; phoenix          ; Ubuntu 16.10 ; 16         ; x86_64         ;
+; PowerPlay Power Analyzer  ; phoenix          ; Ubuntu 16.10 ; 16         ; x86_64         ;
+; TimeQuest Timing Analyzer ; phoenix          ; Ubuntu 16.10 ; 16         ; x86_64         ;
++---------------------------+------------------+--------------+------------+----------------+
+
+
+------------
+; Flow Log ;
+------------
+quartus_map --read_settings_files=on --write_settings_files=off epRISC_Auxiliary -c epRISC_Controller
+quartus_fit --read_settings_files=off --write_settings_files=off epRISC_Auxiliary -c epRISC_Controller
+quartus_asm --read_settings_files=off --write_settings_files=off epRISC_Auxiliary -c epRISC_Controller
+quartus_pow --read_settings_files=off --write_settings_files=off epRISC_Auxiliary -c epRISC_Controller
+quartus_sta epRISC_Auxiliary -c epRISC_Controller
+
+
+

@@ -1,0 +1,157 @@
+{
+	"partitions" : [
+		{
+			"name" : "Top",
+			"pins" : [
+				{
+					"name" : "oBusInterrupt",
+					"strict" : false
+				},
+				{
+					"name" : "oBusMISO[0]",
+					"strict" : false
+				},
+				{
+					"name" : "oBusMISO[1]",
+					"strict" : false
+				},
+				{
+					"name" : "oBusMISO[2]",
+					"strict" : false
+				},
+				{
+					"name" : "oBusMISO[3]",
+					"strict" : false
+				},
+				{
+					"name" : "oBusMISO[4]",
+					"strict" : false
+				},
+				{
+					"name" : "oBusMISO[5]",
+					"strict" : false
+				},
+				{
+					"name" : "oBusMISO[6]",
+					"strict" : false
+				},
+				{
+					"name" : "oBusMISO[7]",
+					"strict" : false
+				},
+				{
+					"name" : "bGPIO0",
+					"strict" : false
+				},
+				{
+					"name" : "bGPIO1",
+					"strict" : false
+				},
+				{
+					"name" : "bGPIO2",
+					"strict" : false
+				},
+				{
+					"name" : "bGPIO3",
+					"strict" : false
+				},
+				{
+					"name" : "bGPIO4",
+					"strict" : false
+				},
+				{
+					"name" : "bGPIO5",
+					"strict" : false
+				},
+				{
+					"name" : "bGPIO6",
+					"strict" : false
+				},
+				{
+					"name" : "bGPIO7",
+					"strict" : false
+				},
+				{
+					"name" : "bGPIO8",
+					"strict" : false
+				},
+				{
+					"name" : "bGPIO9",
+					"strict" : false
+				},
+				{
+					"name" : "bGPIO10",
+					"strict" : false
+				},
+				{
+					"name" : "bGPIO11",
+					"strict" : false
+				},
+				{
+					"name" : "bGPIO12",
+					"strict" : false
+				},
+				{
+					"name" : "bGPIO13",
+					"strict" : false
+				},
+				{
+					"name" : "bGPIO14",
+					"strict" : false
+				},
+				{
+					"name" : "bGPIO15",
+					"strict" : false
+				},
+				{
+					"name" : "iBusClock",
+					"strict" : false
+				},
+				{
+					"name" : "iBoardReset",
+					"strict" : false
+				},
+				{
+					"name" : "iBusMOSI[0]",
+					"strict" : false
+				},
+				{
+					"name" : "iBusMOSI[1]",
+					"strict" : false
+				},
+				{
+					"name" : "iBusMOSI[2]",
+					"strict" : false
+				},
+				{
+					"name" : "iBusMOSI[3]",
+					"strict" : false
+				},
+				{
+					"name" : "iBusMOSI[4]",
+					"strict" : false
+				},
+				{
+					"name" : "iBusMOSI[5]",
+					"strict" : false
+				},
+				{
+					"name" : "iBusMOSI[6]",
+					"strict" : false
+				},
+				{
+					"name" : "iBusMOSI[7]",
+					"strict" : false
+				},
+				{
+					"name" : "iBusSelect[0]",
+					"strict" : false
+				},
+				{
+					"name" : "iBusSelect[1]",
+					"strict" : false
+				}
+			]
+		}
+	]
+}

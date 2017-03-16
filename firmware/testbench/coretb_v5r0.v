@@ -62,15 +62,15 @@ module epRISC_coreTB();
         $dumpvars();
         
         iBoardClock = 0;
-        iBoardReset = 0;
-    end
-    
-    initial #5 begin
         iBoardReset = 1;
     end
     
-    initial #100 begin
+    initial #5 begin
         iBoardReset = 0;
+    end
+    
+    initial #100 begin
+        iBoardReset = 1;
     end
    
     initial begin

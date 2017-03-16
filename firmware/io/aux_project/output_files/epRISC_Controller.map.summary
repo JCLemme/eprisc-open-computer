@@ -1,0 +1,16 @@
+Analysis & Synthesis Status : Successful - Tue Mar 14 09:49:40 2017
+Quartus Prime Version : 16.0.0 Build 211 04/27/2016 SJ Lite Edition
+Revision Name : epRISC_Controller
+Top-level Entity Name : epRISC_iocontroller
+Family : MAX 10
+Total logic elements : 177
+    Total combinational functions : 145
+    Dedicated logic registers : 87
+Total registers : 87
+Total pins : 89
+Total virtual pins : 0
+Total memory bits : 8,192
+Embedded Multiplier 9-bit elements : 0
+Total PLLs : 0
+UFM blocks : 0
+ADC blocks : 0

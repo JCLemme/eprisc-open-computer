@@ -78,9 +78,8 @@ module epRISC_iocontroller(iBusClock, iBusSelect, iBusMOSI, oBusInterrupt, oBusM
     output wire [3:0] oExtBusMOSI;
                            
     input iSPIMISO, iSPIDetect0, iSPIDetect1, iSPIWrite0, iSPIWrite1;
-    output wire oSPIMOSI, oSPIClock;
-    output wire [3:0] oSPISelect;
-	 
+    output wire oSPIMOSI, oSPISelect, oSPIClock;
+                           
     output wire oVGAHorizontal, oVGAVertical;
     output wire [7:0] oVGAColor; 
                            
@@ -114,14 +113,14 @@ module epRISC_iocontroller(iBusClock, iBusSelect, iBusMOSI, oBusInterrupt, oBusM
                       (rPipeState == `sPipeHiHi) ? wInternalMISO[31:24] : 8'h0;
 
     
-    epRISC_GPIO         gpio(iBusClock, !iBoardReset, oBusInterrupt, mBusAddress, mBusData, wInternalMISO, mBusWrite, wEnableGPIO, 
+    epRISC_GPIO         gpio(iBusClock, iBoardReset, oBusInterrupt, mBusAddress, mBusData, wInternalMISO, mBusWrite, wEnableGPIO, 
                              bGPIO0, bGPIO1, bGPIO2, bGPIO3, bGPIO4, bGPIO5, bGPIO6, bGPIO7, bGPIO8, bGPIO9, bGPIO10, bGPIO11, bGPIO12, bGPIO13, bGPIO14, bGPIO15);
                              
-    epRISC_controlRAM   mem(iBusClock, !iBoardReset, mBusAddress, rInternalMOSI, wInternalMISO, mBusWrite, wEnableRAM);
+    epRISC_controlRAM   mem(iBusClock, iBoardReset, mBusAddress, rInternalMOSI, wInternalMISO, mBusWrite, wEnableRAM);
 
     // Pipeline controller
     always @(posedge iBusClock) begin
-        if(!iBoardReset || iBusSelect == 2'h0) begin
+        if(iBoardReset || iBusSelect == 2'h0) begin
             rPipePrevState <= `sPipeLoad;
             rPipeState <= `sPipeLoad;
         end else begin
@@ -143,7 +142,7 @@ module epRISC_iocontroller(iBusClock, iBusSelect, iBusMOSI, oBusInterrupt, oBusM
     end
     
     always @(negedge iBusClock) begin
-        if(!iBoardReset) begin
+        if(iBoardReset) begin
             rInternalMOSI <= 0;
         end else begin
             if(rPipeState == `sPipeLoLo)
