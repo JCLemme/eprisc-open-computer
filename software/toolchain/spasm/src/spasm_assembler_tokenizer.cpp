@@ -118,10 +118,10 @@ std::vector<ProgramToken> Assembler::tokenize(std::vector<ProcessedLine> file)
                     
                     programCounter += progToken.definedData.size();
                 }
-                else if(sourceLineTokens[0] == "PC")
+                else if(sourceLineTokens[0] == "IP")
                 {
                     if(sourceLineTokens.size() < 2)
-                        log->print("tokenizer: file \"" + procLine.sourceFile + "\": line " + std::to_string(procLine.sourceLineNum) + ": !pc directive was not provided with a new address", MTYP_WARN);
+                        log->print("tokenizer: file \"" + procLine.sourceFile + "\": line " + std::to_string(procLine.sourceLineNum) + ": !ip directive was not provided with a new address", MTYP_WARN);
                     
                     programCounter = processNumber(sourceLineTokens[1]);
                     addToken = false;

@@ -19,11 +19,12 @@ int main(int argc, char **argv)
     
     std::string inputFilename = "";
     std::string outputFilename = "a.bin";
-    std::string coreFilename = "../spasm/eprisc_std_v4.cpu"; //add in pwd support later
+    std::string coreFilename = "eprisc_v5.cpu"; //add in pwd support later
     std::string coreID = "EPRISC_STD";
     
     int argCnt;
     uint32_t padSize = 0;
+    bool outputText = false;
     
     log->setHiddenTypes(MTYP_WARN|MTYP_DEBG);
 
@@ -37,6 +38,7 @@ int main(int argc, char **argv)
             {
                 if(argv[argCnt] == "--help") argType = 'h';
                 else if(argv[argCnt] == "--output") argType = 'o';
+                else if(argv[argCnt] == "--text-verilog") argType = 't';
                 else if(argv[argCnt] == "--verbosity") argType = 'v';
                 else if(argv[argCnt] == "--pad-size") argType = 'p';
                 else if(argv[argCnt] == "--core-id") argType = 'c';
@@ -52,6 +54,7 @@ int main(int argc, char **argv)
             {
                 case('h'): printHelp(); exit(0); break;
                 case('o'): argCnt++; outputFilename = argv[argCnt]; break;
+                case('t'): outputText = true; break;
                 case('v'): argCnt++; log->setHiddenTypes((MessageType)0); break;
                 case('p'): argCnt++; padSize = atoi(argv[argCnt]); break;
                 case('c'): argCnt++; coreID = argv[argCnt]; break;
@@ -89,8 +92,11 @@ int main(int argc, char **argv)
         outFile.push_back((uint8_t)((binaryFile[bCnt] & 0x000000FF) >> 0));    
     }
     
-    file->saveBinary(outputFilename, outFile);
-    
+    if(outputText)
+        file->saveBinaryAsVerilog(outputFilename, outFile);
+    else
+        file->saveBinary(outputFilename, outFile);
+        
     return 0;
 }
 
@@ -104,6 +110,7 @@ void printHelp()
     std::cout << "Options:                                                                      \n";
     std::cout << "-h      --help                |   Prints this help.                           \n";
     std::cout << "-o      --output [NAME]       |   Sets the output binary filename.            \n";
+    std::cout << "-t      --text-verilog        |   Saves the program as a Verilog array.       \n";
     std::cout << "-v      --verbosity [LEVEL]   |   Sets the verbosity of the assembler.        \n";
     std::cout << "-p      --pad-size [SIZE]     |   Pads the output binary to a specific size.  \n";
     std::cout << "-c      --core-id [CORE]      |   Specifies the core ID to target.            \n";

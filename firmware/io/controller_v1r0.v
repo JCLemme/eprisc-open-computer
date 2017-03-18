@@ -43,15 +43,16 @@ module epRISC_controlRAM(iClk, iRst, iAddr, iData, oData, iWrite, iEnable);
     
 endmodule
 
-module EmulatedIOPLL(iIn, oOutUART);
+module EmulatedIOPLL(iIn, oOutUART, oOutSPI);
     input iIn;
-    output reg oOutUART;
+    output reg oOutUART, oOutSPI;
 
     reg [3:0] rClockSplit;
 
     initial begin
         rClockSplit <= 0;
         oOutUART <= 0;
+        oOutSPI <= 0;
     end
 
     always @(posedge iIn) begin
@@ -59,6 +60,9 @@ module EmulatedIOPLL(iIn, oOutUART);
 
         if(rClockSplit == 4'hF)
             oOutUART = !oOutUART;
+            
+        if(rClockSplit == 4'h7)
+            oOutSPI = !oOutSPI;
     end
 
 endmodule
@@ -111,13 +115,13 @@ module epRISC_iocontroller(iBusClock, iBusSelect, iBusMOSI, oBusInterrupt, oBusM
     wire [31:0] wInternalMISO;
 
     // Internal bus definitions
-    wire mBusWrite;
+    wire mBusWrite, mBusReset;
     wire [14:0] mBusAddress;
     wire [15:0] mBusData;
-
+    
     wire wEnableGPIO, wEnableUART, wEnableSPI, wEnableVideo, wEnablePS2, wEnableRAM;
 
-    wire wSerialClock;
+    wire wSerialClock, wSPIClock;
     
     // Pipeline controller registers
     reg [3:0] rPipeState, rPipePrevState, rPipeNextState;
@@ -126,10 +130,12 @@ module epRISC_iocontroller(iBusClock, iBusSelect, iBusMOSI, oBusInterrupt, oBusM
     assign mBusAddress = rInternalMOSI[30:16];
     assign mBusData = rInternalMOSI[15:0];
     assign mBusWrite = (rPipeState == `sPipeStore && rInternalMOSI[31]) ? 1'h1 : 1'h0;
-
+    assign mBusReset = (!iBoardReset || (iBusSelect == 2'h0 && iBusClock == 1'h0)) ? 1'h1 : 1'h0;
+    
     assign wEnableGPIO = (mBusAddress >= 15'h0 && mBusAddress < 15'hFF) ? 1'h1 : 1'h0;
     assign wEnableUART = (mBusAddress >= 15'h100 && mBusAddress < 15'h1FF) ? 1'h1 : 1'h0;
-    assign wEnableRAM = (mBusAddress >= 15'h200 && mBusAddress < 15'h2FF) ? 1'h1 : 1'h0;
+    assign wEnableSPI = (mBusAddress >= 15'h200 && mBusAddress < 15'h2FF) ? 1'h1 : 1'h0;
+    assign wEnableRAM = (mBusAddress >= 15'h300 && mBusAddress < 15'h3FF) ? 1'h1 : 1'h0;
 
     assign oBusMISO = (rPipeState == `sPipeLoLo) ? wInternalMISO[7:0] :
                       (rPipeState == `sPipeLo) ? wInternalMISO[15:8] :
@@ -138,17 +144,19 @@ module epRISC_iocontroller(iBusClock, iBusSelect, iBusMOSI, oBusInterrupt, oBusM
 
 
     `ifdef EMULATED
-    EmulatedIOPLL       clock(iBoardClock, wSerialClock);
+    EmulatedIOPLL       clock(iBoardClock, wSerialClock, wSPIClock);
     `else
-    OnChipPLL           clock(iBoardClock, wSerialClock);
+    OnChipPLL           clock(iBoardClock, wSerialClock, wSPIClock);
     `endif
 
-    epRISC_GPIO         gpio(iBusClock, (!iBoardReset || iBusSelect == 2'h0), oBusInterrupt, mBusAddress, mBusData, wInternalMISO, mBusWrite, wEnableGPIO, 
+    epRISC_GPIO         gpio(iBusClock, mBusReset, oBusInterrupt, mBusAddress, mBusData, wInternalMISO, mBusWrite, wEnableGPIO, 
                              bGPIO0, bGPIO1, bGPIO2, bGPIO3, bGPIO4, bGPIO5, bGPIO6, bGPIO7, bGPIO8, bGPIO9, bGPIO10, bGPIO11, bGPIO12, bGPIO13, bGPIO14, bGPIO15);
                              
-    epRISC_UART         uart(iBusClock, (!iBoardReset || iBusSelect == 2'h0), oBvusInterrupt, mBusAddress, mBusData, wInternalMISO, mBusWrite, wEnableUART, wSerialClock, iTTLSerialRX, oTTLSerialTX);   
-                             
-    epRISC_controlRAM   mem(iBusClock, !iBoardReset, mBusAddress, rInternalMOSI, wInternalMISO, mBusWrite, wEnableRAM);
+    epRISC_UART         uart(iBusClock, mBusReset, oBvusInterrupt, mBusAddress, mBusData, wInternalMISO, mBusWrite, wEnableUART, wSerialClock, iTTLSerialRX, oTTLSerialTX);   
+    
+    epRISC_SPI          bspi(iBusClock, mBusReset, oBrusInterrupt, mBusAddress, mBusData, wInternalMISO, mBusWrite, wEnableSPI, wSPICLock, iSPIMISO, oSPIMOSI, oSPISelect, oSPIClock);
+    
+    epRISC_controlRAM   bmem(iBusClock, mBusReset, mBusAddress, rInternalMOSI, wInternalMISO, mBusWrite, wEnableRAM);
 
 
     // Pipeline controller

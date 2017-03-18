@@ -18,6 +18,7 @@ class UtilFile
     
     std::vector<uint8_t> loadBinary(std::string filename, int *err = NULL);
     void saveBinary(std::string filename, std::vector<uint8_t> data, int *err = NULL);
+    void saveBinaryAsVerilog(std::string filename, std::vector<uint8_t> data, int *err = NULL);
 };
 
 #endif
