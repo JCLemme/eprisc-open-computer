@@ -68,8 +68,8 @@ set_global_assignment -name POWER_DEFAULT_INPUT_IO_TOGGLE_RATE "12.5 %"
 set_location_assignment PIN_24 -to iBoardSense
 set_location_assignment PIN_17 -to bBoardDebug0
 set_location_assignment PIN_22 -to bBoardDebug3
-set_location_assignment PIN_6 -to oBusMOSI[0]
-set_location_assignment PIN_7 -to oBusMOSI[1]
+set_location_assignment PIN_141 -to oBusMOSI[0]
+set_location_assignment PIN_140 -to oBusMOSI[1]
 set_location_assignment PIN_8 -to oBusMOSI[2]
 set_location_assignment PIN_10 -to oBusMOSI[3]
 set_location_assignment PIN_11 -to oBusMOSI[4]
@@ -82,8 +82,8 @@ set_location_assignment PIN_127 -to iBusMISO[5]
 set_location_assignment PIN_132 -to iBusMISO[4]
 set_location_assignment PIN_131 -to iBusMISO[3]
 set_location_assignment PIN_130 -to iBusMISO[2]
-set_location_assignment PIN_140 -to iBusMISO[1]
-set_location_assignment PIN_141 -to iBusMISO[0]
+set_location_assignment PIN_7 -to iBusMISO[1]
+set_location_assignment PIN_6 -to iBusMISO[0]
 set_location_assignment PIN_135 -to iBusInterrupt
 set_location_assignment PIN_123 -to oBusSelect[0]
 set_location_assignment PIN_26 -to iBoardClock

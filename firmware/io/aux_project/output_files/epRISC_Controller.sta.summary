@@ -2,40 +2,160 @@
 TimeQuest Timing Analyzer Summary
 ------------------------------------------------------------
 
+Type  : Slow 1200mV 85C Model Setup 'epRISC_UART:uart|rSendState[0]'
+Slack : -7.466
+TNS   : -27.898
+
+Type  : Slow 1200mV 85C Model Setup 'epRISC_UART:uart|rRecvState[0]'
+Slack : -6.695
+TNS   : -26.122
+
+Type  : Slow 1200mV 85C Model Setup 'clock|altpll_component|auto_generated|pll1|clk[0]'
+Slack : -5.677
+TNS   : -109.226
+
 Type  : Slow 1200mV 85C Model Setup 'iBusClock'
-Slack : -3.936
-TNS   : -230.532
+Slack : -5.387
+TNS   : -436.410
+
+Type  : Slow 1200mV 85C Model Hold 'clock|altpll_component|auto_generated|pll1|clk[0]'
+Slack : -0.287
+TNS   : -0.287
 
 Type  : Slow 1200mV 85C Model Hold 'iBusClock'
-Slack : 0.345
+Slack : 0.344
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Hold 'epRISC_UART:uart|rSendState[0]'
+Slack : 0.993
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Hold 'epRISC_UART:uart|rRecvState[0]'
+Slack : 1.291
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Minimum Pulse Width 'iBusClock'
 Slack : -3.901
-TNS   : -147.973
+TNS   : -207.453
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'epRISC_UART:uart|rSendState[0]'
+Slack : 0.379
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'epRISC_UART:uart|rRecvState[0]'
+Slack : 0.443
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'iBoardClock'
+Slack : 9.905
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'clock|altpll_component|auto_generated|pll1|clk[0]'
+Slack : 99999.715
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Setup 'epRISC_UART:uart|rSendState[0]'
+Slack : -7.162
+TNS   : -26.766
+
+Type  : Slow 1200mV 0C Model Setup 'epRISC_UART:uart|rRecvState[0]'
+Slack : -6.575
+TNS   : -25.713
 
 Type  : Slow 1200mV 0C Model Setup 'iBusClock'
-Slack : -3.691
-TNS   : -215.391
+Slack : -5.321
+TNS   : -411.776
+
+Type  : Slow 1200mV 0C Model Setup 'clock|altpll_component|auto_generated|pll1|clk[0]'
+Slack : -5.259
+TNS   : -96.658
+
+Type  : Slow 1200mV 0C Model Hold 'clock|altpll_component|auto_generated|pll1|clk[0]'
+Slack : -0.334
+TNS   : -0.334
 
 Type  : Slow 1200mV 0C Model Hold 'iBusClock'
 Slack : 0.308
 TNS   : 0.000
 
+Type  : Slow 1200mV 0C Model Hold 'epRISC_UART:uart|rSendState[0]'
+Slack : 0.816
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Hold 'epRISC_UART:uart|rRecvState[0]'
+Slack : 1.022
+TNS   : 0.000
+
 Type  : Slow 1200mV 0C Model Minimum Pulse Width 'iBusClock'
 Slack : -3.901
-TNS   : -147.973
+TNS   : -207.453
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'epRISC_UART:uart|rRecvState[0]'
+Slack : 0.238
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'epRISC_UART:uart|rSendState[0]'
+Slack : 0.423
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'iBoardClock'
+Slack : 9.776
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'clock|altpll_component|auto_generated|pll1|clk[0]'
+Slack : 99999.688
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Setup 'epRISC_UART:uart|rSendState[0]'
+Slack : -2.518
+TNS   : -9.405
+
+Type  : Fast 1200mV 0C Model Setup 'epRISC_UART:uart|rRecvState[0]'
+Slack : -2.403
+TNS   : -9.326
 
 Type  : Fast 1200mV 0C Model Setup 'iBusClock'
-Slack : -1.558
-TNS   : -72.997
+Slack : -1.914
+TNS   : -154.817
+
+Type  : Fast 1200mV 0C Model Setup 'clock|altpll_component|auto_generated|pll1|clk[0]'
+Slack : -1.818
+TNS   : -33.411
+
+Type  : Fast 1200mV 0C Model Hold 'clock|altpll_component|auto_generated|pll1|clk[0]'
+Slack : -0.228
+TNS   : -0.228
 
 Type  : Fast 1200mV 0C Model Hold 'iBusClock'
 Slack : 0.146
 TNS   : 0.000
 
+Type  : Fast 1200mV 0C Model Hold 'epRISC_UART:uart|rSendState[0]'
+Slack : 0.404
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Hold 'epRISC_UART:uart|rRecvState[0]'
+Slack : 0.449
+TNS   : 0.000
+
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'iBusClock'
 Slack : -3.000
-TNS   : -99.498
+TNS   : -141.460
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'epRISC_UART:uart|rRecvState[0]'
+Slack : 0.286
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'epRISC_UART:uart|rSendState[0]'
+Slack : 0.315
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'iBoardClock'
+Slack : 9.663
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'clock|altpll_component|auto_generated|pll1|clk[0]'
+Slack : 99999.754
+TNS   : 0.000
 
 ------------------------------------------------------------

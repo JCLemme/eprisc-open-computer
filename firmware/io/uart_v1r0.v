@@ -1,3 +1,14 @@
+// epRISC I/O module - RS232 UART (two-pin)
+//
+// written by John C. Lemme, jclemme (at) proportionallabs (dot) com
+// this file is part of the epRISC project, released under the epRISC license - see "license.txt" for details.
+
+// Everything here is unfinished and/or broken.
+// Below there be dragons.
+
+// Gonna need this later
+/* verilator lint_off WIDTH */
+
  /* epRISC UART
 
 Bits            1:0
@@ -8,7 +19,7 @@ Allow recv      5
 Int recv        6
 Send            7
 Send all        8 */
- 
+
 `define sBit0       0
 `define sBit1       1
 `define sBit2       2
@@ -24,42 +35,29 @@ Send all        8 */
 `define sIdle       13
 `define sWait       14
 
-module epRISC_UART(iBusClock, iBusReset, oBusInterrupt, iBusAddress, iBusDataIn, oBusDataOut, iBusWrite, iSerialClock, iSerialRX, oSerialTX);
-
-    // Input/output definitions
-    input iBusClock, iBusReset, iBusWrite, iSerialClock, iSerialRX;
-    input [9:0] iBusAddress;
-    input [15:0] iBusDataIn;
-    output wire oBusInterrupt, oSerialTX;
-    output wire [15:0] oBusDataOut;
-
-    // Internal control registers
-    reg [3:0] rSendState, rSendPrevState, rSendNextState, rRecvState, rRecvPrevState, rRecvNextState;
-    reg [15:0] rControl, rDirectIn, rDirectOut;
-endmodule
-
-module UART_epRISC(iClk, iRst, oInt, iAddr, bData, iWrite, iEnable, iSClk, iRX, oTX);
+module epRISC_UART(iClk, iRst, oInt, iAddr, iData, oData, iWrite, iEnable, iSClk, iRX, oTX);
 
     input iClk, iRst, iWrite, iEnable, iSClk, iRX;
     input [1:0] iAddr;
-    inout [31:0] bData;
+    input [15:0] iData;
     output reg oInt;
     output wire oTX;
+    output wire [15:0] oData;
     
     reg [3:0] rSendState, rSendNextState, rSendPrevState, rRecvState, rRecvNextState, rRecvPrevState;
     reg [5:0] rSendDataCnt, rRecvDataCnt;
     reg [7:0] rSendDataBuf, rRecvDataBuf;
-    reg [31:0] rControl, rDataIn, rDataOut;
+    reg [15:0] rControl, rDataIn, rDataOut;
      
     assign oTX = (rSendState == `sBitStart) ? 0 : ((rSendState == `sIdle || rSendState == `sBitStopA || rSendState == `sBitStopB) ? 1 : rSendDataBuf[rSendState]);
-    assign bData = (iWrite || !iEnable) ? 32'bz : ((iAddr==0)?((rSendState==`sIdle)?rControl:rControl|32'h80):((iAddr==1)?rDataIn:((iAddr==2)?rDataOut:32'b1)));
+    assign oData = (!iEnable) ? 16'bz : ((iAddr==0)?((rSendState==`sIdle)?rControl:rControl|16'h80):((iAddr==1)?rDataIn:((iAddr==2)?rDataOut:16'b1)));
     
     always @(posedge iClk) begin
         if(iRst) begin
             rControl <= 0;
         end else begin
             if(iWrite && iEnable && iAddr == 0)
-                rControl <= bData;
+                rControl <= iData;
             if(rSendPrevState == `sBitStopB)
                 rControl[7] <= 0;
             if(rRecvPrevState == `sBitStopB)
@@ -69,10 +67,10 @@ module UART_epRISC(iClk, iRst, oInt, iAddr, bData, iWrite, iEnable, iSClk, iRX, 
 
     always @(posedge iClk) begin
         if(iRst) begin
-            rDataIn <= 32'h00;
+            rDataIn <= 16'h00;
         end else begin  
             if(iWrite && iEnable && iAddr == 1) begin
-                rDataIn <= bData;
+                rDataIn <= iData;
             end
         end
     end

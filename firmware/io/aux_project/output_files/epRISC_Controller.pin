@@ -82,23 +82,23 @@ VCCIO1A                      : 9         : power  :                   : 2.5V    
 iBusMOSI[4]                  : 10        : input  : 2.5 V             :         : 1A        : Y              
 iBusMOSI[3]                  : 11        : input  : 2.5 V             :         : 1A        : Y              
 iBusMOSI[2]                  : 12        : input  : 2.5 V             :         : 1A        : Y              
-iBusMOSI[1]                  : 13        : input  : 2.5 V             :         : 1A        : Y              
-iBusMOSI[0]                  : 14        : input  : 2.5 V             :         : 1A        : Y              
+oBusMISO[1]                  : 13        : output : 2.5 V             :         : 1A        : Y              
+oBusMISO[0]                  : 14        : output : 2.5 V             :         : 1A        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : 15        :        :                   :         : 1B        :                
-~ALTERA_TMS~ / RESERVED_INPUT_WITH_WEAK_PULLUP : 16        : input  : 2.5 V Schmitt Trigger :         : 1B        : N              
-bBoardDebug4                 : 17        : bidir  : 2.5 V             :         : 1B        : Y              
+~ALTERA_TMS~ / RESERVED_INPUT : 16        : input  : 2.5 V Schmitt Trigger :         : 1B        : N              
+bBoardDebug2                 : 17        : bidir  : 2.5 V             :         : 1B        : N              
 ~ALTERA_TCK~ / RESERVED_INPUT : 18        : input  : 2.5 V Schmitt Trigger :         : 1B        : N              
-~ALTERA_TDI~ / RESERVED_INPUT_WITH_WEAK_PULLUP : 19        : input  : 2.5 V Schmitt Trigger :         : 1B        : N              
+~ALTERA_TDI~ / RESERVED_INPUT : 19        : input  : 2.5 V Schmitt Trigger :         : 1B        : N              
 ~ALTERA_TDO~                 : 20        : output : 2.5 V             :         : 1B        : N              
-bBoardDebug0                 : 21        : bidir  : 2.5 V             :         : 1B        : Y              
-bBoardDebug1                 : 22        : bidir  : 2.5 V             :         : 1B        : Y              
+bBoardDebug4                 : 21        : bidir  : 2.5 V             :         : 1B        : N              
+bBoardDebug0                 : 22        : bidir  : 2.5 V             :         : 1B        : N              
 VCCIO1B                      : 23        : power  :                   : 2.5V    : 1B        :                
-bBoardDebug2                 : 24        : bidir  : 2.5 V             :         : 1B        : Y              
-bBoardDebug3                 : 25        : bidir  : 2.5 V             :         : 1B        : Y              
+RESERVED_INPUT_WITH_WEAK_PULLUP : 24        :        :                   :         : 1B        :                
+bBoardDebug3                 : 25        : bidir  : 2.5 V             :         : 1B        : N              
 iBusClock                    : 26        : input  : 2.5 V             :         : 2         : Y              
-oBusMISO[0]                  : 27        : output : 2.5 V             :         : 2         : Y              
+iBusMOSI[0]                  : 27        : input  : 2.5 V             :         : 2         : Y              
 iBoardClock                  : 28        : input  : 2.5 V             :         : 2         : Y              
-oBusMISO[1]                  : 29        : output : 2.5 V             :         : 2         : Y              
+iBusMOSI[1]                  : 29        : input  : 2.5 V             :         : 2         : Y              
 oBusMISO[4]                  : 30        : output : 2.5 V             :         : 2         : Y              
 VCCIO2                       : 31        : power  :                   : 2.5V    : 2         :                
 oBusMISO[3]                  : 32        : output : 2.5 V             :         : 2         : Y              
@@ -203,7 +203,7 @@ iBoardReset                  : 130       : input  : 2.5 V             :         
 bGPIO2                       : 131       : bidir  : 2.5 V             :         : 8         : Y              
 bGPIO3                       : 132       : bidir  : 2.5 V             :         : 8         : Y              
 GND                          : 133       : gnd    :                   :         :           :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : 134       :        :                   :         : 8         :                
+bBoardDebug1                 : 134       : bidir  : 2.5 V             :         : 8         : N              
 bBoardDebug5                 : 135       : bidir  : 2.5 V             :         : 8         : Y              
 ~ALTERA_nSTATUS~ / RESERVED_INPUT : 136       : input  : 2.5 V Schmitt Trigger :         : 8         : N              
 GND                          : 137       : gnd    :                   :         :           :                

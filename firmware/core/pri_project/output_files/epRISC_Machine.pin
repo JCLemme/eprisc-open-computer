@@ -75,8 +75,8 @@ VCCA6                        : 2         : power  :                   : 3.0V/3.3
 GND                          : 3         : gnd    :                   :         :           :                
 GND                          : 4         : gnd    :                   :         :           :                
 VCCA3                        : 5         : power  :                   : 3.0V/3.3V :           :                
-oBusMOSI[0]                  : 6         : output : 2.5 V             :         : 1A        : Y              
-oBusMOSI[1]                  : 7         : output : 2.5 V             :         : 1A        : Y              
+iBusMISO[0]                  : 6         : input  : 2.5 V             :         : 1A        : Y              
+iBusMISO[1]                  : 7         : input  : 2.5 V             :         : 1A        : Y              
 oBusMOSI[2]                  : 8         : output : 2.5 V             :         : 1A        : Y              
 VCCIO1A                      : 9         : power  :                   : 2.5V    : 1A        :                
 oBusMOSI[3]                  : 10        : output : 2.5 V             :         : 1A        : Y              
@@ -209,8 +209,8 @@ iBusInterrupt                : 135       : input  : 2.5 V             :         
 GND                          : 137       : gnd    :                   :         :           :                
 ~ALTERA_CONF_DONE~ / RESERVED_INPUT : 138       : input  : 2.5 V Schmitt Trigger :         : 8         : N              
 VCCIO8                       : 139       : power  :                   : 2.5V    : 8         :                
-iBusMISO[1]                  : 140       : input  : 2.5 V             :         : 8         : Y              
-iBusMISO[0]                  : 141       : input  : 2.5 V             :         : 8         : Y              
+oBusMOSI[1]                  : 140       : output : 2.5 V             :         : 8         : Y              
+oBusMOSI[0]                  : 141       : output : 2.5 V             :         : 8         : Y              
 GND                          : 142       : gnd    :                   :         :           :                
 VCCA4                        : 143       : power  :                   : 3.0V/3.3V :           :                
 VCC_ONE                      : 144       : power  :                   : 3.0V/3.3V :           :                

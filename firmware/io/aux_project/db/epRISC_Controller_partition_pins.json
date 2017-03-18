@@ -40,6 +40,10 @@
 					"strict" : false
 				},
 				{
+					"name" : "oTTLSerialTX",
+					"strict" : false
+				},
+				{
 					"name" : "bGPIO0",
 					"strict" : false
 				},
@@ -149,6 +153,10 @@
 				},
 				{
 					"name" : "iBusSelect[1]",
+					"strict" : false
+				},
+				{
+					"name" : "iTTLSerialRX",
 					"strict" : false
 				}
 			]
