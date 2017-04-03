@@ -47,7 +47,7 @@ module EmulatedIOPLL(iIn, oOutUART, oOutSPI);
     input iIn;
     output reg oOutUART, oOutSPI;
 
-    reg [3:0] rClockSplit;
+    reg [2:0] rClockSplit;
 
     initial begin
         rClockSplit <= 0;
@@ -58,10 +58,10 @@ module EmulatedIOPLL(iIn, oOutUART, oOutSPI);
     always @(posedge iIn) begin
         rClockSplit <= rClockSplit + 1;
 
-        if(rClockSplit == 4'hF)
+        if(rClockSplit == 2'h3)
             oOutUART = !oOutUART;
             
-        if(rClockSplit == 4'h7)
+        if(rClockSplit == 2'h1)
             oOutSPI = !oOutSPI;
     end
 

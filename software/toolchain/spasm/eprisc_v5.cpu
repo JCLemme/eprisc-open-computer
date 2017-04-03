@@ -19,7 +19,7 @@ core=EPRISC_STD
         O=VALUE:h00
     endinst
  
-    inst=BRCH.O  #Branch, register and 20-bit address
+    inst=BRCH.A  #Branch, register and 20-bit address
         format=1LLLCCCCRRRRAAAAAAAAAAAAAAAAAAAA
         L=ENUMT:BRANCHALT:NONE
         C=ENUMT:CONDITION:ALC
@@ -28,11 +28,11 @@ core=EPRISC_STD
     endinst
     
     inst=CALL.S  #Branch, call subroutine, register and 20-bit offset
-        format=1101CCCCRRRROOOOOOOOOOOOOOOOOOOO
+        format=1101CCCCRRRRAAAAAAAAAAAAAAAAAAAA
         L=ENUMT:BRANCHALT:NONE
         C=ENUMT:CONDITION:ALC
         R=ENUMT:REGISTER:IP
-        O=VALUE:h00
+        A=ADDRS
     endinst
  
     inst=CALL.L  #Branch, call subroutine, register and 20-bit address
@@ -40,7 +40,7 @@ core=EPRISC_STD
         L=ENUMT:BRANCHALT:NONE
         C=ENUMT:CONDITION:ALC
         R=ENUMT:REGISTER:IP
-        A=ADDRS
+        A=LABEL
     endinst
     
     inst=RTRN.S  #Branch, return from stack
@@ -63,9 +63,9 @@ core=EPRISC_STD
     endinst
        
     inst=STOR.O  #Store, register and 20-bit offset
-        format=0110RRRRDDDDOOOOOOOOOOOOOOOOOOOO
+        format=0110RRRRSSSSOOOOOOOOOOOOOOOOOOOO
         R=ENUMT:REGISTER
-        D=ENUMT:REGISTER
+        S=ENUMT:REGISTER
         O=VALUE:h0
     endinst
 
@@ -77,9 +77,9 @@ core=EPRISC_STD
     endinst
        
     inst=STOR.A  #Store, register and 20-bit address
-        format=0110RRRRDDDDAAAAAAAAAAAAAAAAAAAA
+        format=0110RRRRSSSSAAAAAAAAAAAAAAAAAAAA
         R=ENUMT:REGISTER
-        D=ENUMT:REGISTER
+        S=ENUMT:REGISTER
         A=ADDRS
     endinst
     
@@ -346,32 +346,28 @@ core=EPRISC_STD
     endinst
     
     inst=CMPR.R  #Compare, two registers
-        format=000100001110DDDDAAAABBBBVVVVVVVV
-        D=ENUMT:REGISTER
+        format=0001000011100000AAAABBBBVVVVVVVV
         A=ENUMT:REGISTER
         B=ENUMT:REGISTER
         V=VALUE:h0
     endinst
     
     inst=CMPR.V  #Compare, register and 8-bit value
-        format=000110001110DDDDAAAASSSSVVVVVVVV
-        D=ENUMT:REGISTER
+        format=0001100011100000AAAASSSSVVVVVVVV
         A=ENUMT:REGISTER
         S=VALUE:h0
         V=VALUE:h0
     endinst
    
     inst=TEST.R  #Test, two registers
-        format=000100001111DDDDAAAABBBBVVVVVVVV
-        D=ENUMT:REGISTER
+        format=0001000011110000AAAABBBBVVVVVVVV
         A=ENUMT:REGISTER
         B=ENUMT:REGISTER
         V=VALUE:h0
     endinst
     
     inst=TEST.V  #Test, register and 8-bit value
-        format=000110001111DDDDAAAASSSSVVVVVVVV
-        D=ENUMT:REGISTER
+        format=0001100011110000AAAASSSSVVVVVVVV
         A=ENUMT:REGISTER
         S=VALUE:h0
         V=VALUE:h0

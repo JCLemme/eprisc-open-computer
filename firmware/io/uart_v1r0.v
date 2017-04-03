@@ -45,23 +45,32 @@ module epRISC_UART(iClk, iRst, oInt, iAddr, iData, oData, iWrite, iEnable, iSClk
     output wire [15:0] oData;
     
     reg [3:0] rSendState, rSendNextState, rSendPrevState, rRecvState, rRecvNextState, rRecvPrevState;
+    reg [4:0] rRecvCountSto, rRecvCountAck, rSendCountSto, rSendCountAck;
     reg [5:0] rSendDataCnt, rRecvDataCnt;
     reg [7:0] rSendDataBuf, rRecvDataBuf;
     reg [15:0] rControl, rDataIn, rDataOut;
      
     assign oTX = (rSendState == `sBitStart) ? 0 : ((rSendState == `sIdle || rSendState == `sBitStopA || rSendState == `sBitStopB) ? 1 : rSendDataBuf[rSendState]);
     assign oData = (!iEnable) ? 16'bz : ((iAddr==0)?((rSendState==`sIdle)?rControl:rControl|16'h80):((iAddr==1)?rDataIn:((iAddr==2)?rDataOut:16'b1)));
-    
+
     always @(posedge iClk) begin
         if(iRst) begin
             rControl <= 0;
+            rRecvCountSto <= 0;
+            rSendCountSto <= 0;
         end else begin
             if(iWrite && iEnable && iAddr == 0)
                 rControl <= iData;
-            if(rSendPrevState == `sBitStopB)
+
+            if((rSendCountAck > rSendCountSto) || (rSendCountAck == 5'h0 && rSendCountSto == 5'h1F)) begin
+                rSendCountSto <= rSendCountAck;
                 rControl[7] <= 0;
-            if(rRecvPrevState == `sBitStopB)
+            end
+            
+            if((rRecvCountAck > rRecvCountSto) || (rRecvCountAck == 5'h0 && rRecvCountSto == 5'h1F)) begin
+                rRecvCountSto <= rRecvCountAck;
                 rControl[5] <= 0;
+            end
         end
     end
 
@@ -75,7 +84,7 @@ module epRISC_UART(iClk, iRst, oInt, iAddr, iData, oData, iWrite, iEnable, iSClk
         end
     end
     
-    always @(posedge iClk) begin
+    always @(posedge iSClk) begin
         if(iRst) begin
             rDataOut <= 0;
         end else begin       
@@ -100,6 +109,7 @@ module epRISC_UART(iClk, iRst, oInt, iAddr, iData, oData, iWrite, iEnable, iSClk
         if(iRst) begin
             rSendPrevState <= `sIdle;
             rSendState <= `sIdle;
+            rSendCountAck <= 0;
         end else begin
             if(rSendState == `sIdle) begin
                 rSendPrevState <= rSendState;
@@ -110,6 +120,9 @@ module epRISC_UART(iClk, iRst, oInt, iAddr, iData, oData, iWrite, iEnable, iSClk
                 if(rSendDataCnt[3:0] == 15) begin
                     rSendPrevState <= rSendState;
                     rSendState <= rSendNextState;
+                    
+                    if(rSendState == `sBitStopB)
+                        rSendCountAck <= rSendCountAck + 5'h1;
                 end
             end
         end
@@ -119,6 +132,7 @@ module epRISC_UART(iClk, iRst, oInt, iAddr, iData, oData, iWrite, iEnable, iSClk
         if(iRst) begin
             rRecvState <= `sIdle;
             rRecvPrevState <= `sIdle;
+            rRecvCountAck <= 0;
         end
         
         if(rRecvState == `sIdle) begin
@@ -137,6 +151,9 @@ module epRISC_UART(iClk, iRst, oInt, iAddr, iData, oData, iWrite, iEnable, iSClk
                 rRecvState <= rRecvNextState;
                 if(rRecvState < 8)
                     rRecvDataBuf[rRecvState] <= iRX;
+                
+                if(rRecvState == `sBitStopB)
+                    rRecvCountAck <= rRecvCountAck + 5'h1;
             end
         end
     end
@@ -155,8 +172,9 @@ module epRISC_UART(iClk, iRst, oInt, iAddr, iData, oData, iWrite, iEnable, iSClk
             `sBitParity: rSendNextState = (rControl[2]) ? `sBitStopA : `sBitStopB;
             `sBitStopA: rSendNextState = `sBitStopB;
             `sBitStopB: rSendNextState = `sIdle;
-            `sIdle: rSendNextState = (rControl[7]) ? `sBitStart : `sIdle;
+            `sIdle: rSendNextState = (rControl[7] && (rSendCountAck == rSendCountSto)) ? `sBitStart : `sIdle;
             `sWait: rSendNextState = `sIdle;
+            default: rSendNextState = `sIdle;
         endcase
     end
  
@@ -174,8 +192,9 @@ module epRISC_UART(iClk, iRst, oInt, iAddr, iData, oData, iWrite, iEnable, iSClk
             `sBitParity: rRecvNextState = (rControl[2]) ? `sBitStopA : `sBitStopB;
             `sBitStopA: rRecvNextState = `sBitStopB;
             `sBitStopB: rRecvNextState = `sIdle;
-            `sIdle: rRecvNextState = (!iRX /*&& rControl[5]*/) ? `sBitStart : `sIdle;
+            `sIdle: rRecvNextState = (!iRX && rControl[5] && (rRecvCountAck == rRecvCountSto)) ? `sBitStart : `sIdle;
             `sWait: rRecvNextState = `sBit0;
+            default: rRecvNextState = `sIdle;
         endcase
     end
         

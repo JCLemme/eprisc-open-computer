@@ -1,5 +1,5 @@
 TimeQuest Timing Analyzer report for epRISC_Controller
-Fri Mar 17 21:45:45 2017
+Sun Mar 26 11:43:03 2017
 Quartus Prime Version 16.0.0 Build 211 04/27/2016 SJ Lite Edition
 
 
@@ -92,27 +92,25 @@ agreement for further details.
 ; Number detected on machine ; 8           ;
 ; Maximum allowed            ; 4           ;
 ;                            ;             ;
-; Average used               ; 1.35        ;
+; Average used               ; 1.34        ;
 ; Maximum used               ; 4           ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processor 2            ;  11.9%      ;
-;     Processors 3-4         ;  11.7%      ;
+;     Processor 2            ;  11.5%      ;
+;     Processors 3-4         ;  11.1%      ;
 +----------------------------+-------------+
 
 
-+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Clocks                                                                                                                                                                                                                                                                                                                                ;
-+---------------------------------------------------+-----------+------------+------------+--------+------------+------------+-----------+-------------+-------+--------+-----------+------------+----------+-------------+-----------------------------------------------------+-------------------------------------------------------+
-; Clock Name                                        ; Type      ; Period     ; Frequency  ; Rise   ; Fall       ; Duty Cycle ; Divide by ; Multiply by ; Phase ; Offset ; Edge List ; Edge Shift ; Inverted ; Master      ; Source                                              ; Targets                                               ;
-+---------------------------------------------------+-----------+------------+------------+--------+------------+------------+-----------+-------------+-------+--------+-----------+------------+----------+-------------+-----------------------------------------------------+-------------------------------------------------------+
-; clock|altpll_component|auto_generated|pll1|clk[0] ; Generated ; 200000.000 ; 0.01 MHz   ; 50.000 ; 100050.000 ; 50.00      ; 10000     ; 1           ; 0.1   ;        ;           ;            ; false    ; iBoardClock ; clock|altpll_component|auto_generated|pll1|inclk[0] ; { clock|altpll_component|auto_generated|pll1|clk[0] } ;
-; epRISC_UART:uart|rRecvState[0]                    ; Base      ; 1.000      ; 1000.0 MHz ; 0.000  ; 0.500      ;            ;           ;             ;       ;        ;           ;            ;          ;             ;                                                     ; { epRISC_UART:uart|rRecvState[0] }                    ;
-; epRISC_UART:uart|rSendState[0]                    ; Base      ; 1.000      ; 1000.0 MHz ; 0.000  ; 0.500      ;            ;           ;             ;       ;        ;           ;            ;          ;             ;                                                     ; { epRISC_UART:uart|rSendState[0] }                    ;
-; iBoardClock                                       ; Base      ; 20.000     ; 50.0 MHz   ; 0.000  ; 10.000     ;            ;           ;             ;       ;        ;           ;            ;          ;             ;                                                     ; { iBoardClock }                                       ;
-; iBusClock                                         ; Base      ; 1.000      ; 1000.0 MHz ; 0.000  ; 0.500      ;            ;           ;             ;       ;        ;           ;            ;          ;             ;                                                     ; { iBusClock }                                         ;
-+---------------------------------------------------+-----------+------------+------------+--------+------------+------------+-----------+-------------+-------+--------+-----------+------------+----------+-------------+-----------------------------------------------------+-------------------------------------------------------+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Clocks                                                                                                                                                                                                                                                                                                                           ;
++---------------------------------------------------+-----------+----------+------------+-------+----------+------------+-----------+-------------+-------+--------+-----------+------------+----------+-------------+-----------------------------------------------------+-------------------------------------------------------+
+; Clock Name                                        ; Type      ; Period   ; Frequency  ; Rise  ; Fall     ; Duty Cycle ; Divide by ; Multiply by ; Phase ; Offset ; Edge List ; Edge Shift ; Inverted ; Master      ; Source                                              ; Targets                                               ;
++---------------------------------------------------+-----------+----------+------------+-------+----------+------------+-----------+-------------+-------+--------+-----------+------------+----------+-------------+-----------------------------------------------------+-------------------------------------------------------+
+; clock|altpll_component|auto_generated|pll1|clk[0] ; Generated ; 6250.000 ; 0.16 MHz   ; 2.083 ; 3127.083 ; 50.00      ; 625       ; 2           ; 0.1   ;        ;           ;            ; false    ; iBoardClock ; clock|altpll_component|auto_generated|pll1|inclk[0] ; { clock|altpll_component|auto_generated|pll1|clk[0] } ;
+; iBoardClock                                       ; Base      ; 20.000   ; 50.0 MHz   ; 0.000 ; 10.000   ;            ;           ;             ;       ;        ;           ;            ;          ;             ;                                                     ; { iBoardClock }                                       ;
+; iBusClock                                         ; Base      ; 1.000    ; 1000.0 MHz ; 0.000 ; 0.500    ;            ;           ;             ;       ;        ;           ;            ;          ;             ;                                                     ; { iBusClock }                                         ;
++---------------------------------------------------+-----------+----------+------------+-------+----------+------------+-----------+-------------+-------+--------+-----------+------------+----------+-------------+-----------------------------------------------------+-------------------------------------------------------+
 
 
 +-----------------------------------------------------------------------------------------+
@@ -120,10 +118,8 @@ agreement for further details.
 +------------+-----------------+---------------------------------------------------+------+
 ; Fmax       ; Restricted Fmax ; Clock Name                                        ; Note ;
 +------------+-----------------+---------------------------------------------------+------+
-; 99.48 MHz  ; 99.48 MHz       ; iBusClock                                         ;      ;
-; 101.92 MHz ; 101.92 MHz      ; epRISC_UART:uart|rSendState[0]                    ;      ;
-; 106.77 MHz ; 106.77 MHz      ; epRISC_UART:uart|rRecvState[0]                    ;      ;
-; 127.13 MHz ; 127.13 MHz      ; clock|altpll_component|auto_generated|pll1|clk[0] ;      ;
+; 93.76 MHz  ; 93.76 MHz       ; iBusClock                                         ;      ;
+; 121.42 MHz ; 121.42 MHz      ; clock|altpll_component|auto_generated|pll1|clk[0] ;      ;
 +------------+-----------------+---------------------------------------------------+------+
 This panel reports FMAX for every clock in the design, regardless of the user-specified clock periods.  FMAX is only computed for paths where the source and destination registers or ports are driven by the same clock.  Paths of different clocks, including generated clocks, are ignored.  For paths between a clock and its inversion, FMAX is computed as if the rising and falling edges are scaled along with FMAX, such that the duty cycle (in terms of a percentage) is maintained. Altera recommends that you always use clock constraints and other slack reports for sign-off analysis.
 
@@ -133,23 +129,19 @@ This panel reports FMAX for every clock in the design, regardless of the user-sp
 +---------------------------------------------------+--------+---------------+
 ; Clock                                             ; Slack  ; End Point TNS ;
 +---------------------------------------------------+--------+---------------+
-; epRISC_UART:uart|rSendState[0]                    ; -7.466 ; -27.898       ;
-; epRISC_UART:uart|rRecvState[0]                    ; -6.695 ; -26.122       ;
-; clock|altpll_component|auto_generated|pll1|clk[0] ; -5.677 ; -109.226      ;
-; iBusClock                                         ; -5.387 ; -436.410      ;
+; iBusClock                                         ; -8.250 ; -640.157      ;
+; clock|altpll_component|auto_generated|pll1|clk[0] ; -6.966 ; -207.231      ;
 +---------------------------------------------------+--------+---------------+
 
 
-+----------------------------------------------------------------------------+
-; Slow 1200mV 85C Model Hold Summary                                         ;
-+---------------------------------------------------+--------+---------------+
-; Clock                                             ; Slack  ; End Point TNS ;
-+---------------------------------------------------+--------+---------------+
-; clock|altpll_component|auto_generated|pll1|clk[0] ; -0.287 ; -0.287        ;
-; iBusClock                                         ; 0.344  ; 0.000         ;
-; epRISC_UART:uart|rSendState[0]                    ; 0.993  ; 0.000         ;
-; epRISC_UART:uart|rRecvState[0]                    ; 1.291  ; 0.000         ;
-+---------------------------------------------------+--------+---------------+
++---------------------------------------------------------------------------+
+; Slow 1200mV 85C Model Hold Summary                                        ;
++---------------------------------------------------+-------+---------------+
+; Clock                                             ; Slack ; End Point TNS ;
++---------------------------------------------------+-------+---------------+
+; clock|altpll_component|auto_generated|pll1|clk[0] ; 0.342 ; 0.000         ;
+; iBusClock                                         ; 0.362 ; 0.000         ;
++---------------------------------------------------+-------+---------------+
 
 
 ------------------------------------------
@@ -164,17 +156,15 @@ No paths to report.
 No paths to report.
 
 
-+-------------------------------------------------------------------------------+
-; Slow 1200mV 85C Model Minimum Pulse Width Summary                             ;
-+---------------------------------------------------+-----------+---------------+
-; Clock                                             ; Slack     ; End Point TNS ;
-+---------------------------------------------------+-----------+---------------+
-; iBusClock                                         ; -3.901    ; -207.453      ;
-; epRISC_UART:uart|rSendState[0]                    ; 0.379     ; 0.000         ;
-; epRISC_UART:uart|rRecvState[0]                    ; 0.443     ; 0.000         ;
-; iBoardClock                                       ; 9.905     ; 0.000         ;
-; clock|altpll_component|auto_generated|pll1|clk[0] ; 99999.715 ; 0.000         ;
-+---------------------------------------------------+-----------+---------------+
++------------------------------------------------------------------------------+
+; Slow 1200mV 85C Model Minimum Pulse Width Summary                            ;
++---------------------------------------------------+----------+---------------+
+; Clock                                             ; Slack    ; End Point TNS ;
++---------------------------------------------------+----------+---------------+
+; iBusClock                                         ; -3.901   ; -256.524      ;
+; iBoardClock                                       ; 9.905    ; 0.000         ;
+; clock|altpll_component|auto_generated|pll1|clk[0] ; 3124.713 ; 0.000         ;
++---------------------------------------------------+----------+---------------+
 
 
 -----------------------------------------------
@@ -188,10 +178,8 @@ No synchronizer chains to report.
 +------------+-----------------+---------------------------------------------------+------+
 ; Fmax       ; Restricted Fmax ; Clock Name                                        ; Note ;
 +------------+-----------------+---------------------------------------------------+------+
-; 104.34 MHz ; 104.34 MHz      ; epRISC_UART:uart|rSendState[0]                    ;      ;
-; 107.34 MHz ; 107.34 MHz      ; iBusClock                                         ;      ;
-; 113.25 MHz ; 113.25 MHz      ; epRISC_UART:uart|rRecvState[0]                    ;      ;
-; 133.37 MHz ; 133.37 MHz      ; clock|altpll_component|auto_generated|pll1|clk[0] ;      ;
+; 99.07 MHz  ; 99.07 MHz       ; iBusClock                                         ;      ;
+; 127.67 MHz ; 127.67 MHz      ; clock|altpll_component|auto_generated|pll1|clk[0] ;      ;
 +------------+-----------------+---------------------------------------------------+------+
 This panel reports FMAX for every clock in the design, regardless of the user-specified clock periods.  FMAX is only computed for paths where the source and destination registers or ports are driven by the same clock.  Paths of different clocks, including generated clocks, are ignored.  For paths between a clock and its inversion, FMAX is computed as if the rising and falling edges are scaled along with FMAX, such that the duty cycle (in terms of a percentage) is maintained. Altera recommends that you always use clock constraints and other slack reports for sign-off analysis.
 
@@ -201,23 +189,19 @@ This panel reports FMAX for every clock in the design, regardless of the user-sp
 +---------------------------------------------------+--------+---------------+
 ; Clock                                             ; Slack  ; End Point TNS ;
 +---------------------------------------------------+--------+---------------+
-; epRISC_UART:uart|rSendState[0]                    ; -7.162 ; -26.766       ;
-; epRISC_UART:uart|rRecvState[0]                    ; -6.575 ; -25.713       ;
-; iBusClock                                         ; -5.321 ; -411.776      ;
-; clock|altpll_component|auto_generated|pll1|clk[0] ; -5.259 ; -96.658       ;
+; iBusClock                                         ; -7.881 ; -601.710      ;
+; clock|altpll_component|auto_generated|pll1|clk[0] ; -6.458 ; -192.307      ;
 +---------------------------------------------------+--------+---------------+
 
 
-+----------------------------------------------------------------------------+
-; Slow 1200mV 0C Model Hold Summary                                          ;
-+---------------------------------------------------+--------+---------------+
-; Clock                                             ; Slack  ; End Point TNS ;
-+---------------------------------------------------+--------+---------------+
-; clock|altpll_component|auto_generated|pll1|clk[0] ; -0.334 ; -0.334        ;
-; iBusClock                                         ; 0.308  ; 0.000         ;
-; epRISC_UART:uart|rSendState[0]                    ; 0.816  ; 0.000         ;
-; epRISC_UART:uart|rRecvState[0]                    ; 1.022  ; 0.000         ;
-+---------------------------------------------------+--------+---------------+
++---------------------------------------------------------------------------+
+; Slow 1200mV 0C Model Hold Summary                                         ;
++---------------------------------------------------+-------+---------------+
+; Clock                                             ; Slack ; End Point TNS ;
++---------------------------------------------------+-------+---------------+
+; clock|altpll_component|auto_generated|pll1|clk[0] ; 0.306 ; 0.000         ;
+; iBusClock                                         ; 0.324 ; 0.000         ;
++---------------------------------------------------+-------+---------------+
 
 
 -----------------------------------------
@@ -232,17 +216,15 @@ No paths to report.
 No paths to report.
 
 
-+-------------------------------------------------------------------------------+
-; Slow 1200mV 0C Model Minimum Pulse Width Summary                              ;
-+---------------------------------------------------+-----------+---------------+
-; Clock                                             ; Slack     ; End Point TNS ;
-+---------------------------------------------------+-----------+---------------+
-; iBusClock                                         ; -3.901    ; -207.453      ;
-; epRISC_UART:uart|rRecvState[0]                    ; 0.238     ; 0.000         ;
-; epRISC_UART:uart|rSendState[0]                    ; 0.423     ; 0.000         ;
-; iBoardClock                                       ; 9.776     ; 0.000         ;
-; clock|altpll_component|auto_generated|pll1|clk[0] ; 99999.688 ; 0.000         ;
-+---------------------------------------------------+-----------+---------------+
++------------------------------------------------------------------------------+
+; Slow 1200mV 0C Model Minimum Pulse Width Summary                             ;
++---------------------------------------------------+----------+---------------+
+; Clock                                             ; Slack    ; End Point TNS ;
++---------------------------------------------------+----------+---------------+
+; iBusClock                                         ; -3.901   ; -256.524      ;
+; iBoardClock                                       ; 9.776    ; 0.000         ;
+; clock|altpll_component|auto_generated|pll1|clk[0] ; 3124.684 ; 0.000         ;
++---------------------------------------------------+----------+---------------+
 
 
 ----------------------------------------------
@@ -256,23 +238,19 @@ No synchronizer chains to report.
 +---------------------------------------------------+--------+---------------+
 ; Clock                                             ; Slack  ; End Point TNS ;
 +---------------------------------------------------+--------+---------------+
-; epRISC_UART:uart|rSendState[0]                    ; -2.518 ; -9.405        ;
-; epRISC_UART:uart|rRecvState[0]                    ; -2.403 ; -9.326        ;
-; iBusClock                                         ; -1.914 ; -154.817      ;
-; clock|altpll_component|auto_generated|pll1|clk[0] ; -1.818 ; -33.411       ;
+; clock|altpll_component|auto_generated|pll1|clk[0] ; -2.981 ; -86.739       ;
+; iBusClock                                         ; -2.702 ; -225.456      ;
 +---------------------------------------------------+--------+---------------+
 
 
-+----------------------------------------------------------------------------+
-; Fast 1200mV 0C Model Hold Summary                                          ;
-+---------------------------------------------------+--------+---------------+
-; Clock                                             ; Slack  ; End Point TNS ;
-+---------------------------------------------------+--------+---------------+
-; clock|altpll_component|auto_generated|pll1|clk[0] ; -0.228 ; -0.228        ;
-; iBusClock                                         ; 0.146  ; 0.000         ;
-; epRISC_UART:uart|rSendState[0]                    ; 0.404  ; 0.000         ;
-; epRISC_UART:uart|rRecvState[0]                    ; 0.449  ; 0.000         ;
-+---------------------------------------------------+--------+---------------+
++---------------------------------------------------------------------------+
+; Fast 1200mV 0C Model Hold Summary                                         ;
++---------------------------------------------------+-------+---------------+
+; Clock                                             ; Slack ; End Point TNS ;
++---------------------------------------------------+-------+---------------+
+; clock|altpll_component|auto_generated|pll1|clk[0] ; 0.144 ; 0.000         ;
+; iBusClock                                         ; 0.152 ; 0.000         ;
++---------------------------------------------------+-------+---------------+
 
 
 -----------------------------------------
@@ -287,17 +265,15 @@ No paths to report.
 No paths to report.
 
 
-+-------------------------------------------------------------------------------+
-; Fast 1200mV 0C Model Minimum Pulse Width Summary                              ;
-+---------------------------------------------------+-----------+---------------+
-; Clock                                             ; Slack     ; End Point TNS ;
-+---------------------------------------------------+-----------+---------------+
-; iBusClock                                         ; -3.000    ; -141.460      ;
-; epRISC_UART:uart|rRecvState[0]                    ; 0.286     ; 0.000         ;
-; epRISC_UART:uart|rSendState[0]                    ; 0.315     ; 0.000         ;
-; iBoardClock                                       ; 9.663     ; 0.000         ;
-; clock|altpll_component|auto_generated|pll1|clk[0] ; 99999.754 ; 0.000         ;
-+---------------------------------------------------+-----------+---------------+
++------------------------------------------------------------------------------+
+; Fast 1200mV 0C Model Minimum Pulse Width Summary                             ;
++---------------------------------------------------+----------+---------------+
+; Clock                                             ; Slack    ; End Point TNS ;
++---------------------------------------------------+----------+---------------+
+; iBusClock                                         ; -3.000   ; -176.507      ;
+; iBoardClock                                       ; 9.663    ; 0.000         ;
+; clock|altpll_component|auto_generated|pll1|clk[0] ; 3124.741 ; 0.000         ;
++---------------------------------------------------+----------+---------------+
 
 
 ----------------------------------------------
@@ -306,24 +282,20 @@ No paths to report.
 No synchronizer chains to report.
 
 
-+-------------------------------------------------------------------------------------------------------------------+
-; Multicorner Timing Analysis Summary                                                                               ;
-+----------------------------------------------------+----------+--------+----------+---------+---------------------+
-; Clock                                              ; Setup    ; Hold   ; Recovery ; Removal ; Minimum Pulse Width ;
-+----------------------------------------------------+----------+--------+----------+---------+---------------------+
-; Worst-case Slack                                   ; -7.466   ; -0.334 ; N/A      ; N/A     ; -3.901              ;
-;  clock|altpll_component|auto_generated|pll1|clk[0] ; -5.677   ; -0.334 ; N/A      ; N/A     ; 99999.688           ;
-;  epRISC_UART:uart|rRecvState[0]                    ; -6.695   ; 0.449  ; N/A      ; N/A     ; 0.238               ;
-;  epRISC_UART:uart|rSendState[0]                    ; -7.466   ; 0.404  ; N/A      ; N/A     ; 0.315               ;
-;  iBoardClock                                       ; N/A      ; N/A    ; N/A      ; N/A     ; 9.663               ;
-;  iBusClock                                         ; -5.387   ; 0.146  ; N/A      ; N/A     ; -3.901              ;
-; Design-wide TNS                                    ; -599.656 ; -0.334 ; 0.0      ; 0.0     ; -207.453            ;
-;  clock|altpll_component|auto_generated|pll1|clk[0] ; -109.226 ; -0.334 ; N/A      ; N/A     ; 0.000               ;
-;  epRISC_UART:uart|rRecvState[0]                    ; -26.122  ; 0.000  ; N/A      ; N/A     ; 0.000               ;
-;  epRISC_UART:uart|rSendState[0]                    ; -27.898  ; 0.000  ; N/A      ; N/A     ; 0.000               ;
-;  iBoardClock                                       ; N/A      ; N/A    ; N/A      ; N/A     ; 0.000               ;
-;  iBusClock                                         ; -436.410 ; 0.000  ; N/A      ; N/A     ; -207.453            ;
-+----------------------------------------------------+----------+--------+----------+---------+---------------------+
++------------------------------------------------------------------------------------------------------------------+
+; Multicorner Timing Analysis Summary                                                                              ;
++----------------------------------------------------+----------+-------+----------+---------+---------------------+
+; Clock                                              ; Setup    ; Hold  ; Recovery ; Removal ; Minimum Pulse Width ;
++----------------------------------------------------+----------+-------+----------+---------+---------------------+
+; Worst-case Slack                                   ; -8.250   ; 0.144 ; N/A      ; N/A     ; -3.901              ;
+;  clock|altpll_component|auto_generated|pll1|clk[0] ; -6.966   ; 0.144 ; N/A      ; N/A     ; 3124.684            ;
+;  iBoardClock                                       ; N/A      ; N/A   ; N/A      ; N/A     ; 9.663               ;
+;  iBusClock                                         ; -8.250   ; 0.152 ; N/A      ; N/A     ; -3.901              ;
+; Design-wide TNS                                    ; -847.388 ; 0.0   ; 0.0      ; 0.0     ; -256.524            ;
+;  clock|altpll_component|auto_generated|pll1|clk[0] ; -207.231 ; 0.000 ; N/A      ; N/A     ; 0.000               ;
+;  iBoardClock                                       ; N/A      ; N/A   ; N/A      ; N/A     ; 0.000               ;
+;  iBusClock                                         ; -640.157 ; 0.000 ; N/A      ; N/A     ; -256.524            ;
++----------------------------------------------------+----------+-------+----------+---------+---------------------+
 
 
 +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -441,16 +413,16 @@ No synchronizer chains to report.
 ; bGPIO15             ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
 ; iBusClock           ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
 ; iBoardReset         ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
-; iBusMOSI[0]         ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
-; iBusMOSI[1]         ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
+; iBusSelect[0]       ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
+; iBusSelect[1]       ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
 ; iBusMOSI[2]         ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
 ; iBusMOSI[3]         ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
 ; iBusMOSI[4]         ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
 ; iBusMOSI[5]         ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
+; iBusMOSI[1]         ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
+; iBusMOSI[0]         ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
 ; iBusMOSI[6]         ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
 ; iBusMOSI[7]         ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
-; iBusSelect[0]       ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
-; iBusSelect[1]       ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
 ; iTTLSerialRX        ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
 ; iBoardClock         ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
 ; ~ALTERA_TMS~        ; 2.5 V Schmitt Trigger ; 2000 ps         ; 2000 ps         ;
@@ -504,11 +476,11 @@ No synchronizer chains to report.
 ; oVGAColor[7]   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.47e-09 V                   ; 2.4 V               ; -0.0932 V           ; 0.135 V                              ; 0.16 V                               ; 4.43e-10 s                  ; 4.36e-10 s                  ; No                         ; Yes                        ; 2.32 V                      ; 4.47e-09 V                  ; 2.4 V              ; -0.0932 V          ; 0.135 V                             ; 0.16 V                              ; 4.43e-10 s                 ; 4.36e-10 s                 ; No                        ; Yes                       ;
 ; oVGAHorizontal ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.47e-09 V                   ; 2.4 V               ; -0.0932 V           ; 0.135 V                              ; 0.16 V                               ; 4.43e-10 s                  ; 4.36e-10 s                  ; No                         ; Yes                        ; 2.32 V                      ; 4.47e-09 V                  ; 2.4 V              ; -0.0932 V          ; 0.135 V                             ; 0.16 V                              ; 4.43e-10 s                 ; 4.36e-10 s                 ; No                        ; Yes                       ;
 ; oVGAVertical   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.47e-09 V                   ; 2.4 V               ; -0.0932 V           ; 0.135 V                              ; 0.16 V                               ; 4.43e-10 s                  ; 4.36e-10 s                  ; No                         ; Yes                        ; 2.32 V                      ; 4.47e-09 V                  ; 2.4 V              ; -0.0932 V          ; 0.135 V                             ; 0.16 V                              ; 4.43e-10 s                 ; 4.36e-10 s                 ; No                        ; Yes                       ;
-; bBoardDebug0   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.47e-09 V                   ; 2.4 V               ; -0.0905 V           ; 0.135 V                              ; 0.167 V                              ; 4.43e-10 s                  ; 4.36e-10 s                  ; No                         ; Yes                        ; 2.32 V                      ; 4.47e-09 V                  ; 2.4 V              ; -0.0905 V          ; 0.135 V                             ; 0.167 V                             ; 4.43e-10 s                 ; 4.36e-10 s                 ; No                        ; Yes                       ;
-; bBoardDebug1   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.47e-09 V                   ; 2.4 V               ; -0.0932 V           ; 0.135 V                              ; 0.16 V                               ; 4.43e-10 s                  ; 4.36e-10 s                  ; No                         ; Yes                        ; 2.32 V                      ; 4.47e-09 V                  ; 2.4 V              ; -0.0932 V          ; 0.135 V                             ; 0.16 V                              ; 4.43e-10 s                 ; 4.36e-10 s                 ; No                        ; Yes                       ;
-; bBoardDebug2   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.47e-09 V                   ; 2.33 V              ; -0.00562 V          ; 0.232 V                              ; 0.19 V                               ; 4.14e-09 s                  ; 3.92e-09 s                  ; No                         ; Yes                        ; 2.32 V                      ; 4.47e-09 V                  ; 2.33 V             ; -0.00562 V         ; 0.232 V                             ; 0.19 V                              ; 4.14e-09 s                 ; 3.92e-09 s                 ; No                        ; Yes                       ;
-; bBoardDebug3   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.47e-09 V                   ; 2.4 V               ; -0.0905 V           ; 0.135 V                              ; 0.167 V                              ; 4.43e-10 s                  ; 4.36e-10 s                  ; No                         ; Yes                        ; 2.32 V                      ; 4.47e-09 V                  ; 2.4 V              ; -0.0905 V          ; 0.135 V                             ; 0.167 V                             ; 4.43e-10 s                 ; 4.36e-10 s                 ; No                        ; Yes                       ;
-; bBoardDebug4   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.47e-09 V                   ; 2.4 V               ; -0.0932 V           ; 0.135 V                              ; 0.16 V                               ; 4.43e-10 s                  ; 4.36e-10 s                  ; No                         ; Yes                        ; 2.32 V                      ; 4.47e-09 V                  ; 2.4 V              ; -0.0932 V          ; 0.135 V                             ; 0.16 V                              ; 4.43e-10 s                 ; 4.36e-10 s                 ; No                        ; Yes                       ;
+; bBoardDebug0   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.47e-09 V                   ; 2.4 V               ; -0.0932 V           ; 0.135 V                              ; 0.16 V                               ; 4.43e-10 s                  ; 4.36e-10 s                  ; No                         ; Yes                        ; 2.32 V                      ; 4.47e-09 V                  ; 2.4 V              ; -0.0932 V          ; 0.135 V                             ; 0.16 V                              ; 4.43e-10 s                 ; 4.36e-10 s                 ; No                        ; Yes                       ;
+; bBoardDebug1   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.47e-09 V                   ; 2.4 V               ; -0.0905 V           ; 0.135 V                              ; 0.167 V                              ; 4.43e-10 s                  ; 4.36e-10 s                  ; No                         ; Yes                        ; 2.32 V                      ; 4.47e-09 V                  ; 2.4 V              ; -0.0905 V          ; 0.135 V                             ; 0.167 V                             ; 4.43e-10 s                 ; 4.36e-10 s                 ; No                        ; Yes                       ;
+; bBoardDebug2   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.47e-09 V                   ; 2.4 V               ; -0.0932 V           ; 0.135 V                              ; 0.16 V                               ; 4.43e-10 s                  ; 4.36e-10 s                  ; No                         ; Yes                        ; 2.32 V                      ; 4.47e-09 V                  ; 2.4 V              ; -0.0932 V          ; 0.135 V                             ; 0.16 V                              ; 4.43e-10 s                 ; 4.36e-10 s                 ; No                        ; Yes                       ;
+; bBoardDebug3   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.47e-09 V                   ; 2.4 V               ; -0.0932 V           ; 0.135 V                              ; 0.16 V                               ; 4.43e-10 s                  ; 4.36e-10 s                  ; No                         ; Yes                        ; 2.32 V                      ; 4.47e-09 V                  ; 2.4 V              ; -0.0932 V          ; 0.135 V                             ; 0.16 V                              ; 4.43e-10 s                 ; 4.36e-10 s                 ; No                        ; Yes                       ;
+; bBoardDebug4   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.47e-09 V                   ; 2.4 V               ; -0.0905 V           ; 0.135 V                              ; 0.167 V                              ; 4.43e-10 s                  ; 4.36e-10 s                  ; No                         ; Yes                        ; 2.32 V                      ; 4.47e-09 V                  ; 2.4 V              ; -0.0905 V          ; 0.135 V                             ; 0.167 V                             ; 4.43e-10 s                 ; 4.36e-10 s                 ; No                        ; Yes                       ;
 ; bBoardDebug5   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.47e-09 V                   ; 2.4 V               ; -0.0932 V           ; 0.135 V                              ; 0.16 V                               ; 4.43e-10 s                  ; 4.36e-10 s                  ; No                         ; Yes                        ; 2.32 V                      ; 4.47e-09 V                  ; 2.4 V              ; -0.0932 V          ; 0.135 V                             ; 0.16 V                              ; 4.43e-10 s                 ; 4.36e-10 s                 ; No                        ; Yes                       ;
 ; bPS2Data       ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.47e-09 V                   ; 2.4 V               ; -0.0905 V           ; 0.135 V                              ; 0.167 V                              ; 4.43e-10 s                  ; 4.36e-10 s                  ; No                         ; Yes                        ; 2.32 V                      ; 4.47e-09 V                  ; 2.4 V              ; -0.0905 V          ; 0.135 V                             ; 0.167 V                             ; 4.43e-10 s                 ; 4.36e-10 s                 ; No                        ; Yes                       ;
 ; bPS2Clock      ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.47e-09 V                   ; 2.4 V               ; -0.0932 V           ; 0.135 V                              ; 0.16 V                               ; 4.43e-10 s                  ; 4.36e-10 s                  ; No                         ; Yes                        ; 2.32 V                      ; 4.47e-09 V                  ; 2.4 V              ; -0.0932 V          ; 0.135 V                             ; 0.16 V                              ; 4.43e-10 s                 ; 4.36e-10 s                 ; No                        ; Yes                       ;
@@ -573,11 +545,11 @@ No synchronizer chains to report.
 ; oVGAColor[7]   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.66e-07 V                   ; 2.37 V              ; -0.0521 V           ; 0.17 V                               ; 0.231 V                              ; 4.74e-10 s                  ; 4.79e-10 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 4.66e-07 V                  ; 2.37 V             ; -0.0521 V          ; 0.17 V                              ; 0.231 V                             ; 4.74e-10 s                 ; 4.79e-10 s                 ; Yes                       ; Yes                       ;
 ; oVGAHorizontal ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.66e-07 V                   ; 2.37 V              ; -0.0521 V           ; 0.17 V                               ; 0.231 V                              ; 4.74e-10 s                  ; 4.79e-10 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 4.66e-07 V                  ; 2.37 V             ; -0.0521 V          ; 0.17 V                              ; 0.231 V                             ; 4.74e-10 s                 ; 4.79e-10 s                 ; Yes                       ; Yes                       ;
 ; oVGAVertical   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.66e-07 V                   ; 2.37 V              ; -0.0521 V           ; 0.17 V                               ; 0.231 V                              ; 4.74e-10 s                  ; 4.79e-10 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 4.66e-07 V                  ; 2.37 V             ; -0.0521 V          ; 0.17 V                              ; 0.231 V                             ; 4.74e-10 s                 ; 4.79e-10 s                 ; Yes                       ; Yes                       ;
-; bBoardDebug0   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.66e-07 V                   ; 2.37 V              ; -0.0526 V           ; 0.169 V                              ; 0.23 V                               ; 4.75e-10 s                  ; 4.8e-10 s                   ; Yes                        ; Yes                        ; 2.32 V                      ; 4.66e-07 V                  ; 2.37 V             ; -0.0526 V          ; 0.169 V                             ; 0.23 V                              ; 4.75e-10 s                 ; 4.8e-10 s                  ; Yes                       ; Yes                       ;
-; bBoardDebug1   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.66e-07 V                   ; 2.37 V              ; -0.0521 V           ; 0.17 V                               ; 0.231 V                              ; 4.74e-10 s                  ; 4.79e-10 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 4.66e-07 V                  ; 2.37 V             ; -0.0521 V          ; 0.17 V                              ; 0.231 V                             ; 4.74e-10 s                 ; 4.79e-10 s                 ; Yes                       ; Yes                       ;
-; bBoardDebug2   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.66e-07 V                   ; 2.33 V              ; -0.00284 V          ; 0.214 V                              ; 0.149 V                              ; 5.03e-09 s                  ; 4.66e-09 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 4.66e-07 V                  ; 2.33 V             ; -0.00284 V         ; 0.214 V                             ; 0.149 V                             ; 5.03e-09 s                 ; 4.66e-09 s                 ; Yes                       ; Yes                       ;
-; bBoardDebug3   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.66e-07 V                   ; 2.37 V              ; -0.0526 V           ; 0.169 V                              ; 0.23 V                               ; 4.75e-10 s                  ; 4.8e-10 s                   ; Yes                        ; Yes                        ; 2.32 V                      ; 4.66e-07 V                  ; 2.37 V             ; -0.0526 V          ; 0.169 V                             ; 0.23 V                              ; 4.75e-10 s                 ; 4.8e-10 s                  ; Yes                       ; Yes                       ;
-; bBoardDebug4   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.66e-07 V                   ; 2.37 V              ; -0.0521 V           ; 0.17 V                               ; 0.231 V                              ; 4.74e-10 s                  ; 4.79e-10 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 4.66e-07 V                  ; 2.37 V             ; -0.0521 V          ; 0.17 V                              ; 0.231 V                             ; 4.74e-10 s                 ; 4.79e-10 s                 ; Yes                       ; Yes                       ;
+; bBoardDebug0   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.66e-07 V                   ; 2.37 V              ; -0.0521 V           ; 0.17 V                               ; 0.231 V                              ; 4.74e-10 s                  ; 4.79e-10 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 4.66e-07 V                  ; 2.37 V             ; -0.0521 V          ; 0.17 V                              ; 0.231 V                             ; 4.74e-10 s                 ; 4.79e-10 s                 ; Yes                       ; Yes                       ;
+; bBoardDebug1   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.66e-07 V                   ; 2.37 V              ; -0.0526 V           ; 0.169 V                              ; 0.23 V                               ; 4.75e-10 s                  ; 4.8e-10 s                   ; Yes                        ; Yes                        ; 2.32 V                      ; 4.66e-07 V                  ; 2.37 V             ; -0.0526 V          ; 0.169 V                             ; 0.23 V                              ; 4.75e-10 s                 ; 4.8e-10 s                  ; Yes                       ; Yes                       ;
+; bBoardDebug2   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.66e-07 V                   ; 2.37 V              ; -0.0521 V           ; 0.17 V                               ; 0.231 V                              ; 4.74e-10 s                  ; 4.79e-10 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 4.66e-07 V                  ; 2.37 V             ; -0.0521 V          ; 0.17 V                              ; 0.231 V                             ; 4.74e-10 s                 ; 4.79e-10 s                 ; Yes                       ; Yes                       ;
+; bBoardDebug3   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.66e-07 V                   ; 2.37 V              ; -0.0521 V           ; 0.17 V                               ; 0.231 V                              ; 4.74e-10 s                  ; 4.79e-10 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 4.66e-07 V                  ; 2.37 V             ; -0.0521 V          ; 0.17 V                              ; 0.231 V                             ; 4.74e-10 s                 ; 4.79e-10 s                 ; Yes                       ; Yes                       ;
+; bBoardDebug4   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.66e-07 V                   ; 2.37 V              ; -0.0526 V           ; 0.169 V                              ; 0.23 V                               ; 4.75e-10 s                  ; 4.8e-10 s                   ; Yes                        ; Yes                        ; 2.32 V                      ; 4.66e-07 V                  ; 2.37 V             ; -0.0526 V          ; 0.169 V                             ; 0.23 V                              ; 4.75e-10 s                 ; 4.8e-10 s                  ; Yes                       ; Yes                       ;
 ; bBoardDebug5   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.66e-07 V                   ; 2.37 V              ; -0.0521 V           ; 0.17 V                               ; 0.231 V                              ; 4.74e-10 s                  ; 4.79e-10 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 4.66e-07 V                  ; 2.37 V             ; -0.0521 V          ; 0.17 V                              ; 0.231 V                             ; 4.74e-10 s                 ; 4.79e-10 s                 ; Yes                       ; Yes                       ;
 ; bPS2Data       ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.66e-07 V                   ; 2.37 V              ; -0.0526 V           ; 0.169 V                              ; 0.23 V                               ; 4.75e-10 s                  ; 4.8e-10 s                   ; Yes                        ; Yes                        ; 2.32 V                      ; 4.66e-07 V                  ; 2.37 V             ; -0.0526 V          ; 0.169 V                             ; 0.23 V                              ; 4.75e-10 s                 ; 4.8e-10 s                  ; Yes                       ; Yes                       ;
 ; bPS2Clock      ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.66e-07 V                   ; 2.37 V              ; -0.0521 V           ; 0.17 V                               ; 0.231 V                              ; 4.74e-10 s                  ; 4.79e-10 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 4.66e-07 V                  ; 2.37 V             ; -0.0521 V          ; 0.17 V                              ; 0.231 V                             ; 4.74e-10 s                 ; 4.79e-10 s                 ; Yes                       ; Yes                       ;
@@ -642,11 +614,11 @@ No synchronizer chains to report.
 ; oVGAColor[7]   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 9.95e-08 V                   ; 2.78 V              ; -0.0452 V           ; 0.248 V                              ; 0.108 V                              ; 2.67e-10 s                  ; 2.75e-10 s                  ; No                         ; Yes                        ; 2.62 V                      ; 9.95e-08 V                  ; 2.78 V             ; -0.0452 V          ; 0.248 V                             ; 0.108 V                             ; 2.67e-10 s                 ; 2.75e-10 s                 ; No                        ; Yes                       ;
 ; oVGAHorizontal ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 9.95e-08 V                   ; 2.78 V              ; -0.0452 V           ; 0.248 V                              ; 0.108 V                              ; 2.67e-10 s                  ; 2.75e-10 s                  ; No                         ; Yes                        ; 2.62 V                      ; 9.95e-08 V                  ; 2.78 V             ; -0.0452 V          ; 0.248 V                             ; 0.108 V                             ; 2.67e-10 s                 ; 2.75e-10 s                 ; No                        ; Yes                       ;
 ; oVGAVertical   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 9.95e-08 V                   ; 2.78 V              ; -0.0452 V           ; 0.248 V                              ; 0.108 V                              ; 2.67e-10 s                  ; 2.75e-10 s                  ; No                         ; Yes                        ; 2.62 V                      ; 9.95e-08 V                  ; 2.78 V             ; -0.0452 V          ; 0.248 V                             ; 0.108 V                             ; 2.67e-10 s                 ; 2.75e-10 s                 ; No                        ; Yes                       ;
-; bBoardDebug0   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 9.94e-08 V                   ; 2.78 V              ; -0.0444 V           ; 0.25 V                               ; 0.107 V                              ; 2.67e-10 s                  ; 2.75e-10 s                  ; No                         ; Yes                        ; 2.62 V                      ; 9.94e-08 V                  ; 2.78 V             ; -0.0444 V          ; 0.25 V                              ; 0.107 V                             ; 2.67e-10 s                 ; 2.75e-10 s                 ; No                        ; Yes                       ;
-; bBoardDebug1   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 9.95e-08 V                   ; 2.78 V              ; -0.0452 V           ; 0.248 V                              ; 0.108 V                              ; 2.67e-10 s                  ; 2.75e-10 s                  ; No                         ; Yes                        ; 2.62 V                      ; 9.95e-08 V                  ; 2.78 V             ; -0.0452 V          ; 0.248 V                             ; 0.108 V                             ; 2.67e-10 s                 ; 2.75e-10 s                 ; No                        ; Yes                       ;
-; bBoardDebug2   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 9.95e-08 V                   ; 2.64 V              ; -0.00893 V          ; 0.249 V                              ; 0.203 V                              ; 3.12e-09 s                  ; 3.02e-09 s                  ; No                         ; Yes                        ; 2.62 V                      ; 9.95e-08 V                  ; 2.64 V             ; -0.00893 V         ; 0.249 V                             ; 0.203 V                             ; 3.12e-09 s                 ; 3.02e-09 s                 ; No                        ; Yes                       ;
-; bBoardDebug3   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 9.94e-08 V                   ; 2.78 V              ; -0.0444 V           ; 0.25 V                               ; 0.107 V                              ; 2.67e-10 s                  ; 2.75e-10 s                  ; No                         ; Yes                        ; 2.62 V                      ; 9.94e-08 V                  ; 2.78 V             ; -0.0444 V          ; 0.25 V                              ; 0.107 V                             ; 2.67e-10 s                 ; 2.75e-10 s                 ; No                        ; Yes                       ;
-; bBoardDebug4   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 9.95e-08 V                   ; 2.78 V              ; -0.0452 V           ; 0.248 V                              ; 0.108 V                              ; 2.67e-10 s                  ; 2.75e-10 s                  ; No                         ; Yes                        ; 2.62 V                      ; 9.95e-08 V                  ; 2.78 V             ; -0.0452 V          ; 0.248 V                             ; 0.108 V                             ; 2.67e-10 s                 ; 2.75e-10 s                 ; No                        ; Yes                       ;
+; bBoardDebug0   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 9.95e-08 V                   ; 2.78 V              ; -0.0452 V           ; 0.248 V                              ; 0.108 V                              ; 2.67e-10 s                  ; 2.75e-10 s                  ; No                         ; Yes                        ; 2.62 V                      ; 9.95e-08 V                  ; 2.78 V             ; -0.0452 V          ; 0.248 V                             ; 0.108 V                             ; 2.67e-10 s                 ; 2.75e-10 s                 ; No                        ; Yes                       ;
+; bBoardDebug1   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 9.94e-08 V                   ; 2.78 V              ; -0.0444 V           ; 0.25 V                               ; 0.107 V                              ; 2.67e-10 s                  ; 2.75e-10 s                  ; No                         ; Yes                        ; 2.62 V                      ; 9.94e-08 V                  ; 2.78 V             ; -0.0444 V          ; 0.25 V                              ; 0.107 V                             ; 2.67e-10 s                 ; 2.75e-10 s                 ; No                        ; Yes                       ;
+; bBoardDebug2   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 9.95e-08 V                   ; 2.78 V              ; -0.0452 V           ; 0.248 V                              ; 0.108 V                              ; 2.67e-10 s                  ; 2.75e-10 s                  ; No                         ; Yes                        ; 2.62 V                      ; 9.95e-08 V                  ; 2.78 V             ; -0.0452 V          ; 0.248 V                             ; 0.108 V                             ; 2.67e-10 s                 ; 2.75e-10 s                 ; No                        ; Yes                       ;
+; bBoardDebug3   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 9.95e-08 V                   ; 2.78 V              ; -0.0452 V           ; 0.248 V                              ; 0.108 V                              ; 2.67e-10 s                  ; 2.75e-10 s                  ; No                         ; Yes                        ; 2.62 V                      ; 9.95e-08 V                  ; 2.78 V             ; -0.0452 V          ; 0.248 V                             ; 0.108 V                             ; 2.67e-10 s                 ; 2.75e-10 s                 ; No                        ; Yes                       ;
+; bBoardDebug4   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 9.94e-08 V                   ; 2.78 V              ; -0.0444 V           ; 0.25 V                               ; 0.107 V                              ; 2.67e-10 s                  ; 2.75e-10 s                  ; No                         ; Yes                        ; 2.62 V                      ; 9.94e-08 V                  ; 2.78 V             ; -0.0444 V          ; 0.25 V                              ; 0.107 V                             ; 2.67e-10 s                 ; 2.75e-10 s                 ; No                        ; Yes                       ;
 ; bBoardDebug5   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 9.95e-08 V                   ; 2.78 V              ; -0.0452 V           ; 0.248 V                              ; 0.108 V                              ; 2.67e-10 s                  ; 2.75e-10 s                  ; No                         ; Yes                        ; 2.62 V                      ; 9.95e-08 V                  ; 2.78 V             ; -0.0452 V          ; 0.248 V                             ; 0.108 V                             ; 2.67e-10 s                 ; 2.75e-10 s                 ; No                        ; Yes                       ;
 ; bPS2Data       ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 9.94e-08 V                   ; 2.78 V              ; -0.0444 V           ; 0.25 V                               ; 0.107 V                              ; 2.67e-10 s                  ; 2.75e-10 s                  ; No                         ; Yes                        ; 2.62 V                      ; 9.94e-08 V                  ; 2.78 V             ; -0.0444 V          ; 0.25 V                              ; 0.107 V                             ; 2.67e-10 s                 ; 2.75e-10 s                 ; No                        ; Yes                       ;
 ; bPS2Clock      ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 9.95e-08 V                   ; 2.78 V              ; -0.0452 V           ; 0.248 V                              ; 0.108 V                              ; 2.67e-10 s                  ; 2.75e-10 s                  ; No                         ; Yes                        ; 2.62 V                      ; 9.95e-08 V                  ; 2.78 V             ; -0.0452 V          ; 0.248 V                             ; 0.108 V                             ; 2.67e-10 s                 ; 2.75e-10 s                 ; No                        ; Yes                       ;
@@ -675,19 +647,10 @@ No synchronizer chains to report.
 +---------------------------------------------------+---------------------------------------------------+----------+----------+----------+----------+
 ; From Clock                                        ; To Clock                                          ; RR Paths ; FR Paths ; RF Paths ; FF Paths ;
 +---------------------------------------------------+---------------------------------------------------+----------+----------+----------+----------+
-; clock|altpll_component|auto_generated|pll1|clk[0] ; clock|altpll_component|auto_generated|pll1|clk[0] ; 413      ; 0        ; 0        ; 0        ;
-; epRISC_UART:uart|rRecvState[0]                    ; clock|altpll_component|auto_generated|pll1|clk[0] ; 36       ; 32       ; 0        ; 0        ;
-; epRISC_UART:uart|rSendState[0]                    ; clock|altpll_component|auto_generated|pll1|clk[0] ; 25       ; 21       ; 0        ; 0        ;
-; iBusClock                                         ; clock|altpll_component|auto_generated|pll1|clk[0] ; 8        ; 0        ; 0        ; 0        ;
-; clock|altpll_component|auto_generated|pll1|clk[0] ; epRISC_UART:uart|rRecvState[0]                    ; 25       ; 0        ; 0        ; 0        ;
-; epRISC_UART:uart|rRecvState[0]                    ; epRISC_UART:uart|rRecvState[0]                    ; 8        ; 8        ; 0        ; 0        ;
-; iBusClock                                         ; epRISC_UART:uart|rRecvState[0]                    ; 12       ; 0        ; 0        ; 0        ;
-; clock|altpll_component|auto_generated|pll1|clk[0] ; epRISC_UART:uart|rSendState[0]                    ; 23       ; 0        ; 0        ; 0        ;
-; epRISC_UART:uart|rSendState[0]                    ; epRISC_UART:uart|rSendState[0]                    ; 11       ; 11       ; 0        ; 0        ;
-; iBusClock                                         ; epRISC_UART:uart|rSendState[0]                    ; 12       ; 0        ; 0        ; 0        ;
-; clock|altpll_component|auto_generated|pll1|clk[0] ; iBusClock                                         ; 40       ; 0        ; 0        ; 0        ;
-; epRISC_UART:uart|rRecvState[0]                    ; iBusClock                                         ; 8        ; 8        ; 0        ; 0        ;
-; iBusClock                                         ; iBusClock                                         ; 181      ; 1582     ; 40       ; 16       ;
+; clock|altpll_component|auto_generated|pll1|clk[0] ; clock|altpll_component|auto_generated|pll1|clk[0] ; 687      ; 0        ; 0        ; 0        ;
+; iBusClock                                         ; clock|altpll_component|auto_generated|pll1|clk[0] ; 94       ; 46       ; 0        ; 0        ;
+; clock|altpll_component|auto_generated|pll1|clk[0] ; iBusClock                                         ; 130      ; 0        ; 0        ; 0        ;
+; iBusClock                                         ; iBusClock                                         ; 553      ; 2400     ; 40       ; 16       ;
 +---------------------------------------------------+---------------------------------------------------+----------+----------+----------+----------+
 Entries labeled "false path" only account for clock-to-clock false paths and not path-based false paths. As a result, actual path counts may be lower than reported.
 
@@ -697,19 +660,10 @@ Entries labeled "false path" only account for clock-to-clock false paths and not
 +---------------------------------------------------+---------------------------------------------------+----------+----------+----------+----------+
 ; From Clock                                        ; To Clock                                          ; RR Paths ; FR Paths ; RF Paths ; FF Paths ;
 +---------------------------------------------------+---------------------------------------------------+----------+----------+----------+----------+
-; clock|altpll_component|auto_generated|pll1|clk[0] ; clock|altpll_component|auto_generated|pll1|clk[0] ; 413      ; 0        ; 0        ; 0        ;
-; epRISC_UART:uart|rRecvState[0]                    ; clock|altpll_component|auto_generated|pll1|clk[0] ; 36       ; 32       ; 0        ; 0        ;
-; epRISC_UART:uart|rSendState[0]                    ; clock|altpll_component|auto_generated|pll1|clk[0] ; 25       ; 21       ; 0        ; 0        ;
-; iBusClock                                         ; clock|altpll_component|auto_generated|pll1|clk[0] ; 8        ; 0        ; 0        ; 0        ;
-; clock|altpll_component|auto_generated|pll1|clk[0] ; epRISC_UART:uart|rRecvState[0]                    ; 25       ; 0        ; 0        ; 0        ;
-; epRISC_UART:uart|rRecvState[0]                    ; epRISC_UART:uart|rRecvState[0]                    ; 8        ; 8        ; 0        ; 0        ;
-; iBusClock                                         ; epRISC_UART:uart|rRecvState[0]                    ; 12       ; 0        ; 0        ; 0        ;
-; clock|altpll_component|auto_generated|pll1|clk[0] ; epRISC_UART:uart|rSendState[0]                    ; 23       ; 0        ; 0        ; 0        ;
-; epRISC_UART:uart|rSendState[0]                    ; epRISC_UART:uart|rSendState[0]                    ; 11       ; 11       ; 0        ; 0        ;
-; iBusClock                                         ; epRISC_UART:uart|rSendState[0]                    ; 12       ; 0        ; 0        ; 0        ;
-; clock|altpll_component|auto_generated|pll1|clk[0] ; iBusClock                                         ; 40       ; 0        ; 0        ; 0        ;
-; epRISC_UART:uart|rRecvState[0]                    ; iBusClock                                         ; 8        ; 8        ; 0        ; 0        ;
-; iBusClock                                         ; iBusClock                                         ; 181      ; 1582     ; 40       ; 16       ;
+; clock|altpll_component|auto_generated|pll1|clk[0] ; clock|altpll_component|auto_generated|pll1|clk[0] ; 687      ; 0        ; 0        ; 0        ;
+; iBusClock                                         ; clock|altpll_component|auto_generated|pll1|clk[0] ; 94       ; 46       ; 0        ; 0        ;
+; clock|altpll_component|auto_generated|pll1|clk[0] ; iBusClock                                         ; 130      ; 0        ; 0        ; 0        ;
+; iBusClock                                         ; iBusClock                                         ; 553      ; 2400     ; 40       ; 16       ;
 +---------------------------------------------------+---------------------------------------------------+----------+----------+----------+----------+
 Entries labeled "false path" only account for clock-to-clock false paths and not path-based false paths. As a result, actual path counts may be lower than reported.
 
@@ -734,9 +688,9 @@ No non-DPA dedicated SERDES Receiver circuitry present in device or used in desi
 ; Illegal Clocks                  ; 0     ; 0    ;
 ; Unconstrained Clocks            ; 0     ; 0    ;
 ; Unconstrained Input Ports       ; 28    ; 28   ;
-; Unconstrained Input Port Paths  ; 228   ; 228  ;
-; Unconstrained Output Ports      ; 26    ; 26   ;
-; Unconstrained Output Port Paths ; 313   ; 313  ;
+; Unconstrained Input Port Paths  ; 581   ; 581  ;
+; Unconstrained Output Ports      ; 27    ; 27   ;
+; Unconstrained Output Port Paths ; 345   ; 345  ;
 +---------------------------------+-------+------+
 
 
@@ -746,8 +700,6 @@ No non-DPA dedicated SERDES Receiver circuitry present in device or used in desi
 ; Target                                            ; Clock                                             ; Type      ; Status      ;
 +---------------------------------------------------+---------------------------------------------------+-----------+-------------+
 ; clock|altpll_component|auto_generated|pll1|clk[0] ; clock|altpll_component|auto_generated|pll1|clk[0] ; Generated ; Constrained ;
-; epRISC_UART:uart|rRecvState[0]                    ; epRISC_UART:uart|rRecvState[0]                    ; Base      ; Constrained ;
-; epRISC_UART:uart|rSendState[0]                    ; epRISC_UART:uart|rSendState[0]                    ; Base      ; Constrained ;
 ; iBoardClock                                       ; iBoardClock                                       ; Base      ; Constrained ;
 ; iBusClock                                         ; iBusClock                                         ; Base      ; Constrained ;
 +---------------------------------------------------+---------------------------------------------------+-----------+-------------+
@@ -819,6 +771,7 @@ No non-DPA dedicated SERDES Receiver circuitry present in device or used in desi
 ; oBusMISO[5]   ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
 ; oBusMISO[6]   ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
 ; oBusMISO[7]   ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; oSPIMOSI      ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
 ; oTTLSerialTX  ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
 +---------------+---------------------------------------------------------------------------------------+
 
@@ -889,6 +842,7 @@ No non-DPA dedicated SERDES Receiver circuitry present in device or used in desi
 ; oBusMISO[5]   ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
 ; oBusMISO[6]   ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
 ; oBusMISO[7]   ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; oSPIMOSI      ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
 ; oTTLSerialTX  ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
 +---------------+---------------------------------------------------------------------------------------+
 
@@ -899,124 +853,94 @@ No non-DPA dedicated SERDES Receiver circuitry present in device or used in desi
 Info: *******************************************************************
 Info: Running Quartus Prime TimeQuest Timing Analyzer
     Info: Version 16.0.0 Build 211 04/27/2016 SJ Lite Edition
-    Info: Processing started: Fri Mar 17 21:45:43 2017
+    Info: Processing started: Sun Mar 26 11:43:01 2017
 Info: Command: quartus_sta epRISC_Auxiliary -c epRISC_Controller
 Info (P0): qsta_default_script.tcl version: #1
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
 Info (21077): Low junction temperature is 0 degrees C
 Info (21077): High junction temperature is 85 degrees C
-Warning (335093): TimeQuest Timing Analyzer is analyzing 8 combinational loops as latches. For more details, run the Check Timing command in the TimeQuest Timing Analyzer or view the "User-Specified and Inferred Latches" table in the Analysis & Synthesis report.
 Critical Warning (332012): Synopsys Design Constraints File file not found: 'epRISC_Controller.sdc'. A Synopsys Design Constraints File is required by the TimeQuest Timing Analyzer to get proper timing constraints. Without it, the Compiler will not properly optimize the design.
 Info (332142): No user constrained generated clocks found in the design. Calling "derive_pll_clocks -create_base_clocks"
 Info (332110): Deriving PLL clocks
     Info (332110): create_clock -period 20.000 -waveform {0.000 10.000} -name iBoardClock iBoardClock
-    Info (332110): create_generated_clock -source {clock|altpll_component|auto_generated|pll1|inclk[0]} -divide_by 10000 -phase 0.09 -duty_cycle 50.00 -name {clock|altpll_component|auto_generated|pll1|clk[0]} {clock|altpll_component|auto_generated|pll1|clk[0]}
+    Info (332110): create_generated_clock -source {clock|altpll_component|auto_generated|pll1|inclk[0]} -divide_by 625 -multiply_by 2 -phase 0.12 -duty_cycle 50.00 -name {clock|altpll_component|auto_generated|pll1|clk[0]} {clock|altpll_component|auto_generated|pll1|clk[0]}
 Info (332142): No user constrained base clocks found in the design. Calling "derive_clocks -period 1.0"
 Info (332105): Deriving Clocks
     Info (332105): create_clock -period 1.000 -name iBusClock iBusClock
-    Info (332105): create_clock -period 1.000 -name epRISC_UART:uart|rRecvState[0] epRISC_UART:uart|rRecvState[0]
-    Info (332105): create_clock -period 1.000 -name epRISC_UART:uart|rSendState[0] epRISC_UART:uart|rSendState[0]
-Info (332097): The following timing edges are non-unate.  TimeQuest will assume pos-unate behavior for these edges in the clock network.
-    Info (332098): Cell: uart|Mux1~0  from: dataa  to: combout
-    Info (332098): Cell: uart|Mux6~0  from: datab  to: combout
 Info (332143): No user constrained clock uncertainty found in the design. Calling "derive_clock_uncertainty"
 Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in TimeQuest to see clock uncertainties.
 Info (P0): Found TIMEQUEST_REPORT_SCRIPT_INCLUDE_DEFAULT_ANALYSIS = ON
 Info (P0): Analyzing Slow 1200mV 85C Model
 Info (P0): Can't run Report Timing Closure Recommendations. The current device family is not supported.
 Critical Warning (332148): Timing requirements not met
-Info (332146): Worst-case setup slack is -7.466
+Info (332146): Worst-case setup slack is -8.250
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    -7.466             -27.898 epRISC_UART:uart|rSendState[0] 
-    Info (332119):    -6.695             -26.122 epRISC_UART:uart|rRecvState[0] 
-    Info (332119):    -5.677            -109.226 clock|altpll_component|auto_generated|pll1|clk[0] 
-    Info (332119):    -5.387            -436.410 iBusClock 
-Info (332146): Worst-case hold slack is -0.287
+    Info (332119):    -8.250            -640.157 iBusClock 
+    Info (332119):    -6.966            -207.231 clock|altpll_component|auto_generated|pll1|clk[0] 
+Info (332146): Worst-case hold slack is 0.342
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    -0.287              -0.287 clock|altpll_component|auto_generated|pll1|clk[0] 
-    Info (332119):     0.344               0.000 iBusClock 
-    Info (332119):     0.993               0.000 epRISC_UART:uart|rSendState[0] 
-    Info (332119):     1.291               0.000 epRISC_UART:uart|rRecvState[0] 
+    Info (332119):     0.342               0.000 clock|altpll_component|auto_generated|pll1|clk[0] 
+    Info (332119):     0.362               0.000 iBusClock 
 Info (332140): No Recovery paths to report
 Info (332140): No Removal paths to report
 Info (332146): Worst-case minimum pulse width slack is -3.901
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    -3.901            -207.453 iBusClock 
-    Info (332119):     0.379               0.000 epRISC_UART:uart|rSendState[0] 
-    Info (332119):     0.443               0.000 epRISC_UART:uart|rRecvState[0] 
+    Info (332119):    -3.901            -256.524 iBusClock 
     Info (332119):     9.905               0.000 iBoardClock 
-    Info (332119): 99999.715               0.000 clock|altpll_component|auto_generated|pll1|clk[0] 
+    Info (332119):  3124.713               0.000 clock|altpll_component|auto_generated|pll1|clk[0] 
 Info (P0): Analyzing Slow 1200mV 0C Model
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
-Info (332097): The following timing edges are non-unate.  TimeQuest will assume pos-unate behavior for these edges in the clock network.
-    Info (332098): Cell: uart|Mux1~0  from: dataa  to: combout
-    Info (332098): Cell: uart|Mux6~0  from: datab  to: combout
 Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in TimeQuest to see clock uncertainties.
 Critical Warning (332148): Timing requirements not met
-Info (332146): Worst-case setup slack is -7.162
+Info (332146): Worst-case setup slack is -7.881
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    -7.162             -26.766 epRISC_UART:uart|rSendState[0] 
-    Info (332119):    -6.575             -25.713 epRISC_UART:uart|rRecvState[0] 
-    Info (332119):    -5.321            -411.776 iBusClock 
-    Info (332119):    -5.259             -96.658 clock|altpll_component|auto_generated|pll1|clk[0] 
-Info (332146): Worst-case hold slack is -0.334
+    Info (332119):    -7.881            -601.710 iBusClock 
+    Info (332119):    -6.458            -192.307 clock|altpll_component|auto_generated|pll1|clk[0] 
+Info (332146): Worst-case hold slack is 0.306
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    -0.334              -0.334 clock|altpll_component|auto_generated|pll1|clk[0] 
-    Info (332119):     0.308               0.000 iBusClock 
-    Info (332119):     0.816               0.000 epRISC_UART:uart|rSendState[0] 
-    Info (332119):     1.022               0.000 epRISC_UART:uart|rRecvState[0] 
+    Info (332119):     0.306               0.000 clock|altpll_component|auto_generated|pll1|clk[0] 
+    Info (332119):     0.324               0.000 iBusClock 
 Info (332140): No Recovery paths to report
 Info (332140): No Removal paths to report
 Info (332146): Worst-case minimum pulse width slack is -3.901
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    -3.901            -207.453 iBusClock 
-    Info (332119):     0.238               0.000 epRISC_UART:uart|rRecvState[0] 
-    Info (332119):     0.423               0.000 epRISC_UART:uart|rSendState[0] 
+    Info (332119):    -3.901            -256.524 iBusClock 
     Info (332119):     9.776               0.000 iBoardClock 
-    Info (332119): 99999.688               0.000 clock|altpll_component|auto_generated|pll1|clk[0] 
+    Info (332119):  3124.684               0.000 clock|altpll_component|auto_generated|pll1|clk[0] 
 Info (P0): Analyzing Fast 1200mV 0C Model
-Info (332097): The following timing edges are non-unate.  TimeQuest will assume pos-unate behavior for these edges in the clock network.
-    Info (332098): Cell: uart|Mux1~0  from: dataa  to: combout
-    Info (332098): Cell: uart|Mux6~0  from: datab  to: combout
 Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in TimeQuest to see clock uncertainties.
 Critical Warning (332148): Timing requirements not met
-Info (332146): Worst-case setup slack is -2.518
+Info (332146): Worst-case setup slack is -2.981
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    -2.518              -9.405 epRISC_UART:uart|rSendState[0] 
-    Info (332119):    -2.403              -9.326 epRISC_UART:uart|rRecvState[0] 
-    Info (332119):    -1.914            -154.817 iBusClock 
-    Info (332119):    -1.818             -33.411 clock|altpll_component|auto_generated|pll1|clk[0] 
-Info (332146): Worst-case hold slack is -0.228
+    Info (332119):    -2.981             -86.739 clock|altpll_component|auto_generated|pll1|clk[0] 
+    Info (332119):    -2.702            -225.456 iBusClock 
+Info (332146): Worst-case hold slack is 0.144
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    -0.228              -0.228 clock|altpll_component|auto_generated|pll1|clk[0] 
-    Info (332119):     0.146               0.000 iBusClock 
-    Info (332119):     0.404               0.000 epRISC_UART:uart|rSendState[0] 
-    Info (332119):     0.449               0.000 epRISC_UART:uart|rRecvState[0] 
+    Info (332119):     0.144               0.000 clock|altpll_component|auto_generated|pll1|clk[0] 
+    Info (332119):     0.152               0.000 iBusClock 
 Info (332140): No Recovery paths to report
 Info (332140): No Removal paths to report
 Info (332146): Worst-case minimum pulse width slack is -3.000
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    -3.000            -141.460 iBusClock 
-    Info (332119):     0.286               0.000 epRISC_UART:uart|rRecvState[0] 
-    Info (332119):     0.315               0.000 epRISC_UART:uart|rSendState[0] 
+    Info (332119):    -3.000            -176.507 iBusClock 
     Info (332119):     9.663               0.000 iBoardClock 
-    Info (332119): 99999.754               0.000 clock|altpll_component|auto_generated|pll1|clk[0] 
+    Info (332119):  3124.741               0.000 clock|altpll_component|auto_generated|pll1|clk[0] 
 Info (332102): Design is not fully constrained for setup requirements
 Info (332102): Design is not fully constrained for hold requirements
-Info: Quartus Prime TimeQuest Timing Analyzer was successful. 0 errors, 6 warnings
-    Info: Peak virtual memory: 1209 megabytes
-    Info: Processing ended: Fri Mar 17 21:45:45 2017
+Info: Quartus Prime TimeQuest Timing Analyzer was successful. 0 errors, 5 warnings
+    Info: Peak virtual memory: 1201 megabytes
+    Info: Processing ended: Sun Mar 26 11:43:03 2017
     Info: Elapsed time: 00:00:02
     Info: Total CPU time (on all processors): 00:00:03
 

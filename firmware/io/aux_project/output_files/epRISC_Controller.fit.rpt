@@ -1,5 +1,5 @@
 Fitter report for epRISC_Controller
-Fri Mar 17 21:45:31 2017
+Sun Mar 26 11:42:49 2017
 Quartus Prime Version 16.0.0 Build 211 04/27/2016 SJ Lite Edition
 
 
@@ -72,17 +72,17 @@ agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Fitter Summary                                                                   ;
 +------------------------------------+---------------------------------------------+
-; Fitter Status                      ; Successful - Fri Mar 17 21:45:31 2017       ;
+; Fitter Status                      ; Successful - Sun Mar 26 11:42:49 2017       ;
 ; Quartus Prime Version              ; 16.0.0 Build 211 04/27/2016 SJ Lite Edition ;
 ; Revision Name                      ; epRISC_Controller                           ;
 ; Top-level Entity Name              ; epRISC_iocontroller                         ;
 ; Family                             ; MAX 10                                      ;
 ; Device                             ; 10M16SCE144C8G                              ;
 ; Timing Models                      ; Final                                       ;
-; Total logic elements               ; 348 / 15,840 ( 2 % )                        ;
-;     Total combinational functions  ; 309 / 15,840 ( 2 % )                        ;
-;     Dedicated logic registers      ; 167 / 15,840 ( 1 % )                        ;
-; Total registers                    ; 167                                         ;
+; Total logic elements               ; 423 / 15,840 ( 3 % )                        ;
+;     Total combinational functions  ; 372 / 15,840 ( 2 % )                        ;
+;     Dedicated logic registers      ; 210 / 15,840 ( 1 % )                        ;
+; Total registers                    ; 210                                         ;
 ; Total pins                         ; 89 / 101 ( 88 % )                           ;
 ; Total virtual pins                 ; 0                                           ;
 ; Total memory bits                  ; 8,192 / 562,176 ( 1 % )                     ;
@@ -164,8 +164,8 @@ agreement for further details.
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
 ;     Processor 2            ;   6.7%      ;
-;     Processor 3            ;   6.7%      ;
-;     Processor 4            ;   6.7%      ;
+;     Processor 3            ;   6.4%      ;
+;     Processor 4            ;   6.4%      ;
 +----------------------------+-------------+
 
 
@@ -251,16 +251,16 @@ agreement for further details.
 ; bGPIO15          ; Incomplete set of assignments ;
 ; iBusClock        ; Incomplete set of assignments ;
 ; iBoardReset      ; Incomplete set of assignments ;
-; iBusMOSI[0]      ; Incomplete set of assignments ;
-; iBusMOSI[1]      ; Incomplete set of assignments ;
+; iBusSelect[0]    ; Incomplete set of assignments ;
+; iBusSelect[1]    ; Incomplete set of assignments ;
 ; iBusMOSI[2]      ; Incomplete set of assignments ;
 ; iBusMOSI[3]      ; Incomplete set of assignments ;
 ; iBusMOSI[4]      ; Incomplete set of assignments ;
 ; iBusMOSI[5]      ; Incomplete set of assignments ;
+; iBusMOSI[1]      ; Incomplete set of assignments ;
+; iBusMOSI[0]      ; Incomplete set of assignments ;
 ; iBusMOSI[6]      ; Incomplete set of assignments ;
 ; iBusMOSI[7]      ; Incomplete set of assignments ;
-; iBusSelect[0]    ; Incomplete set of assignments ;
-; iBusSelect[1]    ; Incomplete set of assignments ;
 ; iTTLSerialRX     ; Incomplete set of assignments ;
 ; iBoardClock      ; Incomplete set of assignments ;
 ; bBoardDebug0     ; Missing location assignment   ;
@@ -277,8 +277,8 @@ agreement for further details.
 ; Type                ; Total [A + B]      ; From Design Partitions [A] ; From Rapid Recompile [B] ;
 +---------------------+--------------------+----------------------------+--------------------------+
 ; Placement (by node) ;                    ;                            ;                          ;
-;     -- Requested    ; 0.00 % ( 0 / 733 ) ; 0.00 % ( 0 / 733 )         ; 0.00 % ( 0 / 733 )       ;
-;     -- Achieved     ; 0.00 % ( 0 / 733 ) ; 0.00 % ( 0 / 733 )         ; 0.00 % ( 0 / 733 )       ;
+;     -- Requested    ; 0.00 % ( 0 / 837 ) ; 0.00 % ( 0 / 837 )         ; 0.00 % ( 0 / 837 )       ;
+;     -- Achieved     ; 0.00 % ( 0 / 837 ) ; 0.00 % ( 0 / 837 )         ; 0.00 % ( 0 / 837 )       ;
 ;                     ;                    ;                            ;                          ;
 ; Routing (by net)    ;                    ;                            ;                          ;
 ;     -- Requested    ; 0.00 % ( 0 / 0 )   ; 0.00 % ( 0 / 0 )           ; 0.00 % ( 0 / 0 )         ;
@@ -301,7 +301,7 @@ agreement for further details.
 +--------------------------------+-----------------------+-------------------------+-------------------+---------------------+-------+
 ; Partition Name                 ; Preservation Achieved ; Preservation Level Used ; Netlist Type Used ; Preservation Method ; Notes ;
 +--------------------------------+-----------------------+-------------------------+-------------------+---------------------+-------+
-; Top                            ; 0.00 % ( 0 / 715 )    ; N/A                     ; Source File       ; N/A                 ;       ;
+; Top                            ; 0.00 % ( 0 / 819 )    ; N/A                     ; Source File       ; N/A                 ;       ;
 ; hard_block:auto_generated_inst ; 0.00 % ( 0 / 18 )     ; N/A                     ; Source File       ; N/A                 ;       ;
 +--------------------------------+-----------------------+-------------------------+-------------------+---------------------+-------+
 
@@ -317,50 +317,50 @@ The pin-out file can be found in /home/jclemme/Projects/eprisc-open-computer/fir
 +---------------------------------------------+-------------------------+
 ; Resource                                    ; Usage                   ;
 +---------------------------------------------+-------------------------+
-; Total logic elements                        ; 348 / 15,840 ( 2 % )    ;
-;     -- Combinational with no register       ; 181                     ;
-;     -- Register only                        ; 39                      ;
-;     -- Combinational with a register        ; 128                     ;
+; Total logic elements                        ; 423 / 15,840 ( 3 % )    ;
+;     -- Combinational with no register       ; 213                     ;
+;     -- Register only                        ; 51                      ;
+;     -- Combinational with a register        ; 159                     ;
 ;                                             ;                         ;
 ; Logic element usage by number of LUT inputs ;                         ;
-;     -- 4 input functions                    ; 180                     ;
-;     -- 3 input functions                    ; 56                      ;
-;     -- <=2 input functions                  ; 73                      ;
-;     -- Register only                        ; 39                      ;
+;     -- 4 input functions                    ; 222                     ;
+;     -- 3 input functions                    ; 70                      ;
+;     -- <=2 input functions                  ; 80                      ;
+;     -- Register only                        ; 51                      ;
 ;                                             ;                         ;
 ; Logic elements by mode                      ;                         ;
-;     -- normal mode                          ; 303                     ;
-;     -- arithmetic mode                      ; 6                       ;
+;     -- normal mode                          ; 358                     ;
+;     -- arithmetic mode                      ; 14                      ;
 ;                                             ;                         ;
-; Total registers*                            ; 167 / 16,306 ( 1 % )    ;
-;     -- Dedicated logic registers            ; 167 / 15,840 ( 1 % )    ;
+; Total registers*                            ; 210 / 16,306 ( 1 % )    ;
+;     -- Dedicated logic registers            ; 210 / 15,840 ( 1 % )    ;
 ;     -- I/O registers                        ; 0 / 466 ( 0 % )         ;
 ;                                             ;                         ;
-; Total LABs:  partially or completely used   ; 33 / 990 ( 3 % )        ;
+; Total LABs:  partially or completely used   ; 39 / 990 ( 4 % )        ;
 ; Virtual pins                                ; 0                       ;
 ; I/O pins                                    ; 89 / 101 ( 88 % )       ;
 ;     -- Clock pins                           ; 6 / 6 ( 100 % )         ;
 ;     -- Dedicated input pins                 ; 1 / 1 ( 100 % )         ;
 ;                                             ;                         ;
-; Global signals                              ; 4                       ;
+; Global signals                              ; 2                       ;
 ; M9Ks                                        ; 1 / 61 ( 2 % )          ;
 ; UFM blocks                                  ; 0 / 1 ( 0 % )           ;
 ; Total block memory bits                     ; 8,192 / 562,176 ( 1 % ) ;
 ; Total block memory implementation bits      ; 9,216 / 562,176 ( 2 % ) ;
 ; Embedded Multiplier 9-bit elements          ; 0 / 90 ( 0 % )          ;
 ; PLLs                                        ; 1 / 1 ( 100 % )         ;
-; Global clocks                               ; 4 / 20 ( 20 % )         ;
+; Global clocks                               ; 2 / 20 ( 10 % )         ;
 ; JTAGs                                       ; 0 / 1 ( 0 % )           ;
 ; CRC blocks                                  ; 0 / 1 ( 0 % )           ;
 ; Remote update blocks                        ; 0 / 1 ( 0 % )           ;
 ; Oscillator blocks                           ; 0 / 1 ( 0 % )           ;
 ; Impedance control blocks                    ; 0 / 1 ( 0 % )           ;
-; Average interconnect usage (total/H/V)      ; 1.9% / 1.9% / 2.0%      ;
-; Peak interconnect usage (total/H/V)         ; 8.1% / 7.9% / 8.4%      ;
-; Maximum fan-out                             ; 129                     ;
-; Highest non-global fan-out                  ; 92                      ;
-; Total fan-out                               ; 1773                    ;
-; Average fan-out                             ; 2.44                    ;
+; Average interconnect usage (total/H/V)      ; 2.1% / 2.1% / 2.0%      ;
+; Peak interconnect usage (total/H/V)         ; 14.8% / 14.7% / 15.0%   ;
+; Maximum fan-out                             ; 162                     ;
+; Highest non-global fan-out                  ; 82                      ;
+; Total fan-out                               ; 2129                    ;
+; Average fan-out                             ; 2.56                    ;
 +---------------------------------------------+-------------------------+
 *  Register count does not include registers inside RAM blocks or DSP blocks.
 
@@ -373,26 +373,26 @@ The pin-out file can be found in /home/jclemme/Projects/eprisc-open-computer/fir
 +---------------------------------------------+---------------------+--------------------------------+
 ; Difficulty Clustering Region                ; Low                 ; Low                            ;
 ;                                             ;                     ;                                ;
-; Total logic elements                        ; 348 / 15840 ( 2 % ) ; 0 / 15840 ( 0 % )              ;
-;     -- Combinational with no register       ; 181                 ; 0                              ;
-;     -- Register only                        ; 39                  ; 0                              ;
-;     -- Combinational with a register        ; 128                 ; 0                              ;
+; Total logic elements                        ; 423 / 15840 ( 3 % ) ; 0 / 15840 ( 0 % )              ;
+;     -- Combinational with no register       ; 213                 ; 0                              ;
+;     -- Register only                        ; 51                  ; 0                              ;
+;     -- Combinational with a register        ; 159                 ; 0                              ;
 ;                                             ;                     ;                                ;
 ; Logic element usage by number of LUT inputs ;                     ;                                ;
-;     -- 4 input functions                    ; 180                 ; 0                              ;
-;     -- 3 input functions                    ; 56                  ; 0                              ;
-;     -- <=2 input functions                  ; 73                  ; 0                              ;
-;     -- Register only                        ; 39                  ; 0                              ;
+;     -- 4 input functions                    ; 222                 ; 0                              ;
+;     -- 3 input functions                    ; 70                  ; 0                              ;
+;     -- <=2 input functions                  ; 80                  ; 0                              ;
+;     -- Register only                        ; 51                  ; 0                              ;
 ;                                             ;                     ;                                ;
 ; Logic elements by mode                      ;                     ;                                ;
-;     -- normal mode                          ; 303                 ; 0                              ;
-;     -- arithmetic mode                      ; 6                   ; 0                              ;
+;     -- normal mode                          ; 358                 ; 0                              ;
+;     -- arithmetic mode                      ; 14                  ; 0                              ;
 ;                                             ;                     ;                                ;
-; Total registers                             ; 167                 ; 0                              ;
-;     -- Dedicated logic registers            ; 167 / 15840 ( 1 % ) ; 0 / 15840 ( 0 % )              ;
+; Total registers                             ; 210                 ; 0                              ;
+;     -- Dedicated logic registers            ; 210 / 15840 ( 1 % ) ; 0 / 15840 ( 0 % )              ;
 ;     -- I/O registers                        ; 0                   ; 0                              ;
 ;                                             ;                     ;                                ;
-; Total LABs:  partially or completely used   ; 33 / 990 ( 3 % )    ; 0 / 990 ( 0 % )                ;
+; Total LABs:  partially or completely used   ; 39 / 990 ( 4 % )    ; 0 / 990 ( 0 % )                ;
 ;                                             ;                     ;                                ;
 ; Virtual pins                                ; 0                   ; 0                              ;
 ; I/O pins                                    ; 89                  ; 0                              ;
@@ -401,23 +401,23 @@ The pin-out file can be found in /home/jclemme/Projects/eprisc-open-computer/fir
 ; Total RAM block bits                        ; 9216                ; 0                              ;
 ; PLL                                         ; 0 / 1 ( 0 % )       ; 1 / 1 ( 100 % )                ;
 ; M9K                                         ; 1 / 61 ( 1 % )      ; 0 / 61 ( 0 % )                 ;
-; Clock control block                         ; 3 / 24 ( 12 % )     ; 1 / 24 ( 4 % )                 ;
+; Clock control block                         ; 1 / 24 ( 4 % )      ; 1 / 24 ( 4 % )                 ;
 ; User Flash Memory                           ; 1 / 1 ( 100 % )     ; 0 / 1 ( 0 % )                  ;
 ; Analog-to-Digital Converter                 ; 1 / 1 ( 100 % )     ; 0 / 1 ( 0 % )                  ;
 ;                                             ;                     ;                                ;
 ; Connections                                 ;                     ;                                ;
-;     -- Input Connections                    ; 64                  ; 1                              ;
-;     -- Registered Input Connections         ; 40                  ; 0                              ;
-;     -- Output Connections                   ; 25                  ; 40                             ;
+;     -- Input Connections                    ; 74                  ; 1                              ;
+;     -- Registered Input Connections         ; 50                  ; 0                              ;
+;     -- Output Connections                   ; 25                  ; 50                             ;
 ;     -- Registered Output Connections        ; 0                   ; 0                              ;
 ;                                             ;                     ;                                ;
 ; Internal Connections                        ;                     ;                                ;
-;     -- Total Connections                    ; 1782                ; 51                             ;
-;     -- Registered Connections               ; 661                 ; 0                              ;
+;     -- Total Connections                    ; 2145                ; 61                             ;
+;     -- Registered Connections               ; 781                 ; 0                              ;
 ;                                             ;                     ;                                ;
 ; External Connections                        ;                     ;                                ;
-;     -- Top                                  ; 48                  ; 41                             ;
-;     -- hard_block:auto_generated_inst       ; 41                  ; 0                              ;
+;     -- Top                                  ; 48                  ; 51                             ;
+;     -- hard_block:auto_generated_inst       ; 51                  ; 0                              ;
 ;                                             ;                     ;                                ;
 ; Partition Interface                         ;                     ;                                ;
 ;     -- Input Ports                          ; 29                  ; 1                              ;
@@ -446,8 +446,8 @@ The pin-out file can be found in /home/jclemme/Projects/eprisc-open-computer/fir
 ; Name             ; Pin # ; I/O Bank ; X coordinate ; Y coordinate ; Z coordinate ; Combinational Fan-Out ; Registered Fan-Out ; Global ; Input Register ; Power Up High ; PCI I/O Enabled ; Bus Hold ; Weak Pull Up ; I/O Standard ; Termination Control Block ; Location assigned by ; Slew Rate ;
 +------------------+-------+----------+--------------+--------------+--------------+-----------------------+--------------------+--------+----------------+---------------+-----------------+----------+--------------+--------------+---------------------------+----------------------+-----------+
 ; iBoardClock      ; 28    ; 2        ; 0            ; 8            ; 14           ; 1                     ; 0                  ; no     ; no             ; no            ; no              ; no       ; Off          ; 2.5 V        ; --                        ; User                 ; 0         ;
-; iBoardReset      ; 130   ; 8        ; 12           ; 17           ; 0            ; 92                    ; 0                  ; no     ; no             ; no            ; no              ; no       ; Off          ; 2.5 V        ; --                        ; User                 ; 0         ;
-; iBusClock        ; 26    ; 2        ; 0            ; 9            ; 14           ; 129                   ; 0                  ; yes    ; no             ; no            ; no              ; no       ; Off          ; 2.5 V        ; --                        ; User                 ; 0         ;
+; iBoardReset      ; 130   ; 8        ; 12           ; 17           ; 0            ; 27                    ; 0                  ; no     ; no             ; no            ; no              ; no       ; Off          ; 2.5 V        ; --                        ; User                 ; 0         ;
+; iBusClock        ; 26    ; 2        ; 0            ; 9            ; 14           ; 164                   ; 0                  ; yes    ; no             ; no            ; no              ; no       ; Off          ; 2.5 V        ; --                        ; User                 ; 0         ;
 ; iBusMOSI[0]      ; 27    ; 2        ; 0            ; 9            ; 21           ; 2                     ; 0                  ; no     ; no             ; no            ; no              ; no       ; Off          ; 2.5 V        ; --                        ; User                 ; 0         ;
 ; iBusMOSI[1]      ; 29    ; 2        ; 0            ; 8            ; 21           ; 2                     ; 0                  ; no     ; no             ; no            ; no              ; no       ; Off          ; 2.5 V        ; --                        ; User                 ; 0         ;
 ; iBusMOSI[2]      ; 12    ; 1A       ; 25           ; 23           ; 21           ; 2                     ; 0                  ; no     ; no             ; no            ; no              ; no       ; Off          ; 2.5 V        ; --                        ; User                 ; 0         ;
@@ -456,8 +456,8 @@ The pin-out file can be found in /home/jclemme/Projects/eprisc-open-computer/fir
 ; iBusMOSI[5]      ; 8     ; 1A       ; 25           ; 24           ; 14           ; 2                     ; 0                  ; no     ; no             ; no            ; no              ; no       ; Off          ; 2.5 V        ; --                        ; User                 ; 0         ;
 ; iBusMOSI[6]      ; 7     ; 1A       ; 25           ; 25           ; 21           ; 2                     ; 0                  ; no     ; no             ; no            ; no              ; no       ; Off          ; 2.5 V        ; --                        ; User                 ; 0         ;
 ; iBusMOSI[7]      ; 6     ; 1A       ; 25           ; 25           ; 14           ; 2                     ; 0                  ; no     ; no             ; no            ; no              ; no       ; Off          ; 2.5 V        ; --                        ; User                 ; 0         ;
-; iBusSelect[0]    ; 62    ; 4        ; 34           ; 0            ; 0            ; 6                     ; 0                  ; no     ; no             ; no            ; no              ; no       ; Off          ; 2.5 V        ; --                        ; User                 ; 0         ;
-; iBusSelect[1]    ; 66    ; 4        ; 41           ; 0            ; 28           ; 6                     ; 0                  ; no     ; no             ; no            ; no              ; no       ; Off          ; 2.5 V        ; --                        ; User                 ; 0         ;
+; iBusSelect[0]    ; 62    ; 4        ; 34           ; 0            ; 0            ; 8                     ; 0                  ; no     ; no             ; no            ; no              ; no       ; Off          ; 2.5 V        ; --                        ; User                 ; 0         ;
+; iBusSelect[1]    ; 66    ; 4        ; 41           ; 0            ; 28           ; 8                     ; 0                  ; no     ; no             ; no            ; no              ; no       ; Off          ; 2.5 V        ; --                        ; User                 ; 0         ;
 ; iExtBusInterrupt ; 119   ; 7        ; 28           ; 30           ; 0            ; 0                     ; 0                  ; no     ; no             ; no            ; no              ; no       ; Off          ; 2.5 V        ; --                        ; User                 ; 0         ;
 ; iExtBusMISO[0]   ; 99    ; 6        ; 50           ; 22           ; 21           ; 0                     ; 0                  ; no     ; no             ; no            ; no              ; no       ; Off          ; 2.5 V        ; --                        ; User                 ; 0         ;
 ; iExtBusMISO[1]   ; 101   ; 6        ; 50           ; 22           ; 14           ; 0                     ; 0                  ; no     ; no             ; no            ; no              ; no       ; Off          ; 2.5 V        ; --                        ; User                 ; 0         ;
@@ -526,11 +526,11 @@ The pin-out file can be found in /home/jclemme/Projects/eprisc-open-computer/fir
 +--------------+-------+----------+--------------+--------------+--------------+-----------------------+--------------------+--------+----------------+-----------------+------------------------+---------------+-----------+-----------------+------------+----------+--------------+--------------+------------------+-----------------------------------+---------------------------+----------------------------+----------------------+----------------------+--------------------------------------------+
 ; Name         ; Pin # ; I/O Bank ; X coordinate ; Y coordinate ; Z coordinate ; Combinational Fan-Out ; Registered Fan-Out ; Global ; Input Register ; Output Register ; Output Enable Register ; Power Up High ; Slew Rate ; PCI I/O Enabled ; Open Drain ; Bus Hold ; Weak Pull Up ; I/O Standard ; Current Strength ; Output Termination                ; Termination Control Block ; Output Buffer Pre-emphasis ; Location assigned by ; Output Enable Source ; Output Enable Group                        ;
 +--------------+-------+----------+--------------+--------------+--------------+-----------------------+--------------------+--------+----------------+-----------------+------------------------+---------------+-----------+-----------------+------------+----------+--------------+--------------+------------------+-----------------------------------+---------------------------+----------------------------+----------------------+----------------------+--------------------------------------------+
-; bBoardDebug0 ; 22    ; 1B       ; 0            ; 12           ; 21           ; 0                     ; 0                  ; no     ; no             ; no              ; no                     ; no            ; 2         ; no              ; yes        ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; Fitter               ; 0 pF                 ; -                                          ;
-; bBoardDebug1 ; 134   ; 8        ; 10           ; 17           ; 0            ; 0                     ; 0                  ; no     ; no             ; no              ; no                     ; no            ; 2         ; no              ; yes        ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; Fitter               ; 0 pF                 ; -                                          ;
-; bBoardDebug2 ; 17    ; 1B       ; 0            ; 14           ; 0            ; 0                     ; 0                  ; no     ; no             ; no              ; no                     ; no            ; 2         ; no              ; yes        ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; Fitter               ; 0 pF                 ; -                                          ;
-; bBoardDebug3 ; 25    ; 1B       ; 0            ; 11           ; 21           ; 0                     ; 0                  ; no     ; no             ; no              ; no                     ; no            ; 2         ; no              ; yes        ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; Fitter               ; 0 pF                 ; -                                          ;
-; bBoardDebug4 ; 21    ; 1B       ; 0            ; 12           ; 14           ; 0                     ; 0                  ; no     ; no             ; no              ; no                     ; no            ; 2         ; no              ; yes        ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; Fitter               ; 0 pF                 ; -                                          ;
+; bBoardDebug0 ; 134   ; 8        ; 10           ; 17           ; 0            ; 0                     ; 0                  ; no     ; no             ; no              ; no                     ; no            ; 2         ; no              ; yes        ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; Fitter               ; 0 pF                 ; -                                          ;
+; bBoardDebug1 ; 15    ; 1B       ; 0            ; 15           ; 21           ; 0                     ; 0                  ; no     ; no             ; no              ; no                     ; no            ; 2         ; no              ; yes        ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; Fitter               ; 0 pF                 ; -                                          ;
+; bBoardDebug2 ; 21    ; 1B       ; 0            ; 12           ; 14           ; 0                     ; 0                  ; no     ; no             ; no              ; no                     ; no            ; 2         ; no              ; yes        ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; Fitter               ; 0 pF                 ; -                                          ;
+; bBoardDebug3 ; 24    ; 1B       ; 0            ; 11           ; 14           ; 0                     ; 0                  ; no     ; no             ; no              ; no                     ; no            ; 2         ; no              ; yes        ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; Fitter               ; 0 pF                 ; -                                          ;
+; bBoardDebug4 ; 22    ; 1B       ; 0            ; 12           ; 21           ; 0                     ; 0                  ; no     ; no             ; no              ; no                     ; no            ; 2         ; no              ; yes        ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; Fitter               ; 0 pF                 ; -                                          ;
 ; bBoardDebug5 ; 135   ; 8        ; 10           ; 17           ; 14           ; 0                     ; 0                  ; no     ; no             ; no              ; no                     ; no            ; 2         ; no              ; yes        ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; User                 ; 0 pF                 ; -                                          ;
 ; bGPIO0       ; 120   ; 8        ; 19           ; 17           ; 21           ; 1                     ; 0                  ; no     ; no             ; no              ; no                     ; no            ; 2         ; no              ; no         ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; User                 ; 0 pF                 ; epRISC_GPIO:gpio|rDirection[0] (inverted)  ;
 ; bGPIO1       ; 127   ; 8        ; 14           ; 17           ; 28           ; 1                     ; 0                  ; no     ; no             ; no              ; no                     ; no            ; 2         ; no              ; no         ; no       ; Off          ; 2.5 V        ; Default          ; Series 50 Ohm without Calibration ; --                        ; no                         ; User                 ; 0 pF                 ; epRISC_GPIO:gpio|rDirection[1] (inverted)  ;
@@ -558,13 +558,14 @@ The pin-out file can be found in /home/jclemme/Projects/eprisc-open-computer/fir
 +----------+----------------------------------------------------+--------------------------------+---------------------+------------------+
 ; Location ; Pin Name                                           ; Reserved As                    ; User Signal Name    ; Pin Type         ;
 +----------+----------------------------------------------------+--------------------------------+---------------------+------------------+
+; 15       ; JTAGEN                                             ; Use as regular IO              ; bBoardDebug1        ; Dual Purpose Pin ;
 ; 16       ; DIFFIO_RX_L11n, DIFFOUT_L11n, TMS, Low_Speed       ; Reserved as secondary function ; ~ALTERA_TMS~        ; Dual Purpose Pin ;
 ; 18       ; DIFFIO_RX_L11p, DIFFOUT_L11p, TCK, Low_Speed       ; Reserved as secondary function ; ~ALTERA_TCK~        ; Dual Purpose Pin ;
 ; 19       ; DIFFIO_RX_L12n, DIFFOUT_L12n, TDI, Low_Speed       ; Reserved as secondary function ; ~ALTERA_TDI~        ; Dual Purpose Pin ;
 ; 20       ; DIFFIO_RX_L12p, DIFFOUT_L12p, TDO, Low_Speed       ; Reserved as secondary function ; ~ALTERA_TDO~        ; Dual Purpose Pin ;
 ; 126      ; CONFIG_SEL, Low_Speed                              ; Reserved as secondary function ; ~ALTERA_CONFIG_SEL~ ; Dual Purpose Pin ;
 ; 129      ; nCONFIG, Low_Speed                                 ; Reserved as secondary function ; ~ALTERA_nCONFIG~    ; Dual Purpose Pin ;
-; 134      ; DIFFIO_RX_T34n, DIFFOUT_T34n, CRC_ERROR, Low_Speed ; Use as regular IO              ; bBoardDebug1        ; Dual Purpose Pin ;
+; 134      ; DIFFIO_RX_T34n, DIFFOUT_T34n, CRC_ERROR, Low_Speed ; Use as regular IO              ; bBoardDebug0        ; Dual Purpose Pin ;
 ; 136      ; DIFFIO_RX_T36p, DIFFOUT_T36p, nSTATUS, Low_Speed   ; Reserved as secondary function ; ~ALTERA_nSTATUS~    ; Dual Purpose Pin ;
 ; 138      ; DIFFIO_RX_T36n, DIFFOUT_T36n, CONF_DONE, Low_Speed ; Reserved as secondary function ; ~ALTERA_CONF_DONE~  ; Dual Purpose Pin ;
 +----------+----------------------------------------------------+--------------------------------+---------------------+------------------+
@@ -606,17 +607,17 @@ The pin-out file can be found in /home/jclemme/Projects/eprisc-open-computer/fir
 ; 12       ; 10         ; 1A       ; iBusMOSI[2]                          ; input  ; 2.5 V                 ;           ; Row I/O    ; Y               ; no       ; Off          ;
 ; 13       ; 12         ; 1A       ; oBusMISO[1]                          ; output ; 2.5 V                 ;           ; Row I/O    ; Y               ; no       ; Off          ;
 ; 14       ; 14         ; 1A       ; oBusMISO[0]                          ; output ; 2.5 V                 ;           ; Row I/O    ; Y               ; no       ; Off          ;
-; 15       ; 18         ; 1B       ; RESERVED_INPUT_WITH_WEAK_PULLUP      ;        ;                       ;           ; Row I/O    ;                 ; no       ; On           ;
+; 15       ; 18         ; 1B       ; bBoardDebug1                         ; bidir  ; 2.5 V                 ;           ; Row I/O    ; N               ; no       ; Off          ;
 ; 16       ; 20         ; 1B       ; ~ALTERA_TMS~ / RESERVED_INPUT        ; input  ; 2.5 V Schmitt Trigger ;           ; Row I/O    ; N               ; no       ; Off          ;
-; 17       ; 21         ; 1B       ; bBoardDebug2                         ; bidir  ; 2.5 V                 ;           ; Row I/O    ; N               ; no       ; Off          ;
+; 17       ; 21         ; 1B       ; RESERVED_INPUT_WITH_WEAK_PULLUP      ;        ;                       ;           ; Row I/O    ;                 ; --       ; --           ;
 ; 18       ; 22         ; 1B       ; ~ALTERA_TCK~ / RESERVED_INPUT        ; input  ; 2.5 V Schmitt Trigger ;           ; Row I/O    ; N               ; no       ; Off          ;
 ; 19       ; 24         ; 1B       ; ~ALTERA_TDI~ / RESERVED_INPUT        ; input  ; 2.5 V Schmitt Trigger ;           ; Row I/O    ; N               ; no       ; Off          ;
 ; 20       ; 26         ; 1B       ; ~ALTERA_TDO~                         ; output ; 2.5 V                 ;           ; Row I/O    ; N               ; no       ; Off          ;
-; 21       ; 28         ; 1B       ; bBoardDebug4                         ; bidir  ; 2.5 V                 ;           ; Row I/O    ; N               ; no       ; Off          ;
-; 22       ; 30         ; 1B       ; bBoardDebug0                         ; bidir  ; 2.5 V                 ;           ; Row I/O    ; N               ; no       ; Off          ;
+; 21       ; 28         ; 1B       ; bBoardDebug2                         ; bidir  ; 2.5 V                 ;           ; Row I/O    ; N               ; no       ; Off          ;
+; 22       ; 30         ; 1B       ; bBoardDebug4                         ; bidir  ; 2.5 V                 ;           ; Row I/O    ; N               ; no       ; Off          ;
 ; 23       ;            ; 1B       ; VCCIO1B                              ; power  ;                       ; 2.5V      ; --         ;                 ; --       ; --           ;
-; 24       ; 32         ; 1B       ; RESERVED_INPUT_WITH_WEAK_PULLUP      ;        ;                       ;           ; Row I/O    ;                 ; no       ; On           ;
-; 25       ; 34         ; 1B       ; bBoardDebug3                         ; bidir  ; 2.5 V                 ;           ; Row I/O    ; N               ; no       ; Off          ;
+; 24       ; 32         ; 1B       ; bBoardDebug3                         ; bidir  ; 2.5 V                 ;           ; Row I/O    ; N               ; no       ; Off          ;
+; 25       ; 34         ; 1B       ; RESERVED_INPUT_WITH_WEAK_PULLUP      ;        ;                       ;           ; Row I/O    ;                 ; no       ; On           ;
 ; 26       ; 40         ; 2        ; iBusClock                            ; input  ; 2.5 V                 ;           ; Row I/O    ; Y               ; no       ; Off          ;
 ; 27       ; 42         ; 2        ; iBusMOSI[0]                          ; input  ; 2.5 V                 ;           ; Row I/O    ; Y               ; no       ; Off          ;
 ; 28       ; 44         ; 2        ; iBoardClock                          ; input  ; 2.5 V                 ;           ; Row I/O    ; Y               ; no       ; Off          ;
@@ -725,7 +726,7 @@ The pin-out file can be found in /home/jclemme/Projects/eprisc-open-computer/fir
 ; 131      ; 306        ; 8        ; bGPIO2                               ; bidir  ; 2.5 V                 ;           ; Column I/O ; Y               ; no       ; Off          ;
 ; 132      ; 308        ; 8        ; bGPIO3                               ; bidir  ; 2.5 V                 ;           ; Column I/O ; Y               ; no       ; Off          ;
 ; 133      ;            ;          ; GND                                  ; gnd    ;                       ;           ; --         ;                 ; --       ; --           ;
-; 134      ; 310        ; 8        ; bBoardDebug1                         ; bidir  ; 2.5 V                 ;           ; Column I/O ; N               ; no       ; Off          ;
+; 134      ; 310        ; 8        ; bBoardDebug0                         ; bidir  ; 2.5 V                 ;           ; Column I/O ; N               ; no       ; Off          ;
 ; 135      ; 311        ; 8        ; bBoardDebug5                         ; bidir  ; 2.5 V                 ;           ; Column I/O ; Y               ; no       ; Off          ;
 ; 136      ; 312        ; 8        ; ~ALTERA_nSTATUS~ / RESERVED_INPUT    ; input  ; 2.5 V Schmitt Trigger ;           ; Column I/O ; N               ; no       ; Off          ;
 ; 137      ;            ;          ; GND                                  ; gnd    ;                       ;           ; --         ;                 ; --       ; --           ;
@@ -781,31 +782,32 @@ Note: Pin directions (input, output or bidir) are based on device operating in u
 +-------------------------------+------------------------------------------------------------------------------+
 
 
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; PLL Usage                                                                                                                                                                                                                                                                                                                           ;
-+-----------------------------------------------------------------------------------------------------+--------------+------+-------+------------------+-------------+------------------+------------+---------+---------------+--------------+---------------+---------+---------+---------------------------------------------------+
-; Name                                                                                                ; Output Clock ; Mult ; Div   ; Output Frequency ; Phase Shift ; Phase Shift Step ; Duty Cycle ; Counter ; Counter Value ; High / Low   ; Cascade Input ; Initial ; VCO Tap ; SDC Pin Name                                      ;
-+-----------------------------------------------------------------------------------------------------+--------------+------+-------+------------------+-------------+------------------+------------+---------+---------------+--------------+---------------+---------+---------+---------------------------------------------------+
-; OnChipPLL:clock|altpll:altpll_component|OnChipPLL_altpll:auto_generated|wire_pll1_clk[0]            ; clock0       ; 1    ; 10000 ; 0.01 MHz         ; 0 (0 ps)    ; 0.09 (208 ps)    ; 50/50      ; C1      ; 500           ; 250/250 Even ; C0            ; 1       ; 0       ; clock|altpll_component|auto_generated|pll1|clk[0] ;
-; OnChipPLL:clock|altpll:altpll_component|OnChipPLL_altpll:auto_generated|wire_pll1_clk[0]~cascade_in ; --           ; --   ; --    ; --               ; --          ; --               ; --         ; C0      ; 240           ; 120/120 Even ; --            ; 1       ; 0       ;                                                   ;
-+-----------------------------------------------------------------------------------------------------+--------------+------+-------+------------------+-------------+------------------+------------+---------+---------------+--------------+---------------+---------+---------+---------------------------------------------------+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; PLL Usage                                                                                                                                                                                                                                                                                                                        ;
++-----------------------------------------------------------------------------------------------------+--------------+------+-----+------------------+-------------+------------------+------------+---------+---------------+-------------+---------------+---------+---------+---------------------------------------------------+
+; Name                                                                                                ; Output Clock ; Mult ; Div ; Output Frequency ; Phase Shift ; Phase Shift Step ; Duty Cycle ; Counter ; Counter Value ; High / Low  ; Cascade Input ; Initial ; VCO Tap ; SDC Pin Name                                      ;
++-----------------------------------------------------------------------------------------------------+--------------+------+-----+------------------+-------------+------------------+------------+---------+---------------+-------------+---------------+---------+---------+---------------------------------------------------+
+; OnChipPLL:clock|altpll:altpll_component|OnChipPLL_altpll:auto_generated|wire_pll1_clk[0]            ; clock0       ; 2    ; 625 ; 0.16 MHz         ; 0 (0 ps)    ; 0.12 (208 ps)    ; 50/50      ; C1      ; 375           ; 188/187 Odd ; C0            ; 1       ; 0       ; clock|altpll_component|auto_generated|pll1|clk[0] ;
+; OnChipPLL:clock|altpll:altpll_component|OnChipPLL_altpll:auto_generated|wire_pll1_clk[0]~cascade_in ; --           ; --   ; --  ; --               ; --          ; --               ; --         ; C0      ; 10            ; 5/5 Even    ; --            ; 1       ; 0       ;                                                   ;
++-----------------------------------------------------------------------------------------------------+--------------+------+-----+------------------+-------------+------------------+------------+---------+---------------+-------------+---------------+---------+---------+---------------------------------------------------+
 
 
-+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Fitter Resource Utilization by Entity                                                                                                                                                                                                                                                                                                                                                                            ;
-+--------------------------------------------+-------------+---------------------------+---------------+-------------+------+------------+--------------+---------+-----------+------+--------------+--------------+-------------------+------------------+------------+------------------------------------------------------------------------------------------------------+---------------------+--------------+
-; Compilation Hierarchy Node                 ; Logic Cells ; Dedicated Logic Registers ; I/O Registers ; Memory Bits ; M9Ks ; UFM Blocks ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; LUT-Only LCs ; Register-Only LCs ; LUT/Register LCs ; ADC blocks ; Full Hierarchy Name                                                                                  ; Entity Name         ; Library Name ;
-+--------------------------------------------+-------------+---------------------------+---------------+-------------+------+------------+--------------+---------+-----------+------+--------------+--------------+-------------------+------------------+------------+------------------------------------------------------------------------------------------------------+---------------------+--------------+
-; |epRISC_iocontroller                       ; 348 (125)   ; 167 (38)                  ; 0 (0)         ; 8192        ; 1    ; 1          ; 0            ; 0       ; 0         ; 89   ; 0            ; 181 (83)     ; 39 (9)            ; 128 (50)         ; 0          ; |epRISC_iocontroller                                                                                 ; epRISC_iocontroller ; work         ;
-;    |OnChipPLL:clock|                       ; 0 (0)       ; 0 (0)                     ; 0 (0)         ; 0           ; 0    ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 0 (0)            ; 0          ; |epRISC_iocontroller|OnChipPLL:clock                                                                 ; OnChipPLL           ; work         ;
-;       |altpll:altpll_component|            ; 0 (0)       ; 0 (0)                     ; 0 (0)         ; 0           ; 0    ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 0 (0)            ; 0          ; |epRISC_iocontroller|OnChipPLL:clock|altpll:altpll_component                                         ; altpll              ; work         ;
-;          |OnChipPLL_altpll:auto_generated| ; 0 (0)       ; 0 (0)                     ; 0 (0)         ; 0           ; 0    ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 0 (0)            ; 0          ; |epRISC_iocontroller|OnChipPLL:clock|altpll:altpll_component|OnChipPLL_altpll:auto_generated         ; OnChipPLL_altpll    ; work         ;
-;    |epRISC_GPIO:gpio|                      ; 72 (72)     ; 49 (49)                   ; 0 (0)         ; 0           ; 0    ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 18 (18)      ; 6 (6)             ; 48 (48)          ; 0          ; |epRISC_iocontroller|epRISC_GPIO:gpio                                                                ; epRISC_GPIO         ; work         ;
-;    |epRISC_UART:uart|                      ; 164 (164)   ; 80 (80)                   ; 0 (0)         ; 0           ; 0    ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 79 (79)      ; 24 (24)           ; 61 (61)          ; 0          ; |epRISC_iocontroller|epRISC_UART:uart                                                                ; epRISC_UART         ; work         ;
-;    |epRISC_controlRAM:mem|                 ; 1 (1)       ; 0 (0)                     ; 0 (0)         ; 8192        ; 1    ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 1 (1)        ; 0 (0)             ; 0 (0)            ; 0          ; |epRISC_iocontroller|epRISC_controlRAM:mem                                                           ; epRISC_controlRAM   ; work         ;
-;       |altsyncram:rContents_rtl_0|         ; 0 (0)       ; 0 (0)                     ; 0 (0)         ; 8192        ; 1    ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 0 (0)            ; 0          ; |epRISC_iocontroller|epRISC_controlRAM:mem|altsyncram:rContents_rtl_0                                ; altsyncram          ; work         ;
-;          |altsyncram_0ec1:auto_generated|  ; 0 (0)       ; 0 (0)                     ; 0 (0)         ; 8192        ; 1    ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 0 (0)            ; 0          ; |epRISC_iocontroller|epRISC_controlRAM:mem|altsyncram:rContents_rtl_0|altsyncram_0ec1:auto_generated ; altsyncram_0ec1     ; work         ;
-+--------------------------------------------+-------------+---------------------------+---------------+-------------+------+------------+--------------+---------+-----------+------+--------------+--------------+-------------------+------------------+------------+------------------------------------------------------------------------------------------------------+---------------------+--------------+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Fitter Resource Utilization by Entity                                                                                                                                                                                                                                                                                                                                                                             ;
++--------------------------------------------+-------------+---------------------------+---------------+-------------+------+------------+--------------+---------+-----------+------+--------------+--------------+-------------------+------------------+------------+-------------------------------------------------------------------------------------------------------+---------------------+--------------+
+; Compilation Hierarchy Node                 ; Logic Cells ; Dedicated Logic Registers ; I/O Registers ; Memory Bits ; M9Ks ; UFM Blocks ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; LUT-Only LCs ; Register-Only LCs ; LUT/Register LCs ; ADC blocks ; Full Hierarchy Name                                                                                   ; Entity Name         ; Library Name ;
++--------------------------------------------+-------------+---------------------------+---------------+-------------+------+------------+--------------+---------+-----------+------+--------------+--------------+-------------------+------------------+------------+-------------------------------------------------------------------------------------------------------+---------------------+--------------+
+; |epRISC_iocontroller                       ; 423 (142)   ; 210 (38)                  ; 0 (0)         ; 8192        ; 1    ; 1          ; 0            ; 0       ; 0         ; 89   ; 0            ; 213 (105)    ; 51 (13)           ; 159 (56)         ; 0          ; |epRISC_iocontroller                                                                                  ; epRISC_iocontroller ; work         ;
+;    |OnChipPLL:clock|                       ; 0 (0)       ; 0 (0)                     ; 0 (0)         ; 0           ; 0    ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 0 (0)            ; 0          ; |epRISC_iocontroller|OnChipPLL:clock                                                                  ; OnChipPLL           ; work         ;
+;       |altpll:altpll_component|            ; 0 (0)       ; 0 (0)                     ; 0 (0)         ; 0           ; 0    ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 0 (0)            ; 0          ; |epRISC_iocontroller|OnChipPLL:clock|altpll:altpll_component                                          ; altpll              ; work         ;
+;          |OnChipPLL_altpll:auto_generated| ; 0 (0)       ; 0 (0)                     ; 0 (0)         ; 0           ; 0    ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 0 (0)            ; 0          ; |epRISC_iocontroller|OnChipPLL:clock|altpll:altpll_component|OnChipPLL_altpll:auto_generated          ; OnChipPLL_altpll    ; work         ;
+;    |epRISC_GPIO:gpio|                      ; 76 (76)     ; 49 (49)                   ; 0 (0)         ; 0           ; 0    ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 17 (17)      ; 12 (12)           ; 47 (47)          ; 0          ; |epRISC_iocontroller|epRISC_GPIO:gpio                                                                 ; epRISC_GPIO         ; work         ;
+;    |epRISC_SPI:bspi|                       ; 38 (38)     ; 31 (31)                   ; 0 (0)         ; 0           ; 0    ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 2 (2)        ; 12 (12)           ; 24 (24)          ; 0          ; |epRISC_iocontroller|epRISC_SPI:bspi                                                                  ; epRISC_SPI          ; work         ;
+;    |epRISC_UART:uart|                      ; 182 (182)   ; 92 (92)                   ; 0 (0)         ; 0           ; 0    ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 88 (88)      ; 14 (14)           ; 80 (80)          ; 0          ; |epRISC_iocontroller|epRISC_UART:uart                                                                 ; epRISC_UART         ; work         ;
+;    |epRISC_controlRAM:bmem|                ; 2 (2)       ; 0 (0)                     ; 0 (0)         ; 8192        ; 1    ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 1 (1)        ; 0 (0)             ; 1 (1)            ; 0          ; |epRISC_iocontroller|epRISC_controlRAM:bmem                                                           ; epRISC_controlRAM   ; work         ;
+;       |altsyncram:rContents_rtl_0|         ; 0 (0)       ; 0 (0)                     ; 0 (0)         ; 8192        ; 1    ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 0 (0)            ; 0          ; |epRISC_iocontroller|epRISC_controlRAM:bmem|altsyncram:rContents_rtl_0                                ; altsyncram          ; work         ;
+;          |altsyncram_0ec1:auto_generated|  ; 0 (0)       ; 0 (0)                     ; 0 (0)         ; 8192        ; 1    ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 0 (0)            ; 0          ; |epRISC_iocontroller|epRISC_controlRAM:bmem|altsyncram:rContents_rtl_0|altsyncram_0ec1:auto_generated ; altsyncram_0ec1     ; work         ;
++--------------------------------------------+-------------+---------------------------+---------------+-------------+------+------------+--------------+---------+-----------+------+--------------+--------------+-------------------+------------------+------------+-------------------------------------------------------------------------------------------------------+---------------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
 
@@ -873,480 +875,421 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; bBoardDebug5     ; Bidir    ; --            ; --            ; --                    ; --  ; --   ;
 ; bPS2Data         ; Bidir    ; --            ; --            ; --                    ; --  ; --   ;
 ; bPS2Clock        ; Bidir    ; --            ; --            ; --                    ; --  ; --   ;
-; bGPIO0           ; Bidir    ; (6) 868 ps    ; --            ; --                    ; --  ; --   ;
+; bGPIO0           ; Bidir    ; --            ; (6) 868 ps    ; --                    ; --  ; --   ;
 ; bGPIO1           ; Bidir    ; (6) 868 ps    ; --            ; --                    ; --  ; --   ;
-; bGPIO2           ; Bidir    ; --            ; (6) 868 ps    ; --                    ; --  ; --   ;
+; bGPIO2           ; Bidir    ; (6) 868 ps    ; --            ; --                    ; --  ; --   ;
 ; bGPIO3           ; Bidir    ; (6) 868 ps    ; --            ; --                    ; --  ; --   ;
 ; bGPIO4           ; Bidir    ; (6) 868 ps    ; --            ; --                    ; --  ; --   ;
-; bGPIO5           ; Bidir    ; (6) 868 ps    ; --            ; --                    ; --  ; --   ;
-; bGPIO6           ; Bidir    ; --            ; (6) 868 ps    ; --                    ; --  ; --   ;
-; bGPIO7           ; Bidir    ; --            ; (6) 873 ps    ; --                    ; --  ; --   ;
+; bGPIO5           ; Bidir    ; --            ; (6) 868 ps    ; --                    ; --  ; --   ;
+; bGPIO6           ; Bidir    ; (6) 868 ps    ; --            ; --                    ; --  ; --   ;
+; bGPIO7           ; Bidir    ; (6) 873 ps    ; --            ; --                    ; --  ; --   ;
 ; bGPIO8           ; Bidir    ; (6) 873 ps    ; --            ; --                    ; --  ; --   ;
 ; bGPIO9           ; Bidir    ; --            ; (6) 873 ps    ; --                    ; --  ; --   ;
-; bGPIO10          ; Bidir    ; --            ; (6) 868 ps    ; --                    ; --  ; --   ;
-; bGPIO11          ; Bidir    ; --            ; (6) 868 ps    ; --                    ; --  ; --   ;
-; bGPIO12          ; Bidir    ; (6) 868 ps    ; --            ; --                    ; --  ; --   ;
+; bGPIO10          ; Bidir    ; (6) 868 ps    ; --            ; --                    ; --  ; --   ;
+; bGPIO11          ; Bidir    ; (6) 868 ps    ; --            ; --                    ; --  ; --   ;
+; bGPIO12          ; Bidir    ; --            ; (6) 868 ps    ; --                    ; --  ; --   ;
 ; bGPIO13          ; Bidir    ; (6) 868 ps    ; --            ; --                    ; --  ; --   ;
-; bGPIO14          ; Bidir    ; --            ; (6) 868 ps    ; --                    ; --  ; --   ;
+; bGPIO14          ; Bidir    ; (6) 868 ps    ; --            ; --                    ; --  ; --   ;
 ; bGPIO15          ; Bidir    ; (6) 868 ps    ; --            ; --                    ; --  ; --   ;
-; iBusClock        ; Input    ; (0) 0 ps      ; --            ; --                    ; --  ; --   ;
-; iBoardReset      ; Input    ; --            ; (6) 868 ps    ; --                    ; --  ; --   ;
-; iBusMOSI[0]      ; Input    ; --            ; (6) 873 ps    ; --                    ; --  ; --   ;
-; iBusMOSI[1]      ; Input    ; --            ; (6) 873 ps    ; --                    ; --  ; --   ;
+; iBusClock        ; Input    ; (0) 0 ps      ; (0) 0 ps      ; --                    ; --  ; --   ;
+; iBoardReset      ; Input    ; (6) 868 ps    ; --            ; --                    ; --  ; --   ;
+; iBusSelect[0]    ; Input    ; --            ; (6) 868 ps    ; --                    ; --  ; --   ;
+; iBusSelect[1]    ; Input    ; (6) 868 ps    ; --            ; --                    ; --  ; --   ;
 ; iBusMOSI[2]      ; Input    ; --            ; (6) 873 ps    ; --                    ; --  ; --   ;
-; iBusMOSI[3]      ; Input    ; --            ; (6) 873 ps    ; --                    ; --  ; --   ;
+; iBusMOSI[3]      ; Input    ; (6) 873 ps    ; --            ; --                    ; --  ; --   ;
 ; iBusMOSI[4]      ; Input    ; (6) 873 ps    ; --            ; --                    ; --  ; --   ;
 ; iBusMOSI[5]      ; Input    ; (6) 873 ps    ; --            ; --                    ; --  ; --   ;
+; iBusMOSI[1]      ; Input    ; (6) 873 ps    ; --            ; --                    ; --  ; --   ;
+; iBusMOSI[0]      ; Input    ; --            ; (6) 873 ps    ; --                    ; --  ; --   ;
 ; iBusMOSI[6]      ; Input    ; (6) 873 ps    ; --            ; --                    ; --  ; --   ;
 ; iBusMOSI[7]      ; Input    ; (6) 873 ps    ; --            ; --                    ; --  ; --   ;
-; iBusSelect[0]    ; Input    ; (6) 868 ps    ; --            ; --                    ; --  ; --   ;
-; iBusSelect[1]    ; Input    ; (6) 868 ps    ; --            ; --                    ; --  ; --   ;
-; iTTLSerialRX     ; Input    ; (6) 868 ps    ; --            ; --                    ; --  ; --   ;
+; iTTLSerialRX     ; Input    ; --            ; (6) 868 ps    ; --                    ; --  ; --   ;
 ; iBoardClock      ; Input    ; --            ; --            ; --                    ; --  ; --   ;
 +------------------+----------+---------------+---------------+-----------------------+-----+------+
 
 
-+-------------------------------------------------------------------------+
-; Pad To Core Delay Chain Fanout                                          ;
-+-------------------------------------------+-------------------+---------+
-; Source Pin / Fanout                       ; Pad To Core Index ; Setting ;
-+-------------------------------------------+-------------------+---------+
-; iSerialRX                                 ;                   ;         ;
-; iSerialCTS                                ;                   ;         ;
-; iSerialDCD                                ;                   ;         ;
-; iSerialDSR                                ;                   ;         ;
-; iTTLSerialRST                             ;                   ;         ;
-; iExtBusMISO[0]                            ;                   ;         ;
-; iExtBusMISO[1]                            ;                   ;         ;
-; iExtBusMISO[2]                            ;                   ;         ;
-; iExtBusMISO[3]                            ;                   ;         ;
-; iExtBusInterrupt                          ;                   ;         ;
-; iSPIMISO                                  ;                   ;         ;
-; iSPIDetect0                               ;                   ;         ;
-; iSPIDetect1                               ;                   ;         ;
-; iSPIWrite0                                ;                   ;         ;
-; iSPIWrite1                                ;                   ;         ;
-; bBoardDebug0                              ;                   ;         ;
-; bBoardDebug1                              ;                   ;         ;
-; bBoardDebug2                              ;                   ;         ;
-; bBoardDebug3                              ;                   ;         ;
-; bBoardDebug4                              ;                   ;         ;
-; bBoardDebug5                              ;                   ;         ;
-; bPS2Data                                  ;                   ;         ;
-; bPS2Clock                                 ;                   ;         ;
-; bGPIO0                                    ;                   ;         ;
-;      - epRISC_GPIO:gpio|rValue[0]~1       ; 0                 ; 6       ;
-; bGPIO1                                    ;                   ;         ;
-;      - epRISC_GPIO:gpio|rValue[1]~3       ; 0                 ; 6       ;
-; bGPIO2                                    ;                   ;         ;
-;      - epRISC_GPIO:gpio|rValue[2]~5       ; 1                 ; 6       ;
-; bGPIO3                                    ;                   ;         ;
-;      - epRISC_GPIO:gpio|rValue[3]~7       ; 0                 ; 6       ;
-; bGPIO4                                    ;                   ;         ;
-;      - epRISC_GPIO:gpio|rValue[4]~9       ; 0                 ; 6       ;
-; bGPIO5                                    ;                   ;         ;
-;      - epRISC_GPIO:gpio|rValue[5]~11      ; 0                 ; 6       ;
-; bGPIO6                                    ;                   ;         ;
-;      - epRISC_GPIO:gpio|rValue[6]~13      ; 1                 ; 6       ;
-; bGPIO7                                    ;                   ;         ;
-;      - epRISC_GPIO:gpio|rValue[7]~15      ; 1                 ; 6       ;
-; bGPIO8                                    ;                   ;         ;
-;      - epRISC_GPIO:gpio|rValue[8]~0       ; 0                 ; 6       ;
-; bGPIO9                                    ;                   ;         ;
-;      - epRISC_GPIO:gpio|rValue[9]~2       ; 1                 ; 6       ;
-; bGPIO10                                   ;                   ;         ;
-;      - epRISC_GPIO:gpio|rValue[10]~4      ; 1                 ; 6       ;
-; bGPIO11                                   ;                   ;         ;
-;      - epRISC_GPIO:gpio|rValue[11]~6      ; 1                 ; 6       ;
-; bGPIO12                                   ;                   ;         ;
-;      - epRISC_GPIO:gpio|rValue[12]~8      ; 0                 ; 6       ;
-; bGPIO13                                   ;                   ;         ;
-;      - epRISC_GPIO:gpio|rValue[13]~10     ; 0                 ; 6       ;
-; bGPIO14                                   ;                   ;         ;
-;      - epRISC_GPIO:gpio|rValue[14]~12     ; 1                 ; 6       ;
-; bGPIO15                                   ;                   ;         ;
-;      - epRISC_GPIO:gpio|rValue[15]~14     ; 0                 ; 6       ;
-; iBusClock                                 ;                   ;         ;
-; iBoardReset                               ;                   ;         ;
-;      - epRISC_GPIO:gpio|oInterrupt        ; 1                 ; 6       ;
-;      - epRISC_UART:uart|rControl[5]       ; 1                 ; 6       ;
-;      - epRISC_UART:uart|rControl[7]       ; 1                 ; 6       ;
-;      - epRISC_UART:uart|rSendDataCnt[0]   ; 1                 ; 6       ;
-;      - epRISC_UART:uart|rSendDataCnt[1]   ; 1                 ; 6       ;
-;      - epRISC_UART:uart|rSendDataCnt[2]   ; 1                 ; 6       ;
-;      - epRISC_UART:uart|rSendDataCnt[3]   ; 1                 ; 6       ;
-;      - epRISC_GPIO:gpio|rValue[8]         ; 1                 ; 6       ;
-;      - epRISC_GPIO:gpio|rValue[0]         ; 1                 ; 6       ;
-;      - epRISC_GPIO:gpio|rValue[9]         ; 1                 ; 6       ;
-;      - epRISC_GPIO:gpio|rValue[1]         ; 1                 ; 6       ;
-;      - epRISC_GPIO:gpio|rValue[10]        ; 1                 ; 6       ;
-;      - epRISC_GPIO:gpio|rValue[2]         ; 1                 ; 6       ;
-;      - epRISC_GPIO:gpio|rValue[11]        ; 1                 ; 6       ;
-;      - epRISC_GPIO:gpio|rValue[3]         ; 1                 ; 6       ;
-;      - epRISC_GPIO:gpio|rValue[12]        ; 1                 ; 6       ;
-;      - epRISC_GPIO:gpio|rValue[4]         ; 1                 ; 6       ;
-;      - epRISC_GPIO:gpio|rValue[13]        ; 1                 ; 6       ;
-;      - epRISC_GPIO:gpio|rValue[5]         ; 1                 ; 6       ;
-;      - epRISC_GPIO:gpio|rValue[14]        ; 1                 ; 6       ;
-;      - epRISC_GPIO:gpio|rValue[6]         ; 1                 ; 6       ;
-;      - epRISC_GPIO:gpio|rValue[15]        ; 1                 ; 6       ;
-;      - epRISC_GPIO:gpio|rValue[7]         ; 1                 ; 6       ;
-;      - epRISC_controlRAM:mem|rContents~0  ; 1                 ; 6       ;
-;      - rInternalMOSI~0                    ; 1                 ; 6       ;
-;      - rInternalMOSI~1                    ; 1                 ; 6       ;
-;      - rInternalMOSI~2                    ; 1                 ; 6       ;
-;      - rInternalMOSI~3                    ; 1                 ; 6       ;
-;      - rInternalMOSI~4                    ; 1                 ; 6       ;
-;      - rInternalMOSI~5                    ; 1                 ; 6       ;
-;      - rInternalMOSI~6                    ; 1                 ; 6       ;
-;      - rInternalMOSI~7                    ; 1                 ; 6       ;
-;      - epRISC_UART:uart|rDataIn~0         ; 1                 ; 6       ;
-;      - epRISC_UART:uart|rDataIn[15]~1     ; 1                 ; 6       ;
-;      - epRISC_UART:uart|rControl[0]~1     ; 1                 ; 6       ;
-;      - rInternalMOSI~8                    ; 1                 ; 6       ;
-;      - rInternalMOSI[29]~9                ; 1                 ; 6       ;
-;      - rInternalMOSI~10                   ; 1                 ; 6       ;
-;      - rInternalMOSI~11                   ; 1                 ; 6       ;
-;      - rInternalMOSI~12                   ; 1                 ; 6       ;
-;      - rInternalMOSI~13                   ; 1                 ; 6       ;
-;      - rInternalMOSI~14                   ; 1                 ; 6       ;
-;      - rInternalMOSI~15                   ; 1                 ; 6       ;
-;      - rPipeState~12                      ; 1                 ; 6       ;
-;      - rPipeState~13                      ; 1                 ; 6       ;
-;      - epRISC_GPIO:gpio|rInterrupt[14]~0  ; 1                 ; 6       ;
-;      - epRISC_GPIO:gpio|rDirection~0      ; 1                 ; 6       ;
-;      - rInternalMOSI~16                   ; 1                 ; 6       ;
-;      - rPipeState~14                      ; 1                 ; 6       ;
-;      - rPipeState~15                      ; 1                 ; 6       ;
-;      - rPipeState~16                      ; 1                 ; 6       ;
-;      - epRISC_GPIO:gpio|rInterrupt~1      ; 1                 ; 6       ;
-;      - epRISC_UART:uart|rDataOut~0        ; 1                 ; 6       ;
-;      - epRISC_UART:uart|rDataOut[4]~2     ; 1                 ; 6       ;
-;      - epRISC_UART:uart|rDataIn~2         ; 1                 ; 6       ;
-;      - epRISC_GPIO:gpio|rInterrupt~2      ; 1                 ; 6       ;
-;      - epRISC_UART:uart|rDataOut~3        ; 1                 ; 6       ;
-;      - epRISC_UART:uart|rDataIn~3         ; 1                 ; 6       ;
-;      - epRISC_GPIO:gpio|rInterrupt~3      ; 1                 ; 6       ;
-;      - epRISC_UART:uart|rDataOut~4        ; 1                 ; 6       ;
-;      - epRISC_UART:uart|rDataIn~4         ; 1                 ; 6       ;
-;      - epRISC_GPIO:gpio|rInterrupt~4      ; 1                 ; 6       ;
-;      - epRISC_UART:uart|rDataOut~5        ; 1                 ; 6       ;
-;      - epRISC_UART:uart|rDataIn~5         ; 1                 ; 6       ;
-;      - epRISC_GPIO:gpio|rInterrupt~5      ; 1                 ; 6       ;
-;      - epRISC_UART:uart|rDataOut~6        ; 1                 ; 6       ;
-;      - epRISC_UART:uart|rDataIn~6         ; 1                 ; 6       ;
-;      - epRISC_GPIO:gpio|rInterrupt~6      ; 1                 ; 6       ;
-;      - epRISC_UART:uart|rDataOut~7        ; 1                 ; 6       ;
-;      - epRISC_UART:uart|rDataIn~7         ; 1                 ; 6       ;
-;      - epRISC_GPIO:gpio|rInterrupt~7      ; 1                 ; 6       ;
-;      - epRISC_UART:uart|rDataOut~8        ; 1                 ; 6       ;
-;      - epRISC_GPIO:gpio|rInterrupt~8      ; 1                 ; 6       ;
-;      - epRISC_GPIO:gpio|rInterrupt~9      ; 1                 ; 6       ;
-;      - epRISC_UART:uart|rDataOut~9        ; 1                 ; 6       ;
-;      - epRISC_UART:uart|rSendState~0      ; 1                 ; 6       ;
-;      - epRISC_UART:uart|rSendState[0]~3   ; 1                 ; 6       ;
-;      - epRISC_UART:uart|rSendState~4      ; 1                 ; 6       ;
-;      - epRISC_UART:uart|rSendState~5      ; 1                 ; 6       ;
-;      - epRISC_UART:uart|rSendState~6      ; 1                 ; 6       ;
-;      - rInternalMOSI[14]~17               ; 1                 ; 6       ;
-;      - rPipeState~17                      ; 1                 ; 6       ;
-;      - rInternalMOSI[6]~18                ; 1                 ; 6       ;
-;      - epRISC_UART:uart|rRecvState[2]~0   ; 1                 ; 6       ;
-;      - epRISC_UART:uart|rRecvState[0]~1   ; 1                 ; 6       ;
-;      - epRISC_UART:uart|rRecvState[1]~2   ; 1                 ; 6       ;
-;      - epRISC_UART:uart|rRecvState[3]~3   ; 1                 ; 6       ;
-;      - epRISC_UART:uart|rRecvState[1]~4   ; 1                 ; 6       ;
-;      - epRISC_UART:uart|rSendPrevState~0  ; 1                 ; 6       ;
-;      - epRISC_UART:uart|rSendPrevState~1  ; 1                 ; 6       ;
-;      - epRISC_UART:uart|rSendPrevState~2  ; 1                 ; 6       ;
-;      - epRISC_UART:uart|rSendPrevState~3  ; 1                 ; 6       ;
-; iBusMOSI[0]                               ;                   ;         ;
-;      - rInternalMOSI~0                    ; 1                 ; 6       ;
-;      - rInternalMOSI~8                    ; 1                 ; 6       ;
-; iBusMOSI[1]                               ;                   ;         ;
-;      - rInternalMOSI~1                    ; 1                 ; 6       ;
-;      - rInternalMOSI~10                   ; 1                 ; 6       ;
-; iBusMOSI[2]                               ;                   ;         ;
-;      - rInternalMOSI~2                    ; 1                 ; 6       ;
-;      - rInternalMOSI~11                   ; 1                 ; 6       ;
-; iBusMOSI[3]                               ;                   ;         ;
-;      - rInternalMOSI~3                    ; 1                 ; 6       ;
-;      - rInternalMOSI~12                   ; 1                 ; 6       ;
-; iBusMOSI[4]                               ;                   ;         ;
-;      - rInternalMOSI~4                    ; 0                 ; 6       ;
-;      - rInternalMOSI~13                   ; 0                 ; 6       ;
-; iBusMOSI[5]                               ;                   ;         ;
-;      - rInternalMOSI~5                    ; 0                 ; 6       ;
-;      - rInternalMOSI~14                   ; 0                 ; 6       ;
-; iBusMOSI[6]                               ;                   ;         ;
-;      - rInternalMOSI~6                    ; 0                 ; 6       ;
-;      - rInternalMOSI~15                   ; 0                 ; 6       ;
-; iBusMOSI[7]                               ;                   ;         ;
-;      - rInternalMOSI~7                    ; 0                 ; 6       ;
-;      - rInternalMOSI~16                   ; 0                 ; 6       ;
-; iBusSelect[0]                             ;                   ;         ;
-;      - rPipeState~12                      ; 0                 ; 6       ;
-;      - rPipeState~13                      ; 0                 ; 6       ;
-;      - rPipeState~14                      ; 0                 ; 6       ;
-;      - rPipeState~15                      ; 0                 ; 6       ;
-;      - rPipeState~16                      ; 0                 ; 6       ;
-;      - rPipeState~17                      ; 0                 ; 6       ;
-; iBusSelect[1]                             ;                   ;         ;
-;      - rPipeState~12                      ; 0                 ; 6       ;
-;      - rPipeState~13                      ; 0                 ; 6       ;
-;      - rPipeState~14                      ; 0                 ; 6       ;
-;      - rPipeState~15                      ; 0                 ; 6       ;
-;      - rPipeState~16                      ; 0                 ; 6       ;
-;      - rPipeState~17                      ; 0                 ; 6       ;
-; iTTLSerialRX                              ;                   ;         ;
-;      - epRISC_UART:uart|rRecvDataBuf[0]~0 ; 0                 ; 6       ;
-;      - epRISC_UART:uart|rRecvDataBuf[1]~1 ; 0                 ; 6       ;
-;      - epRISC_UART:uart|rRecvDataBuf[2]~2 ; 0                 ; 6       ;
-;      - epRISC_UART:uart|rRecvDataBuf[3]~3 ; 0                 ; 6       ;
-;      - epRISC_UART:uart|rRecvDataBuf[4]~4 ; 0                 ; 6       ;
-;      - epRISC_UART:uart|rRecvDataBuf[5]~5 ; 0                 ; 6       ;
-;      - epRISC_UART:uart|rRecvDataBuf[6]~6 ; 0                 ; 6       ;
-;      - epRISC_UART:uart|rRecvDataBuf[7]~7 ; 0                 ; 6       ;
-;      - epRISC_UART:uart|Mux8~4            ; 0                 ; 6       ;
-; iBoardClock                               ;                   ;         ;
-+-------------------------------------------+-------------------+---------+
++---------------------------------------------------------------------------+
+; Pad To Core Delay Chain Fanout                                            ;
++---------------------------------------------+-------------------+---------+
+; Source Pin / Fanout                         ; Pad To Core Index ; Setting ;
++---------------------------------------------+-------------------+---------+
+; iSerialRX                                   ;                   ;         ;
+; iSerialCTS                                  ;                   ;         ;
+; iSerialDCD                                  ;                   ;         ;
+; iSerialDSR                                  ;                   ;         ;
+; iTTLSerialRST                               ;                   ;         ;
+; iExtBusMISO[0]                              ;                   ;         ;
+; iExtBusMISO[1]                              ;                   ;         ;
+; iExtBusMISO[2]                              ;                   ;         ;
+; iExtBusMISO[3]                              ;                   ;         ;
+; iExtBusInterrupt                            ;                   ;         ;
+; iSPIMISO                                    ;                   ;         ;
+; iSPIDetect0                                 ;                   ;         ;
+; iSPIDetect1                                 ;                   ;         ;
+; iSPIWrite0                                  ;                   ;         ;
+; iSPIWrite1                                  ;                   ;         ;
+; bBoardDebug0                                ;                   ;         ;
+; bBoardDebug1                                ;                   ;         ;
+; bBoardDebug2                                ;                   ;         ;
+; bBoardDebug3                                ;                   ;         ;
+; bBoardDebug4                                ;                   ;         ;
+; bBoardDebug5                                ;                   ;         ;
+; bPS2Data                                    ;                   ;         ;
+; bPS2Clock                                   ;                   ;         ;
+; bGPIO0                                      ;                   ;         ;
+;      - epRISC_GPIO:gpio|rValue[0]~1         ; 1                 ; 6       ;
+; bGPIO1                                      ;                   ;         ;
+;      - epRISC_GPIO:gpio|rValue[1]~3         ; 0                 ; 6       ;
+; bGPIO2                                      ;                   ;         ;
+;      - epRISC_GPIO:gpio|rValue[2]~5         ; 0                 ; 6       ;
+; bGPIO3                                      ;                   ;         ;
+;      - epRISC_GPIO:gpio|rValue[3]~7         ; 0                 ; 6       ;
+; bGPIO4                                      ;                   ;         ;
+;      - epRISC_GPIO:gpio|rValue[4]~9         ; 0                 ; 6       ;
+; bGPIO5                                      ;                   ;         ;
+;      - epRISC_GPIO:gpio|rValue[5]~11        ; 1                 ; 6       ;
+; bGPIO6                                      ;                   ;         ;
+;      - epRISC_GPIO:gpio|rValue[6]~13        ; 0                 ; 6       ;
+; bGPIO7                                      ;                   ;         ;
+;      - epRISC_GPIO:gpio|rValue[7]~15        ; 0                 ; 6       ;
+; bGPIO8                                      ;                   ;         ;
+;      - epRISC_GPIO:gpio|rValue[8]~0         ; 0                 ; 6       ;
+; bGPIO9                                      ;                   ;         ;
+;      - epRISC_GPIO:gpio|rValue[9]~2         ; 1                 ; 6       ;
+; bGPIO10                                     ;                   ;         ;
+;      - epRISC_GPIO:gpio|rValue[10]~4        ; 0                 ; 6       ;
+; bGPIO11                                     ;                   ;         ;
+;      - epRISC_GPIO:gpio|rValue[11]~6        ; 0                 ; 6       ;
+; bGPIO12                                     ;                   ;         ;
+;      - epRISC_GPIO:gpio|rValue[12]~8        ; 1                 ; 6       ;
+; bGPIO13                                     ;                   ;         ;
+;      - epRISC_GPIO:gpio|rValue[13]~10       ; 0                 ; 6       ;
+; bGPIO14                                     ;                   ;         ;
+;      - epRISC_GPIO:gpio|rValue[14]~12       ; 0                 ; 6       ;
+; bGPIO15                                     ;                   ;         ;
+;      - epRISC_GPIO:gpio|rValue[15]~14       ; 0                 ; 6       ;
+; iBusClock                                   ;                   ;         ;
+;      - epRISC_GPIO:gpio|rDirection~0        ; 0                 ; 0       ;
+;      - epRISC_UART:uart|rRecvCountAck[0]~17 ; 1                 ; 0       ;
+; iBoardReset                                 ;                   ;         ;
+;      - epRISC_GPIO:gpio|rDirection~0        ; 0                 ; 6       ;
+;      - rInternalMOSI~0                      ; 0                 ; 6       ;
+;      - rInternalMOSI[31]~1                  ; 0                 ; 6       ;
+;      - rInternalMOSI~2                      ; 0                 ; 6       ;
+;      - rInternalMOSI~3                      ; 0                 ; 6       ;
+;      - rInternalMOSI~4                      ; 0                 ; 6       ;
+;      - rInternalMOSI~5                      ; 0                 ; 6       ;
+;      - rInternalMOSI~6                      ; 0                 ; 6       ;
+;      - rInternalMOSI~7                      ; 0                 ; 6       ;
+;      - rInternalMOSI~8                      ; 0                 ; 6       ;
+;      - rInternalMOSI~9                      ; 0                 ; 6       ;
+;      - rInternalMOSI~10                     ; 0                 ; 6       ;
+;      - rInternalMOSI~11                     ; 0                 ; 6       ;
+;      - rInternalMOSI~12                     ; 0                 ; 6       ;
+;      - rInternalMOSI~13                     ; 0                 ; 6       ;
+;      - rInternalMOSI~14                     ; 0                 ; 6       ;
+;      - rPipeState~12                        ; 0                 ; 6       ;
+;      - rInternalMOSI~15                     ; 0                 ; 6       ;
+;      - rInternalMOSI~16                     ; 0                 ; 6       ;
+;      - rPipeState~13                        ; 0                 ; 6       ;
+;      - rPipeState~14                        ; 0                 ; 6       ;
+;      - rPipeState~15                        ; 0                 ; 6       ;
+;      - rPipeState~16                        ; 0                 ; 6       ;
+;      - rInternalMOSI[14]~17                 ; 0                 ; 6       ;
+;      - rPipeState~17                        ; 0                 ; 6       ;
+;      - rInternalMOSI[0]~18                  ; 0                 ; 6       ;
+;      - epRISC_UART:uart|rRecvCountAck[0]~16 ; 0                 ; 6       ;
+; iBusSelect[0]                               ;                   ;         ;
+;      - epRISC_GPIO:gpio|rDirection~0        ; 1                 ; 6       ;
+;      - rPipeState~12                        ; 1                 ; 6       ;
+;      - rPipeState~13                        ; 1                 ; 6       ;
+;      - rPipeState~14                        ; 1                 ; 6       ;
+;      - rPipeState~15                        ; 1                 ; 6       ;
+;      - rPipeState~16                        ; 1                 ; 6       ;
+;      - rPipeState~17                        ; 1                 ; 6       ;
+;      - epRISC_UART:uart|rRecvCountAck[0]~17 ; 1                 ; 6       ;
+; iBusSelect[1]                               ;                   ;         ;
+;      - epRISC_GPIO:gpio|rDirection~0        ; 0                 ; 6       ;
+;      - rPipeState~12                        ; 0                 ; 6       ;
+;      - rPipeState~13                        ; 0                 ; 6       ;
+;      - rPipeState~14                        ; 0                 ; 6       ;
+;      - rPipeState~15                        ; 0                 ; 6       ;
+;      - rPipeState~16                        ; 0                 ; 6       ;
+;      - rPipeState~17                        ; 0                 ; 6       ;
+;      - epRISC_UART:uart|rRecvCountAck[0]~17 ; 0                 ; 6       ;
+; iBusMOSI[2]                                 ;                   ;         ;
+;      - rInternalMOSI~0                      ; 1                 ; 6       ;
+;      - rInternalMOSI~7                      ; 1                 ; 6       ;
+; iBusMOSI[3]                                 ;                   ;         ;
+;      - rInternalMOSI~2                      ; 0                 ; 6       ;
+;      - rInternalMOSI~8                      ; 0                 ; 6       ;
+; iBusMOSI[4]                                 ;                   ;         ;
+;      - rInternalMOSI~3                      ; 0                 ; 6       ;
+;      - rInternalMOSI~9                      ; 0                 ; 6       ;
+; iBusMOSI[5]                                 ;                   ;         ;
+;      - rInternalMOSI~4                      ; 0                 ; 6       ;
+;      - rInternalMOSI~10                     ; 0                 ; 6       ;
+; iBusMOSI[1]                                 ;                   ;         ;
+;      - rInternalMOSI~5                      ; 0                 ; 6       ;
+;      - rInternalMOSI~15                     ; 0                 ; 6       ;
+; iBusMOSI[0]                                 ;                   ;         ;
+;      - rInternalMOSI~6                      ; 1                 ; 6       ;
+;      - rInternalMOSI~16                     ; 1                 ; 6       ;
+; iBusMOSI[6]                                 ;                   ;         ;
+;      - rInternalMOSI~11                     ; 0                 ; 6       ;
+;      - rInternalMOSI~13                     ; 0                 ; 6       ;
+; iBusMOSI[7]                                 ;                   ;         ;
+;      - rInternalMOSI~12                     ; 0                 ; 6       ;
+;      - rInternalMOSI~14                     ; 0                 ; 6       ;
+; iTTLSerialRX                                ;                   ;         ;
+;      - epRISC_UART:uart|rRecvDataBuf[0]~0   ; 1                 ; 6       ;
+;      - epRISC_UART:uart|Mux4~2              ; 1                 ; 6       ;
+;      - epRISC_UART:uart|rRecvDataBuf[1]~1   ; 1                 ; 6       ;
+;      - epRISC_UART:uart|rRecvDataBuf[2]~2   ; 1                 ; 6       ;
+;      - epRISC_UART:uart|rRecvDataBuf[3]~3   ; 1                 ; 6       ;
+;      - epRISC_UART:uart|rRecvDataBuf[4]~4   ; 1                 ; 6       ;
+;      - epRISC_UART:uart|rRecvDataBuf[5]~5   ; 1                 ; 6       ;
+;      - epRISC_UART:uart|rRecvDataBuf[6]~6   ; 1                 ; 6       ;
+;      - epRISC_UART:uart|rRecvDataBuf[7]~7   ; 1                 ; 6       ;
+; iBoardClock                                 ;                   ;         ;
++---------------------------------------------+-------------------+---------+
 
 
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Control Signals                                                                                                                                                                                                                     ;
-+------------------------------------------------------------------------------------------+--------------------+---------+----------------------------+--------+----------------------+------------------+---------------------------+
-; Name                                                                                     ; Location           ; Fan-Out ; Usage                      ; Global ; Global Resource Used ; Global Line Name ; Enable Signal Source Name ;
-+------------------------------------------------------------------------------------------+--------------------+---------+----------------------------+--------+----------------------+------------------+---------------------------+
-; OnChipPLL:clock|altpll:altpll_component|OnChipPLL_altpll:auto_generated|wire_pll1_clk[0] ; PLL_1              ; 40      ; Clock                      ; yes    ; Global Clock         ; GCLK19           ; --                        ;
-; epRISC_GPIO:gpio|always3~0                                                               ; LCCOMB_X26_Y8_N2   ; 16      ; Sync. load                 ; no     ; --                   ; --               ; --                        ;
-; epRISC_GPIO:gpio|rDirection[0]                                                           ; FF_X28_Y8_N9       ; 4       ; Output enable              ; no     ; --                   ; --               ; --                        ;
-; epRISC_GPIO:gpio|rDirection[10]                                                          ; FF_X29_Y8_N17      ; 4       ; Output enable              ; no     ; --                   ; --               ; --                        ;
-; epRISC_GPIO:gpio|rDirection[11]                                                          ; FF_X26_Y8_N11      ; 4       ; Output enable              ; no     ; --                   ; --               ; --                        ;
-; epRISC_GPIO:gpio|rDirection[12]                                                          ; FF_X27_Y7_N15      ; 4       ; Output enable              ; no     ; --                   ; --               ; --                        ;
-; epRISC_GPIO:gpio|rDirection[13]                                                          ; FF_X27_Y7_N29      ; 4       ; Output enable              ; no     ; --                   ; --               ; --                        ;
-; epRISC_GPIO:gpio|rDirection[14]                                                          ; FF_X28_Y8_N7       ; 4       ; Output enable              ; no     ; --                   ; --               ; --                        ;
-; epRISC_GPIO:gpio|rDirection[15]                                                          ; FF_X28_Y8_N25      ; 4       ; Output enable              ; no     ; --                   ; --               ; --                        ;
-; epRISC_GPIO:gpio|rDirection[1]                                                           ; FF_X24_Y8_N7       ; 4       ; Output enable              ; no     ; --                   ; --               ; --                        ;
-; epRISC_GPIO:gpio|rDirection[2]                                                           ; FF_X28_Y8_N11      ; 4       ; Output enable              ; no     ; --                   ; --               ; --                        ;
-; epRISC_GPIO:gpio|rDirection[3]                                                           ; FF_X24_Y8_N29      ; 4       ; Output enable              ; no     ; --                   ; --               ; --                        ;
-; epRISC_GPIO:gpio|rDirection[4]                                                           ; FF_X28_Y8_N5       ; 4       ; Output enable              ; no     ; --                   ; --               ; --                        ;
-; epRISC_GPIO:gpio|rDirection[5]                                                           ; FF_X28_Y8_N27      ; 4       ; Output enable              ; no     ; --                   ; --               ; --                        ;
-; epRISC_GPIO:gpio|rDirection[6]                                                           ; FF_X26_Y8_N13      ; 4       ; Output enable              ; no     ; --                   ; --               ; --                        ;
-; epRISC_GPIO:gpio|rDirection[7]                                                           ; FF_X24_Y8_N21      ; 4       ; Output enable              ; no     ; --                   ; --               ; --                        ;
-; epRISC_GPIO:gpio|rDirection[8]                                                           ; FF_X29_Y8_N3       ; 4       ; Output enable              ; no     ; --                   ; --               ; --                        ;
-; epRISC_GPIO:gpio|rDirection[9]                                                           ; FF_X28_Y8_N29      ; 4       ; Output enable              ; no     ; --                   ; --               ; --                        ;
-; epRISC_GPIO:gpio|rDirection~0                                                            ; LCCOMB_X27_Y8_N30  ; 16      ; Clock enable               ; no     ; --                   ; --               ; --                        ;
-; epRISC_GPIO:gpio|rInterrupt[14]~0                                                        ; LCCOMB_X27_Y8_N20  ; 16      ; Clock enable               ; no     ; --                   ; --               ; --                        ;
-; epRISC_UART:uart|Equal0~0                                                                ; LCCOMB_X22_Y10_N8  ; 8       ; Clock enable               ; no     ; --                   ; --               ; --                        ;
-; epRISC_UART:uart|Equal4~0                                                                ; LCCOMB_X21_Y10_N8  ; 5       ; Sync. clear                ; no     ; --                   ; --               ; --                        ;
-; epRISC_UART:uart|Mux1~0                                                                  ; LCCOMB_X22_Y10_N18 ; 4       ; Latch enable               ; yes    ; Global Clock         ; GCLK16           ; --                        ;
-; epRISC_UART:uart|Mux6~0                                                                  ; LCCOMB_X21_Y8_N26  ; 4       ; Latch enable               ; yes    ; Global Clock         ; GCLK18           ; --                        ;
-; epRISC_UART:uart|rControl[0]~1                                                           ; LCCOMB_X26_Y8_N8   ; 14      ; Clock enable               ; no     ; --                   ; --               ; --                        ;
-; epRISC_UART:uart|rDataIn[15]~1                                                           ; LCCOMB_X26_Y8_N18  ; 16      ; Clock enable               ; no     ; --                   ; --               ; --                        ;
-; epRISC_UART:uart|rDataOut[4]~2                                                           ; LCCOMB_X20_Y9_N22  ; 8       ; Clock enable               ; no     ; --                   ; --               ; --                        ;
-; epRISC_UART:uart|rRecvState[1]~4                                                         ; LCCOMB_X17_Y8_N24  ; 4       ; Clock enable               ; no     ; --                   ; --               ; --                        ;
-; epRISC_UART:uart|rSendState[0]~3                                                         ; LCCOMB_X21_Y10_N6  ; 8       ; Clock enable               ; no     ; --                   ; --               ; --                        ;
-; epRISC_controlRAM:mem|rContents~0                                                        ; LCCOMB_X22_Y8_N6   ; 1       ; Clock enable, Write enable ; no     ; --                   ; --               ; --                        ;
-; iBoardClock                                                                              ; PIN_28             ; 1       ; Clock                      ; no     ; --                   ; --               ; --                        ;
-; iBoardReset                                                                              ; PIN_130            ; 92      ; Clock enable, Sync. clear  ; no     ; --                   ; --               ; --                        ;
-; iBusClock                                                                                ; PIN_26             ; 128     ; Clock                      ; yes    ; Global Clock         ; GCLK2            ; --                        ;
-; rInternalMOSI[14]~17                                                                     ; LCCOMB_X25_Y8_N12  ; 8       ; Clock enable               ; no     ; --                   ; --               ; --                        ;
-; rInternalMOSI[29]~9                                                                      ; LCCOMB_X25_Y8_N28  ; 8       ; Clock enable               ; no     ; --                   ; --               ; --                        ;
-; rInternalMOSI[6]~18                                                                      ; LCCOMB_X26_Y9_N4   ; 8       ; Clock enable               ; no     ; --                   ; --               ; --                        ;
-+------------------------------------------------------------------------------------------+--------------------+---------+----------------------------+--------+----------------------+------------------+---------------------------+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Control Signals                                                                                                                                                                                                                               ;
++------------------------------------------------------------------------------------------+-------------------+---------+---------------------------------------+--------+----------------------+------------------+---------------------------+
+; Name                                                                                     ; Location          ; Fan-Out ; Usage                                 ; Global ; Global Resource Used ; Global Line Name ; Enable Signal Source Name ;
++------------------------------------------------------------------------------------------+-------------------+---------+---------------------------------------+--------+----------------------+------------------+---------------------------+
+; OnChipPLL:clock|altpll:altpll_component|OnChipPLL_altpll:auto_generated|wire_pll1_clk[0] ; PLL_1             ; 50      ; Clock                                 ; yes    ; Global Clock         ; GCLK19           ; --                        ;
+; epRISC_GPIO:gpio|always3~0                                                               ; LCCOMB_X21_Y9_N10 ; 16      ; Sync. load                            ; no     ; --                   ; --               ; --                        ;
+; epRISC_GPIO:gpio|rDirection[0]                                                           ; FF_X20_Y4_N11     ; 4       ; Output enable                         ; no     ; --                   ; --               ; --                        ;
+; epRISC_GPIO:gpio|rDirection[10]                                                          ; FF_X21_Y6_N15     ; 4       ; Output enable                         ; no     ; --                   ; --               ; --                        ;
+; epRISC_GPIO:gpio|rDirection[11]                                                          ; FF_X21_Y6_N9      ; 4       ; Output enable                         ; no     ; --                   ; --               ; --                        ;
+; epRISC_GPIO:gpio|rDirection[12]                                                          ; FF_X22_Y5_N7      ; 4       ; Output enable                         ; no     ; --                   ; --               ; --                        ;
+; epRISC_GPIO:gpio|rDirection[13]                                                          ; FF_X25_Y8_N27     ; 4       ; Output enable                         ; no     ; --                   ; --               ; --                        ;
+; epRISC_GPIO:gpio|rDirection[14]                                                          ; FF_X22_Y5_N23     ; 4       ; Output enable                         ; no     ; --                   ; --               ; --                        ;
+; epRISC_GPIO:gpio|rDirection[15]                                                          ; FF_X22_Y5_N19     ; 4       ; Output enable                         ; no     ; --                   ; --               ; --                        ;
+; epRISC_GPIO:gpio|rDirection[1]                                                           ; FF_X20_Y4_N29     ; 4       ; Output enable                         ; no     ; --                   ; --               ; --                        ;
+; epRISC_GPIO:gpio|rDirection[2]                                                           ; FF_X21_Y6_N23     ; 4       ; Output enable                         ; no     ; --                   ; --               ; --                        ;
+; epRISC_GPIO:gpio|rDirection[3]                                                           ; FF_X25_Y8_N1      ; 4       ; Output enable                         ; no     ; --                   ; --               ; --                        ;
+; epRISC_GPIO:gpio|rDirection[4]                                                           ; FF_X20_Y4_N7      ; 4       ; Output enable                         ; no     ; --                   ; --               ; --                        ;
+; epRISC_GPIO:gpio|rDirection[5]                                                           ; FF_X20_Y4_N19     ; 4       ; Output enable                         ; no     ; --                   ; --               ; --                        ;
+; epRISC_GPIO:gpio|rDirection[6]                                                           ; FF_X20_Y4_N31     ; 4       ; Output enable                         ; no     ; --                   ; --               ; --                        ;
+; epRISC_GPIO:gpio|rDirection[7]                                                           ; FF_X20_Y4_N15     ; 4       ; Output enable                         ; no     ; --                   ; --               ; --                        ;
+; epRISC_GPIO:gpio|rDirection[8]                                                           ; FF_X21_Y6_N5      ; 4       ; Output enable                         ; no     ; --                   ; --               ; --                        ;
+; epRISC_GPIO:gpio|rDirection[9]                                                           ; FF_X25_Y8_N17     ; 4       ; Output enable                         ; no     ; --                   ; --               ; --                        ;
+; epRISC_GPIO:gpio|rDirection~0                                                            ; LCCOMB_X3_Y9_N0   ; 82      ; Clock enable, Sync. clear, Sync. load ; no     ; --                   ; --               ; --                        ;
+; epRISC_GPIO:gpio|rDirection~3                                                            ; LCCOMB_X21_Y8_N14 ; 16      ; Clock enable                          ; no     ; --                   ; --               ; --                        ;
+; epRISC_GPIO:gpio|rInterrupt[14]~8                                                        ; LCCOMB_X21_Y8_N6  ; 16      ; Clock enable                          ; no     ; --                   ; --               ; --                        ;
+; epRISC_SPI:bspi|rControl[4]~0                                                            ; LCCOMB_X21_Y8_N20 ; 15      ; Clock enable                          ; no     ; --                   ; --               ; --                        ;
+; epRISC_SPI:bspi|rDataIn[1]~0                                                             ; LCCOMB_X21_Y8_N16 ; 16      ; Clock enable                          ; no     ; --                   ; --               ; --                        ;
+; epRISC_UART:uart|Equal0~1                                                                ; LCCOMB_X20_Y6_N20 ; 8       ; Clock enable                          ; no     ; --                   ; --               ; --                        ;
+; epRISC_UART:uart|Equal4~0                                                                ; LCCOMB_X21_Y7_N20 ; 9       ; Sync. clear                           ; no     ; --                   ; --               ; --                        ;
+; epRISC_UART:uart|rControl[4]~0                                                           ; LCCOMB_X20_Y8_N18 ; 14      ; Clock enable                          ; no     ; --                   ; --               ; --                        ;
+; epRISC_UART:uart|rDataIn[3]~0                                                            ; LCCOMB_X20_Y6_N30 ; 16      ; Clock enable                          ; no     ; --                   ; --               ; --                        ;
+; epRISC_UART:uart|rDataOut[6]~2                                                           ; LCCOMB_X22_Y6_N10 ; 8       ; Clock enable                          ; no     ; --                   ; --               ; --                        ;
+; epRISC_UART:uart|rRecvCountAck[0]~17                                                     ; LCCOMB_X17_Y9_N18 ; 5       ; Clock enable                          ; no     ; --                   ; --               ; --                        ;
+; epRISC_UART:uart|rRecvCountAck~15                                                        ; LCCOMB_X17_Y7_N8  ; 5       ; Sync. clear                           ; no     ; --                   ; --               ; --                        ;
+; epRISC_UART:uart|rRecvCountSto[0]~1                                                      ; LCCOMB_X17_Y9_N20 ; 5       ; Clock enable                          ; no     ; --                   ; --               ; --                        ;
+; epRISC_UART:uart|rSendCountAck[4]~16                                                     ; LCCOMB_X22_Y8_N28 ; 5       ; Clock enable                          ; no     ; --                   ; --               ; --                        ;
+; epRISC_UART:uart|rSendCountSto[2]~1                                                      ; LCCOMB_X22_Y8_N6  ; 5       ; Clock enable                          ; no     ; --                   ; --               ; --                        ;
+; epRISC_controlRAM:bmem|rContents~2                                                       ; LCCOMB_X22_Y8_N30 ; 1       ; Clock enable, Write enable            ; no     ; --                   ; --               ; --                        ;
+; iBoardClock                                                                              ; PIN_28            ; 1       ; Clock                                 ; no     ; --                   ; --               ; --                        ;
+; iBusClock                                                                                ; PIN_26            ; 161     ; Clock                                 ; yes    ; Global Clock         ; GCLK2            ; --                        ;
+; rInternalMOSI[0]~18                                                                      ; LCCOMB_X20_Y9_N16 ; 8       ; Clock enable                          ; no     ; --                   ; --               ; --                        ;
+; rInternalMOSI[14]~17                                                                     ; LCCOMB_X22_Y9_N16 ; 8       ; Clock enable                          ; no     ; --                   ; --               ; --                        ;
+; rInternalMOSI[31]~1                                                                      ; LCCOMB_X20_Y9_N20 ; 8       ; Clock enable                          ; no     ; --                   ; --               ; --                        ;
++------------------------------------------------------------------------------------------+-------------------+---------+---------------------------------------+--------+----------------------+------------------+---------------------------+
 
 
-+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Global & Other Fast Signals                                                                                                                                                                                                          ;
-+------------------------------------------------------------------------------------------+--------------------+---------+--------------------------------------+----------------------+------------------+---------------------------+
-; Name                                                                                     ; Location           ; Fan-Out ; Fan-Out Using Intentional Clock Skew ; Global Resource Used ; Global Line Name ; Enable Signal Source Name ;
-+------------------------------------------------------------------------------------------+--------------------+---------+--------------------------------------+----------------------+------------------+---------------------------+
-; OnChipPLL:clock|altpll:altpll_component|OnChipPLL_altpll:auto_generated|wire_pll1_clk[0] ; PLL_1              ; 40      ; 4                                    ; Global Clock         ; GCLK19           ; --                        ;
-; epRISC_UART:uart|Mux1~0                                                                  ; LCCOMB_X22_Y10_N18 ; 4       ; 0                                    ; Global Clock         ; GCLK16           ; --                        ;
-; epRISC_UART:uart|Mux6~0                                                                  ; LCCOMB_X21_Y8_N26  ; 4       ; 0                                    ; Global Clock         ; GCLK18           ; --                        ;
-; iBusClock                                                                                ; PIN_26             ; 128     ; 44                                   ; Global Clock         ; GCLK2            ; --                        ;
-+------------------------------------------------------------------------------------------+--------------------+---------+--------------------------------------+----------------------+------------------+---------------------------+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Global & Other Fast Signals                                                                                                                                                                                                ;
++------------------------------------------------------------------------------------------+----------+---------+--------------------------------------+----------------------+------------------+---------------------------+
+; Name                                                                                     ; Location ; Fan-Out ; Fan-Out Using Intentional Clock Skew ; Global Resource Used ; Global Line Name ; Enable Signal Source Name ;
++------------------------------------------------------------------------------------------+----------+---------+--------------------------------------+----------------------+------------------+---------------------------+
+; OnChipPLL:clock|altpll:altpll_component|OnChipPLL_altpll:auto_generated|wire_pll1_clk[0] ; PLL_1    ; 50      ; 27                                   ; Global Clock         ; GCLK19           ; --                        ;
+; iBusClock                                                                                ; PIN_26   ; 161     ; 63                                   ; Global Clock         ; GCLK2            ; --                        ;
++------------------------------------------------------------------------------------------+----------+---------+--------------------------------------+----------------------+------------------+---------------------------+
 
 
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Fitter RAM Summary                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ;
-+--------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+--------------+------------------------+-------------------------+------------------------+-------------------------+------+-----------------------------+-----------------------------+-----------------------------+-----------------------------+---------------------+------+------+---------------+----------------------+------------------------+------------------------+----------+------------------------+---------------+
-; Name                                                                                       ; Type ; Mode             ; Clock Mode   ; Port A Depth ; Port A Width ; Port B Depth ; Port B Width ; Port A Input Registers ; Port A Output Registers ; Port B Input Registers ; Port B Output Registers ; Size ; Implementation Port A Depth ; Implementation Port A Width ; Implementation Port B Depth ; Implementation Port B Width ; Implementation Bits ; M9Ks ; MIF  ; Location      ; Mixed Width RDW Mode ; Port A RDW Mode        ; Port B RDW Mode        ; ECC Mode ; ECC Pipeline Registers ; Fits in MLABs ;
-+--------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+--------------+------------------------+-------------------------+------------------------+-------------------------+------+-----------------------------+-----------------------------+-----------------------------+-----------------------------+---------------------+------+------+---------------+----------------------+------------------------+------------------------+----------+------------------------+---------------+
-; epRISC_controlRAM:mem|altsyncram:rContents_rtl_0|altsyncram_0ec1:auto_generated|ALTSYNCRAM ; AUTO ; Simple Dual Port ; Single Clock ; 256          ; 32           ; 256          ; 32           ; yes                    ; no                      ; yes                    ; no                      ; 8192 ; 256                         ; 32                          ; 256                         ; 32                          ; 8192                ; 1    ; None ; M9K_X23_Y8_N0 ; Don't care           ; New data with NBE Read ; New data with NBE Read ; Off      ; No                     ; No - Unknown  ;
-+--------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+--------------+------------------------+-------------------------+------------------------+-------------------------+------+-----------------------------+-----------------------------+-----------------------------+-----------------------------+---------------------+------+------+---------------+----------------------+------------------------+------------------------+----------+------------------------+---------------+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Fitter RAM Summary                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     ;
++---------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+--------------+------------------------+-------------------------+------------------------+-------------------------+------+-----------------------------+-----------------------------+-----------------------------+-----------------------------+---------------------+------+------+---------------+----------------------+------------------------+------------------------+----------+------------------------+---------------+
+; Name                                                                                        ; Type ; Mode             ; Clock Mode   ; Port A Depth ; Port A Width ; Port B Depth ; Port B Width ; Port A Input Registers ; Port A Output Registers ; Port B Input Registers ; Port B Output Registers ; Size ; Implementation Port A Depth ; Implementation Port A Width ; Implementation Port B Depth ; Implementation Port B Width ; Implementation Bits ; M9Ks ; MIF  ; Location      ; Mixed Width RDW Mode ; Port A RDW Mode        ; Port B RDW Mode        ; ECC Mode ; ECC Pipeline Registers ; Fits in MLABs ;
++---------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+--------------+------------------------+-------------------------+------------------------+-------------------------+------+-----------------------------+-----------------------------+-----------------------------+-----------------------------+---------------------+------+------+---------------+----------------------+------------------------+------------------------+----------+------------------------+---------------+
+; epRISC_controlRAM:bmem|altsyncram:rContents_rtl_0|altsyncram_0ec1:auto_generated|ALTSYNCRAM ; AUTO ; Simple Dual Port ; Single Clock ; 256          ; 32           ; 256          ; 32           ; yes                    ; no                      ; yes                    ; no                      ; 8192 ; 256                         ; 32                          ; 256                         ; 32                          ; 8192                ; 1    ; None ; M9K_X23_Y8_N0 ; Don't care           ; New data with NBE Read ; New data with NBE Read ; Off      ; No                     ; No - Unknown  ;
++---------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+--------------+------------------------+-------------------------+------------------------+-------------------------+------+-----------------------------+-----------------------------+-----------------------------+-----------------------------+---------------------+------+------+---------------+----------------------+------------------------+------------------------+----------+------------------------+---------------+
 Note: Fitter may spread logical memories into multiple blocks to improve timing. The actual required RAM blocks can be found in the Fitter Resource Usage section.
 
 
-+------------------------------------------------+
-; Routing Usage Summary                          ;
-+-----------------------+------------------------+
-; Routing Resource Type ; Usage                  ;
-+-----------------------+------------------------+
-; Block interconnects   ; 747 / 49,625 ( 2 % )   ;
-; C16 interconnects     ; 53 / 2,250 ( 2 % )     ;
-; C4 interconnects      ; 660 / 39,600 ( 2 % )   ;
-; Direct links          ; 71 / 49,625 ( < 1 % )  ;
-; Global clocks         ; 4 / 20 ( 20 % )        ;
-; Local interconnects   ; 144 / 15,840 ( < 1 % ) ;
-; NSLEEPs               ; 0 / 320 ( 0 % )        ;
-; R24 interconnects     ; 65 / 2,146 ( 3 % )     ;
-; R4 interconnects      ; 778 / 53,244 ( 1 % )   ;
-+-----------------------+------------------------+
++-----------------------------------------------+
+; Routing Usage Summary                         ;
++-----------------------+-----------------------+
+; Routing Resource Type ; Usage                 ;
++-----------------------+-----------------------+
+; Block interconnects   ; 873 / 49,625 ( 2 % )  ;
+; C16 interconnects     ; 46 / 2,250 ( 2 % )    ;
+; C4 interconnects      ; 726 / 39,600 ( 2 % )  ;
+; Direct links          ; 89 / 49,625 ( < 1 % ) ;
+; Global clocks         ; 2 / 20 ( 10 % )       ;
+; Local interconnects   ; 201 / 15,840 ( 1 % )  ;
+; NSLEEPs               ; 0 / 320 ( 0 % )       ;
+; R24 interconnects     ; 72 / 2,146 ( 3 % )    ;
+; R4 interconnects      ; 878 / 53,244 ( 2 % )  ;
++-----------------------+-----------------------+
 
 
 +----------------------------------------------------------------------------+
 ; LAB Logic Elements                                                         ;
 +---------------------------------------------+------------------------------+
-; Number of Logic Elements  (Average = 10.55) ; Number of LABs  (Total = 33) ;
+; Number of Logic Elements  (Average = 10.85) ; Number of LABs  (Total = 39) ;
 +---------------------------------------------+------------------------------+
-; 1                                           ; 3                            ;
+; 1                                           ; 6                            ;
 ; 2                                           ; 1                            ;
-; 3                                           ; 2                            ;
-; 4                                           ; 0                            ;
-; 5                                           ; 3                            ;
+; 3                                           ; 0                            ;
+; 4                                           ; 1                            ;
+; 5                                           ; 0                            ;
 ; 6                                           ; 1                            ;
 ; 7                                           ; 1                            ;
-; 8                                           ; 1                            ;
-; 9                                           ; 1                            ;
-; 10                                          ; 1                            ;
-; 11                                          ; 0                            ;
-; 12                                          ; 0                            ;
-; 13                                          ; 5                            ;
+; 8                                           ; 3                            ;
+; 9                                           ; 2                            ;
+; 10                                          ; 0                            ;
+; 11                                          ; 2                            ;
+; 12                                          ; 2                            ;
+; 13                                          ; 1                            ;
 ; 14                                          ; 2                            ;
 ; 15                                          ; 3                            ;
-; 16                                          ; 9                            ;
+; 16                                          ; 14                           ;
 +---------------------------------------------+------------------------------+
 
 
 +-------------------------------------------------------------------+
 ; LAB-wide Signals                                                  ;
 +------------------------------------+------------------------------+
-; LAB-wide Signals  (Average = 1.70) ; Number of LABs  (Total = 33) ;
+; LAB-wide Signals  (Average = 1.74) ; Number of LABs  (Total = 39) ;
 +------------------------------------+------------------------------+
-; 1 Clock                            ; 25                           ;
-; 1 Clock enable                     ; 11                           ;
-; 1 Sync. clear                      ; 6                            ;
-; 1 Sync. load                       ; 5                            ;
-; 2 Clock enables                    ; 6                            ;
-; 2 Clocks                           ; 3                            ;
+; 1 Clock                            ; 29                           ;
+; 1 Clock enable                     ; 10                           ;
+; 1 Sync. clear                      ; 8                            ;
+; 1 Sync. load                       ; 6                            ;
+; 2 Clock enables                    ; 10                           ;
+; 2 Clocks                           ; 5                            ;
 +------------------------------------+------------------------------+
 
 
 +-----------------------------------------------------------------------------+
 ; LAB Signals Sourced                                                         ;
 +----------------------------------------------+------------------------------+
-; Number of Signals Sourced  (Average = 15.15) ; Number of LABs  (Total = 33) ;
+; Number of Signals Sourced  (Average = 15.62) ; Number of LABs  (Total = 39) ;
 +----------------------------------------------+------------------------------+
 ; 0                                            ; 0                            ;
-; 1                                            ; 2                            ;
-; 2                                            ; 2                            ;
-; 3                                            ; 0                            ;
-; 4                                            ; 1                            ;
-; 5                                            ; 0                            ;
-; 6                                            ; 2                            ;
+; 1                                            ; 5                            ;
+; 2                                            ; 1                            ;
+; 3                                            ; 1                            ;
+; 4                                            ; 0                            ;
+; 5                                            ; 1                            ;
+; 6                                            ; 0                            ;
 ; 7                                            ; 1                            ;
-; 8                                            ; 2                            ;
-; 9                                            ; 1                            ;
-; 10                                           ; 0                            ;
-; 11                                           ; 0                            ;
-; 12                                           ; 0                            ;
-; 13                                           ; 1                            ;
-; 14                                           ; 0                            ;
-; 15                                           ; 1                            ;
-; 16                                           ; 2                            ;
-; 17                                           ; 3                            ;
-; 18                                           ; 1                            ;
-; 19                                           ; 3                            ;
-; 20                                           ; 2                            ;
-; 21                                           ; 2                            ;
-; 22                                           ; 0                            ;
-; 23                                           ; 2                            ;
+; 8                                            ; 0                            ;
+; 9                                            ; 0                            ;
+; 10                                           ; 2                            ;
+; 11                                           ; 1                            ;
+; 12                                           ; 1                            ;
+; 13                                           ; 2                            ;
+; 14                                           ; 2                            ;
+; 15                                           ; 0                            ;
+; 16                                           ; 1                            ;
+; 17                                           ; 1                            ;
+; 18                                           ; 2                            ;
+; 19                                           ; 1                            ;
+; 20                                           ; 3                            ;
+; 21                                           ; 3                            ;
+; 22                                           ; 3                            ;
+; 23                                           ; 0                            ;
 ; 24                                           ; 1                            ;
-; 25                                           ; 1                            ;
-; 26                                           ; 1                            ;
+; 25                                           ; 3                            ;
+; 26                                           ; 0                            ;
 ; 27                                           ; 0                            ;
-; 28                                           ; 1                            ;
-; 29                                           ; 1                            ;
+; 28                                           ; 3                            ;
+; 29                                           ; 0                            ;
+; 30                                           ; 1                            ;
 +----------------------------------------------+------------------------------+
 
 
 +--------------------------------------------------------------------------------+
 ; LAB Signals Sourced Out                                                        ;
 +-------------------------------------------------+------------------------------+
-; Number of Signals Sourced Out  (Average = 8.33) ; Number of LABs  (Total = 33) ;
+; Number of Signals Sourced Out  (Average = 8.97) ; Number of LABs  (Total = 39) ;
 +-------------------------------------------------+------------------------------+
 ; 0                                               ; 0                            ;
-; 1                                               ; 4                            ;
+; 1                                               ; 6                            ;
 ; 2                                               ; 2                            ;
-; 3                                               ; 3                            ;
-; 4                                               ; 2                            ;
-; 5                                               ; 1                            ;
+; 3                                               ; 1                            ;
+; 4                                               ; 0                            ;
+; 5                                               ; 3                            ;
 ; 6                                               ; 3                            ;
-; 7                                               ; 3                            ;
-; 8                                               ; 2                            ;
-; 9                                               ; 3                            ;
-; 10                                              ; 1                            ;
+; 7                                               ; 1                            ;
+; 8                                               ; 6                            ;
+; 9                                               ; 4                            ;
+; 10                                              ; 2                            ;
 ; 11                                              ; 0                            ;
-; 12                                              ; 2                            ;
-; 13                                              ; 1                            ;
-; 14                                              ; 1                            ;
+; 12                                              ; 1                            ;
+; 13                                              ; 3                            ;
+; 14                                              ; 0                            ;
 ; 15                                              ; 0                            ;
-; 16                                              ; 2                            ;
+; 16                                              ; 1                            ;
 ; 17                                              ; 0                            ;
-; 18                                              ; 0                            ;
+; 18                                              ; 1                            ;
 ; 19                                              ; 0                            ;
-; 20                                              ; 0                            ;
-; 21                                              ; 0                            ;
+; 20                                              ; 1                            ;
+; 21                                              ; 2                            ;
 ; 22                                              ; 1                            ;
-; 23                                              ; 1                            ;
-; 24                                              ; 0                            ;
-; 25                                              ; 1                            ;
+; 23                                              ; 0                            ;
+; 24                                              ; 1                            ;
 +-------------------------------------------------+------------------------------+
 
 
 +-----------------------------------------------------------------------------+
 ; LAB Distinct Inputs                                                         ;
 +----------------------------------------------+------------------------------+
-; Number of Distinct Inputs  (Average = 16.39) ; Number of LABs  (Total = 33) ;
+; Number of Distinct Inputs  (Average = 17.62) ; Number of LABs  (Total = 39) ;
 +----------------------------------------------+------------------------------+
 ; 0                                            ; 0                            ;
 ; 1                                            ; 0                            ;
-; 2                                            ; 1                            ;
+; 2                                            ; 0                            ;
 ; 3                                            ; 1                            ;
-; 4                                            ; 0                            ;
+; 4                                            ; 3                            ;
 ; 5                                            ; 1                            ;
-; 6                                            ; 3                            ;
-; 7                                            ; 0                            ;
-; 8                                            ; 1                            ;
+; 6                                            ; 2                            ;
+; 7                                            ; 1                            ;
+; 8                                            ; 0                            ;
 ; 9                                            ; 0                            ;
-; 10                                           ; 0                            ;
-; 11                                           ; 3                            ;
-; 12                                           ; 2                            ;
-; 13                                           ; 3                            ;
-; 14                                           ; 1                            ;
-; 15                                           ; 1                            ;
-; 16                                           ; 0                            ;
+; 10                                           ; 2                            ;
+; 11                                           ; 1                            ;
+; 12                                           ; 1                            ;
+; 13                                           ; 1                            ;
+; 14                                           ; 2                            ;
+; 15                                           ; 3                            ;
+; 16                                           ; 1                            ;
 ; 17                                           ; 0                            ;
-; 18                                           ; 1                            ;
-; 19                                           ; 1                            ;
-; 20                                           ; 1                            ;
-; 21                                           ; 0                            ;
-; 22                                           ; 4                            ;
-; 23                                           ; 1                            ;
-; 24                                           ; 0                            ;
-; 25                                           ; 0                            ;
-; 26                                           ; 2                            ;
+; 18                                           ; 0                            ;
+; 19                                           ; 2                            ;
+; 20                                           ; 0                            ;
+; 21                                           ; 1                            ;
+; 22                                           ; 3                            ;
+; 23                                           ; 0                            ;
+; 24                                           ; 1                            ;
+; 25                                           ; 4                            ;
+; 26                                           ; 0                            ;
 ; 27                                           ; 0                            ;
 ; 28                                           ; 1                            ;
 ; 29                                           ; 1                            ;
-; 30                                           ; 0                            ;
-; 31                                           ; 0                            ;
+; 30                                           ; 1                            ;
+; 31                                           ; 1                            ;
 ; 32                                           ; 1                            ;
 ; 33                                           ; 0                            ;
-; 34                                           ; 0                            ;
-; 35                                           ; 1                            ;
-; 36                                           ; 1                            ;
+; 34                                           ; 1                            ;
+; 35                                           ; 2                            ;
 +----------------------------------------------+------------------------------+
 
 
@@ -1488,16 +1431,16 @@ Note: Fitter may spread logical memories into multiple blocks to improve timing.
 ; bGPIO15            ; Inapplicable ; Pass         ; Pass         ; Inapplicable ; Inapplicable ; Pass      ; Pass         ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass         ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass         ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass         ; Inapplicable ; Pass      ; Pass      ; Pass      ; Inapplicable ; Inapplicable ;
 ; iBusClock          ; Inapplicable ; Pass         ; Pass         ; Inapplicable ; Inapplicable ; Pass      ; Pass         ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass      ; Pass      ; Pass      ; Inapplicable ; Inapplicable ;
 ; iBoardReset        ; Inapplicable ; Pass         ; Pass         ; Inapplicable ; Inapplicable ; Pass      ; Pass         ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass      ; Pass      ; Pass      ; Inapplicable ; Inapplicable ;
-; iBusMOSI[0]        ; Inapplicable ; Pass         ; Pass         ; Inapplicable ; Inapplicable ; Pass      ; Pass         ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass      ; Pass      ; Pass      ; Inapplicable ; Inapplicable ;
-; iBusMOSI[1]        ; Inapplicable ; Pass         ; Pass         ; Inapplicable ; Inapplicable ; Pass      ; Pass         ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass      ; Pass      ; Pass      ; Inapplicable ; Inapplicable ;
+; iBusSelect[0]      ; Inapplicable ; Pass         ; Pass         ; Inapplicable ; Inapplicable ; Pass      ; Pass         ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass      ; Pass      ; Pass      ; Inapplicable ; Inapplicable ;
+; iBusSelect[1]      ; Inapplicable ; Pass         ; Pass         ; Inapplicable ; Inapplicable ; Pass      ; Pass         ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass      ; Pass      ; Pass      ; Inapplicable ; Inapplicable ;
 ; iBusMOSI[2]        ; Inapplicable ; Pass         ; Pass         ; Inapplicable ; Inapplicable ; Pass      ; Pass         ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass      ; Pass      ; Pass      ; Inapplicable ; Inapplicable ;
 ; iBusMOSI[3]        ; Inapplicable ; Pass         ; Pass         ; Inapplicable ; Inapplicable ; Pass      ; Pass         ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass      ; Pass      ; Pass      ; Inapplicable ; Inapplicable ;
 ; iBusMOSI[4]        ; Inapplicable ; Pass         ; Pass         ; Inapplicable ; Inapplicable ; Pass      ; Pass         ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass      ; Pass      ; Pass      ; Inapplicable ; Inapplicable ;
 ; iBusMOSI[5]        ; Inapplicable ; Pass         ; Pass         ; Inapplicable ; Inapplicable ; Pass      ; Pass         ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass      ; Pass      ; Pass      ; Inapplicable ; Inapplicable ;
+; iBusMOSI[1]        ; Inapplicable ; Pass         ; Pass         ; Inapplicable ; Inapplicable ; Pass      ; Pass         ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass      ; Pass      ; Pass      ; Inapplicable ; Inapplicable ;
+; iBusMOSI[0]        ; Inapplicable ; Pass         ; Pass         ; Inapplicable ; Inapplicable ; Pass      ; Pass         ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass      ; Pass      ; Pass      ; Inapplicable ; Inapplicable ;
 ; iBusMOSI[6]        ; Inapplicable ; Pass         ; Pass         ; Inapplicable ; Inapplicable ; Pass      ; Pass         ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass      ; Pass      ; Pass      ; Inapplicable ; Inapplicable ;
 ; iBusMOSI[7]        ; Inapplicable ; Pass         ; Pass         ; Inapplicable ; Inapplicable ; Pass      ; Pass         ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass      ; Pass      ; Pass      ; Inapplicable ; Inapplicable ;
-; iBusSelect[0]      ; Inapplicable ; Pass         ; Pass         ; Inapplicable ; Inapplicable ; Pass      ; Pass         ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass      ; Pass      ; Pass      ; Inapplicable ; Inapplicable ;
-; iBusSelect[1]      ; Inapplicable ; Pass         ; Pass         ; Inapplicable ; Inapplicable ; Pass      ; Pass         ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass      ; Pass      ; Pass      ; Inapplicable ; Inapplicable ;
 ; iTTLSerialRX       ; Inapplicable ; Pass         ; Pass         ; Inapplicable ; Inapplicable ; Pass      ; Pass         ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass      ; Pass      ; Pass      ; Inapplicable ; Inapplicable ;
 ; iBoardClock        ; Inapplicable ; Pass         ; Pass         ; Inapplicable ; Inapplicable ; Pass      ; Pass         ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass      ; Pass      ; Pass      ; Inapplicable ; Inapplicable ;
 +--------------------+--------------+--------------+--------------+--------------+--------------+-----------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+-----------+-----------+-----------+--------------+--------------+
@@ -1540,66 +1483,61 @@ Note: Fitter may spread logical memories into multiple blocks to improve timing.
 +---------------------------+--------+
 
 
-+----------------------------------------------------------------------------------------------------------------------+
-; Estimated Delay Added for Hold Timing Summary                                                                        ;
-+-----------------------------------------------------------------+--------------------------------+-------------------+
-; Source Clock(s)                                                 ; Destination Clock(s)           ; Delay Added in ns ;
-+-----------------------------------------------------------------+--------------------------------+-------------------+
-; clock|altpll_component|auto_generated|pll1|clk[0]               ; epRISC_UART:uart|rRecvState[0] ; 86.7              ;
-; clock|altpll_component|auto_generated|pll1|clk[0]               ; epRISC_UART:uart|rSendState[0] ; 66.2              ;
-; clock|altpll_component|auto_generated|pll1|clk[0]               ; iBusClock                      ; 42.0              ;
-; clock|altpll_component|auto_generated|pll1|clk[0],I/O           ; iBusClock                      ; 22.7              ;
-; clock|altpll_component|auto_generated|pll1|clk[0],iBusClock     ; epRISC_UART:uart|rRecvState[0] ; 22.5              ;
-; clock|altpll_component|auto_generated|pll1|clk[0],iBusClock     ; epRISC_UART:uart|rSendState[0] ; 21.4              ;
-; clock|altpll_component|auto_generated|pll1|clk[0],iBusClock,I/O ; iBusClock                      ; 7.8               ;
-+-----------------------------------------------------------------+--------------------------------+-------------------+
++------------------------------------------------------------------------------------------------------------+
+; Estimated Delay Added for Hold Timing Summary                                                              ;
++-----------------------------------------------------------------+----------------------+-------------------+
+; Source Clock(s)                                                 ; Destination Clock(s) ; Delay Added in ns ;
++-----------------------------------------------------------------+----------------------+-------------------+
+; clock|altpll_component|auto_generated|pll1|clk[0]               ; iBusClock            ; 94.1              ;
+; clock|altpll_component|auto_generated|pll1|clk[0],iBusClock     ; iBusClock            ; 30.6              ;
+; I/O                                                             ; iBusClock            ; 16.9              ;
+; clock|altpll_component|auto_generated|pll1|clk[0],iBusClock,I/O ; iBusClock            ; 3.5               ;
++-----------------------------------------------------------------+----------------------+-------------------+
 Note: For more information on problematic transfers, consider running the Fitter again with the Optimize hold timing option (Settings Menu) turned off.
 This will disable optimization of problematic paths and expose them for further analysis using the TimeQuest Timing Analyzer.
 
 
-+---------------------------------------------------------------------------------------------+
-; Estimated Delay Added for Hold Timing Details                                               ;
-+------------------------------------+------------------------------------+-------------------+
-; Source Register                    ; Destination Register               ; Delay Added in ns ;
-+------------------------------------+------------------------------------+-------------------+
-; epRISC_UART:uart|rRecvState[2]     ; epRISC_UART:uart|rRecvNextState[0] ; 8.522             ;
-; epRISC_UART:uart|rRecvState[3]     ; epRISC_UART:uart|rRecvNextState[0] ; 8.497             ;
-; epRISC_UART:uart|rRecvState[1]     ; epRISC_UART:uart|rRecvNextState[0] ; 8.391             ;
-; epRISC_UART:uart|rSendState[2]     ; epRISC_UART:uart|rSendNextState[1] ; 7.293             ;
-; epRISC_UART:uart|rSendState[3]     ; epRISC_UART:uart|rSendNextState[3] ; 7.133             ;
-; epRISC_UART:uart|rSendState[1]     ; epRISC_UART:uart|rSendNextState[3] ; 7.058             ;
-; epRISC_UART:uart|rRecvPrevState[3] ; epRISC_UART:uart|rControl[5]       ; 6.386             ;
-; epRISC_UART:uart|rRecvPrevState[2] ; epRISC_UART:uart|rControl[5]       ; 6.371             ;
-; epRISC_UART:uart|rRecvPrevState[0] ; epRISC_UART:uart|rControl[5]       ; 6.371             ;
-; epRISC_UART:uart|rRecvPrevState[1] ; epRISC_UART:uart|rControl[5]       ; 6.371             ;
-; epRISC_UART:uart|rSendPrevState[2] ; epRISC_UART:uart|rControl[7]       ; 6.231             ;
-; epRISC_UART:uart|rSendPrevState[3] ; epRISC_UART:uart|rControl[7]       ; 6.231             ;
-; epRISC_UART:uart|rSendPrevState[0] ; epRISC_UART:uart|rControl[7]       ; 6.231             ;
-; epRISC_UART:uart|rSendPrevState[1] ; epRISC_UART:uart|rControl[7]       ; 6.231             ;
-; epRISC_UART:uart|rRecvDataBuf[2]   ; epRISC_UART:uart|rDataOut[2]       ; 6.192             ;
-; epRISC_UART:uart|rRecvDataBuf[0]   ; epRISC_UART:uart|rDataOut[0]       ; 6.138             ;
-; epRISC_UART:uart|rRecvDataBuf[6]   ; epRISC_UART:uart|rDataOut[6]       ; 5.852             ;
-; epRISC_UART:uart|rRecvDataBuf[1]   ; epRISC_UART:uart|rDataOut[1]       ; 5.731             ;
-; epRISC_UART:uart|rRecvDataBuf[5]   ; epRISC_UART:uart|rDataOut[5]       ; 5.720             ;
-; epRISC_UART:uart|rRecvDataBuf[7]   ; epRISC_UART:uart|rDataOut[7]       ; 5.488             ;
-; epRISC_UART:uart|rRecvState[0]     ; epRISC_UART:uart|rRecvNextState[3] ; 5.464             ;
-; epRISC_UART:uart|rRecvDataBuf[4]   ; epRISC_UART:uart|rDataOut[4]       ; 5.370             ;
-; epRISC_UART:uart|rControl[4]       ; epRISC_UART:uart|rRecvNextState[2] ; 5.304             ;
-; epRISC_UART:uart|rControl[1]       ; epRISC_UART:uart|rSendNextState[1] ; 5.093             ;
-; epRISC_UART:uart|rSendState[0]     ; epRISC_UART:uart|rSendNextState[1] ; 5.093             ;
-; epRISC_UART:uart|rRecvDataBuf[3]   ; epRISC_UART:uart|rDataOut[3]       ; 4.976             ;
-; epRISC_UART:uart|rControl[2]       ; epRISC_UART:uart|rRecvNextState[0] ; 4.949             ;
-; epRISC_UART:uart|rControl[0]       ; epRISC_UART:uart|rSendNextState[0] ; 4.931             ;
-; epRISC_UART:uart|rControl[7]       ; epRISC_UART:uart|rSendNextState[2] ; 3.596             ;
-; iBoardReset                        ; epRISC_UART:uart|rDataOut[2]       ; 3.096             ;
-; epRISC_UART:uart|rControl[5]       ; epRISC_UART:uart|rDataOut[0]       ; 2.326             ;
-; iTTLSerialRX                       ; epRISC_UART:uart|rRecvNextState[2] ; 1.994             ;
-; epRISC_UART:uart|rRecvDataCnt[1]   ; epRISC_UART:uart|rRecvState[0]     ; 0.248             ;
-; epRISC_UART:uart|rRecvDataCnt[0]   ; epRISC_UART:uart|rRecvState[0]     ; 0.248             ;
-; epRISC_UART:uart|rRecvDataCnt[3]   ; epRISC_UART:uart|rRecvState[0]     ; 0.248             ;
-; epRISC_UART:uart|rRecvDataCnt[2]   ; epRISC_UART:uart|rRecvState[0]     ; 0.248             ;
-+------------------------------------+------------------------------------+-------------------+
-Note: This table only shows the top 36 path(s) that have the largest delay added for hold.
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Estimated Delay Added for Hold Timing Details                                                                                                                      ;
++-----------------------------------+------------------------------------------------------------------------------------------------------------+-------------------+
+; Source Register                   ; Destination Register                                                                                       ; Delay Added in ns ;
++-----------------------------------+------------------------------------------------------------------------------------------------------------+-------------------+
+; epRISC_UART:uart|rSendCountAck[1] ; epRISC_UART:uart|rSendCountSto[1]                                                                          ; 6.831             ;
+; epRISC_UART:uart|rSendCountAck[4] ; epRISC_UART:uart|rSendCountSto[4]                                                                          ; 6.831             ;
+; epRISC_UART:uart|rRecvCountAck[1] ; epRISC_UART:uart|rRecvCountSto[1]                                                                          ; 6.831             ;
+; epRISC_UART:uart|rRecvCountAck[0] ; epRISC_UART:uart|rRecvCountSto[0]                                                                          ; 6.831             ;
+; epRISC_UART:uart|rRecvCountAck[4] ; epRISC_UART:uart|rRecvCountSto[4]                                                                          ; 6.831             ;
+; epRISC_UART:uart|rSendCountAck[0] ; epRISC_UART:uart|rSendCountSto[0]                                                                          ; 6.647             ;
+; epRISC_UART:uart|rSendCountAck[3] ; epRISC_UART:uart|rSendCountSto[3]                                                                          ; 6.647             ;
+; epRISC_UART:uart|rRecvCountAck[2] ; epRISC_UART:uart|rRecvCountSto[2]                                                                          ; 6.638             ;
+; epRISC_UART:uart|rRecvCountAck[3] ; epRISC_UART:uart|rRecvCountSto[3]                                                                          ; 6.418             ;
+; epRISC_UART:uart|rSendCountAck[2] ; epRISC_UART:uart|rSendCountSto[2]                                                                          ; 6.216             ;
+; epRISC_UART:uart|rRecvCountSto[0] ; epRISC_UART:uart|rControl[5]                                                                               ; 5.338             ;
+; epRISC_UART:uart|rRecvCountSto[1] ; epRISC_UART:uart|rControl[5]                                                                               ; 5.338             ;
+; epRISC_UART:uart|rSendCountSto[0] ; epRISC_UART:uart|rControl[7]                                                                               ; 4.455             ;
+; epRISC_UART:uart|rSendCountSto[1] ; epRISC_UART:uart|rControl[7]                                                                               ; 4.455             ;
+; epRISC_UART:uart|rRecvCountSto[2] ; epRISC_UART:uart|rControl[5]                                                                               ; 3.804             ;
+; epRISC_UART:uart|rSendCountSto[4] ; epRISC_UART:uart|rControl[7]                                                                               ; 3.735             ;
+; epRISC_UART:uart|rSendCountSto[2] ; epRISC_UART:uart|rControl[7]                                                                               ; 3.658             ;
+; epRISC_UART:uart|rRecvCountSto[4] ; epRISC_UART:uart|rControl[5]                                                                               ; 3.532             ;
+; epRISC_UART:uart|rRecvCountSto[3] ; epRISC_UART:uart|rControl[5]                                                                               ; 3.049             ;
+; epRISC_UART:uart|rSendCountSto[3] ; epRISC_UART:uart|rControl[7]                                                                               ; 2.802             ;
+; iBusClock                         ; epRISC_UART:uart|rSendCountSto[4]                                                                          ; 1.778             ;
+; iBoardReset                       ; epRISC_UART:uart|rSendCountSto[4]                                                                          ; 1.371             ;
+; iBusSelect[0]                     ; epRISC_UART:uart|rSendCountSto[4]                                                                          ; 1.371             ;
+; iBusSelect[1]                     ; epRISC_UART:uart|rSendCountSto[4]                                                                          ; 1.371             ;
+; rInternalMOSI[31]                 ; epRISC_controlRAM:bmem|altsyncram:rContents_rtl_0|altsyncram_0ec1:auto_generated|ram_block1a8~porta_we_reg ; 0.282             ;
+; rPipeState.0110                   ; epRISC_controlRAM:bmem|altsyncram:rContents_rtl_0|altsyncram_0ec1:auto_generated|ram_block1a8~porta_we_reg ; 0.282             ;
+; rInternalMOSI[5]                  ; epRISC_UART:uart|rDataIn[5]                                                                                ; 0.218             ;
+; epRISC_UART:uart|rRecvDataBuf[6]  ; epRISC_UART:uart|rDataOut[6]                                                                               ; 0.188             ;
+; epRISC_UART:uart|rRecvDataBuf[4]  ; epRISC_UART:uart|rDataOut[4]                                                                               ; 0.188             ;
+; epRISC_UART:uart|rRecvDataBuf[3]  ; epRISC_UART:uart|rDataOut[3]                                                                               ; 0.188             ;
+; epRISC_UART:uart|rRecvDataBuf[2]  ; epRISC_UART:uart|rDataOut[2]                                                                               ; 0.188             ;
+; epRISC_UART:uart|rRecvDataBuf[1]  ; epRISC_UART:uart|rDataOut[1]                                                                               ; 0.188             ;
+; epRISC_UART:uart|rRecvDataBuf[0]  ; epRISC_UART:uart|rDataOut[0]                                                                               ; 0.188             ;
+; rInternalMOSI[9]                  ; epRISC_GPIO:gpio|rInterrupt[9]                                                                             ; 0.040             ;
++-----------------------------------+------------------------------------------------------------------------------------------------------------+-------------------+
+Note: This table only shows the top 34 path(s) that have the largest delay added for hold.
 
 
 +-----------------+
@@ -1611,7 +1549,7 @@ Info (119006): Selected device 10M16SCE144C8G for design "epRISC_Controller"
 Info (21077): Low junction temperature is 0 degrees C
 Info (21077): High junction temperature is 85 degrees C
 Info (15535): Implemented PLL "OnChipPLL:clock|altpll:altpll_component|OnChipPLL_altpll:auto_generated|pll1" as MAX 10 PLL type File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/aux_project/db/OnChipPLL_altpll.v Line: 44
-    Info (15099): Implementing clock multiplication of 1, clock division of 10000, and phase shift of 0 degrees (0 ps) for OnChipPLL:clock|altpll:altpll_component|OnChipPLL_altpll:auto_generated|wire_pll1_clk[0] port File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/aux_project/db/OnChipPLL_altpll.v Line: 44
+    Info (15099): Implementing clock multiplication of 2, clock division of 625, and phase shift of 0 degrees (0 ps) for OnChipPLL:clock|altpll:altpll_component|OnChipPLL_altpll:auto_generated|wire_pll1_clk[0] port File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/aux_project/db/OnChipPLL_altpll.v Line: 44
 Info (171003): Fitter is performing an Auto Fit compilation, which may decrease Fitter effort to reduce compilation time
 Warning (292013): Feature LogicLock is only available with a valid subscription license. You can purchase a software subscription to gain full access to this feature.
 Critical Warning (16562): Run the PowerPlay Early Power Estimator File to ensure your design is within the maximum power utilization limit of the single power-supply target device and to avoid functional failures.
@@ -1635,24 +1573,19 @@ Info (12825): DCLK dual-purpose pin not reserved
 Warning (15714): Some pins have incomplete I/O assignments. Refer to the I/O Assignment Warnings report for details
 Info (176045): Design uses memory blocks. Violating setup or hold times of memory block address registers for either read or write operations could cause memory contents to be corrupted. Make sure that all memory block address registers meet the setup and hold time requirements.
 Critical Warning (169085): No exact pin location assignment(s) for 5 pins of 89 total pins. For the list of pins please refer to the I/O Assignment Warnings table in the fitter report.
-Warning (335093): TimeQuest Timing Analyzer is analyzing 8 combinational loops as latches. For more details, run the Check Timing command in the TimeQuest Timing Analyzer or view the "User-Specified and Inferred Latches" table in the Analysis & Synthesis report.
 Critical Warning (332012): Synopsys Design Constraints File file not found: 'epRISC_Controller.sdc'. A Synopsys Design Constraints File is required by the TimeQuest Timing Analyzer to get proper timing constraints. Without it, the Compiler will not properly optimize the design.
 Info (332144): No user constrained generated clocks found in the design
 Info (332144): No user constrained base clocks found in the design
-Info (332097): The following timing edges are non-unate.  TimeQuest will assume pos-unate behavior for these edges in the clock network.
-    Info (332098): Cell: uart|Mux1~0  from: dataa  to: combout
-    Info (332098): Cell: uart|Mux6~0  from: dataa  to: combout
 Info (332143): No user constrained clock uncertainty found in the design. Calling "derive_clock_uncertainty"
 Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in TimeQuest to see clock uncertainties.
 Info (332130): Timing requirements not specified -- quality metrics such as performance may be sacrificed to reduce compilation time.
 Info (176353): Automatically promoted node OnChipPLL:clock|altpll:altpll_component|OnChipPLL_altpll:auto_generated|wire_pll1_clk[0] (placed in counter C1 of PLL_1) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/aux_project/db/OnChipPLL_altpll.v Line: 78
     Info (176355): Automatically promoted destinations to use location or clock signal Global Clock CLKCTRL_G19
-Info (176353): Automatically promoted node iBusClock~input (placed in PIN 26 (CLK0n, DIFFIO_RX_L20n, DIFFOUT_L20n, High_Speed)) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 77
+Info (176353): Automatically promoted node iBusClock~input (placed in PIN 26 (CLK0n, DIFFIO_RX_L20n, DIFFOUT_L20n, High_Speed)) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 81
     Info (176355): Automatically promoted destinations to use location or clock signal Global Clock CLKCTRL_G2
-Info (176353): Automatically promoted node epRISC_UART:uart|Mux1~0  File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 145
-    Info (176355): Automatically promoted destinations to use location or clock signal Global Clock
-Info (176353): Automatically promoted node epRISC_UART:uart|Mux6~0  File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 164
-    Info (176355): Automatically promoted destinations to use location or clock signal Global Clock
+    Info (176356): Following destination nodes may be non-global or may not use global or regional clocks
+        Info (176357): Destination node epRISC_GPIO:gpio|rDirection~0 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/gpio_v1r0.v Line: 23
+        Info (176357): Destination node epRISC_UART:uart|rRecvCountAck[0]~17 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 131
 Info (176233): Starting register packing
 Info (176235): Finished register packing
     Extra Info (176219): No registers were packed into other blocks
@@ -1679,79 +1612,79 @@ Info (170137): Fitter placement was successful
 Info (170192): Fitter placement operations ending: elapsed time is 00:00:01
 Info (170193): Fitter routing operations beginning
 Info (170195): Router estimated average interconnect usage is 1% of the available device resources
-    Info (170196): Router estimated peak interconnect usage is 6% of the available device resources in the region that extends from location X12_Y0 to location X24_Y9
+    Info (170196): Router estimated peak interconnect usage is 10% of the available device resources in the region that extends from location X12_Y0 to location X24_Y9
 Info (170199): The Fitter performed an Auto Fit compilation.  Optimizations were skipped to reduce compilation time.
     Info (170201): Optimizations that may affect the design's routability were skipped
-Info (170194): Fitter routing operations ending: elapsed time is 00:00:01
-Info (11888): Total time spent on timing analysis during the Fitter is 0.35 seconds.
+Info (170194): Fitter routing operations ending: elapsed time is 00:00:02
+Info (11888): Total time spent on timing analysis during the Fitter is 0.48 seconds.
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
 Info (11218): Fitter post-fit operations ending: elapsed time is 00:00:01
 Warning (169180): Following 53 pins must use external clamping diodes.
-    Info (169178): Pin iSerialRX uses I/O standard 2.5 V at 79 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 86
-    Info (169178): Pin iSerialCTS uses I/O standard 2.5 V at 78 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 86
-    Info (169178): Pin iSerialDCD uses I/O standard 2.5 V at 76 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 86
-    Info (169178): Pin iSerialDSR uses I/O standard 2.5 V at 69 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 86
-    Info (169178): Pin iTTLSerialRST uses I/O standard 2.5 V at 54 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 89
-    Info (169178): Pin iExtBusMISO[0] uses I/O standard 2.5 V at 99 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 95
-    Info (169178): Pin iExtBusMISO[1] uses I/O standard 2.5 V at 101 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 95
-    Info (169178): Pin iExtBusMISO[2] uses I/O standard 2.5 V at 105 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 95
-    Info (169178): Pin iExtBusMISO[3] uses I/O standard 2.5 V at 110 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 95
-    Info (169178): Pin iExtBusInterrupt uses I/O standard 2.5 V at 119 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 94
-    Info (169178): Pin iSPIMISO uses I/O standard 2.5 V at 43 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 100
-    Info (169178): Pin iSPIDetect0 uses I/O standard 2.5 V at 55 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 100
-    Info (169178): Pin iSPIDetect1 uses I/O standard 2.5 V at 56 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 100
-    Info (169178): Pin iSPIWrite0 uses I/O standard 2.5 V at 57 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 100
-    Info (169178): Pin iSPIWrite1 uses I/O standard 2.5 V at 58 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 100
-    Info (169178): Pin bBoardDebug0 uses I/O standard 2.5 V at 22 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 84
-    Info (169178): Pin bBoardDebug1 uses I/O standard 2.5 V at 134 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 84
-    Info (169178): Pin bBoardDebug2 uses I/O standard 2.5 V at 17 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 84
-    Info (169178): Pin bBoardDebug3 uses I/O standard 2.5 V at 25 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 84
-    Info (169178): Pin bBoardDebug4 uses I/O standard 2.5 V at 21 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 84
-    Info (169178): Pin bBoardDebug5 uses I/O standard 2.5 V at 135 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 84
-    Info (169178): Pin bPS2Data uses I/O standard 2.5 V at 140 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 107
-    Info (169178): Pin bPS2Clock uses I/O standard 2.5 V at 141 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 107
-    Info (169178): Pin bGPIO0 uses I/O standard 2.5 V at 120 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 92
-    Info (169178): Pin bGPIO1 uses I/O standard 2.5 V at 127 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 92
-    Info (169178): Pin bGPIO2 uses I/O standard 2.5 V at 131 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 92
-    Info (169178): Pin bGPIO3 uses I/O standard 2.5 V at 132 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 92
-    Info (169178): Pin bGPIO4 uses I/O standard 2.5 V at 46 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 92
-    Info (169178): Pin bGPIO5 uses I/O standard 2.5 V at 47 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 92
-    Info (169178): Pin bGPIO6 uses I/O standard 2.5 V at 50 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 92
-    Info (169178): Pin bGPIO7 uses I/O standard 2.5 V at 75 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 92
-    Info (169178): Pin bGPIO8 uses I/O standard 2.5 V at 77 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 92
-    Info (169178): Pin bGPIO9 uses I/O standard 2.5 V at 74 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 92
-    Info (169178): Pin bGPIO10 uses I/O standard 2.5 V at 64 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 92
-    Info (169178): Pin bGPIO11 uses I/O standard 2.5 V at 65 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 92
-    Info (169178): Pin bGPIO12 uses I/O standard 2.5 V at 70 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 92
-    Info (169178): Pin bGPIO13 uses I/O standard 2.5 V at 61 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 92
-    Info (169178): Pin bGPIO14 uses I/O standard 2.5 V at 113 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 92
-    Info (169178): Pin bGPIO15 uses I/O standard 2.5 V at 114 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 92
-    Info (169178): Pin iBusClock uses I/O standard 2.5 V at 26 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 77
-    Info (169178): Pin iBoardReset uses I/O standard 2.5 V at 130 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 83
-    Info (169178): Pin iBusMOSI[0] uses I/O standard 2.5 V at 27 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 79
-    Info (169178): Pin iBusMOSI[1] uses I/O standard 2.5 V at 29 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 79
-    Info (169178): Pin iBusMOSI[2] uses I/O standard 2.5 V at 12 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 79
-    Info (169178): Pin iBusMOSI[3] uses I/O standard 2.5 V at 11 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 79
-    Info (169178): Pin iBusMOSI[4] uses I/O standard 2.5 V at 10 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 79
-    Info (169178): Pin iBusMOSI[5] uses I/O standard 2.5 V at 8 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 79
-    Info (169178): Pin iBusMOSI[6] uses I/O standard 2.5 V at 7 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 79
-    Info (169178): Pin iBusMOSI[7] uses I/O standard 2.5 V at 6 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 79
-    Info (169178): Pin iBusSelect[0] uses I/O standard 2.5 V at 62 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 78
-    Info (169178): Pin iBusSelect[1] uses I/O standard 2.5 V at 66 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 78
-    Info (169178): Pin iTTLSerialRX uses I/O standard 2.5 V at 52 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 89
-    Info (169178): Pin iBoardClock uses I/O standard 2.5 V at 28 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 83
+    Info (169178): Pin iSerialRX uses I/O standard 2.5 V at 79 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 90
+    Info (169178): Pin iSerialCTS uses I/O standard 2.5 V at 78 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 90
+    Info (169178): Pin iSerialDCD uses I/O standard 2.5 V at 76 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 90
+    Info (169178): Pin iSerialDSR uses I/O standard 2.5 V at 69 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 90
+    Info (169178): Pin iTTLSerialRST uses I/O standard 2.5 V at 54 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 93
+    Info (169178): Pin iExtBusMISO[0] uses I/O standard 2.5 V at 99 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 99
+    Info (169178): Pin iExtBusMISO[1] uses I/O standard 2.5 V at 101 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 99
+    Info (169178): Pin iExtBusMISO[2] uses I/O standard 2.5 V at 105 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 99
+    Info (169178): Pin iExtBusMISO[3] uses I/O standard 2.5 V at 110 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 99
+    Info (169178): Pin iExtBusInterrupt uses I/O standard 2.5 V at 119 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 98
+    Info (169178): Pin iSPIMISO uses I/O standard 2.5 V at 43 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 104
+    Info (169178): Pin iSPIDetect0 uses I/O standard 2.5 V at 55 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 104
+    Info (169178): Pin iSPIDetect1 uses I/O standard 2.5 V at 56 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 104
+    Info (169178): Pin iSPIWrite0 uses I/O standard 2.5 V at 57 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 104
+    Info (169178): Pin iSPIWrite1 uses I/O standard 2.5 V at 58 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 104
+    Info (169178): Pin bBoardDebug0 uses I/O standard 2.5 V at 134 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 88
+    Info (169178): Pin bBoardDebug1 uses I/O standard 2.5 V at 15 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 88
+    Info (169178): Pin bBoardDebug2 uses I/O standard 2.5 V at 21 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 88
+    Info (169178): Pin bBoardDebug3 uses I/O standard 2.5 V at 24 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 88
+    Info (169178): Pin bBoardDebug4 uses I/O standard 2.5 V at 22 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 88
+    Info (169178): Pin bBoardDebug5 uses I/O standard 2.5 V at 135 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 88
+    Info (169178): Pin bPS2Data uses I/O standard 2.5 V at 140 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 111
+    Info (169178): Pin bPS2Clock uses I/O standard 2.5 V at 141 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 111
+    Info (169178): Pin bGPIO0 uses I/O standard 2.5 V at 120 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 96
+    Info (169178): Pin bGPIO1 uses I/O standard 2.5 V at 127 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 96
+    Info (169178): Pin bGPIO2 uses I/O standard 2.5 V at 131 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 96
+    Info (169178): Pin bGPIO3 uses I/O standard 2.5 V at 132 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 96
+    Info (169178): Pin bGPIO4 uses I/O standard 2.5 V at 46 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 96
+    Info (169178): Pin bGPIO5 uses I/O standard 2.5 V at 47 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 96
+    Info (169178): Pin bGPIO6 uses I/O standard 2.5 V at 50 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 96
+    Info (169178): Pin bGPIO7 uses I/O standard 2.5 V at 75 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 96
+    Info (169178): Pin bGPIO8 uses I/O standard 2.5 V at 77 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 96
+    Info (169178): Pin bGPIO9 uses I/O standard 2.5 V at 74 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 96
+    Info (169178): Pin bGPIO10 uses I/O standard 2.5 V at 64 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 96
+    Info (169178): Pin bGPIO11 uses I/O standard 2.5 V at 65 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 96
+    Info (169178): Pin bGPIO12 uses I/O standard 2.5 V at 70 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 96
+    Info (169178): Pin bGPIO13 uses I/O standard 2.5 V at 61 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 96
+    Info (169178): Pin bGPIO14 uses I/O standard 2.5 V at 113 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 96
+    Info (169178): Pin bGPIO15 uses I/O standard 2.5 V at 114 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 96
+    Info (169178): Pin iBusClock uses I/O standard 2.5 V at 26 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 81
+    Info (169178): Pin iBoardReset uses I/O standard 2.5 V at 130 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 87
+    Info (169178): Pin iBusSelect[0] uses I/O standard 2.5 V at 62 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 82
+    Info (169178): Pin iBusSelect[1] uses I/O standard 2.5 V at 66 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 82
+    Info (169178): Pin iBusMOSI[2] uses I/O standard 2.5 V at 12 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 83
+    Info (169178): Pin iBusMOSI[3] uses I/O standard 2.5 V at 11 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 83
+    Info (169178): Pin iBusMOSI[4] uses I/O standard 2.5 V at 10 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 83
+    Info (169178): Pin iBusMOSI[5] uses I/O standard 2.5 V at 8 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 83
+    Info (169178): Pin iBusMOSI[1] uses I/O standard 2.5 V at 29 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 83
+    Info (169178): Pin iBusMOSI[0] uses I/O standard 2.5 V at 27 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 83
+    Info (169178): Pin iBusMOSI[6] uses I/O standard 2.5 V at 7 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 83
+    Info (169178): Pin iBusMOSI[7] uses I/O standard 2.5 V at 6 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 83
+    Info (169178): Pin iTTLSerialRX uses I/O standard 2.5 V at 52 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 93
+    Info (169178): Pin iBoardClock uses I/O standard 2.5 V at 28 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 87
 Warning (14579): Pin oBusInterrupt uses I/O standard 2.5 V located at 124 will have lower speed performance due to its location.  Refer to the product datasheet for the supported I/O speed.
 Warning (14579): Pin oBusMISO[0] uses I/O standard 2.5 V located at 14 will have lower speed performance due to its location.  Refer to the product datasheet for the supported I/O speed.
 Warning (14579): Pin oBusMISO[1] uses I/O standard 2.5 V located at 13 will have lower speed performance due to its location.  Refer to the product datasheet for the supported I/O speed.
 Warning (14579): Pin oSPISelect[3] uses I/O standard 2.5 V located at 123 will have lower speed performance due to its location.  Refer to the product datasheet for the supported I/O speed.
-Warning (14579): Pin bBoardDebug0 uses I/O standard 2.5 V located at 22 will have lower speed performance due to its location.  Refer to the product datasheet for the supported I/O speed.
-Warning (14579): Pin bBoardDebug1 uses I/O standard 2.5 V located at 134 will have lower speed performance due to its location.  Refer to the product datasheet for the supported I/O speed.
-Warning (14579): Pin bBoardDebug2 uses I/O standard 2.5 V located at 17 will have lower speed performance due to its location.  Refer to the product datasheet for the supported I/O speed.
-Warning (14579): Pin bBoardDebug3 uses I/O standard 2.5 V located at 25 will have lower speed performance due to its location.  Refer to the product datasheet for the supported I/O speed.
-Warning (14579): Pin bBoardDebug4 uses I/O standard 2.5 V located at 21 will have lower speed performance due to its location.  Refer to the product datasheet for the supported I/O speed.
+Warning (14579): Pin bBoardDebug0 uses I/O standard 2.5 V located at 134 will have lower speed performance due to its location.  Refer to the product datasheet for the supported I/O speed.
+Warning (14579): Pin bBoardDebug1 uses I/O standard 2.5 V located at 15 will have lower speed performance due to its location.  Refer to the product datasheet for the supported I/O speed.
+Warning (14579): Pin bBoardDebug2 uses I/O standard 2.5 V located at 21 will have lower speed performance due to its location.  Refer to the product datasheet for the supported I/O speed.
+Warning (14579): Pin bBoardDebug3 uses I/O standard 2.5 V located at 24 will have lower speed performance due to its location.  Refer to the product datasheet for the supported I/O speed.
+Warning (14579): Pin bBoardDebug4 uses I/O standard 2.5 V located at 22 will have lower speed performance due to its location.  Refer to the product datasheet for the supported I/O speed.
 Warning (14579): Pin bBoardDebug5 uses I/O standard 2.5 V located at 135 will have lower speed performance due to its location.  Refer to the product datasheet for the supported I/O speed.
 Warning (14579): Pin bPS2Data uses I/O standard 2.5 V located at 140 will have lower speed performance due to its location.  Refer to the product datasheet for the supported I/O speed.
 Warning (14579): Pin bPS2Clock uses I/O standard 2.5 V located at 141 will have lower speed performance due to its location.  Refer to the product datasheet for the supported I/O speed.
@@ -1767,20 +1700,20 @@ Warning (14579): Pin iBusMOSI[5] uses I/O standard 2.5 V located at 8 will have 
 Warning (14579): Pin iBusMOSI[6] uses I/O standard 2.5 V located at 7 will have lower speed performance due to its location.  Refer to the product datasheet for the supported I/O speed.
 Warning (14579): Pin iBusMOSI[7] uses I/O standard 2.5 V located at 6 will have lower speed performance due to its location.  Refer to the product datasheet for the supported I/O speed.
 Warning (169064): Following 8 pins have no output enable or a GND or VCC output enable - later changes to this connectivity may change fitting results
-    Info (169065): Pin bBoardDebug0 has a permanently disabled output enable File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 84
-    Info (169065): Pin bBoardDebug1 has a permanently disabled output enable File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 84
-    Info (169065): Pin bBoardDebug2 has a permanently disabled output enable File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 84
-    Info (169065): Pin bBoardDebug3 has a permanently disabled output enable File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 84
-    Info (169065): Pin bBoardDebug4 has a permanently disabled output enable File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 84
-    Info (169065): Pin bBoardDebug5 has a permanently disabled output enable File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 84
-    Info (169065): Pin bPS2Data has a permanently disabled output enable File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 107
-    Info (169065): Pin bPS2Clock has a permanently disabled output enable File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 107
+    Info (169065): Pin bBoardDebug0 has a permanently disabled output enable File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 88
+    Info (169065): Pin bBoardDebug1 has a permanently disabled output enable File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 88
+    Info (169065): Pin bBoardDebug2 has a permanently disabled output enable File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 88
+    Info (169065): Pin bBoardDebug3 has a permanently disabled output enable File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 88
+    Info (169065): Pin bBoardDebug4 has a permanently disabled output enable File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 88
+    Info (169065): Pin bBoardDebug5 has a permanently disabled output enable File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 88
+    Info (169065): Pin bPS2Data has a permanently disabled output enable File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 111
+    Info (169065): Pin bPS2Clock has a permanently disabled output enable File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 111
 Info (144001): Generated suppressed messages file /home/jclemme/Projects/eprisc-open-computer/firmware/io/aux_project/output_files/epRISC_Controller.fit.smsg
-Info: Quartus Prime Fitter was successful. 0 errors, 32 warnings
-    Info: Peak virtual memory: 1592 megabytes
-    Info: Processing ended: Fri Mar 17 21:45:32 2017
-    Info: Elapsed time: 00:00:07
-    Info: Total CPU time (on all processors): 00:00:10
+Info: Quartus Prime Fitter was successful. 0 errors, 31 warnings
+    Info: Peak virtual memory: 1614 megabytes
+    Info: Processing ended: Sun Mar 26 11:42:49 2017
+    Info: Elapsed time: 00:00:08
+    Info: Total CPU time (on all processors): 00:00:12
 
 
 +----------------------------+

@@ -129,7 +129,7 @@ module epRISC_core(iClk, iRst, oAddr, bData, oWrite, iMaskInt, iNonMaskInt, oHal
     
     
     //Assignment - system 
-    assign oAddr = (rPipeState == `sPipeFetch) ? rRegIP : (((mLoad || mBranchSaveStack || mBranchLoadStack) && rPipeState == `sPipeMemory) ? rRegR[31:0] : 32'h0);
+    assign oAddr = (rPipeState == `sPipeFetch) ? rRegIP : (mLoad && (fLoadBase != 4'h1 || fCSHideRegs) && rPipeState == `sPipeMemory) ? rRegR[31:0] : (((mLoadLoad && fLoadBase == 4'h1 && !fCSHideRegs) || mBranchLoadStack) && rPipeState == `sPipeMemory) ? (rRegSP-32'h1) : (((mLoadStore && fLoadBase == 4'h1 && !fCSHideRegs) || mBranchSaveStack) && rPipeState == `sPipeMemory) ? rRegSP : 32'h0;
     assign oWrite = (rPipeState == `sPipeMemory && (mLoadStore || mBranchSaveStack)) ? 1'b1 : 1'b0;
     assign bData = (!oWrite) ? 32'bz : rRegM;
     
@@ -139,10 +139,10 @@ module epRISC_core(iClk, iRst, oAddr, bData, oWrite, iMaskInt, iNonMaskInt, oHal
     // Assignment - instruction flags
     assign mBranch = (rInst[31] == 1'b1) ? 1'b1 : 1'b0;
     assign mBranchStandard = (mBranch && rInst[30:28] == 3'b000) ? 1'b1 : 1'b0;
-    assign mBranchSaveStack = (mBranch && rInst[30:28] == 3'b100) ? 1'b1 : 1'b0;
-    assign mBranchSaveLink = (mBranch && rInst[30:28] == 3'b101) ? 1'b1 : 1'b0;
-    assign mBranchLoadStack = (mBranch && rInst[30:28] == 3'b110) ? 1'b1 : 1'b0;
-    assign mBranchLoadLink = (mBranch && rInst[30:28] == 3'b111) ? 1'b1 : 1'b0;
+    assign mBranchSaveStack = (mBranch && rInst[30:28] == 3'b101) ? 1'b1 : 1'b0;
+    assign mBranchSaveLink = (mBranch && rInst[30:28] == 3'b100) ? 1'b1 : 1'b0;
+    assign mBranchLoadStack = (mBranch && rInst[30:28] == 3'b111) ? 1'b1 : 1'b0;
+    assign mBranchLoadLink = (mBranch && rInst[30:28] == 3'b110) ? 1'b1 : 1'b0;
     assign mBranchInterrupt = (mBranch && rInst[30:28] == 3'b011) ? 1'b1 : 1'b0;
     assign mLoad = (rInst[31:30] == 1'b1) ? 1'b1 : 1'b0;
     assign mLoadLoad = (mLoad && rInst[29] == 1'b0) ? 1'b1 : 1'b0;
@@ -184,7 +184,7 @@ module epRISC_core(iClk, iRst, oAddr, bData, oWrite, iMaskInt, iNonMaskInt, oHal
     assign fCSHideRegs = rRegCS[7];
     assign fCSInterruptEn = rRegCS[6];
     assign fCSSignExtend = rRegCS[5];
-    assign fCSFlagSet = rRegCS[4];
+    assign fCSFlagSet = !rRegCS[4];
     assign fCSCarry = rRegCS[3];
     assign fCSZero = rRegCS[2];
     assign fCSNeg = rRegCS[1];
@@ -251,13 +251,19 @@ module epRISC_core(iClk, iRst, oAddr, bData, oWrite, iMaskInt, iNonMaskInt, oHal
             if(rPipeState == `sPipeWriteback) begin
                 if(mBranch) begin
                     if(mBranchLoadStack) begin
-                        rRegIP <= rRegM;
+                        rRegIP <= rRegM + 32'h1;
                     end else if(mBranchInterrupt) begin
-                        rRegIP <= rRegInterruptStack[95:64];
+                        rRegIP <= rRegInterruptStack[95:64] + 32'h1;
                     end else begin
                         rRegIP <= rRegR[31:0];
                     end
                 end else if(mCore && fCoreOperation == 6'h1 && fCSInterruptEn) begin
+                    rRegIP <= rRegInterruptBase + fCoreData;
+                end else begin
+                    rRegIP <= rRegIP + 32'h1;
+                end
+            end else if(rPipeState == `sPipeWriteSkip) begin
+                if(mCore && fCoreOperation == 6'h1 && fCSInterruptEn) begin
                     rRegIP <= rRegInterruptBase + fCoreData;
                 end else begin
                     rRegIP <= rRegIP + 32'h1;
@@ -273,9 +279,9 @@ module epRISC_core(iClk, iRst, oAddr, bData, oWrite, iMaskInt, iNonMaskInt, oHal
             rRegSP <= 32'h0;
         end else begin
             if(rPipeState == `sPipeWriteback) begin
-                if(!fCSHideRegs && (mBranchSaveStack || (mLoadStore && fLoadBase == 4'h1))) begin
+                if(mBranchSaveStack || ((!fCSHideRegs && (mBranchSaveStack || (mLoadStore && fLoadBase == 4'h1))))) begin
                     rRegSP <= rRegSP + 32'h1;
-                end else if(!fCSHideRegs && (mBranchLoadStack || (mLoadLoad && fLoadBase == 4'h1))) begin
+                end else if(mBranchLoadStack || (!fCSHideRegs && (mBranchLoadStack || (mLoadLoad && fLoadBase == 4'h1)))) begin
                     rRegSP <= rRegSP - 32'h1;
                 end else begin
                     if(!fCSHideRegs && wBusOutAddrA == 32'h1 && wBusOutWriteA)
@@ -350,7 +356,7 @@ module epRISC_core(iClk, iRst, oAddr, bData, oWrite, iMaskInt, iNonMaskInt, oHal
         end else begin
             if(rPipeState == `sPipeDecode) begin
                 if(mBranch)
-                    rRegB <= (32'hFFF00000 + fBranchOffset);
+                    rRegB <= (fBranchOffset[19]) ? (32'hFFF00000 + fBranchOffset) : (fBranchOffset);
                 else if(mLoad)
                     rRegB <= (fCSSignExtend) ? (32'hFFF00000 + fLoadOffset) : (fLoadOffset);
                 else if(mDirect)
@@ -401,7 +407,7 @@ module epRISC_core(iClk, iRst, oAddr, bData, oWrite, iMaskInt, iNonMaskInt, oHal
     // Arithmetic logic unit 
     always @(*) begin
         case(wALUOperation)
-            0: rALUOut = rRegA + rRegB + fCSCarry;
+            0: rALUOut = (mALU) ? (rRegA + rRegB + fCSCarry) : (rRegA + rRegB);
             1: rALUOut = rRegA - (rRegB + fCSCarry);
             2: rALUOut = rRegA & rRegB;
             3: rALUOut = rRegA | rRegB;

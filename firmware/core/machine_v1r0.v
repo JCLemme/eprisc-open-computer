@@ -113,7 +113,7 @@ module epRISC_machine(iBoardClock, iBoardReset, iBoardSense, oBoardAcknowledge, 
     
     epRISC_embeddedROM  tbrom(wCoreBusMemClock, wCoreBusAddress, wCoreBusData, wEnableROM); 
 
-    BusConverter        bcram(wEnableRAM&&(!iWrite), wRAMData, wCoreBusData);
+    BusConverter        bcram(wEnableRAM&&(!wCoreBusWrite), wRAMData, wCoreBusData);
     `ifdef EMULATED
     epRISC_testRAM      tbram(wCoreBusAddress, wCoreBusMemClock, wCoreBusData, wCoreBusWrite, wRAMData); 
     `else

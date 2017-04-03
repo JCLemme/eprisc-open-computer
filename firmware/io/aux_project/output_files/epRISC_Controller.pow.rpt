@@ -1,5 +1,5 @@
 PowerPlay Power Analyzer report for epRISC_Controller
-Fri Mar 17 21:45:40 2017
+Sun Mar 26 11:42:58 2017
 Quartus Prime Version 16.0.0 Build 211 04/27/2016 SJ Lite Edition
 
 
@@ -58,14 +58,14 @@ agreement for further details.
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processors 2-4         ;  11.6%      ;
+;     Processors 2-4         ;  11.7%      ;
 +----------------------------+-------------+
 
 
 +-------------------------------------------------------------------------------------------+
 ; PowerPlay Power Analyzer Summary                                                          ;
 +----------------------------------------+--------------------------------------------------+
-; PowerPlay Power Analyzer Status        ; Successful - Fri Mar 17 21:45:40 2017            ;
+; PowerPlay Power Analyzer Status        ; Successful - Sun Mar 26 11:42:58 2017            ;
 ; Quartus Prime Version                  ; 16.0.0 Build 211 04/27/2016 SJ Lite Edition      ;
 ; Revision Name                          ; epRISC_Controller                                ;
 ; Top-level Entity Name                  ; epRISC_iocontroller                              ;
@@ -153,21 +153,19 @@ agreement for further details.
 ; bGPIO15                                                                                          ; No valid clock domain found ;
 ; iBusClock                                                                                        ; No valid clock domain found ;
 ; iBoardReset                                                                                      ; No valid clock domain found ;
-; iBusMOSI[0]                                                                                      ; No valid clock domain found ;
-; iBusMOSI[1]                                                                                      ; No valid clock domain found ;
+; iBusSelect[0]                                                                                    ; No valid clock domain found ;
+; iBusSelect[1]                                                                                    ; No valid clock domain found ;
 ; iBusMOSI[2]                                                                                      ; No valid clock domain found ;
 ; iBusMOSI[3]                                                                                      ; No valid clock domain found ;
 ; iBusMOSI[4]                                                                                      ; No valid clock domain found ;
 ; iBusMOSI[5]                                                                                      ; No valid clock domain found ;
+; iBusMOSI[1]                                                                                      ; No valid clock domain found ;
+; iBusMOSI[0]                                                                                      ; No valid clock domain found ;
 ; iBusMOSI[6]                                                                                      ; No valid clock domain found ;
 ; iBusMOSI[7]                                                                                      ; No valid clock domain found ;
-; iBusSelect[0]                                                                                    ; No valid clock domain found ;
-; iBusSelect[1]                                                                                    ; No valid clock domain found ;
 ; iTTLSerialRX                                                                                     ; No valid clock domain found ;
 ; iBoardClock                                                                                      ; No valid clock domain found ;
 ; iBusClock~inputclkctrl                                                                           ; No valid clock domain found ;
-; epRISC_UART:uart|Mux6~0clkctrl                                                                   ; No valid clock domain found ;
-; epRISC_UART:uart|Mux1~0clkctrl                                                                   ; No valid clock domain found ;
 ; OnChipPLL:clock|altpll:altpll_component|OnChipPLL_altpll:auto_generated|wire_pll1_clk[0]~clkctrl ; No valid clock domain found ;
 +--------------------------------------------------------------------------------------------------+-----------------------------+
 
@@ -203,37 +201,37 @@ agreement for further details.
 (1) The "Thermal Power Dissipation by Block" Table has been hidden. To show this table, please select the "Write power dissipation by block to report file" option under "PowerPlay Power Analyzer Settings".
 
 
-+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Thermal Power Dissipation by Block Type                                                                                                                                                                            ;
-+---------------------+-----------------------------------+-----------------------------+--------------------------------+-------------------------------+-----------------------------------------------------------+
-; Block Type          ; Total Thermal Power by Block Type ; Block Thermal Dynamic Power ; Block Thermal Static Power (1) ; Routing Thermal Dynamic Power ; Block Average Toggle Rate (millions of transitions / sec) ;
-+---------------------+-----------------------------------+-----------------------------+--------------------------------+-------------------------------+-----------------------------------------------------------+
-; M9K                 ; 0.00 mW                           ; 0.00 mW                     ; --                             ; 0.00 mW                       ;    0.000                                                  ;
-; Combinational cell  ; 0.00 mW                           ; 0.00 mW                     ; --                             ; 0.00 mW                       ;    0.000                                                  ;
-; Clock control block ; 0.00 mW                           ; 0.00 mW                     ; --                             ; 0.00 mW                       ;    0.000                                                  ;
-; Register cell       ; 0.00 mW                           ; 0.00 mW                     ; --                             ; 0.00 mW                       ;    0.000                                                  ;
-; I/O                 ; 0.47 mW                           ; 0.00 mW                     ; 0.47 mW                        ; 0.00 mW                       ;    0.000                                                  ;
-; Voltage Regulator   ; 0.96 mW                           ; 0.00 mW                     ; 0.96 mW                        ; --                            ; --                                                        ;
-+---------------------+-----------------------------------+-----------------------------+--------------------------------+-------------------------------+-----------------------------------------------------------+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Thermal Power Dissipation by Block Type                                                                                                                                                                           ;
++--------------------+-----------------------------------+-----------------------------+--------------------------------+-------------------------------+-----------------------------------------------------------+
+; Block Type         ; Total Thermal Power by Block Type ; Block Thermal Dynamic Power ; Block Thermal Static Power (1) ; Routing Thermal Dynamic Power ; Block Average Toggle Rate (millions of transitions / sec) ;
++--------------------+-----------------------------------+-----------------------------+--------------------------------+-------------------------------+-----------------------------------------------------------+
+; M9K                ; 0.00 mW                           ; 0.00 mW                     ; --                             ; 0.00 mW                       ;    0.000                                                  ;
+; Combinational cell ; 0.00 mW                           ; 0.00 mW                     ; --                             ; 0.00 mW                       ;    0.000                                                  ;
+; Register cell      ; 0.00 mW                           ; 0.00 mW                     ; --                             ; 0.00 mW                       ;    0.000                                                  ;
+; I/O                ; 0.47 mW                           ; 0.00 mW                     ; 0.47 mW                        ; 0.00 mW                       ;    0.000                                                  ;
+; Voltage Regulator  ; 0.96 mW                           ; 0.00 mW                     ; 0.96 mW                        ; --                            ; --                                                        ;
++--------------------+-----------------------------------+-----------------------------+--------------------------------+-------------------------------+-----------------------------------------------------------+
 (1) The "Block Thermal Static Power" for all block types except Pins and the Voltage Regulator, if one exists, is part of the "Core Static Thermal Power Dissipation" value found on the PowerPlay Power Analyzer-->Summary report panel. The "Core Static Thermal Power Dissipation" also contains the thermal static power dissipated by the routing.
 
 
-+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Thermal Power Dissipation by Hierarchy                                                                                                                                                                                                                                                               ;
-+----------------------------------------------+--------------------------------------+---------------------------------+-----------------------------------+-----------------------------------+------------------------------------------------------------------------------------------------------+
-; Compilation Hierarchy Node                   ; Total Thermal Power by Hierarchy (1) ; Block Thermal Dynamic Power (1) ; Block Thermal Static Power (1)(2) ; Routing Thermal Dynamic Power (1) ; Full Hierarchy Name                                                                                  ;
-+----------------------------------------------+--------------------------------------+---------------------------------+-----------------------------------+-----------------------------------+------------------------------------------------------------------------------------------------------+
-; |epRISC_iocontroller                         ; 1.43 mW (1.43 mW)                    ; 0.00 mW (0.00 mW)               ; 1.43 mW (1.43 mW)                 ; 0.00 mW (0.00 mW)                 ; |epRISC_iocontroller                                                                                 ;
-;     |hard_block:auto_generated_inst          ; 0.00 mW (0.00 mW)                    ; 0.00 mW (0.00 mW)               ; --                                ; 0.00 mW (0.00 mW)                 ; |epRISC_iocontroller|hard_block:auto_generated_inst                                                  ;
-;     |OnChipPLL:clock                         ; 0.00 mW (0.00 mW)                    ; 0.00 mW (0.00 mW)               ; --                                ; 0.00 mW (0.00 mW)                 ; |epRISC_iocontroller|OnChipPLL:clock                                                                 ;
-;         |altpll:altpll_component             ; 0.00 mW (0.00 mW)                    ; 0.00 mW (0.00 mW)               ; --                                ; 0.00 mW (0.00 mW)                 ; |epRISC_iocontroller|OnChipPLL:clock|altpll:altpll_component                                         ;
-;             |OnChipPLL_altpll:auto_generated ; 0.00 mW (0.00 mW)                    ; 0.00 mW (0.00 mW)               ; --                                ; 0.00 mW (0.00 mW)                 ; |epRISC_iocontroller|OnChipPLL:clock|altpll:altpll_component|OnChipPLL_altpll:auto_generated         ;
-;     |epRISC_GPIO:gpio                        ; 0.00 mW (0.00 mW)                    ; 0.00 mW (0.00 mW)               ; --                                ; 0.00 mW (0.00 mW)                 ; |epRISC_iocontroller|epRISC_GPIO:gpio                                                                ;
-;     |epRISC_controlRAM:mem                   ; 0.00 mW (0.00 mW)                    ; 0.00 mW (0.00 mW)               ; --                                ; 0.00 mW (0.00 mW)                 ; |epRISC_iocontroller|epRISC_controlRAM:mem                                                           ;
-;         |altsyncram:rContents_rtl_0          ; 0.00 mW (0.00 mW)                    ; 0.00 mW (0.00 mW)               ; --                                ; 0.00 mW (0.00 mW)                 ; |epRISC_iocontroller|epRISC_controlRAM:mem|altsyncram:rContents_rtl_0                                ;
-;             |altsyncram_0ec1:auto_generated  ; 0.00 mW (0.00 mW)                    ; 0.00 mW (0.00 mW)               ; --                                ; 0.00 mW (0.00 mW)                 ; |epRISC_iocontroller|epRISC_controlRAM:mem|altsyncram:rContents_rtl_0|altsyncram_0ec1:auto_generated ;
-;     |epRISC_UART:uart                        ; 0.00 mW (0.00 mW)                    ; 0.00 mW (0.00 mW)               ; --                                ; 0.00 mW (0.00 mW)                 ; |epRISC_iocontroller|epRISC_UART:uart                                                                ;
-+----------------------------------------------+--------------------------------------+---------------------------------+-----------------------------------+-----------------------------------+------------------------------------------------------------------------------------------------------+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Thermal Power Dissipation by Hierarchy                                                                                                                                                                                                                                                                ;
++----------------------------------------------+--------------------------------------+---------------------------------+-----------------------------------+-----------------------------------+-------------------------------------------------------------------------------------------------------+
+; Compilation Hierarchy Node                   ; Total Thermal Power by Hierarchy (1) ; Block Thermal Dynamic Power (1) ; Block Thermal Static Power (1)(2) ; Routing Thermal Dynamic Power (1) ; Full Hierarchy Name                                                                                   ;
++----------------------------------------------+--------------------------------------+---------------------------------+-----------------------------------+-----------------------------------+-------------------------------------------------------------------------------------------------------+
+; |epRISC_iocontroller                         ; 1.43 mW (1.43 mW)                    ; 0.00 mW (0.00 mW)               ; 1.43 mW (1.43 mW)                 ; 0.00 mW (0.00 mW)                 ; |epRISC_iocontroller                                                                                  ;
+;     |hard_block:auto_generated_inst          ; 0.00 mW (0.00 mW)                    ; 0.00 mW (0.00 mW)               ; --                                ; 0.00 mW (0.00 mW)                 ; |epRISC_iocontroller|hard_block:auto_generated_inst                                                   ;
+;     |epRISC_controlRAM:bmem                  ; 0.00 mW (0.00 mW)                    ; 0.00 mW (0.00 mW)               ; --                                ; 0.00 mW (0.00 mW)                 ; |epRISC_iocontroller|epRISC_controlRAM:bmem                                                           ;
+;         |altsyncram:rContents_rtl_0          ; 0.00 mW (0.00 mW)                    ; 0.00 mW (0.00 mW)               ; --                                ; 0.00 mW (0.00 mW)                 ; |epRISC_iocontroller|epRISC_controlRAM:bmem|altsyncram:rContents_rtl_0                                ;
+;             |altsyncram_0ec1:auto_generated  ; 0.00 mW (0.00 mW)                    ; 0.00 mW (0.00 mW)               ; --                                ; 0.00 mW (0.00 mW)                 ; |epRISC_iocontroller|epRISC_controlRAM:bmem|altsyncram:rContents_rtl_0|altsyncram_0ec1:auto_generated ;
+;     |epRISC_SPI:bspi                         ; 0.00 mW (0.00 mW)                    ; 0.00 mW (0.00 mW)               ; --                                ; 0.00 mW (0.00 mW)                 ; |epRISC_iocontroller|epRISC_SPI:bspi                                                                  ;
+;     |OnChipPLL:clock                         ; 0.00 mW (0.00 mW)                    ; 0.00 mW (0.00 mW)               ; --                                ; 0.00 mW (0.00 mW)                 ; |epRISC_iocontroller|OnChipPLL:clock                                                                  ;
+;         |altpll:altpll_component             ; 0.00 mW (0.00 mW)                    ; 0.00 mW (0.00 mW)               ; --                                ; 0.00 mW (0.00 mW)                 ; |epRISC_iocontroller|OnChipPLL:clock|altpll:altpll_component                                          ;
+;             |OnChipPLL_altpll:auto_generated ; 0.00 mW (0.00 mW)                    ; 0.00 mW (0.00 mW)               ; --                                ; 0.00 mW (0.00 mW)                 ; |epRISC_iocontroller|OnChipPLL:clock|altpll:altpll_component|OnChipPLL_altpll:auto_generated          ;
+;     |epRISC_GPIO:gpio                        ; 0.00 mW (0.00 mW)                    ; 0.00 mW (0.00 mW)               ; --                                ; 0.00 mW (0.00 mW)                 ; |epRISC_iocontroller|epRISC_GPIO:gpio                                                                 ;
+;     |epRISC_UART:uart                        ; 0.00 mW (0.00 mW)                    ; 0.00 mW (0.00 mW)               ; --                                ; 0.00 mW (0.00 mW)                 ; |epRISC_iocontroller|epRISC_UART:uart                                                                 ;
++----------------------------------------------+--------------------------------------+---------------------------------+-----------------------------------+-----------------------------------+-------------------------------------------------------------------------------------------------------+
 (1) Value in parentheses is the power consumed at that level of hierarchy. Value not in parentheses is the power consumed at that level of hierarchy plus the power consumed by all levels of hierarchy below it.
 
 (2) The "Block Thermal Static Power" for all levels of hierarchy except the top-level hierarchy is part of the "Core Static Thermal Power Dissipation" value found on the PowerPlay Power Analyzer-->Summary report panel. The "Core Static Thermal Power Dissipation" also contains the thermal static power dissipated by the routing.
@@ -300,19 +298,19 @@ agreement for further details.
 ;                                                                                        ;             ;            ;              ;               ;
 ; Node, entity or clock assignment                                                       ;             ;            ;              ;               ;
 ;     -- Number of signals with Toggle Rate from Node, entity or clock assignment        ; 0 (0.0%)    ; 0 (0.0%)   ; 0 (0.0%)     ; 0 (0.0%)      ;
-;     -- Number of signals with Static Probability from Node, entity or clock assignment ; 4 (0.5%)    ; 0 (0.0%)   ; 0 (0.0%)     ; 4 (0.9%)      ;
+;     -- Number of signals with Static Probability from Node, entity or clock assignment ; 2 (0.2%)    ; 0 (0.0%)   ; 0 (0.0%)     ; 2 (0.4%)      ;
 ;                                                                                        ;             ;            ;              ;               ;
 ; Vectorless estimation                                                                  ;             ;            ;              ;               ;
-;     -- Number of signals with Toggle Rate from Vectorless estimation                   ; 695 (91.9%) ; 61 (50.4%) ; 167 (100.0%) ; 467 (99.8%)   ;
-;     -- Number of signals with Zero toggle rate, from Vectorless estimation             ; 120 (15.9%) ; 35 (28.9%) ; 0 (0.0%)     ; 85 (18.2%)    ;
-;     -- Number of signals with Static Probability from Vectorless estimation            ; 691 (91.4%) ; 61 (50.4%) ; 167 (100.0%) ; 463 (98.9%)   ;
+;     -- Number of signals with Toggle Rate from Vectorless estimation                   ; 810 (93.0%) ; 61 (50.4%) ; 210 (100.0%) ; 539 (99.8%)   ;
+;     -- Number of signals with Zero toggle rate, from Vectorless estimation             ; 117 (13.4%) ; 34 (28.1%) ; 0 (0.0%)     ; 83 (15.4%)    ;
+;     -- Number of signals with Static Probability from Vectorless estimation            ; 808 (92.8%) ; 61 (50.4%) ; 210 (100.0%) ; 537 (99.4%)   ;
 ;                                                                                        ;             ;            ;              ;               ;
 ; Default assignment                                                                     ;             ;            ;              ;               ;
 ;     -- Number of signals with Toggle Rate from Default assignment                      ; 0 (0.0%)    ; 0 (0.0%)   ; 0 (0.0%)     ; 0 (0.0%)      ;
-;     -- Number of signals with Static Probability from Default assignment               ; 61 (8.1%)   ; 60 (49.6%) ; 0 (0.0%)     ; 1 (0.2%)      ;
+;     -- Number of signals with Static Probability from Default assignment               ; 61 (7.0%)   ; 60 (49.6%) ; 0 (0.0%)     ; 1 (0.2%)      ;
 ;                                                                                        ;             ;            ;              ;               ;
 ; Assumed 0                                                                              ;             ;            ;              ;               ;
-;     -- Number of signals with Toggle Rate assumed 0                                    ; 61 (8.1%)   ; 60 (49.6%) ; 0 (0.0%)     ; 1 (0.2%)      ;
+;     -- Number of signals with Toggle Rate assumed 0                                    ; 61 (7.0%)   ; 60 (49.6%) ; 0 (0.0%)     ; 1 (0.2%)      ;
 +----------------------------------------------------------------------------------------+-------------+------------+--------------+---------------+
 
 
@@ -330,21 +328,16 @@ agreement for further details.
 Info: *******************************************************************
 Info: Running Quartus Prime PowerPlay Power Analyzer
     Info: Version 16.0.0 Build 211 04/27/2016 SJ Lite Edition
-    Info: Processing started: Fri Mar 17 21:45:39 2017
+    Info: Processing started: Sun Mar 26 11:42:56 2017
 Info: Command: quartus_pow --read_settings_files=off --write_settings_files=off epRISC_Auxiliary -c epRISC_Controller
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (21077): Low junction temperature is 0 degrees C
 Info (21077): High junction temperature is 85 degrees C
-Warning (335093): TimeQuest Timing Analyzer is analyzing 8 combinational loops as latches. For more details, run the Check Timing command in the TimeQuest Timing Analyzer or view the "User-Specified and Inferred Latches" table in the Analysis & Synthesis report.
 Critical Warning (332012): Synopsys Design Constraints File file not found: 'epRISC_Controller.sdc'. A Synopsys Design Constraints File is required by the TimeQuest Timing Analyzer to get proper timing constraints. Without it, the Compiler will not properly optimize the design.
 Warning (332060): Node: iBusClock was determined to be a clock but was found without an associated clock assignment.
     Info (13166): Register epRISC_GPIO:gpio|oInterrupt is being clocked by iBusClock
 Warning (332060): Node: iBoardClock was determined to be a clock but was found without an associated clock assignment.
-    Info (13166): Register epRISC_UART:uart|rRecvPrevState[2] is being clocked by iBoardClock
-Warning (332060): Node: epRISC_UART:uart|rRecvState[0] was determined to be a clock but was found without an associated clock assignment.
-    Info (13166): Latch epRISC_UART:uart|rRecvNextState[1] is being clocked by epRISC_UART:uart|rRecvState[0]
-Warning (332060): Node: epRISC_UART:uart|rSendState[0] was determined to be a clock but was found without an associated clock assignment.
-    Info (13166): Latch epRISC_UART:uart|rSendNextState[3] is being clocked by epRISC_UART:uart|rSendState[0]
+    Info (13166): Register epRISC_UART:uart|rRecvCountAck[4] is being clocked by iBoardClock
 Warning (332068): No clocks defined in design.
 Warning (332056): PLL cross checking found inconsistent PLL clock settings:
     Warning (332056): Node: clock|altpll_component|auto_generated|pll1|clk[0] was found missing 1 generated clock that corresponds to a base clock with a period of: 20.000
@@ -356,10 +349,10 @@ Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
 Info (215049): Average toggle rate for this design is 0.000 millions of transitions / sec
 Info (215031): Total thermal power estimate for the design is 232.93 mW
-Info: Quartus Prime PowerPlay Power Analyzer was successful. 0 errors, 11 warnings
-    Info: Peak virtual memory: 1249 megabytes
-    Info: Processing ended: Fri Mar 17 21:45:41 2017
+Info: Quartus Prime PowerPlay Power Analyzer was successful. 0 errors, 8 warnings
+    Info: Peak virtual memory: 1248 megabytes
+    Info: Processing ended: Sun Mar 26 11:42:58 2017
     Info: Elapsed time: 00:00:02
-    Info: Total CPU time (on all processors): 00:00:02
+    Info: Total CPU time (on all processors): 00:00:03
 
 

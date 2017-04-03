@@ -44,6 +44,10 @@
 					"strict" : false
 				},
 				{
+					"name" : "oSPIMOSI",
+					"strict" : false
+				},
+				{
 					"name" : "bGPIO0",
 					"strict" : false
 				},
@@ -116,11 +120,11 @@
 					"strict" : false
 				},
 				{
-					"name" : "iBusMOSI[0]",
+					"name" : "iBusSelect[0]",
 					"strict" : false
 				},
 				{
-					"name" : "iBusMOSI[1]",
+					"name" : "iBusSelect[1]",
 					"strict" : false
 				},
 				{
@@ -140,19 +144,19 @@
 					"strict" : false
 				},
 				{
+					"name" : "iBusMOSI[1]",
+					"strict" : false
+				},
+				{
+					"name" : "iBusMOSI[0]",
+					"strict" : false
+				},
+				{
 					"name" : "iBusMOSI[6]",
 					"strict" : false
 				},
 				{
 					"name" : "iBusMOSI[7]",
-					"strict" : false
-				},
-				{
-					"name" : "iBusSelect[0]",
-					"strict" : false
-				},
-				{
-					"name" : "iBusSelect[1]",
 					"strict" : false
 				},
 				{

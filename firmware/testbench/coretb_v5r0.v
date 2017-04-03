@@ -22,7 +22,7 @@ module epRISC_coreTB();
     wire iSerialRX, iSerialCTS, iSerialDCD, iSerialDSR;
     wire oSerialDTR, oSerialRTS, oSerialTX;
 
-    wire iTTLSerialRX, iTTLSerialRST;
+    reg iTTLSerialRX, iTTLSerialRST;
     wire oTTLSerialTX;
                           
     wire bGPIO0, bGPIO1, bGPIO2, bGPIO3, bGPIO4, bGPIO5, bGPIO6, bGPIO7, bGPIO8, bGPIO9, bGPIO10, bGPIO11, bGPIO12, bGPIO13, bGPIO14, bGPIO15;
@@ -63,6 +63,7 @@ module epRISC_coreTB();
         
         iBoardClock = 0;
         iBoardReset = 1;
+        iTTLSerialRX <= 1;
     end
     
     initial #5 begin
@@ -74,10 +75,18 @@ module epRISC_coreTB();
     end
    
     initial begin
-        forever iBoardClock = #4 !iBoardClock;
+        forever iBoardClock = #2 !iBoardClock;
     end
-    
-    initial #40000 begin
+   
+    initial #20000 begin
+        iTTLSerialRX <= 0;
+    end
+
+    initial #21220 begin
+        iTTLSerialRX <= 1;
+    end
+
+    initial #10000000 begin
         $finish;
     end
     

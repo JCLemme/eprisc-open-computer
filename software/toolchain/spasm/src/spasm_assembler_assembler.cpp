@@ -149,7 +149,7 @@ std::vector<uint32_t> Assembler::assemble(std::vector<ProgramToken> file)
                             log->print("assembler: file \"" + progToken.originalLine.sourceFile + "\": line " + std::to_string(progToken.originalLine.sourceLineNum) + ": Argument match with a non-address data type? How did this even happen?", MTYP_EROR);
                         }
                         
-                        int32_t tmpValue = baseValue - progToken.address;
+                        int32_t tmpValue = baseValue - progToken.address - ((baseValue <= progToken.address) ? 0 : 0);
                         baseValue = (uint32_t)tmpValue;
                     }
                     break;
