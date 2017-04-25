@@ -97,9 +97,9 @@ module epRISC_machine(iBoardClock, iBoardReset, iBoardSense, oBoardAcknowledge, 
     assign wCoreBusReset = !iBoardReset;
     assign wCoreBusNMInterrupt = 0;
 
-    assign wEnableROM = (wCoreBusAddress >= 32'h0 && wCoreBusAddress < 32'hFF) ? 1'h1 : 1'h0;
-    assign wEnableRAM = (wCoreBusAddress >= 32'h100 && wCoreBusAddress < 32'h1FF) ? 1'h1 : 1'h0;
-    assign wEnableBusControl = (wCoreBusAddress >= 32'h200 && wCoreBusAddress < 32'h210) ? 1'h1 : 1'h0;
+    assign wEnableROM = (wCoreBusAddress >= 32'h0 && wCoreBusAddress < 32'h3FF) ? 1'h1 : 1'h0;
+    assign wEnableRAM = (wCoreBusAddress >= 32'h400 && wCoreBusAddress < 32'h7FF) ? 1'h1 : 1'h0;
+    assign wEnableBusControl = (wCoreBusAddress >= 32'h800 && wCoreBusAddress < 32'h810) ? 1'h1 : 1'h0;
     
     // Modules on the FSB
     `ifdef EMULATED

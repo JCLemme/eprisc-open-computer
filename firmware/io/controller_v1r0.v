@@ -154,7 +154,7 @@ module epRISC_iocontroller(iBusClock, iBusSelect, iBusMOSI, oBusInterrupt, oBusM
                              
     epRISC_UART         uart(iBusClock, mBusReset, oBvusInterrupt, mBusAddress, mBusData, wInternalMISO, mBusWrite, wEnableUART, wSerialClock, iTTLSerialRX, oTTLSerialTX);   
     
-    epRISC_SPI          bspi(iBusClock, mBusReset, oBrusInterrupt, mBusAddress, mBusData, wInternalMISO, mBusWrite, wEnableSPI, wSPICLock, iSPIMISO, oSPIMOSI, oSPISelect, oSPIClock);
+    epRISC_SPI          bspi(iBusClock, mBusReset, oBrusInterrupt, mBusAddress, mBusData, wInternalMISO, mBusWrite, wEnableSPI, wSPIClock, iSPIMISO, oSPIMOSI, oSPISelect, oSPIClock);
     
     epRISC_controlRAM   bmem(iBusClock, mBusReset, mBusAddress, rInternalMOSI, wInternalMISO, mBusWrite, wEnableRAM);
 

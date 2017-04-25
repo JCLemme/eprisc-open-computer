@@ -2,11 +2,11 @@
 module epRISC_testRAM(iAddr, iClk, iData, iWrite, oData);
 
     input iClk, iWrite;
-    input [7:0] iAddr;
+    input [9:0] iAddr;
     input [31:0] iData;
     output wire [31:0] oData;
 
-    reg [31:0] rDataOut, rContents[0:255];
+    reg [31:0] rDataOut, rContents[0:1023];
     
     assign oData = rDataOut;
     
@@ -22,10 +22,10 @@ endmodule
 module epRISC_testROM(iClk, iAddr, oData, iEnable);
 
     input iClk, iEnable;
-    input [7:0] iAddr;
+    input [9:0] iAddr;
     output wire [31:0] oData;
     
-    reg [31:0] rDataOut, rContents[0:255];
+    reg [31:0] rDataOut, rContents[0:1023];
     
     assign oData = (iEnable) ? rDataOut : 32'bz;
     

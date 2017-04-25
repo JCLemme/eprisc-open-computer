@@ -1,5 +1,5 @@
 Analysis & Synthesis report for epRISC_Controller
-Sun Mar 26 11:42:37 2017
+Thu Apr  6 11:29:36 2017
 Quartus Prime Version 16.0.0 Build 211 04/27/2016 SJ Lite Edition
 
 
@@ -61,7 +61,7 @@ agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Sun Mar 26 11:42:37 2017       ;
+; Analysis & Synthesis Status        ; Successful - Thu Apr  6 11:29:36 2017       ;
 ; Quartus Prime Version              ; 16.0.0 Build 211 04/27/2016 SJ Lite Edition ;
 ; Revision Name                      ; epRISC_Controller                           ;
 ; Top-level Entity Name              ; epRISC_iocontroller                         ;
@@ -167,50 +167,44 @@ agreement for further details.
 +----------------------------------------------------------------------------+---------------------+--------------------+
 
 
-+------------------------------------------+
-; Parallel Compilation                     ;
-+----------------------------+-------------+
-; Processors                 ; Number      ;
-+----------------------------+-------------+
-; Number detected on machine ; 8           ;
-; Maximum allowed            ; 4           ;
-;                            ;             ;
-; Average used               ; 1.00        ;
-; Maximum used               ; 4           ;
-;                            ;             ;
-; Usage by Processor         ; % Time Used ;
-;     Processor 1            ; 100.0%      ;
-;     Processors 2-4         ;   0.0%      ;
-+----------------------------+-------------+
+Parallel compilation was disabled, but you have multiple processors available. Enable parallel compilation to reduce compilation time.
++-------------------------------------+
+; Parallel Compilation                ;
++----------------------------+--------+
+; Processors                 ; Number ;
++----------------------------+--------+
+; Number detected on machine ; 4      ;
+; Maximum allowed            ; 1      ;
++----------------------------+--------+
 
 
-+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                                                                     ;
-+----------------------------------+-----------------+------------------------------+----------------------------------------------------------------------------------------------+---------+
-; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                                                 ; Library ;
-+----------------------------------+-----------------+------------------------------+----------------------------------------------------------------------------------------------+---------+
-; ../controller_v1r0.v             ; yes             ; User Verilog HDL File        ; /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v                    ;         ;
-; ../gpio_v1r0.v                   ; yes             ; User Verilog HDL File        ; /home/jclemme/Projects/eprisc-open-computer/firmware/io/gpio_v1r0.v                          ;         ;
-; ../ps2_v1r0.v                    ; yes             ; User Verilog HDL File        ; /home/jclemme/Projects/eprisc-open-computer/firmware/io/ps2_v1r0.v                           ;         ;
-; ../spi_v1r0.v                    ; yes             ; User Verilog HDL File        ; /home/jclemme/Projects/eprisc-open-computer/firmware/io/spi_v1r0.v                           ;         ;
-; ../uart_v1r0.v                   ; yes             ; User Verilog HDL File        ; /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v                          ;         ;
-; OnChipPLL.v                      ; yes             ; User Wizard-Generated File   ; /home/jclemme/Projects/eprisc-open-computer/firmware/io/aux_project/OnChipPLL.v              ;         ;
-; altpll.tdf                       ; yes             ; Megafunction                 ; /home/jclemme/.local/share/altera/16.0/quartus/libraries/megafunctions/altpll.tdf            ;         ;
-; aglobal160.inc                   ; yes             ; Megafunction                 ; /home/jclemme/.local/share/altera/16.0/quartus/libraries/megafunctions/aglobal160.inc        ;         ;
-; stratix_pll.inc                  ; yes             ; Megafunction                 ; /home/jclemme/.local/share/altera/16.0/quartus/libraries/megafunctions/stratix_pll.inc       ;         ;
-; stratixii_pll.inc                ; yes             ; Megafunction                 ; /home/jclemme/.local/share/altera/16.0/quartus/libraries/megafunctions/stratixii_pll.inc     ;         ;
-; cycloneii_pll.inc                ; yes             ; Megafunction                 ; /home/jclemme/.local/share/altera/16.0/quartus/libraries/megafunctions/cycloneii_pll.inc     ;         ;
-; db/OnChipPLL_altpll.v            ; yes             ; Auto-Generated Megafunction  ; /home/jclemme/Projects/eprisc-open-computer/firmware/io/aux_project/db/OnChipPLL_altpll.v    ;         ;
-; altsyncram.tdf                   ; yes             ; Megafunction                 ; /home/jclemme/.local/share/altera/16.0/quartus/libraries/megafunctions/altsyncram.tdf        ;         ;
-; stratix_ram_block.inc            ; yes             ; Megafunction                 ; /home/jclemme/.local/share/altera/16.0/quartus/libraries/megafunctions/stratix_ram_block.inc ;         ;
-; lpm_mux.inc                      ; yes             ; Megafunction                 ; /home/jclemme/.local/share/altera/16.0/quartus/libraries/megafunctions/lpm_mux.inc           ;         ;
-; lpm_decode.inc                   ; yes             ; Megafunction                 ; /home/jclemme/.local/share/altera/16.0/quartus/libraries/megafunctions/lpm_decode.inc        ;         ;
-; a_rdenreg.inc                    ; yes             ; Megafunction                 ; /home/jclemme/.local/share/altera/16.0/quartus/libraries/megafunctions/a_rdenreg.inc         ;         ;
-; altrom.inc                       ; yes             ; Megafunction                 ; /home/jclemme/.local/share/altera/16.0/quartus/libraries/megafunctions/altrom.inc            ;         ;
-; altram.inc                       ; yes             ; Megafunction                 ; /home/jclemme/.local/share/altera/16.0/quartus/libraries/megafunctions/altram.inc            ;         ;
-; altdpram.inc                     ; yes             ; Megafunction                 ; /home/jclemme/.local/share/altera/16.0/quartus/libraries/megafunctions/altdpram.inc          ;         ;
-; db/altsyncram_0ec1.tdf           ; yes             ; Auto-Generated Megafunction  ; /home/jclemme/Projects/eprisc-open-computer/firmware/io/aux_project/db/altsyncram_0ec1.tdf   ;         ;
-+----------------------------------+-----------------+------------------------------+----------------------------------------------------------------------------------------------+---------+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                                ;
++----------------------------------+-----------------+------------------------------+-----------------------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                                            ; Library ;
++----------------------------------+-----------------+------------------------------+-----------------------------------------------------------------------------------------+---------+
+; ../controller_v1r0.v             ; yes             ; User Verilog HDL File        ; /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v                             ;         ;
+; ../gpio_v1r0.v                   ; yes             ; User Verilog HDL File        ; /home/jclemme/Projects/eprisc/firmware/io/gpio_v1r0.v                                   ;         ;
+; ../ps2_v1r0.v                    ; yes             ; User Verilog HDL File        ; /home/jclemme/Projects/eprisc/firmware/io/ps2_v1r0.v                                    ;         ;
+; ../spi_v1r0.v                    ; yes             ; User Verilog HDL File        ; /home/jclemme/Projects/eprisc/firmware/io/spi_v1r0.v                                    ;         ;
+; ../uart_v1r0.v                   ; yes             ; User Verilog HDL File        ; /home/jclemme/Projects/eprisc/firmware/io/uart_v1r0.v                                   ;         ;
+; OnChipPLL.v                      ; yes             ; User Wizard-Generated File   ; /home/jclemme/Projects/eprisc/firmware/io/aux_project/OnChipPLL.v                       ;         ;
+; altpll.tdf                       ; yes             ; Megafunction                 ; /home/jclemme/.local/share/altera/quartus/libraries/megafunctions/altpll.tdf            ;         ;
+; aglobal160.inc                   ; yes             ; Megafunction                 ; /home/jclemme/.local/share/altera/quartus/libraries/megafunctions/aglobal160.inc        ;         ;
+; stratix_pll.inc                  ; yes             ; Megafunction                 ; /home/jclemme/.local/share/altera/quartus/libraries/megafunctions/stratix_pll.inc       ;         ;
+; stratixii_pll.inc                ; yes             ; Megafunction                 ; /home/jclemme/.local/share/altera/quartus/libraries/megafunctions/stratixii_pll.inc     ;         ;
+; cycloneii_pll.inc                ; yes             ; Megafunction                 ; /home/jclemme/.local/share/altera/quartus/libraries/megafunctions/cycloneii_pll.inc     ;         ;
+; db/OnChipPLL_altpll.v            ; yes             ; Auto-Generated Megafunction  ; /home/jclemme/Projects/eprisc/firmware/io/aux_project/db/OnChipPLL_altpll.v             ;         ;
+; altsyncram.tdf                   ; yes             ; Megafunction                 ; /home/jclemme/.local/share/altera/quartus/libraries/megafunctions/altsyncram.tdf        ;         ;
+; stratix_ram_block.inc            ; yes             ; Megafunction                 ; /home/jclemme/.local/share/altera/quartus/libraries/megafunctions/stratix_ram_block.inc ;         ;
+; lpm_mux.inc                      ; yes             ; Megafunction                 ; /home/jclemme/.local/share/altera/quartus/libraries/megafunctions/lpm_mux.inc           ;         ;
+; lpm_decode.inc                   ; yes             ; Megafunction                 ; /home/jclemme/.local/share/altera/quartus/libraries/megafunctions/lpm_decode.inc        ;         ;
+; a_rdenreg.inc                    ; yes             ; Megafunction                 ; /home/jclemme/.local/share/altera/quartus/libraries/megafunctions/a_rdenreg.inc         ;         ;
+; altrom.inc                       ; yes             ; Megafunction                 ; /home/jclemme/.local/share/altera/quartus/libraries/megafunctions/altrom.inc            ;         ;
+; altram.inc                       ; yes             ; Megafunction                 ; /home/jclemme/.local/share/altera/quartus/libraries/megafunctions/altram.inc            ;         ;
+; altdpram.inc                     ; yes             ; Megafunction                 ; /home/jclemme/.local/share/altera/quartus/libraries/megafunctions/altdpram.inc          ;         ;
+; db/altsyncram_0ec1.tdf           ; yes             ; Auto-Generated Megafunction  ; /home/jclemme/Projects/eprisc/firmware/io/aux_project/db/altsyncram_0ec1.tdf            ;         ;
++----------------------------------+-----------------+------------------------------+-----------------------------------------------------------------------------------------+---------+
 
 
 +---------------------------------------------------------------+
@@ -992,46 +986,45 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 16.0.0 Build 211 04/27/2016 SJ Lite Edition
-    Info: Processing started: Sun Mar 26 11:42:28 2017
+    Info: Processing started: Thu Apr  6 11:29:19 2017
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off epRISC_Auxiliary -c epRISC_Controller
-Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
-Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
-Info (12021): Found 3 design units, including 3 entities, in source file /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v
-    Info (12023): Found entity 1: epRISC_controlRAM File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 22
-    Info (12023): Found entity 2: EmulatedIOPLL File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 46
-    Info (12023): Found entity 3: epRISC_iocontroller File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 70
-Info (12021): Found 1 design units, including 1 entities, in source file /home/jclemme/Projects/eprisc-open-computer/firmware/io/gpio_v1r0.v
-    Info (12023): Found entity 1: epRISC_GPIO File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/gpio_v1r0.v Line: 13
-Info (12021): Found 1 design units, including 1 entities, in source file /home/jclemme/Projects/eprisc-open-computer/firmware/io/ps2_v1r0.v
-    Info (12023): Found entity 1: PS2_epRISC File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/ps2_v1r0.v Line: 26
-Warning (10274): Verilog HDL macro warning at spi_v1r0.v(21): overriding existing definition for macro "sIdle", which was defined in "../ps2_v1r0.v", line 24 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/spi_v1r0.v Line: 21
-Info (12021): Found 1 design units, including 1 entities, in source file /home/jclemme/Projects/eprisc-open-computer/firmware/io/spi_v1r0.v
-    Info (12023): Found entity 1: epRISC_SPI File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/spi_v1r0.v Line: 26
-Warning (10274): Verilog HDL macro warning at uart_v1r0.v(36): overriding existing definition for macro "sIdle", which was defined in "../ps2_v1r0.v", line 24 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 36
-Info (12021): Found 1 design units, including 1 entities, in source file /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v
-    Info (12023): Found entity 1: epRISC_UART File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 38
-Info (12021): Found 1 design units, including 1 entities, in source file /home/jclemme/Projects/eprisc-open-computer/firmware/io/video_v1r0.v
-    Info (12023): Found entity 1: CharacterDisplay_epRISC File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/video_v1r0.v Line: 1
+Warning (20028): Parallel compilation is not licensed and has been disabled
+Info (12021): Found 3 design units, including 3 entities, in source file /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v
+    Info (12023): Found entity 1: epRISC_controlRAM File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 22
+    Info (12023): Found entity 2: EmulatedIOPLL File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 46
+    Info (12023): Found entity 3: epRISC_iocontroller File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 70
+Info (12021): Found 1 design units, including 1 entities, in source file /home/jclemme/Projects/eprisc/firmware/io/gpio_v1r0.v
+    Info (12023): Found entity 1: epRISC_GPIO File: /home/jclemme/Projects/eprisc/firmware/io/gpio_v1r0.v Line: 13
+Info (12021): Found 1 design units, including 1 entities, in source file /home/jclemme/Projects/eprisc/firmware/io/ps2_v1r0.v
+    Info (12023): Found entity 1: PS2_epRISC File: /home/jclemme/Projects/eprisc/firmware/io/ps2_v1r0.v Line: 26
+Warning (10274): Verilog HDL macro warning at spi_v1r0.v(21): overriding existing definition for macro "sIdle", which was defined in "../ps2_v1r0.v", line 24 File: /home/jclemme/Projects/eprisc/firmware/io/spi_v1r0.v Line: 21
+Info (12021): Found 1 design units, including 1 entities, in source file /home/jclemme/Projects/eprisc/firmware/io/spi_v1r0.v
+    Info (12023): Found entity 1: epRISC_SPI File: /home/jclemme/Projects/eprisc/firmware/io/spi_v1r0.v Line: 26
+Warning (10274): Verilog HDL macro warning at uart_v1r0.v(36): overriding existing definition for macro "sIdle", which was defined in "../ps2_v1r0.v", line 24 File: /home/jclemme/Projects/eprisc/firmware/io/uart_v1r0.v Line: 36
+Info (12021): Found 1 design units, including 1 entities, in source file /home/jclemme/Projects/eprisc/firmware/io/uart_v1r0.v
+    Info (12023): Found entity 1: epRISC_UART File: /home/jclemme/Projects/eprisc/firmware/io/uart_v1r0.v Line: 38
+Info (12021): Found 1 design units, including 1 entities, in source file /home/jclemme/Projects/eprisc/firmware/io/video_v1r0.v
+    Info (12023): Found entity 1: CharacterDisplay_epRISC File: /home/jclemme/Projects/eprisc/firmware/io/video_v1r0.v Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file OnChipPLL.v
-    Info (12023): Found entity 1: OnChipPLL File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/aux_project/OnChipPLL.v Line: 40
-Warning (10236): Verilog HDL Implicit Net warning at controller_v1r0.v(155): created implicit net for "oBvusInterrupt" File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 155
-Warning (10236): Verilog HDL Implicit Net warning at controller_v1r0.v(157): created implicit net for "oBrusInterrupt" File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 157
-Warning (10236): Verilog HDL Implicit Net warning at controller_v1r0.v(157): created implicit net for "wSPICLock" File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 157
+    Info (12023): Found entity 1: OnChipPLL File: /home/jclemme/Projects/eprisc/firmware/io/aux_project/OnChipPLL.v Line: 40
+Warning (10236): Verilog HDL Implicit Net warning at controller_v1r0.v(155): created implicit net for "oBvusInterrupt" File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 155
+Warning (10236): Verilog HDL Implicit Net warning at controller_v1r0.v(157): created implicit net for "oBrusInterrupt" File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 157
+Warning (10236): Verilog HDL Implicit Net warning at controller_v1r0.v(157): created implicit net for "wSPICLock" File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 157
 Info (12127): Elaborating entity "epRISC_iocontroller" for the top level hierarchy
-Warning (10036): Verilog HDL or VHDL warning at controller_v1r0.v(127): object "rPipePrevState" assigned a value but never read File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 127
-Warning (10034): Output port "oExtBusMOSI" at controller_v1r0.v(102) has no driver File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 102
-Warning (10034): Output port "oExtBusSS" at controller_v1r0.v(101) has no driver File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 101
-Warning (10034): Output port "oVGAColor" at controller_v1r0.v(109) has no driver File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 109
-Warning (10034): Output port "oSerialDTR" at controller_v1r0.v(91) has no driver File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 91
-Warning (10034): Output port "oSerialRTS" at controller_v1r0.v(91) has no driver File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 91
-Warning (10034): Output port "oSerialTX" at controller_v1r0.v(91) has no driver File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 91
-Warning (10034): Output port "oExtBusClock" at controller_v1r0.v(100) has no driver File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 100
-Warning (10034): Output port "oVGAHorizontal" at controller_v1r0.v(108) has no driver File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 108
-Warning (10034): Output port "oVGAVertical" at controller_v1r0.v(108) has no driver File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 108
-Info (12128): Elaborating entity "OnChipPLL" for hierarchy "OnChipPLL:clock" File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 149
-Info (12128): Elaborating entity "altpll" for hierarchy "OnChipPLL:clock|altpll:altpll_component" File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/aux_project/OnChipPLL.v Line: 95
-Info (12130): Elaborated megafunction instantiation "OnChipPLL:clock|altpll:altpll_component" File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/aux_project/OnChipPLL.v Line: 95
-Info (12133): Instantiated megafunction "OnChipPLL:clock|altpll:altpll_component" with the following parameter: File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/aux_project/OnChipPLL.v Line: 95
+Warning (10036): Verilog HDL or VHDL warning at controller_v1r0.v(127): object "rPipePrevState" assigned a value but never read File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 127
+Warning (10034): Output port "oExtBusMOSI" at controller_v1r0.v(102) has no driver File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 102
+Warning (10034): Output port "oExtBusSS" at controller_v1r0.v(101) has no driver File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 101
+Warning (10034): Output port "oVGAColor" at controller_v1r0.v(109) has no driver File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 109
+Warning (10034): Output port "oSerialDTR" at controller_v1r0.v(91) has no driver File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 91
+Warning (10034): Output port "oSerialRTS" at controller_v1r0.v(91) has no driver File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 91
+Warning (10034): Output port "oSerialTX" at controller_v1r0.v(91) has no driver File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 91
+Warning (10034): Output port "oExtBusClock" at controller_v1r0.v(100) has no driver File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 100
+Warning (10034): Output port "oVGAHorizontal" at controller_v1r0.v(108) has no driver File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 108
+Warning (10034): Output port "oVGAVertical" at controller_v1r0.v(108) has no driver File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 108
+Info (12128): Elaborating entity "OnChipPLL" for hierarchy "OnChipPLL:clock" File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 149
+Info (12128): Elaborating entity "altpll" for hierarchy "OnChipPLL:clock|altpll:altpll_component" File: /home/jclemme/Projects/eprisc/firmware/io/aux_project/OnChipPLL.v Line: 95
+Info (12130): Elaborated megafunction instantiation "OnChipPLL:clock|altpll:altpll_component" File: /home/jclemme/Projects/eprisc/firmware/io/aux_project/OnChipPLL.v Line: 95
+Info (12133): Instantiated megafunction "OnChipPLL:clock|altpll:altpll_component" with the following parameter: File: /home/jclemme/Projects/eprisc/firmware/io/aux_project/OnChipPLL.v Line: 95
     Info (12134): Parameter "bandwidth_type" = "AUTO"
     Info (12134): Parameter "clk0_divide_by" = "625"
     Info (12134): Parameter "clk0_duty_cycle" = "50"
@@ -1091,70 +1084,70 @@ Info (12133): Instantiated megafunction "OnChipPLL:clock|altpll:altpll_component
     Info (12134): Parameter "port_extclk3" = "PORT_UNUSED"
     Info (12134): Parameter "width_clock" = "5"
 Info (12021): Found 1 design units, including 1 entities, in source file db/OnChipPLL_altpll.v
-    Info (12023): Found entity 1: OnChipPLL_altpll File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/aux_project/db/OnChipPLL_altpll.v Line: 30
-Info (12128): Elaborating entity "OnChipPLL_altpll" for hierarchy "OnChipPLL:clock|altpll:altpll_component|OnChipPLL_altpll:auto_generated" File: /home/jclemme/.local/share/altera/16.0/quartus/libraries/megafunctions/altpll.tdf Line: 898
-Info (12128): Elaborating entity "epRISC_GPIO" for hierarchy "epRISC_GPIO:gpio" File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 153
-Warning (10230): Verilog HDL assignment warning at gpio_v1r0.v(48): truncated value with size 32 to match size of target (1) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/gpio_v1r0.v Line: 48
-Info (12128): Elaborating entity "epRISC_UART" for hierarchy "epRISC_UART:uart" File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 155
-Warning (10036): Verilog HDL or VHDL warning at uart_v1r0.v(47): object "rSendPrevState" assigned a value but never read File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 47
-Warning (10036): Verilog HDL or VHDL warning at uart_v1r0.v(47): object "rRecvPrevState" assigned a value but never read File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 47
-Warning (10230): Verilog HDL assignment warning at uart_v1r0.v(53): truncated value with size 32 to match size of target (1) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 53
-Warning (10230): Verilog HDL assignment warning at uart_v1r0.v(119): truncated value with size 32 to match size of target (6) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 119
-Warning (10230): Verilog HDL assignment warning at uart_v1r0.v(141): truncated value with size 8 to match size of target (6) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 141
-Warning (10230): Verilog HDL assignment warning at uart_v1r0.v(143): truncated value with size 32 to match size of target (6) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 143
-Warning (10230): Verilog HDL assignment warning at uart_v1r0.v(145): truncated value with size 8 to match size of target (6) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 145
-Warning (10230): Verilog HDL assignment warning at uart_v1r0.v(149): truncated value with size 8 to match size of target (6) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 149
-Warning (10230): Verilog HDL assignment warning at uart_v1r0.v(163): truncated value with size 32 to match size of target (4) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 163
-Warning (10230): Verilog HDL assignment warning at uart_v1r0.v(172): truncated value with size 32 to match size of target (4) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 172
-Warning (10230): Verilog HDL assignment warning at uart_v1r0.v(175): truncated value with size 32 to match size of target (4) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 175
-Warning (10230): Verilog HDL assignment warning at uart_v1r0.v(183): truncated value with size 32 to match size of target (4) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 183
-Warning (10230): Verilog HDL assignment warning at uart_v1r0.v(192): truncated value with size 32 to match size of target (4) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 192
-Warning (10230): Verilog HDL assignment warning at uart_v1r0.v(195): truncated value with size 32 to match size of target (4) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 195
-Info (12128): Elaborating entity "epRISC_SPI" for hierarchy "epRISC_SPI:bspi" File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 157
-Warning (10230): Verilog HDL assignment warning at spi_v1r0.v(38): truncated value with size 32 to match size of target (1) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/spi_v1r0.v Line: 38
-Warning (10230): Verilog HDL assignment warning at spi_v1r0.v(40): truncated value with size 32 to match size of target (1) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/spi_v1r0.v Line: 40
-Warning (10230): Verilog HDL assignment warning at spi_v1r0.v(97): truncated value with size 32 to match size of target (4) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/spi_v1r0.v Line: 97
-Warning (10270): Verilog HDL Case Statement warning at spi_v1r0.v(96): incomplete case statement has no default case item File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/spi_v1r0.v Line: 96
-Warning (10240): Verilog HDL Always Construct warning at spi_v1r0.v(96): inferring latch(es) for variable "rNextState", which holds its previous value in one or more paths through the always construct File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/spi_v1r0.v Line: 96
-Warning (10034): Output port "oInt" at spi_v1r0.v(31) has no driver File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/spi_v1r0.v Line: 31
-Info (10041): Inferred latch for "rNextState[0]" at spi_v1r0.v(96) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/spi_v1r0.v Line: 96
-Info (10041): Inferred latch for "rNextState[1]" at spi_v1r0.v(96) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/spi_v1r0.v Line: 96
-Info (10041): Inferred latch for "rNextState[2]" at spi_v1r0.v(96) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/spi_v1r0.v Line: 96
-Info (10041): Inferred latch for "rNextState[3]" at spi_v1r0.v(96) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/spi_v1r0.v Line: 96
-Info (12128): Elaborating entity "epRISC_controlRAM" for hierarchy "epRISC_controlRAM:bmem" File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 159
+    Info (12023): Found entity 1: OnChipPLL_altpll File: /home/jclemme/Projects/eprisc/firmware/io/aux_project/db/OnChipPLL_altpll.v Line: 30
+Info (12128): Elaborating entity "OnChipPLL_altpll" for hierarchy "OnChipPLL:clock|altpll:altpll_component|OnChipPLL_altpll:auto_generated" File: /home/jclemme/.local/share/altera/quartus/libraries/megafunctions/altpll.tdf Line: 898
+Info (12128): Elaborating entity "epRISC_GPIO" for hierarchy "epRISC_GPIO:gpio" File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 153
+Warning (10230): Verilog HDL assignment warning at gpio_v1r0.v(48): truncated value with size 32 to match size of target (1) File: /home/jclemme/Projects/eprisc/firmware/io/gpio_v1r0.v Line: 48
+Info (12128): Elaborating entity "epRISC_UART" for hierarchy "epRISC_UART:uart" File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 155
+Warning (10036): Verilog HDL or VHDL warning at uart_v1r0.v(47): object "rSendPrevState" assigned a value but never read File: /home/jclemme/Projects/eprisc/firmware/io/uart_v1r0.v Line: 47
+Warning (10036): Verilog HDL or VHDL warning at uart_v1r0.v(47): object "rRecvPrevState" assigned a value but never read File: /home/jclemme/Projects/eprisc/firmware/io/uart_v1r0.v Line: 47
+Warning (10230): Verilog HDL assignment warning at uart_v1r0.v(53): truncated value with size 32 to match size of target (1) File: /home/jclemme/Projects/eprisc/firmware/io/uart_v1r0.v Line: 53
+Warning (10230): Verilog HDL assignment warning at uart_v1r0.v(119): truncated value with size 32 to match size of target (6) File: /home/jclemme/Projects/eprisc/firmware/io/uart_v1r0.v Line: 119
+Warning (10230): Verilog HDL assignment warning at uart_v1r0.v(141): truncated value with size 8 to match size of target (6) File: /home/jclemme/Projects/eprisc/firmware/io/uart_v1r0.v Line: 141
+Warning (10230): Verilog HDL assignment warning at uart_v1r0.v(143): truncated value with size 32 to match size of target (6) File: /home/jclemme/Projects/eprisc/firmware/io/uart_v1r0.v Line: 143
+Warning (10230): Verilog HDL assignment warning at uart_v1r0.v(145): truncated value with size 8 to match size of target (6) File: /home/jclemme/Projects/eprisc/firmware/io/uart_v1r0.v Line: 145
+Warning (10230): Verilog HDL assignment warning at uart_v1r0.v(149): truncated value with size 8 to match size of target (6) File: /home/jclemme/Projects/eprisc/firmware/io/uart_v1r0.v Line: 149
+Warning (10230): Verilog HDL assignment warning at uart_v1r0.v(163): truncated value with size 32 to match size of target (4) File: /home/jclemme/Projects/eprisc/firmware/io/uart_v1r0.v Line: 163
+Warning (10230): Verilog HDL assignment warning at uart_v1r0.v(172): truncated value with size 32 to match size of target (4) File: /home/jclemme/Projects/eprisc/firmware/io/uart_v1r0.v Line: 172
+Warning (10230): Verilog HDL assignment warning at uart_v1r0.v(175): truncated value with size 32 to match size of target (4) File: /home/jclemme/Projects/eprisc/firmware/io/uart_v1r0.v Line: 175
+Warning (10230): Verilog HDL assignment warning at uart_v1r0.v(183): truncated value with size 32 to match size of target (4) File: /home/jclemme/Projects/eprisc/firmware/io/uart_v1r0.v Line: 183
+Warning (10230): Verilog HDL assignment warning at uart_v1r0.v(192): truncated value with size 32 to match size of target (4) File: /home/jclemme/Projects/eprisc/firmware/io/uart_v1r0.v Line: 192
+Warning (10230): Verilog HDL assignment warning at uart_v1r0.v(195): truncated value with size 32 to match size of target (4) File: /home/jclemme/Projects/eprisc/firmware/io/uart_v1r0.v Line: 195
+Info (12128): Elaborating entity "epRISC_SPI" for hierarchy "epRISC_SPI:bspi" File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 157
+Warning (10230): Verilog HDL assignment warning at spi_v1r0.v(38): truncated value with size 32 to match size of target (1) File: /home/jclemme/Projects/eprisc/firmware/io/spi_v1r0.v Line: 38
+Warning (10230): Verilog HDL assignment warning at spi_v1r0.v(40): truncated value with size 32 to match size of target (1) File: /home/jclemme/Projects/eprisc/firmware/io/spi_v1r0.v Line: 40
+Warning (10230): Verilog HDL assignment warning at spi_v1r0.v(97): truncated value with size 32 to match size of target (4) File: /home/jclemme/Projects/eprisc/firmware/io/spi_v1r0.v Line: 97
+Warning (10270): Verilog HDL Case Statement warning at spi_v1r0.v(96): incomplete case statement has no default case item File: /home/jclemme/Projects/eprisc/firmware/io/spi_v1r0.v Line: 96
+Warning (10240): Verilog HDL Always Construct warning at spi_v1r0.v(96): inferring latch(es) for variable "rNextState", which holds its previous value in one or more paths through the always construct File: /home/jclemme/Projects/eprisc/firmware/io/spi_v1r0.v Line: 96
+Warning (10034): Output port "oInt" at spi_v1r0.v(31) has no driver File: /home/jclemme/Projects/eprisc/firmware/io/spi_v1r0.v Line: 31
+Info (10041): Inferred latch for "rNextState[0]" at spi_v1r0.v(96) File: /home/jclemme/Projects/eprisc/firmware/io/spi_v1r0.v Line: 96
+Info (10041): Inferred latch for "rNextState[1]" at spi_v1r0.v(96) File: /home/jclemme/Projects/eprisc/firmware/io/spi_v1r0.v Line: 96
+Info (10041): Inferred latch for "rNextState[2]" at spi_v1r0.v(96) File: /home/jclemme/Projects/eprisc/firmware/io/spi_v1r0.v Line: 96
+Info (10041): Inferred latch for "rNextState[3]" at spi_v1r0.v(96) File: /home/jclemme/Projects/eprisc/firmware/io/spi_v1r0.v Line: 96
+Info (12128): Elaborating entity "epRISC_controlRAM" for hierarchy "epRISC_controlRAM:bmem" File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 159
 Warning (13046): Tri-state node(s) do not directly drive top-level pin(s)
-    Warning (13048): Converted tri-state node "wInternalMISO[15]" into a selector File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 85
-    Warning (13048): Converted tri-state node "wInternalMISO[14]" into a selector File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 85
-    Warning (13048): Converted tri-state node "wInternalMISO[13]" into a selector File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 85
-    Warning (13048): Converted tri-state node "wInternalMISO[12]" into a selector File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 85
-    Warning (13048): Converted tri-state node "wInternalMISO[11]" into a selector File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 85
-    Warning (13048): Converted tri-state node "wInternalMISO[10]" into a selector File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 85
-    Warning (13048): Converted tri-state node "wInternalMISO[9]" into a selector File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 85
-    Warning (13048): Converted tri-state node "wInternalMISO[8]" into a selector File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 85
-    Warning (13048): Converted tri-state node "wInternalMISO[7]" into a selector File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 85
-    Warning (13048): Converted tri-state node "wInternalMISO[6]" into a selector File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 85
-    Warning (13048): Converted tri-state node "wInternalMISO[5]" into a selector File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 85
-    Warning (13048): Converted tri-state node "wInternalMISO[4]" into a selector File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 85
-    Warning (13048): Converted tri-state node "wInternalMISO[3]" into a selector File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 85
-    Warning (13048): Converted tri-state node "wInternalMISO[2]" into a selector File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 85
-    Warning (13048): Converted tri-state node "wInternalMISO[1]" into a selector File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 85
-    Warning (13048): Converted tri-state node "wInternalMISO[0]" into a selector File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 85
-    Warning (13049): Converted tri-state buffer "epRISC_controlRAM:bmem|oData[16]" feeding internal logic into a wire File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 27
-    Warning (13049): Converted tri-state buffer "epRISC_controlRAM:bmem|oData[17]" feeding internal logic into a wire File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 27
-    Warning (13049): Converted tri-state buffer "epRISC_controlRAM:bmem|oData[18]" feeding internal logic into a wire File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 27
-    Warning (13049): Converted tri-state buffer "epRISC_controlRAM:bmem|oData[19]" feeding internal logic into a wire File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 27
-    Warning (13049): Converted tri-state buffer "epRISC_controlRAM:bmem|oData[20]" feeding internal logic into a wire File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 27
-    Warning (13049): Converted tri-state buffer "epRISC_controlRAM:bmem|oData[21]" feeding internal logic into a wire File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 27
-    Warning (13049): Converted tri-state buffer "epRISC_controlRAM:bmem|oData[22]" feeding internal logic into a wire File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 27
-    Warning (13049): Converted tri-state buffer "epRISC_controlRAM:bmem|oData[23]" feeding internal logic into a wire File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 27
-    Warning (13049): Converted tri-state buffer "epRISC_controlRAM:bmem|oData[24]" feeding internal logic into a wire File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 27
-    Warning (13049): Converted tri-state buffer "epRISC_controlRAM:bmem|oData[25]" feeding internal logic into a wire File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 27
-    Warning (13049): Converted tri-state buffer "epRISC_controlRAM:bmem|oData[26]" feeding internal logic into a wire File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 27
-    Warning (13049): Converted tri-state buffer "epRISC_controlRAM:bmem|oData[27]" feeding internal logic into a wire File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 27
-    Warning (13049): Converted tri-state buffer "epRISC_controlRAM:bmem|oData[28]" feeding internal logic into a wire File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 27
-    Warning (13049): Converted tri-state buffer "epRISC_controlRAM:bmem|oData[29]" feeding internal logic into a wire File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 27
-    Warning (13049): Converted tri-state buffer "epRISC_controlRAM:bmem|oData[30]" feeding internal logic into a wire File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 27
-    Warning (13049): Converted tri-state buffer "epRISC_controlRAM:bmem|oData[31]" feeding internal logic into a wire File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 27
+    Warning (13048): Converted tri-state node "wInternalMISO[15]" into a selector File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 85
+    Warning (13048): Converted tri-state node "wInternalMISO[14]" into a selector File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 85
+    Warning (13048): Converted tri-state node "wInternalMISO[13]" into a selector File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 85
+    Warning (13048): Converted tri-state node "wInternalMISO[12]" into a selector File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 85
+    Warning (13048): Converted tri-state node "wInternalMISO[11]" into a selector File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 85
+    Warning (13048): Converted tri-state node "wInternalMISO[10]" into a selector File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 85
+    Warning (13048): Converted tri-state node "wInternalMISO[9]" into a selector File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 85
+    Warning (13048): Converted tri-state node "wInternalMISO[8]" into a selector File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 85
+    Warning (13048): Converted tri-state node "wInternalMISO[7]" into a selector File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 85
+    Warning (13048): Converted tri-state node "wInternalMISO[6]" into a selector File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 85
+    Warning (13048): Converted tri-state node "wInternalMISO[5]" into a selector File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 85
+    Warning (13048): Converted tri-state node "wInternalMISO[4]" into a selector File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 85
+    Warning (13048): Converted tri-state node "wInternalMISO[3]" into a selector File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 85
+    Warning (13048): Converted tri-state node "wInternalMISO[2]" into a selector File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 85
+    Warning (13048): Converted tri-state node "wInternalMISO[1]" into a selector File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 85
+    Warning (13048): Converted tri-state node "wInternalMISO[0]" into a selector File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 85
+    Warning (13049): Converted tri-state buffer "epRISC_controlRAM:bmem|oData[16]" feeding internal logic into a wire File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 27
+    Warning (13049): Converted tri-state buffer "epRISC_controlRAM:bmem|oData[17]" feeding internal logic into a wire File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 27
+    Warning (13049): Converted tri-state buffer "epRISC_controlRAM:bmem|oData[18]" feeding internal logic into a wire File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 27
+    Warning (13049): Converted tri-state buffer "epRISC_controlRAM:bmem|oData[19]" feeding internal logic into a wire File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 27
+    Warning (13049): Converted tri-state buffer "epRISC_controlRAM:bmem|oData[20]" feeding internal logic into a wire File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 27
+    Warning (13049): Converted tri-state buffer "epRISC_controlRAM:bmem|oData[21]" feeding internal logic into a wire File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 27
+    Warning (13049): Converted tri-state buffer "epRISC_controlRAM:bmem|oData[22]" feeding internal logic into a wire File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 27
+    Warning (13049): Converted tri-state buffer "epRISC_controlRAM:bmem|oData[23]" feeding internal logic into a wire File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 27
+    Warning (13049): Converted tri-state buffer "epRISC_controlRAM:bmem|oData[24]" feeding internal logic into a wire File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 27
+    Warning (13049): Converted tri-state buffer "epRISC_controlRAM:bmem|oData[25]" feeding internal logic into a wire File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 27
+    Warning (13049): Converted tri-state buffer "epRISC_controlRAM:bmem|oData[26]" feeding internal logic into a wire File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 27
+    Warning (13049): Converted tri-state buffer "epRISC_controlRAM:bmem|oData[27]" feeding internal logic into a wire File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 27
+    Warning (13049): Converted tri-state buffer "epRISC_controlRAM:bmem|oData[28]" feeding internal logic into a wire File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 27
+    Warning (13049): Converted tri-state buffer "epRISC_controlRAM:bmem|oData[29]" feeding internal logic into a wire File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 27
+    Warning (13049): Converted tri-state buffer "epRISC_controlRAM:bmem|oData[30]" feeding internal logic into a wire File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 27
+    Warning (13049): Converted tri-state buffer "epRISC_controlRAM:bmem|oData[31]" feeding internal logic into a wire File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 27
 Warning (276027): Inferred dual-clock RAM node "epRISC_controlRAM:bmem|rContents_rtl_0" from synchronous design logic.  The read-during-write behavior of a dual-clock RAM is undefined and may not match the behavior of the original design.
 Info (19000): Inferred 1 megafunctions from design logic
     Info (276029): Inferred altsyncram megafunction from the following design logic: "epRISC_controlRAM:bmem|rContents_rtl_0" 
@@ -1189,65 +1182,65 @@ Info (12133): Instantiated megafunction "epRISC_controlRAM:bmem|altsyncram:rCont
     Info (12134): Parameter "INDATA_ACLR_A" = "NONE"
     Info (12134): Parameter "WRCONTROL_ACLR_A" = "NONE"
 Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_0ec1.tdf
-    Info (12023): Found entity 1: altsyncram_0ec1 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/aux_project/db/altsyncram_0ec1.tdf Line: 28
+    Info (12023): Found entity 1: altsyncram_0ec1 File: /home/jclemme/Projects/eprisc/firmware/io/aux_project/db/altsyncram_0ec1.tdf Line: 28
 Warning (12241): 4 hierarchies have connectivity warnings - see the Connectivity Checks report folder
 Warning (13039): The following bidirectional pins have no drivers
-    Warning (13040): bidirectional pin "bBoardDebug0" has no driver File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 88
-    Warning (13040): bidirectional pin "bBoardDebug1" has no driver File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 88
-    Warning (13040): bidirectional pin "bBoardDebug2" has no driver File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 88
-    Warning (13040): bidirectional pin "bBoardDebug3" has no driver File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 88
-    Warning (13040): bidirectional pin "bBoardDebug4" has no driver File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 88
-    Warning (13040): bidirectional pin "bBoardDebug5" has no driver File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 88
-    Warning (13040): bidirectional pin "bPS2Data" has no driver File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 111
-    Warning (13040): bidirectional pin "bPS2Clock" has no driver File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 111
+    Warning (13040): bidirectional pin "bBoardDebug0" has no driver File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 88
+    Warning (13040): bidirectional pin "bBoardDebug1" has no driver File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 88
+    Warning (13040): bidirectional pin "bBoardDebug2" has no driver File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 88
+    Warning (13040): bidirectional pin "bBoardDebug3" has no driver File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 88
+    Warning (13040): bidirectional pin "bBoardDebug4" has no driver File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 88
+    Warning (13040): bidirectional pin "bBoardDebug5" has no driver File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 88
+    Warning (13040): bidirectional pin "bPS2Data" has no driver File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 111
+    Warning (13040): bidirectional pin "bPS2Clock" has no driver File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 111
 Warning (13024): Output pins are stuck at VCC or GND
-    Warning (13410): Pin "oSerialDTR" is stuck at GND File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 91
-    Warning (13410): Pin "oSerialRTS" is stuck at GND File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 91
-    Warning (13410): Pin "oSerialTX" is stuck at GND File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 91
-    Warning (13410): Pin "oExtBusMOSI[0]" is stuck at GND File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 102
-    Warning (13410): Pin "oExtBusMOSI[1]" is stuck at GND File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 102
-    Warning (13410): Pin "oExtBusMOSI[2]" is stuck at GND File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 102
-    Warning (13410): Pin "oExtBusMOSI[3]" is stuck at GND File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 102
-    Warning (13410): Pin "oExtBusSS[0]" is stuck at GND File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 101
-    Warning (13410): Pin "oExtBusSS[1]" is stuck at GND File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 101
-    Warning (13410): Pin "oExtBusClock" is stuck at GND File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 100
-    Warning (13410): Pin "oSPISelect[0]" is stuck at GND File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 106
-    Warning (13410): Pin "oSPISelect[1]" is stuck at GND File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 106
-    Warning (13410): Pin "oSPISelect[2]" is stuck at GND File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 106
-    Warning (13410): Pin "oSPISelect[3]" is stuck at GND File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 106
-    Warning (13410): Pin "oSPIClock" is stuck at GND File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 105
-    Warning (13410): Pin "oVGAColor[0]" is stuck at GND File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 109
-    Warning (13410): Pin "oVGAColor[1]" is stuck at GND File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 109
-    Warning (13410): Pin "oVGAColor[2]" is stuck at GND File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 109
-    Warning (13410): Pin "oVGAColor[3]" is stuck at GND File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 109
-    Warning (13410): Pin "oVGAColor[4]" is stuck at GND File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 109
-    Warning (13410): Pin "oVGAColor[5]" is stuck at GND File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 109
-    Warning (13410): Pin "oVGAColor[6]" is stuck at GND File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 109
-    Warning (13410): Pin "oVGAColor[7]" is stuck at GND File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 109
-    Warning (13410): Pin "oVGAHorizontal" is stuck at GND File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 108
-    Warning (13410): Pin "oVGAVertical" is stuck at GND File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 108
+    Warning (13410): Pin "oSerialDTR" is stuck at GND File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 91
+    Warning (13410): Pin "oSerialRTS" is stuck at GND File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 91
+    Warning (13410): Pin "oSerialTX" is stuck at GND File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 91
+    Warning (13410): Pin "oExtBusMOSI[0]" is stuck at GND File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 102
+    Warning (13410): Pin "oExtBusMOSI[1]" is stuck at GND File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 102
+    Warning (13410): Pin "oExtBusMOSI[2]" is stuck at GND File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 102
+    Warning (13410): Pin "oExtBusMOSI[3]" is stuck at GND File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 102
+    Warning (13410): Pin "oExtBusSS[0]" is stuck at GND File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 101
+    Warning (13410): Pin "oExtBusSS[1]" is stuck at GND File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 101
+    Warning (13410): Pin "oExtBusClock" is stuck at GND File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 100
+    Warning (13410): Pin "oSPISelect[0]" is stuck at GND File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 106
+    Warning (13410): Pin "oSPISelect[1]" is stuck at GND File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 106
+    Warning (13410): Pin "oSPISelect[2]" is stuck at GND File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 106
+    Warning (13410): Pin "oSPISelect[3]" is stuck at GND File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 106
+    Warning (13410): Pin "oSPIClock" is stuck at GND File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 105
+    Warning (13410): Pin "oVGAColor[0]" is stuck at GND File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 109
+    Warning (13410): Pin "oVGAColor[1]" is stuck at GND File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 109
+    Warning (13410): Pin "oVGAColor[2]" is stuck at GND File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 109
+    Warning (13410): Pin "oVGAColor[3]" is stuck at GND File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 109
+    Warning (13410): Pin "oVGAColor[4]" is stuck at GND File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 109
+    Warning (13410): Pin "oVGAColor[5]" is stuck at GND File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 109
+    Warning (13410): Pin "oVGAColor[6]" is stuck at GND File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 109
+    Warning (13410): Pin "oVGAColor[7]" is stuck at GND File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 109
+    Warning (13410): Pin "oVGAHorizontal" is stuck at GND File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 108
+    Warning (13410): Pin "oVGAVertical" is stuck at GND File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 108
 Info (286030): Timing-Driven Synthesis is running
 Info (17049): 19 registers lost all their fanouts during netlist optimizations.
-Info (144001): Generated suppressed messages file /home/jclemme/Projects/eprisc-open-computer/firmware/io/aux_project/output_files/epRISC_Controller.map.smsg
+Info (144001): Generated suppressed messages file /home/jclemme/Projects/eprisc/firmware/io/aux_project/output_files/epRISC_Controller.map.smsg
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 1 node(s), including 0 DDIO, 1 PLL, 0 transceiver and 0 LCELL
-Warning (15899): PLL "OnChipPLL:clock|altpll:altpll_component|OnChipPLL_altpll:auto_generated|pll1" has parameters clk1_multiply_by and clk1_divide_by specified but port CLK[1] is not connected File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/aux_project/db/OnChipPLL_altpll.v Line: 44
+Warning (15899): PLL "OnChipPLL:clock|altpll:altpll_component|OnChipPLL_altpll:auto_generated|pll1" has parameters clk1_multiply_by and clk1_divide_by specified but port CLK[1] is not connected File: /home/jclemme/Projects/eprisc/firmware/io/aux_project/db/OnChipPLL_altpll.v Line: 44
 Warning (21074): Design contains 15 input pin(s) that do not drive logic
-    Warning (15610): No output dependent on input pin "iSerialRX" File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 90
-    Warning (15610): No output dependent on input pin "iSerialCTS" File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 90
-    Warning (15610): No output dependent on input pin "iSerialDCD" File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 90
-    Warning (15610): No output dependent on input pin "iSerialDSR" File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 90
-    Warning (15610): No output dependent on input pin "iTTLSerialRST" File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 93
-    Warning (15610): No output dependent on input pin "iExtBusMISO[0]" File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 99
-    Warning (15610): No output dependent on input pin "iExtBusMISO[1]" File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 99
-    Warning (15610): No output dependent on input pin "iExtBusMISO[2]" File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 99
-    Warning (15610): No output dependent on input pin "iExtBusMISO[3]" File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 99
-    Warning (15610): No output dependent on input pin "iExtBusInterrupt" File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 98
-    Warning (15610): No output dependent on input pin "iSPIMISO" File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 104
-    Warning (15610): No output dependent on input pin "iSPIDetect0" File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 104
-    Warning (15610): No output dependent on input pin "iSPIDetect1" File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 104
-    Warning (15610): No output dependent on input pin "iSPIWrite0" File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 104
-    Warning (15610): No output dependent on input pin "iSPIWrite1" File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 104
+    Warning (15610): No output dependent on input pin "iSerialRX" File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 90
+    Warning (15610): No output dependent on input pin "iSerialCTS" File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 90
+    Warning (15610): No output dependent on input pin "iSerialDCD" File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 90
+    Warning (15610): No output dependent on input pin "iSerialDSR" File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 90
+    Warning (15610): No output dependent on input pin "iTTLSerialRST" File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 93
+    Warning (15610): No output dependent on input pin "iExtBusMISO[0]" File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 99
+    Warning (15610): No output dependent on input pin "iExtBusMISO[1]" File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 99
+    Warning (15610): No output dependent on input pin "iExtBusMISO[2]" File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 99
+    Warning (15610): No output dependent on input pin "iExtBusMISO[3]" File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 99
+    Warning (15610): No output dependent on input pin "iExtBusInterrupt" File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 98
+    Warning (15610): No output dependent on input pin "iSPIMISO" File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 104
+    Warning (15610): No output dependent on input pin "iSPIDetect0" File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 104
+    Warning (15610): No output dependent on input pin "iSPIDetect1" File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 104
+    Warning (15610): No output dependent on input pin "iSPIWrite0" File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 104
+    Warning (15610): No output dependent on input pin "iSPIWrite1" File: /home/jclemme/Projects/eprisc/firmware/io/controller_v1r0.v Line: 104
 Info (21057): Implemented 626 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 29 input pins
     Info (21059): Implemented 36 output pins
@@ -1256,15 +1249,15 @@ Info (21057): Implemented 626 device resources after synthesis - the final resou
     Info (21064): Implemented 32 RAM segments
     Info (21065): Implemented 1 PLLs
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 124 warnings
-    Info: Peak virtual memory: 1341 megabytes
-    Info: Processing ended: Sun Mar 26 11:42:37 2017
-    Info: Elapsed time: 00:00:09
-    Info: Total CPU time (on all processors): 00:00:22
+    Info: Peak virtual memory: 1281 megabytes
+    Info: Processing ended: Thu Apr  6 11:29:36 2017
+    Info: Elapsed time: 00:00:17
+    Info: Total CPU time (on all processors): 00:00:40
 
 
 +------------------------------------------+
 ; Analysis & Synthesis Suppressed Messages ;
 +------------------------------------------+
-The suppressed messages can be found in /home/jclemme/Projects/eprisc-open-computer/firmware/io/aux_project/output_files/epRISC_Controller.map.smsg.
+The suppressed messages can be found in /home/jclemme/Projects/eprisc/firmware/io/aux_project/output_files/epRISC_Controller.map.smsg.
 
 

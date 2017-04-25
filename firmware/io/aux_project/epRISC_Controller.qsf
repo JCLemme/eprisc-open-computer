@@ -102,7 +102,7 @@ set_location_assignment PIN_79 -to iSerialRX
 set_location_assignment PIN_85 -to oSerialDTR
 set_location_assignment PIN_87 -to oVGAVertical
 set_location_assignment PIN_86 -to oVGAHorizontal
-set_location_assignment PIN_84 -to oTTLSerialTX
+set_location_assignment PIN_52 -to oTTLSerialTX
 set_location_assignment PIN_80 -to oSerialTX
 set_location_assignment PIN_78 -to iSerialCTS
 set_location_assignment PIN_54 -to iTTLSerialRST
@@ -113,7 +113,7 @@ set_location_assignment PIN_58 -to iSPIWrite1
 set_location_assignment PIN_46 -to bGPIO4
 set_location_assignment PIN_47 -to bGPIO5
 set_location_assignment PIN_50 -to bGPIO6
-set_location_assignment PIN_52 -to iTTLSerialRX
+set_location_assignment PIN_84 -to iTTLSerialRX
 set_location_assignment PIN_38 -to oBusMISO[5]
 set_location_assignment PIN_39 -to oBusMISO[6]
 set_location_assignment PIN_59 -to oSPISelect[2]
