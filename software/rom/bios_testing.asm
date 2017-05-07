@@ -6,13 +6,45 @@
 ; Just a scratchpad to test components of the BIOS before integration.
 
 !ip     h00000000
-!def    BUS_BASE_ADDRESS    h200
+!def    BUS_BASE_ADDRESS    h800
 
-:entry          move.v  d:%SP v:#h110
+:entry          move.v  d:%SP v:#h410
                 call.s  a:ioc_init
                 move.v  d:%Xw v:#h34EA
                 
-:.loop          push.r  s:%Xw
+                move.v  d:%Xw v:#h201
+                push.r  s:%Xw 
+                move.v  d:%Xw v:#hEA
+                push.r  s:%Xw
+                call.s  a:ioc_send
+                pops.r  d:%Xw
+                pops.r  d:%Xw
+
+                move.v  d:%Xw v:#h200
+                push.r  s:%Xw 
+                move.v  d:%Xw v:#h80
+                push.r  s:%Xw
+                call.s  a:ioc_send
+                pops.r  d:%Xw
+                pops.r  d:%Xw
+
+                halt.i
+                
+:chrls          call.s  a:ser_srcv
+                
+                push.r  s:%Zz
+                call.s  a:ser_send
+                
+                move.v  d:%Xw v:#h3A
+                push.r  s:%Xw
+                call.s  a:ser_send
+                pops.r  d:%Xw
+                
+                move.v  d:%Xw v:#h20
+                push.r  s:%Xw
+                call.s  a:ser_send
+                pops.r  d:%Xw
+                
                 call.s  a:str_hnum
                 pops.r  d:%Zz
                 
@@ -26,8 +58,7 @@
                 call.s  a:ser_send
                 pops.r  d:%Zz
                 
-                addr.v  d:%Xw a:%Xw v:#h01 
-                brch.a  a:.loop
+                brch.a  a:chrls
                 
 !include    "../../rom/bios_bus.asm"
 !include    "../../rom/bios_uart.asm"

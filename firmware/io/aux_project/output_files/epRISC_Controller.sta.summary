@@ -3,12 +3,12 @@ TimeQuest Timing Analyzer Summary
 ------------------------------------------------------------
 
 Type  : Slow 1200mV 85C Model Setup 'iBusClock'
-Slack : -8.250
-TNS   : -640.157
+Slack : -8.513
+TNS   : -664.552
 
 Type  : Slow 1200mV 85C Model Setup 'clock|altpll_component|auto_generated|pll1|clk[0]'
-Slack : -6.966
-TNS   : -207.231
+Slack : -6.738
+TNS   : -211.409
 
 Type  : Slow 1200mV 85C Model Hold 'clock|altpll_component|auto_generated|pll1|clk[0]'
 Slack : 0.342
@@ -27,16 +27,16 @@ Slack : 9.905
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Minimum Pulse Width 'clock|altpll_component|auto_generated|pll1|clk[0]'
-Slack : 3124.713
+Slack : 3124.716
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Setup 'iBusClock'
-Slack : -7.881
-TNS   : -601.710
+Slack : -8.057
+TNS   : -623.523
 
 Type  : Slow 1200mV 0C Model Setup 'clock|altpll_component|auto_generated|pll1|clk[0]'
-Slack : -6.458
-TNS   : -192.307
+Slack : -6.291
+TNS   : -197.321
 
 Type  : Slow 1200mV 0C Model Hold 'clock|altpll_component|auto_generated|pll1|clk[0]'
 Slack : 0.306
@@ -55,35 +55,35 @@ Slack : 9.776
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Minimum Pulse Width 'clock|altpll_component|auto_generated|pll1|clk[0]'
-Slack : 3124.684
+Slack : 3124.688
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Setup 'clock|altpll_component|auto_generated|pll1|clk[0]'
-Slack : -2.981
-TNS   : -86.739
+Slack : -2.904
+TNS   : -88.593
 
 Type  : Fast 1200mV 0C Model Setup 'iBusClock'
-Slack : -2.702
-TNS   : -225.456
+Slack : -2.835
+TNS   : -235.799
 
 Type  : Fast 1200mV 0C Model Hold 'clock|altpll_component|auto_generated|pll1|clk[0]'
-Slack : 0.144
+Slack : 0.145
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Hold 'iBusClock'
-Slack : 0.152
+Slack : 0.151
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'iBusClock'
 Slack : -3.000
-TNS   : -176.507
+TNS   : -176.842
 
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'iBoardClock'
 Slack : 9.663
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'clock|altpll_component|auto_generated|pll1|clk[0]'
-Slack : 3124.741
+Slack : 3124.740
 TNS   : 0.000
 
 ------------------------------------------------------------

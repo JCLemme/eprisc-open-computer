@@ -1,11 +1,11 @@
-Fitter Status : Successful - Sun Mar 26 11:42:49 2017
+Fitter Status : Successful - Thu Apr  6 11:29:51 2017
 Quartus Prime Version : 16.0.0 Build 211 04/27/2016 SJ Lite Edition
 Revision Name : epRISC_Controller
 Top-level Entity Name : epRISC_iocontroller
 Family : MAX 10
 Device : 10M16SCE144C8G
 Timing Models : Final
-Total logic elements : 423 / 15,840 ( 3 % )
+Total logic elements : 420 / 15,840 ( 3 % )
     Total combinational functions : 372 / 15,840 ( 2 % )
     Dedicated logic registers : 210 / 15,840 ( 1 % )
 Total registers : 210

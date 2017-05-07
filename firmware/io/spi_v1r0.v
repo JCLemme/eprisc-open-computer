@@ -32,6 +32,7 @@ module epRISC_SPI(iClk, iRst, oInt, iAddr, iData, oData, iWrite, iEnable, iTxClk
     output wire [15:0] oData;
     
     reg [3:0] rState, rPrevState, rNextState;
+    reg [4:0] rLockSto, rLockAck;
     reg [7:0] rDataBuf;
     reg [15:0] rControl, rDataIn, rDataOut;
 
@@ -45,22 +46,27 @@ module epRISC_SPI(iClk, iRst, oInt, iAddr, iData, oData, iWrite, iEnable, iTxClk
         if(iRst) begin
             rPrevState <= `sIdle;
             rState <= `sIdle;
+            rLockAck <= 0;
         end else begin
             rPrevState <= rState;
             rState <= rNextState;
+
+            if(rState == `sBit0)
+                rLockAck <= rLockAck + 5'h1;
         end
     end
     
     always @(posedge iClk) begin
         if(iRst) begin
             rControl <= 0;
+            rLockSto <= 0;
         end else begin
             if(iWrite && iEnable && iAddr == 0)
                 rControl <= iData;
-            if(rState == `sBit0)
-                rControl[7] <= 0;
-            //if(rDataBuf == 8'hFF)
-            //    rControl[8] <= 1;
+            if((rLockAck > rLockSto) || (rLockAck == 5'h0 && rLockSto == 5'h1F)) begin
+                rLockSto <= rLockAck;
+                rControl[7] <= 1'h0;
+            end
         end
     end
     
@@ -83,7 +89,7 @@ module epRISC_SPI(iClk, iRst, oInt, iAddr, iData, oData, iWrite, iEnable, iTxClk
         end
     end 
     
-    always @(posedge iTxClk) begin
+    always @(negedge iTxClk) begin
         if(iRst) begin
             rDataBuf <= 0;
         end else begin
@@ -94,7 +100,7 @@ module epRISC_SPI(iClk, iRst, oInt, iAddr, iData, oData, iWrite, iEnable, iTxClk
     
     always @(*) begin
         case(rState)
-            `sIdle: rNextState = (rControl[7]) ? `sBit7 : `sIdle;
+            `sIdle: rNextState = (rControl[7] && (rLockAck == rLockSto)) ? `sBit7 : `sIdle;
             `sEnableSS: rNextState = `sBit7;
             `sBit7: rNextState = `sBit6;          
             `sBit6: rNextState = `sBit5;
@@ -106,6 +112,7 @@ module epRISC_SPI(iClk, iRst, oInt, iAddr, iData, oData, iWrite, iEnable, iTxClk
             `sBit0: rNextState = `sDummy;
             `sDummy: rNextState = `sDisableSS;
             `sDisableSS: rNextState = `sIdle;      
+            default: rNextState = `sIdle; 
         endcase
     end
     

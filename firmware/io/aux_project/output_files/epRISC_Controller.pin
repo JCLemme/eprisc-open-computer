@@ -84,17 +84,17 @@ iBusMOSI[3]                  : 11        : input  : 2.5 V             :         
 iBusMOSI[2]                  : 12        : input  : 2.5 V             :         : 1A        : Y              
 oBusMISO[1]                  : 13        : output : 2.5 V             :         : 1A        : Y              
 oBusMISO[0]                  : 14        : output : 2.5 V             :         : 1A        : Y              
-bBoardDebug1                 : 15        : bidir  : 2.5 V             :         : 1B        : N              
+bBoardDebug2                 : 15        : bidir  : 2.5 V             :         : 1B        : N              
 ~ALTERA_TMS~ / RESERVED_INPUT : 16        : input  : 2.5 V Schmitt Trigger :         : 1B        : N              
-RESERVED_INPUT_WITH_WEAK_PULLUP : 17        :        :                   :         : 1B        :                
+bBoardDebug0                 : 17        : bidir  : 2.5 V             :         : 1B        : N              
 ~ALTERA_TCK~ / RESERVED_INPUT : 18        : input  : 2.5 V Schmitt Trigger :         : 1B        : N              
 ~ALTERA_TDI~ / RESERVED_INPUT : 19        : input  : 2.5 V Schmitt Trigger :         : 1B        : N              
 ~ALTERA_TDO~                 : 20        : output : 2.5 V             :         : 1B        : N              
-bBoardDebug2                 : 21        : bidir  : 2.5 V             :         : 1B        : N              
-bBoardDebug4                 : 22        : bidir  : 2.5 V             :         : 1B        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : 21        :        :                   :         : 1B        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : 22        :        :                   :         : 1B        :                
 VCCIO1B                      : 23        : power  :                   : 2.5V    : 1B        :                
 bBoardDebug3                 : 24        : bidir  : 2.5 V             :         : 1B        : N              
-RESERVED_INPUT_WITH_WEAK_PULLUP : 25        :        :                   :         : 1B        :                
+bBoardDebug4                 : 25        : bidir  : 2.5 V             :         : 1B        : N              
 iBusClock                    : 26        : input  : 2.5 V             :         : 2         : Y              
 iBusMOSI[0]                  : 27        : input  : 2.5 V             :         : 2         : Y              
 iBoardClock                  : 28        : input  : 2.5 V             :         : 2         : Y              
@@ -121,7 +121,7 @@ oSPISelect[1]                : 48        : output : 2.5 V             :         
 VCCIO3                       : 49        : power  :                   : 2.5V    : 3         :                
 bGPIO6                       : 50        : bidir  : 2.5 V             :         : 3         : Y              
 VCC_ONE                      : 51        : power  :                   : 3.0V/3.3V :           :                
-iTTLSerialRX                 : 52        : input  : 2.5 V             :         : 3         : Y              
+oTTLSerialTX                 : 52        : output : 2.5 V             :         : 3         : Y              
 GND                          : 53        : gnd    :                   :         :           :                
 iTTLSerialRST                : 54        : input  : 2.5 V             :         : 3         : Y              
 iSPIDetect0                  : 55        : input  : 2.5 V             :         : 3         : Y              
@@ -153,7 +153,7 @@ oSerialTX                    : 80        : output : 2.5 V             :         
 oSerialRTS                   : 81        : output : 2.5 V             :         : 5         : Y              
 VCCIO5                       : 82        : power  :                   : 2.5V    : 5         :                
 GND                          : 83        : gnd    :                   :         :           :                
-oTTLSerialTX                 : 84        : output : 2.5 V             :         : 5         : Y              
+iTTLSerialRX                 : 84        : input  : 2.5 V             :         : 5         : Y              
 oSerialDTR                   : 85        : output : 2.5 V             :         : 5         : Y              
 oVGAHorizontal               : 86        : output : 2.5 V             :         : 5         : Y              
 oVGAVertical                 : 87        : output : 2.5 V             :         : 5         : Y              
@@ -203,7 +203,7 @@ iBoardReset                  : 130       : input  : 2.5 V             :         
 bGPIO2                       : 131       : bidir  : 2.5 V             :         : 8         : Y              
 bGPIO3                       : 132       : bidir  : 2.5 V             :         : 8         : Y              
 GND                          : 133       : gnd    :                   :         :           :                
-bBoardDebug0                 : 134       : bidir  : 2.5 V             :         : 8         : N              
+bBoardDebug1                 : 134       : bidir  : 2.5 V             :         : 8         : N              
 bBoardDebug5                 : 135       : bidir  : 2.5 V             :         : 8         : Y              
 ~ALTERA_nSTATUS~ / RESERVED_INPUT : 136       : input  : 2.5 V Schmitt Trigger :         : 8         : N              
 GND                          : 137       : gnd    :                   :         :           :                
