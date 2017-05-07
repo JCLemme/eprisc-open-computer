@@ -1,10 +1,10 @@
 module epRISC_embeddedROM(iClk, iAddr, oData, iEnable);
 
     input iClk, iEnable;
-    input [7:0] iAddr;
+    input [11:0] iAddr;
     output wire [31:0] oData;
     
-    reg [31:0] rDataOut, rContents[0:255];
+    reg [31:0] rDataOut, rContents[0:4095];
     
     assign oData = (iEnable) ? rDataOut : 32'bz;
     

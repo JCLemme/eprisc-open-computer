@@ -2,11 +2,11 @@
 module epRISC_testRAM(iAddr, iClk, iData, iWrite, oData);
 
     input iClk, iWrite;
-    input [7:0] iAddr;
+    input [11:0] iAddr;
     input [31:0] iData;
     output wire [31:0] oData;
 
-    reg [31:0] rDataOut, rContents[0:255];
+    reg [31:0] rDataOut, rContents[0:4095];
     
     assign oData = rDataOut;
     
