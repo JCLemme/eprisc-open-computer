@@ -1,0 +1,69 @@
+[*]
+[*] GTKWave Analyzer v3.3.66 (w)1999-2015 BSI
+[*] Thu Mar 23 12:26:07 2017
+[*]
+[dumpfile] "/home/jclemme/Projects/eprisc/firmware/testbench/coredump.vcd"
+[dumpfile_mtime] "Thu Mar 23 12:19:22 2017"
+[dumpfile_size] 949282
+[savefile] "/home/jclemme/Projects/eprisc/firmware/testbench/standard.gtkw"
+[timestart] 0
+[size] 1301 744
+[pos] -1 -1
+*-8.000000 49749 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] epRISC_coreTB.
+[treeopen] epRISC_coreTB.controller.
+[treeopen] epRISC_coreTB.machine.
+[sst_width] 225
+[signals_width] 166
+[sst_expanded] 1
+[sst_vpaned_height] 211
+@28
+epRISC_coreTB.controller.uart.iClk
+epRISC_coreTB.controller.uart.iSClk
+epRISC_coreTB.controller.uart.iAddr[1:0]
+@23
+epRISC_coreTB.controller.uart.iData[15:0]
+@28
+epRISC_coreTB.controller.uart.iWrite
+epRISC_coreTB.controller.uart.iEnable
+@22
+epRISC_coreTB.controller.uart.rControl[15:0]
+epRISC_coreTB.controller.uart.rDataIn[15:0]
+epRISC_coreTB.controller.uart.rDataOut[15:0]
+@28
+epRISC_coreTB.controller.uart.oTX
+epRISC_coreTB.controller.uart.iRX
+@22
+epRISC_coreTB.controller.uart.rSendState[3:0]
+epRISC_coreTB.controller.uart.rRecvState[3:0]
+epRISC_coreTB.controller.uart.rRecvDataBuf[7:0]
+@200
+-
+@28
+epRISC_coreTB.machine.core.iClk
+@22
+epRISC_coreTB.machine.core.oAddr[31:0]
+epRISC_coreTB.machine.core.bData[31:0]
+@28
+epRISC_coreTB.machine.core.oWrite
+@22
+epRISC_coreTB.machine.core.rRegIP[31:0]
+epRISC_coreTB.machine.core.rRegSP[31:0]
+epRISC_coreTB.machine.core.rRegCS[31:0]
+epRISC_coreTB.machine.core.rRegA[31:0]
+epRISC_coreTB.machine.core.rRegB[31:0]
+epRISC_coreTB.machine.core.rRegR[32:0]
+epRISC_coreTB.machine.core.rRegM[31:0]
+epRISC_coreTB.machine.core.rInst[31:0]
+epRISC_coreTB.machine.core.rPipeState[3:0]
+@200
+-
+@28
+epRISC_coreTB.machine.bus.oBusClock
+epRISC_coreTB.machine.bus.oBusSelect[1:0]
+@22
+epRISC_coreTB.machine.bus.rDirectMISO[31:0]
+epRISC_coreTB.machine.bus.rDirectMOSI[31:0]
+epRISC_coreTB.machine.bus.rConfig[31:0]
+[pattern_trace] 1
+[pattern_trace] 0
