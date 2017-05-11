@@ -21,7 +21,7 @@
 
 !zone   bios_str
 
-:.str_welcome   !str "epRISC Bootloader v3 - starting...\n\0"
+:.str_welcome   !str "epRISC Bootloader v3 - starting...\n\r\0"
          
 !include    "../../rom/bios_bus.asm"
 !include    "../../rom/bios_uart.asm"

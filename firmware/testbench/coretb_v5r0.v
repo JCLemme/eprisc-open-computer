@@ -78,11 +78,11 @@ module epRISC_coreTB();
         forever iBoardClock = #2 !iBoardClock;
     end
    
-    initial #20000 begin
+    initial #3000000 begin
         iTTLSerialRX <= 0;
     end
 
-    initial #21220 begin
+    initial #3001220 begin
         iTTLSerialRX <= 1;
     end
 

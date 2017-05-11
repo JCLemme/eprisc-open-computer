@@ -22,7 +22,7 @@
 !def    DAT_INPBASE     #h1000  ; Base address of the input buffer
 
 !def    CHR_BACK        #h08    ; Backspace character
-!def    CHR_ENTER       #h0A    ; Enter character
+!def    CHR_ENTER       #h0D    ; Enter character
 !def    CHR_PROMPT      #h3E    ; Prompt character
 !def    CHR_RUN         #h52    ; Run mode character
 !def    CHR_BLOCK       #h2E    ; Block mode character
@@ -90,7 +90,7 @@
                 brch.a  a:lemon_intp                                ; Jump to interpreter
 
 :.notenter      test.v  a:REG_RNPTCNT v:#h80 s:#h01             
-                brch.a  c:%EQL a:.getloop                           ; If index pointer is full, loop to top
+                brch.a  c:%NEQ a:.getloop                           ; If index pointer is full, loop to top
                 
                 push.r  s:%Zz
                 call.s  a:lemon_putc                        
