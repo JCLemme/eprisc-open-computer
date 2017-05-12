@@ -98,6 +98,38 @@ module epRISC_coreTB();
         iTTLSerialRX <= 0;
         #1220 iTTLSerialRX <= 1;
         
+        #300  iTTLSerialRX <= 0;
+        #1024 iTTLSerialRX <= 1;
+        #1024 iTTLSerialRX <= 1;
+        #1024 iTTLSerialRX <= 1;
+        #1024 iTTLSerialRX <= 0;
+        #1024 iTTLSerialRX <= 1;
+        #1024 iTTLSerialRX <= 0;
+        #1024 iTTLSerialRX <= 0;
+        
+        #1024 iTTLSerialRX <= 1;
+    end
+    
+    initial #3115300 begin
+        iTTLSerialRX <= 0;
+        #1220 iTTLSerialRX <= 1;
+        
+        #300  iTTLSerialRX <= 1;
+        #1024 iTTLSerialRX <= 0;
+        #1024 iTTLSerialRX <= 0;
+        #1024 iTTLSerialRX <= 0;
+        #1024 iTTLSerialRX <= 0;
+        #1024 iTTLSerialRX <= 0;
+        #1024 iTTLSerialRX <= 1;
+        #1024 iTTLSerialRX <= 0;
+        
+        #1024 iTTLSerialRX <= 1;
+    end
+    
+    initial #3165300 begin
+        iTTLSerialRX <= 0;
+        #1220 iTTLSerialRX <= 1;
+        
         #300  iTTLSerialRX <= 1;
         #1024 iTTLSerialRX <= 0;
         #1024 iTTLSerialRX <= 1;

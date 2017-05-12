@@ -41,6 +41,15 @@ module BusConverter(iEnable, iData, bData);
 
 endmodule
 
+module BusFiller(iEnable, bData);
+   
+    input iEnable;
+    inout [31:0] bData;
+    
+    assign bData = (iEnable) ? 32'h0 : 32'hz;
+    
+endmodule
+
 module epRISC_machine(iBoardClock, iBoardReset, iBoardSense, oBoardAcknowledge, iBoardReceive, oBoardTransmit,
                       bBoardDebug0, bBoardDebug2, bBoardDebug3, bBoardDebug4, bBoardDebug5,
                       oBusMOSI, iBusMISO, oBusClock, iBusInterrupt, oBusSelect,
@@ -88,7 +97,7 @@ module epRISC_machine(iBoardClock, iBoardReset, iBoardSense, oBoardAcknowledge, 
     wire wCoreBusClock, wCoreBusMemClock, wCoreBusReset, wCoreBusWrite, wCoreBusInterrupt, wCoreBusNMInterrupt;
     wire [0:31] wCoreBusAddress, wCoreBusData, wRAMData;
 
-    wire wEnableRAM, wEnableROM, wEnableBusControl;
+    wire wEnableRAM, wEnableROM, wEnableBusControl, wDisableExtra;
 
     // Core-specific definitions
     wire wCoreHalt, wCoreFlag;
@@ -100,6 +109,7 @@ module epRISC_machine(iBoardClock, iBoardReset, iBoardSense, oBoardAcknowledge, 
     assign wEnableROM = (wCoreBusAddress >= 32'h0 && wCoreBusAddress < 32'hFFF) ? 1'h1 : 1'h0;
     assign wEnableRAM = (wCoreBusAddress >= 32'h1000 && wCoreBusAddress < 32'h1FFF) ? 1'h1 : 1'h0;
     assign wEnableBusControl = (wCoreBusAddress >= 32'h2000 && wCoreBusAddress < 32'h2010) ? 1'h1 : 1'h0;
+    assign wDisableExtra = (wCoreBusAddress >= 32'h2010) ? 1'h1 : 1'h0;
     
     // Modules on the FSB
     `ifdef EMULATED
@@ -114,6 +124,9 @@ module epRISC_machine(iBoardClock, iBoardReset, iBoardSense, oBoardAcknowledge, 
     epRISC_embeddedROM  tbrom(wCoreBusMemClock, wCoreBusAddress, wCoreBusData, wEnableROM); 
 
     BusConverter        bcram(wEnableRAM&&(!wCoreBusWrite), wRAMData, wCoreBusData);
+    
+    BusFiller           busfill(wDisableExtra, wCoreBusData);
+    
     `ifdef EMULATED
     epRISC_testRAM      tbram(wCoreBusAddress, wCoreBusMemClock, wCoreBusData, (wCoreBusWrite&&wEnableRAM), wRAMData); 
     `else
