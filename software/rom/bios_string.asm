@@ -24,7 +24,8 @@
                 
                 addr.v  d:REG_WORK a:REG_WORK v:#h30                ; Make it an ASCII number
                 cmpr.v  a:REG_WORK v:#h3A   
-                brch.a  c:%HOS a:.prest                             ; Hex needs a little more
+                brch.a  c:%LOW a:.prest                             ; Hex needs a little more
+                mski.v  d:%CS a:%CS v:#h10 s:#h01                   ; Clear carry!!!
                 addr.v  d:REG_WORK a:REG_WORK v:#h07
 :.prest         push.r  s:REG_WORK
                 call.s  a:ser_send
@@ -32,7 +33,7 @@
                 
                 subr.v  d:REG_CONT a:REG_CONT v:#h01
                 cmpr.v  a:REG_CONT v:#h00
-                brch.a  c:%GRT a:.ploop                             ; Repeat
+                brch.a  c:%NEQ a:.ploop                             ; Repeat
                 
                 pops.r  d:REG_CONT
                 pops.r  d:REG_WORK

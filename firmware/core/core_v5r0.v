@@ -299,7 +299,7 @@ module epRISC_core(iClk, iRst, oAddr, bData, oWrite, iMaskInt, iNonMaskInt, oHal
         end else begin
             if(rPipeState == `sPipeWriteback) begin
                 if(fCSFlagSet) begin
-                    rRegCS[3] <= rRegR[32];
+                    rRegCS[3] <= (fALUOperation == 5'h0) ? rRegR[32] : (fALUOperation == 5'h1 || fALUOperation == 5'hE) ? ~rRegR[32] : 0;
                     rRegCS[2] <= (rRegR == 0) ? 1'b1 : 1'b0;
                     rRegCS[1] <= rRegR[31];
                     rRegCS[0] <= (fALUOperation == 0 && ((rRegA[31]&&rRegB[31]&&!rRegR[31])||(!rRegA[31]&&!rRegB[31]&&rRegR[31]))) ? 1'b1 

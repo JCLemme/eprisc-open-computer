@@ -115,9 +115,9 @@ module epRISC_machine(iBoardClock, iBoardReset, iBoardSense, oBoardAcknowledge, 
 
     BusConverter        bcram(wEnableRAM&&(!wCoreBusWrite), wRAMData, wCoreBusData);
     `ifdef EMULATED
-    epRISC_testRAM      tbram(wCoreBusAddress, wCoreBusMemClock, wCoreBusData, wCoreBusWrite, wRAMData); 
+    epRISC_testRAM      tbram(wCoreBusAddress, wCoreBusMemClock, wCoreBusData, (wCoreBusWrite&&wEnableRAM), wRAMData); 
     `else
-    OnChipRAM           tbram(wCoreBusAddress, wCoreBusMemClock, wCoreBusData, wCoreBusWrite, wRAMData); 
+    OnChipRAM           tbram(wCoreBusAddress, wCoreBusMemClock, wCoreBusData, (wCoreBusWrite&&wEnableRAM), wRAMData); 
     `endif
 
 endmodule

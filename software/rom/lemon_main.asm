@@ -50,6 +50,11 @@
 
 :lemon_entr     move.v  d:%SP v:#h17FF                              ; Put the stack somewhere handy
                 
+                move.v  d:%Yw v:#hEA34
+                push.r  s:%Yw
+                call.s  a:lemon_putn
+                pops.r  d:%Yw
+                
                 move.v  d:%Yw v:lemon_strwel
                 push.r  s:%Yw
                 call.s  a:lemon_puts
@@ -105,7 +110,8 @@
 !zone   lemon_intp
                 
 :lemon_intp     move.v  d:REG_INDXPTR v:DAT_INPBASE                 ; Reset index pointer
-
+                move.v  d:REG_CURMODE v:#h00                        ; Reset mode
+                
                 move.v  d:%Yw v:#h0A                  
                 push.r  s:%Yw
                 call.s  a:lemon_putc
@@ -113,7 +119,7 @@
                 move.v  d:%Yw v:#h0D                  
                 push.r  s:%Yw
                 call.s  a:lemon_putc
-                pops.r  d:%Yw                                       ; Drop down a line
+                pops.r  d:%Yw                                       ; Drop down a line (154h)
                 
 :.mainloop      load.o  d:REG_CHARBUF r:REG_INDXPTR                 ; Get character at index pointer
                 cmpr.v  a:REG_CHARBUF v:CHR_ENTER                   ; Is character an enter?
@@ -177,12 +183,12 @@
 :.aintwrite     push.r  s:REG_CURADDR                               ; Push CURADDR
                 move.r  d:REG_CURADDR s:REG_CURDATA                 ; Write data to CURADDR
                 
-                cmpr.v  a:REG_CURMODE v:CHR_WRITE                   ; Is character a '.'?
+                cmpr.v  a:REG_CHARBUF v:CHR_BLOCK                   ; Is character a '.'?
                 brch.a  c:%NEQ a:.aintnblock                        ; If not, loop down a few    
                 pops.r  d:%Yw                                       ; Empty last push
                 brch.a  a:.mainloop                                 ; Jump to top of interpreter
                         
-:.aintnblock    cmpr.v  a:REG_CURMODE v:CHR_WRITE                   ; Is mode currently Single?
+:.aintnblock    cmpr.v  a:REG_CURMODE v:#h00                        ; Is mode currently Single?
                 brch.a  c:%NEQ a:.aintsingle                        ; If not, loop down a few    
                 pops.r  d:%Yw                                       ; Empty last push
                 
@@ -190,7 +196,7 @@
                 call.s  a:str_hnum
                 pops.r  d:REG_CURADDR
                 
-                move.v  d:%Yw v:#h3E              
+                move.v  d:%Yw v:#h3A          
                 push.r  s:%Yw
                 call.s  a:lemon_putc
                 pops.r  d:%Yw         
@@ -203,20 +209,11 @@
                 load.o  d:%Yw r:REG_CURADDR
                 push.r  s:%Yw
                 call.s  a:lemon_putn
-                pops.r  d:REG_CURADDR
-                
-                move.v  d:%Yw v:#h0A                  
-                push.r  s:%Yw
-                call.s  a:lemon_putc
-                pops.r  d:%Yw                                   
-                move.v  d:%Yw v:#h0D                  
-                push.r  s:%Yw
-                call.s  a:lemon_putc
-                pops.r  d:%Yw                                       ; Print address, data
+                pops.r  d:REG_CURADDR                               ; Print address, data
                 
                 brch.a  a:.mainloop                                 ; Jump to top of interpreter
                         
-:.aintsingle    cmpr.v  a:REG_CURMODE v:CHR_WRITE                   ; Is mode currently Block?
+:.aintsingle    cmpr.v  a:REG_CURMODE v:CHR_BLOCK                   ; Is mode currently Block?
                 call.s  c:%NEQ a:lemon_eror                         ; If not, CRASH  
                 move.r  d:%Yw s:REG_CURADDR                         ; Shuffle the address  
                 pops.r  d:REG_CURADDR                               ; Pop last address
@@ -237,7 +234,7 @@
                 call.s  a:str_hnum
                 pops.r  d:REG_CURADDR
                 
-                move.v  d:%Yw v:#h3E              
+                move.v  d:%Yw v:#h3A              
                 push.r  s:%Yw
                 call.s  a:lemon_putc
                 pops.r  d:%Yw                                       ; Print a nice, fancy formatted address 

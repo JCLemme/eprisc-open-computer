@@ -78,14 +78,38 @@ module epRISC_coreTB();
         forever iBoardClock = #2 !iBoardClock;
     end
    
-    initial #3000000 begin
+    initial #3001564 begin
         iTTLSerialRX <= 0;
+        #1220 iTTLSerialRX <= 1;
+        
+        #300  iTTLSerialRX <= 1;
+        #1024 iTTLSerialRX <= 0;
+        #1024 iTTLSerialRX <= 0;
+        #1024 iTTLSerialRX <= 0;
+        #1024 iTTLSerialRX <= 1;
+        #1024 iTTLSerialRX <= 1;
+        #1024 iTTLSerialRX <= 0;
+        #1024 iTTLSerialRX <= 0;
+        
+        #1024 iTTLSerialRX <= 1;
     end
-
-    initial #3001220 begin
-        iTTLSerialRX <= 1;
+    
+    initial #3055300 begin
+        iTTLSerialRX <= 0;
+        #1220 iTTLSerialRX <= 1;
+        
+        #300  iTTLSerialRX <= 1;
+        #1024 iTTLSerialRX <= 0;
+        #1024 iTTLSerialRX <= 1;
+        #1024 iTTLSerialRX <= 1;
+        #1024 iTTLSerialRX <= 0;
+        #1024 iTTLSerialRX <= 0;
+        #1024 iTTLSerialRX <= 0;
+        #1024 iTTLSerialRX <= 0;
+        
+        #1024 iTTLSerialRX <= 1;
     end
-
+    
     initial #10000000 begin
         $finish;
     end
