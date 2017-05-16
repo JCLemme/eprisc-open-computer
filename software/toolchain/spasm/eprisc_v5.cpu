@@ -373,6 +373,38 @@ core=EPRISC_STD
         V=VALUE:h0
     endinst
     
+    inst=ADDC.R  #Add with carry, two registers
+        format=000100010000DDDDAAAABBBBVVVVVVVV
+        D=ENUMT:REGISTER
+        A=ENUMT:REGISTER
+        B=ENUMT:REGISTER
+        V=VALUE:h0
+    endinst
+    
+    inst=ADDC.V  #Add with carry, register and 8-bit value
+        format=000110010000DDDDAAAASSSSVVVVVVVV
+        D=ENUMT:REGISTER
+        A=ENUMT:REGISTER
+        S=VALUE:h0
+        V=VALUE:h0
+    endinst
+    
+    inst=SUBB.R  #Subtract with borrow, two registers
+        format=000100010001DDDDAAAABBBBVVVVVVVV
+        D=ENUMT:REGISTER
+        A=ENUMT:REGISTER
+        B=ENUMT:REGISTER
+        V=VALUE:h0
+    endinst
+    
+    inst=SUBB.V  #Subtract with borrow, register and 8-bit value
+        format=000110010001DDDDAAAASSSSVVVVVVVV
+        D=ENUMT:REGISTER
+        A=ENUMT:REGISTER
+        S=VALUE:h0
+        V=VALUE:h0
+    endinst
+    
     # # # # # # # #
     
     inst=MOVE.R  #Move, two register

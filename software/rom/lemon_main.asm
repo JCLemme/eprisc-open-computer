@@ -76,18 +76,22 @@
                 
                 cmpr.v  a:%Zz v:CHR_BACK                            ; Is character a backspace?
                 brch.a  c:%NEQ a:.notback                           ; If not, loop down a few
-            mski.v  d:%CS a:%CS v:#h08                          ; Clear carry!!!
-                subr.v  d:REG_INDXPTR a:REG_INDXPTR v:#h01          ; Back up the index pointer
+                cmpr.v  a:REG_INDXPTR v:DAT_INPBASE                 ; Is the index pointer zero?
+                brch.a  c:%NEQ a:.indxgood                          ; If not, loop down a few
+                brch.a  a:.getloop                                  ; Just abort
+:.indxgood      subr.v  d:REG_INDXPTR a:REG_INDXPTR v:#h02          ; Back up the index pointer two (for reasons)
                 subr.v  d:REG_RNPTCNT a:REG_RNPTCNT v:#h01          ; Back up the index counter
                 load.o  d:%Zz r:REG_INDXPTR                     
                 push.r  s:%Zz
                 call.s  a:lemon_putc
-                pops.r  d:%Zz                                       ; Print character at index pointer
+                pops.r  d:%Zz                                       ; Print character *before* index pointer
+                addr.v  d:REG_INDXPTR a:REG_INDXPTR v:#h01          ; Revert to the real index pointer
+                move.v  d:%Zz v:#h00    
+                stor.o  s:%Zz r:REG_INDXPTR                         ; Store zero at index pointer
                 brch.a  a:.getloop                                  ; Loop to top
                 
 :.notback       cmpr.v  a:%Zz v:CHR_ENTER                           ; Is character an enter?
                 brch.a  c:%NEQ a:.notenter                          ; If not, loop down a few
-            mski.v  d:%CS a:%CS v:#h08                          ; Clear carry!!!
                 stor.o  s:%Zz r:REG_INDXPTR                         ; Store enter in buffer
                 brch.a  a:lemon_intp                                ; Jump to interpreter
 
@@ -109,6 +113,16 @@
 :lemon_intp     move.v  d:REG_INDXPTR v:DAT_INPBASE                 ; Reset index pointer
                 move.v  d:REG_CURMODE v:#h00                        ; Reset mode
                 
+:.mainloop      load.o  d:REG_CHARBUF r:REG_INDXPTR                 ; Get character at index pointer
+                cmpr.v  a:REG_CHARBUF v:CHR_ENTER                   ; Is character an enter?
+                brch.a  c:%NEQ a:.notenter                          ; If not, loop down a few
+                cmpr.v  a:REG_CURMODE v:CHR_WRITE       
+                brch.a  c:%NEQ a:.writeclean                    
+                pops.r  d:%Yw                                       ; If the mode was Write, pop CURADDR
+:.writeclean    brch.a  a:lemon_ihdl                                ; Jump to input handler
+                
+:.notenter      cmpr.v  a:REG_CHARBUF v:CHR_RUN                     ; Is character an 'R'?
+                brch.a  c:%NEQ a:.notrun                            ; If not, loop down a few
                 move.v  d:%Yw v:#h0A                  
                 push.r  s:%Yw
                 call.s  a:lemon_putc
@@ -116,27 +130,12 @@
                 move.v  d:%Yw v:#h0D                  
                 push.r  s:%Yw
                 call.s  a:lemon_putc
-                pops.r  d:%Yw                                       ; Drop down a line (154h)
-                
-:.mainloop      load.o  d:REG_CHARBUF r:REG_INDXPTR                 ; Get character at index pointer
-                cmpr.v  a:REG_CHARBUF v:CHR_ENTER                   ; Is character an enter?
-                brch.a  c:%NEQ a:.notenter                          ; If not, loop down a few
-            mski.v  d:%CS a:%CS v:#h08                          ; Clear carry!!!
-                cmpr.v  a:REG_CURMODE v:CHR_WRITE       
-                brch.a  c:%NEQ a:.writeclean                    
-            mski.v  d:%CS a:%CS v:#h08                          ; Clear carry!!!
-                pops.r  d:%Yw                                       ; If the mode was Write, pop CURADDR
-:.writeclean    brch.a  a:lemon_ihdl                                ; Jump to input handler
-                
-:.notenter      cmpr.v  a:REG_CHARBUF v:CHR_RUN                     ; Is character an 'R'?
-                brch.a  c:%NEQ a:.notrun                            ; If not, loop down a few
-            mski.v  d:%CS a:%CS v:#h08                          ; Clear carry!!!
+                pops.r  d:%Yw                                       ; Drop down a line
                 brch.o  r:REG_CURADDR l:%SVSK                       ; Call routine at current address
                 brch.a  a:.mainloop                                 ; Jump to top
                 
 :.notrun        cmpr.v  a:REG_CHARBUF v:CHR_WRITE                   ; Is character a ':'?
                 brch.a  c:%NEQ a:.notwrite                          ; If not, loop down a few
-            mski.v  d:%CS a:%CS v:#h08                          ; Clear carry!!!
                 move.v  d:REG_CURMODE v:CHR_WRITE                   ; Set mode to Write
                 push.r  s:REG_CURADDR                               ; Push CURADDR (indent)
                 addr.v  d:REG_INDXPTR a:REG_INDXPTR v:#h01          ; Increment index pointer
@@ -144,10 +143,8 @@
                 
 :.notwrite      cmpr.v  a:REG_CHARBUF v:CHR_BLOCK                   ; Is character a '.'?
                 brch.a  c:%NEQ a:.notblock                          ; If not, loop down a few
-            mski.v  d:%CS a:%CS v:#h08                          ; Clear carry!!!
                 cmpr.v  a:REG_CURMODE v:CHR_WRITE       
                 brch.a  c:%NEQ a:.wasntwrite                    
-            mski.v  d:%CS a:%CS v:#h08                          ; Clear carry!!!
                 pops.r  d:%Yw                                       ; If the mode was Write, pop CURADDR
 :.wasntwrite    move.v  d:REG_CURMODE v:CHR_BLOCK                   ; Set mode to Block
                 addr.v  d:REG_INDXPTR a:REG_INDXPTR v:#h01          ; Increment index pointer
@@ -155,7 +152,6 @@
                 
 :.notblock      cmpr.v  a:REG_CHARBUF v:#h20                        ; Is character a ' '?
                 brch.a  c:%NEQ a:.notempty                          ; If not, loop down a few
-            mski.v  d:%CS a:%CS v:#h08                          ; Clear carry!!!
                 addr.v  d:REG_INDXPTR a:REG_INDXPTR v:#h01          ; Increment index pointer
                 brch.a  a:.mainloop                                 ; Jump to top
                 
@@ -166,11 +162,11 @@
                 subr.v  d:REG_CHARBUF a:REG_CHARBUF v:#h30      
                 cmpr.v  a:REG_CHARBUF v:#h0A
                 brch.a  c:%LOW a:.goodnum
-            mski.v  d:%CS a:%CS v:#h08                          ; Clear carry!!!
-                subr.v  d:REG_CHARBUF a:REG_CHARBUF v:#h07  
+                subr.v  d:REG_CHARBUF a:REG_CHARBUF v:#h07 
+                cmpr.v  a:REG_CHARBUF v:#h0A
+                brch.a  c:%LOW a:.badnum               
                 cmpr.v  a:REG_CHARBUF v:#h10
                 brch.a  c:%LOW a:.goodnum               
-            mski.v  d:%CS a:%CS v:#h08                          ; Clear carry!!!
                 brch.a  a:.badnum                                   ; Convert character to hex digit
                 
 :.goodnum       arsl.v  d:REG_CURDATA a:REG_CURDATA v:#h04
@@ -182,7 +178,6 @@
                 
                 cmpr.v  a:REG_CURMODE v:CHR_WRITE                   ; Is mode currently Write?
                 brch.a  c:%NEQ a:.aintwrite                         ; If not, loop down a few
-            mski.v  d:%CS a:%CS v:#h08                          ; Clear carry!!!
                 stor.o  s:REG_CURDATA r:REG_CURADDR                 ; Store data at CURADDR
                 addr.v  d:REG_CURADDR a:REG_CURADDR v:#h01          ; Increment CURADDR
                 brch.a  a:.mainloop                                 ; Jump to top of interpreter
@@ -192,14 +187,21 @@
                 
                 cmpr.v  a:REG_CHARBUF v:CHR_BLOCK                   ; Is character a '.'?
                 brch.a  c:%NEQ a:.aintnblock                        ; If not, loop down a few    
-            mski.v  d:%CS a:%CS v:#h08                          ; Clear carry!!!
                 pops.r  d:%Yw                                       ; Empty last push
                 brch.a  a:.mainloop                                 ; Jump to top of interpreter
                         
 :.aintnblock    cmpr.v  a:REG_CURMODE v:#h00                        ; Is mode currently Single?
                 brch.a  c:%NEQ a:.aintsingle                        ; If not, loop down a few    
-            mski.v  d:%CS a:%CS v:#h08                          ; Clear carry!!!
                 pops.r  d:%Yw                                       ; Empty last push
+                
+                move.v  d:%Yw v:#h0A                  
+                push.r  s:%Yw
+                call.s  a:lemon_putc
+                pops.r  d:%Yw                                   
+                move.v  d:%Yw v:#h0D                  
+                push.r  s:%Yw
+                call.s  a:lemon_putc
+                pops.r  d:%Yw                                       ; Drop down a line
                 
                 push.r  s:REG_CURADDR
                 call.s  a:str_hnum
@@ -224,12 +226,15 @@
                         
 :.aintsingle    cmpr.v  a:REG_CURMODE v:CHR_BLOCK                   ; Is mode currently Block?
                 call.s  c:%NEQ a:lemon_eror                         ; If not, CRASH  
-            mski.v  d:%CS a:%CS v:#h08                          ; Clear carry!!!
                 move.r  d:%Yw s:REG_CURADDR                         ; Shuffle the address  
                 pops.r  d:REG_CURADDR                               ; Pop last address
                 
-                subr.r  d:REG_TLENGTH a:%Yw b:REG_CURADDR           ; Calculate length of run
-                brch.a  a:.blkaddr                                  ; Skip the first drop
+                cmpr.r  a:%Yw b:REG_CURADDR                         ; Is the last bigger than the first?
+                brch.a  c:%GET a:.rightsize                         ; If so, loop down a few
+                move.r  d:%Yw s:REG_CURADDR                         ; Bogus data plz
+:.rightsize     subr.r  d:REG_TLENGTH a:%Yw b:REG_CURADDR           
+                addr.v  d:REG_TLENGTH a:REG_TLENGTH v:#h01          ; Calculate length of run
+                push.r  s:REG_CURADDR                               ; Save original starting address
                 
 :.blkdrop       move.v  d:%Yw v:#h0A                  
                 push.r  s:%Yw
@@ -249,9 +254,8 @@
                 call.s  a:lemon_putc
                 pops.r  d:%Yw                                       ; Print a nice, fancy formatted address 
                 
-:.blkdata       cmpr.v  a:REG_TLENGTH v:#h07                        ; Do we have fewer than eight words to print?
-                brch.a  c:%HIG a:.bigdata                           ; If not, loop down a few
-            mski.v  d:%CS a:%CS v:#h08                          ; Clear carry!!!
+:.blkdata       cmpr.v  a:REG_TLENGTH v:#h08                        ; Do we have fewer than eight words to print?
+                brch.a  c:%HOS a:.bigdata                           ; If not, loop down a few
                 move.r  d:REG_ACROSSL s:REG_TLENGTH                 ; Isolate the length
                 brch.a  a:.datares                                  ; Converge
 :.bigdata       move.v  d:REG_ACROSSL v:#h08                        ; We know it's eight words long here
@@ -275,5 +279,7 @@
                 cmpr.v  a:REG_TLENGTH v:#h00                        ; Did we finish everything?
                 brch.a  c:%NEQ a:.blkdrop                           ; If not, try again
                 
+                pops.r  d:REG_CURADDR                               ; Restore address
+                move.v  d:REG_CURMODE v:#h00                        ; Set mode back to Single
                 brch.a  a:.mainloop                                 ; Jump to top of interpreter
                         

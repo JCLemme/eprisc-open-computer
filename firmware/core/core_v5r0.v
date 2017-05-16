@@ -299,7 +299,7 @@ module epRISC_core(iClk, iRst, oAddr, bData, oWrite, iMaskInt, iNonMaskInt, oHal
         end else begin
             if(rPipeState == `sPipeWriteback) begin
                 if(fCSFlagSet) begin
-                    rRegCS[3] <= (fALUOperation == 5'h0) ? rRegR[32] : (fALUOperation == 5'h1 || fALUOperation == 5'hE) ? ~rRegR[32] : 0;
+                    rRegCS[3] <= (fALUOperation == 5'h0) ? rRegR[32] : ((fALUOperation == 5'h1 || fALUOperation == 5'hE) ? !rRegR[32] : 1'h0);
                     rRegCS[2] <= (rRegR == 0) ? 1'b1 : 1'b0;
                     rRegCS[1] <= rRegR[31];
                     rRegCS[0] <= (fALUOperation == 0 && ((rRegA[31]&&rRegB[31]&&!rRegR[31])||(!rRegA[31]&&!rRegB[31]&&rRegR[31]))) ? 1'b1 
@@ -407,8 +407,8 @@ module epRISC_core(iClk, iRst, oAddr, bData, oWrite, iMaskInt, iNonMaskInt, oHal
     // Arithmetic logic unit 
     always @(*) begin
         case(wALUOperation)
-            0: rALUOut = (mALU) ? (rRegA + rRegB + fCSCarry) : (rRegA + rRegB);
-            1: rALUOut = rRegA - (rRegB + fCSCarry);
+            0: rALUOut = rRegA + rRegB;
+            1: rALUOut = rRegA - rRegB;
             2: rALUOut = rRegA & rRegB;
             3: rALUOut = rRegA | rRegB;
             4: rALUOut = rRegA ^ rRegB;
@@ -423,6 +423,8 @@ module epRISC_core(iClk, iRst, oAddr, bData, oWrite, iMaskInt, iNonMaskInt, oHal
             13: rALUOut = ((rRegA & (fALUValue << rRegB)) >> (rRegB));
             14: rALUOut = rRegA - rRegB;
             15: rALUOut = rRegA & rRegB;
+            16: rALUOut = (rRegA + rRegB + fCSCarry);
+            17: rALUOut = rRegA - (rRegB + fCSCarry);
             default: rALUOut = 32'hBADC0DE;
         endcase
     end
