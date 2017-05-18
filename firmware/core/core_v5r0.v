@@ -364,7 +364,7 @@ module epRISC_core(iClk, iRst, oAddr, bData, oWrite, iMaskInt, iNonMaskInt, oHal
                 else if(mALU && !mALURegisters)
                     rRegB <= fALUValue << {fALUShift, 1'h0};
                 else if(mALU && !mALURegisters && (fALUOperation == 5'd12 || fALUOperation == 5'd13))
-                    rRegB <= (fALUShift << 1);
+                    rRegB <= {fALUShift, 1'h0};
                 else
                     rRegB <= wBusInB;
             end

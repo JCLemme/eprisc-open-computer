@@ -28,7 +28,8 @@ module epRISC_SPI(iClk, iRst, oInt, iAddr, iData, oData, iWrite, iEnable, iTxClk
     input iClk, iRst, iWrite, iEnable, iTxClk, iMISO;
     input [1:0] iAddr;
     input [15:0] iData;
-    output wire oInt, oMOSI, oSS, oSCLK;
+    output wire oInt, oMOSI, oSCLK;
+    output wire [3:0] oSS;
     output wire [15:0] oData;
     
     reg [3:0] rState, rPrevState, rNextState;
@@ -37,7 +38,7 @@ module epRISC_SPI(iClk, iRst, oInt, iAddr, iData, oData, iWrite, iEnable, iTxClk
     reg [15:0] rControl, rDataIn, rDataOut;
 
     assign oMOSI = (rState > 7) ? 1 : rDataIn[rState];
-    assign oSS = 0;//!rControl[6];
+    assign oSS = ~rControl[6:3];
     assign oSCLK = (rState < 8) ? iTxClk : 1;
     
     assign oData = (!iEnable) ? 16'bz : (iAddr==0)?((rState!=`sIdle)?rControl|16'h80:rControl):((iAddr==1)?rDataIn:((iAddr==2)?rDataOut:16'b1));
