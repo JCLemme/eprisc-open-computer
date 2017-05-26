@@ -1,5 +1,5 @@
 PowerPlay Power Analyzer report for epRISC_Controller
-Thu Apr  6 11:29:58 2017
+Thu May 25 20:27:32 2017
 Quartus Prime Version 16.0.0 Build 211 04/27/2016 SJ Lite Edition
 
 
@@ -7,20 +7,21 @@ Quartus Prime Version 16.0.0 Build 211 04/27/2016 SJ Lite Edition
 ; Table of Contents ;
 ---------------------
   1. Legal Notice
-  2. PowerPlay Power Analyzer Summary
-  3. PowerPlay Power Analyzer Settings
-  4. Indeterminate Toggle Rates
-  5. Operating Conditions Used
-  6. Thermal Power Dissipation by Block
-  7. Thermal Power Dissipation by Block Type
-  8. Thermal Power Dissipation by Hierarchy
-  9. Core Dynamic Thermal Power Dissipation by Clock Domain
- 10. Current Drawn from Voltage Supplies Summary
- 11. VCCIO Supply Current Drawn by I/O Bank
- 12. VCCIO Supply Current Drawn by Voltage
- 13. Confidence Metric Details
- 14. Signal Activities
- 15. PowerPlay Power Analyzer Messages
+  2. Parallel Compilation
+  3. PowerPlay Power Analyzer Summary
+  4. PowerPlay Power Analyzer Settings
+  5. Indeterminate Toggle Rates
+  6. Operating Conditions Used
+  7. Thermal Power Dissipation by Block
+  8. Thermal Power Dissipation by Block Type
+  9. Thermal Power Dissipation by Hierarchy
+ 10. Core Dynamic Thermal Power Dissipation by Clock Domain
+ 11. Current Drawn from Voltage Supplies Summary
+ 12. VCCIO Supply Current Drawn by I/O Bank
+ 13. VCCIO Supply Current Drawn by Voltage
+ 14. Confidence Metric Details
+ 15. Signal Activities
+ 16. PowerPlay Power Analyzer Messages
 
 
 
@@ -44,17 +45,34 @@ agreement for further details.
 
 
 
++------------------------------------------+
+; Parallel Compilation                     ;
++----------------------------+-------------+
+; Processors                 ; Number      ;
++----------------------------+-------------+
+; Number detected on machine ; 8           ;
+; Maximum allowed            ; 4           ;
+;                            ;             ;
+; Average used               ; 1.41        ;
+; Maximum used               ; 4           ;
+;                            ;             ;
+; Usage by Processor         ; % Time Used ;
+;     Processor 1            ; 100.0%      ;
+;     Processors 2-4         ;  13.6%      ;
++----------------------------+-------------+
+
+
 +-------------------------------------------------------------------------------------------+
 ; PowerPlay Power Analyzer Summary                                                          ;
 +----------------------------------------+--------------------------------------------------+
-; PowerPlay Power Analyzer Status        ; Successful - Thu Apr  6 11:29:58 2017            ;
+; PowerPlay Power Analyzer Status        ; Successful - Thu May 25 20:27:32 2017            ;
 ; Quartus Prime Version                  ; 16.0.0 Build 211 04/27/2016 SJ Lite Edition      ;
 ; Revision Name                          ; epRISC_Controller                                ;
 ; Top-level Entity Name                  ; epRISC_iocontroller                              ;
 ; Family                                 ; MAX 10                                           ;
 ; Device                                 ; 10M16SCE144C8G                                   ;
 ; Power Models                           ; Final                                            ;
-; Total Thermal Power Dissipation        ; 232.93 mW                                        ;
+; Total Thermal Power Dissipation        ; 232.92 mW                                        ;
 ; Core Dynamic Thermal Power Dissipation ; 0.00 mW                                          ;
 ; Core Static Thermal Power Dissipation  ; 226.30 mW                                        ;
 ; I/O Thermal Power Dissipation          ; 6.63 mW                                          ;
@@ -94,6 +112,7 @@ agreement for further details.
 ; Node                                                                                             ; Reason                      ;
 +--------------------------------------------------------------------------------------------------+-----------------------------+
 ; OnChipPLL:clock|altpll:altpll_component|OnChipPLL_altpll:auto_generated|wire_pll1_clk[0]         ; No valid clock domain found ;
+; OnChipPLL:clock|altpll:altpll_component|OnChipPLL_altpll:auto_generated|wire_pll1_clk[1]         ; No valid clock domain found ;
 ; iSerialRX                                                                                        ; No valid clock domain found ;
 ; iSerialCTS                                                                                       ; No valid clock domain found ;
 ; iSerialDCD                                                                                       ; No valid clock domain found ;
@@ -104,7 +123,6 @@ agreement for further details.
 ; iExtBusMISO[2]                                                                                   ; No valid clock domain found ;
 ; iExtBusMISO[3]                                                                                   ; No valid clock domain found ;
 ; iExtBusInterrupt                                                                                 ; No valid clock domain found ;
-; iSPIMISO                                                                                         ; No valid clock domain found ;
 ; iSPIDetect0                                                                                      ; No valid clock domain found ;
 ; iSPIDetect1                                                                                      ; No valid clock domain found ;
 ; iSPIWrite0                                                                                       ; No valid clock domain found ;
@@ -135,19 +153,23 @@ agreement for further details.
 ; bGPIO15                                                                                          ; No valid clock domain found ;
 ; iBusClock                                                                                        ; No valid clock domain found ;
 ; iBoardReset                                                                                      ; No valid clock domain found ;
-; iBusSelect[0]                                                                                    ; No valid clock domain found ;
-; iBusSelect[1]                                                                                    ; No valid clock domain found ;
+; iBusMOSI[0]                                                                                      ; No valid clock domain found ;
+; iBusMOSI[1]                                                                                      ; No valid clock domain found ;
 ; iBusMOSI[2]                                                                                      ; No valid clock domain found ;
 ; iBusMOSI[3]                                                                                      ; No valid clock domain found ;
 ; iBusMOSI[4]                                                                                      ; No valid clock domain found ;
 ; iBusMOSI[5]                                                                                      ; No valid clock domain found ;
-; iBusMOSI[1]                                                                                      ; No valid clock domain found ;
-; iBusMOSI[0]                                                                                      ; No valid clock domain found ;
 ; iBusMOSI[6]                                                                                      ; No valid clock domain found ;
 ; iBusMOSI[7]                                                                                      ; No valid clock domain found ;
-; iTTLSerialRX                                                                                     ; No valid clock domain found ;
+; iBusSelect[0]                                                                                    ; No valid clock domain found ;
+; iBusSelect[1]                                                                                    ; No valid clock domain found ;
 ; iBoardClock                                                                                      ; No valid clock domain found ;
+; iTTLSerialRX                                                                                     ; No valid clock domain found ;
+; iSPIMISO                                                                                         ; No valid clock domain found ;
 ; iBusClock~inputclkctrl                                                                           ; No valid clock domain found ;
+; wInternalReset~clkctrl                                                                           ; No valid clock domain found ;
+; mBusReset~6clkctrl                                                                               ; No valid clock domain found ;
+; OnChipPLL:clock|altpll:altpll_component|OnChipPLL_altpll:auto_generated|wire_pll1_clk[1]~clkctrl ; No valid clock domain found ;
 ; OnChipPLL:clock|altpll:altpll_component|OnChipPLL_altpll:auto_generated|wire_pll1_clk[0]~clkctrl ; No valid clock domain found ;
 +--------------------------------------------------------------------------------------------------+-----------------------------+
 
@@ -183,17 +205,18 @@ agreement for further details.
 (1) The "Thermal Power Dissipation by Block" Table has been hidden. To show this table, please select the "Write power dissipation by block to report file" option under "PowerPlay Power Analyzer Settings".
 
 
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Thermal Power Dissipation by Block Type                                                                                                                                                                           ;
-+--------------------+-----------------------------------+-----------------------------+--------------------------------+-------------------------------+-----------------------------------------------------------+
-; Block Type         ; Total Thermal Power by Block Type ; Block Thermal Dynamic Power ; Block Thermal Static Power (1) ; Routing Thermal Dynamic Power ; Block Average Toggle Rate (millions of transitions / sec) ;
-+--------------------+-----------------------------------+-----------------------------+--------------------------------+-------------------------------+-----------------------------------------------------------+
-; M9K                ; 0.00 mW                           ; 0.00 mW                     ; --                             ; 0.00 mW                       ;    0.000                                                  ;
-; Combinational cell ; 0.00 mW                           ; 0.00 mW                     ; --                             ; 0.00 mW                       ;    0.000                                                  ;
-; Register cell      ; 0.00 mW                           ; 0.00 mW                     ; --                             ; 0.00 mW                       ;    0.000                                                  ;
-; I/O                ; 0.47 mW                           ; 0.00 mW                     ; 0.47 mW                        ; 0.00 mW                       ;    0.000                                                  ;
-; Voltage Regulator  ; 0.96 mW                           ; 0.00 mW                     ; 0.96 mW                        ; --                            ; --                                                        ;
-+--------------------+-----------------------------------+-----------------------------+--------------------------------+-------------------------------+-----------------------------------------------------------+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Thermal Power Dissipation by Block Type                                                                                                                                                                            ;
++---------------------+-----------------------------------+-----------------------------+--------------------------------+-------------------------------+-----------------------------------------------------------+
+; Block Type          ; Total Thermal Power by Block Type ; Block Thermal Dynamic Power ; Block Thermal Static Power (1) ; Routing Thermal Dynamic Power ; Block Average Toggle Rate (millions of transitions / sec) ;
++---------------------+-----------------------------------+-----------------------------+--------------------------------+-------------------------------+-----------------------------------------------------------+
+; M9K                 ; 0.00 mW                           ; 0.00 mW                     ; --                             ; 0.00 mW                       ;    0.000                                                  ;
+; Combinational cell  ; 0.00 mW                           ; 0.00 mW                     ; --                             ; 0.00 mW                       ;    0.000                                                  ;
+; Clock control block ; 0.00 mW                           ; 0.00 mW                     ; --                             ; 0.00 mW                       ;    0.000                                                  ;
+; Register cell       ; 0.00 mW                           ; 0.00 mW                     ; --                             ; 0.00 mW                       ;    0.000                                                  ;
+; I/O                 ; 0.47 mW                           ; 0.00 mW                     ; 0.47 mW                        ; 0.00 mW                       ;    0.000                                                  ;
+; Voltage Regulator   ; 0.96 mW                           ; 0.00 mW                     ; 0.96 mW                        ; --                            ; --                                                        ;
++---------------------+-----------------------------------+-----------------------------+--------------------------------+-------------------------------+-----------------------------------------------------------+
 (1) The "Block Thermal Static Power" for all block types except Pins and the Voltage Regulator, if one exists, is part of the "Core Static Thermal Power Dissipation" value found on the PowerPlay Power Analyzer-->Summary report panel. The "Core Static Thermal Power Dissipation" also contains the thermal static power dissipated by the routing.
 
 
@@ -206,7 +229,7 @@ agreement for further details.
 ;     |hard_block:auto_generated_inst          ; 0.00 mW (0.00 mW)                    ; 0.00 mW (0.00 mW)               ; --                                ; 0.00 mW (0.00 mW)                 ; |epRISC_iocontroller|hard_block:auto_generated_inst                                                   ;
 ;     |epRISC_controlRAM:bmem                  ; 0.00 mW (0.00 mW)                    ; 0.00 mW (0.00 mW)               ; --                                ; 0.00 mW (0.00 mW)                 ; |epRISC_iocontroller|epRISC_controlRAM:bmem                                                           ;
 ;         |altsyncram:rContents_rtl_0          ; 0.00 mW (0.00 mW)                    ; 0.00 mW (0.00 mW)               ; --                                ; 0.00 mW (0.00 mW)                 ; |epRISC_iocontroller|epRISC_controlRAM:bmem|altsyncram:rContents_rtl_0                                ;
-;             |altsyncram_0ec1:auto_generated  ; 0.00 mW (0.00 mW)                    ; 0.00 mW (0.00 mW)               ; --                                ; 0.00 mW (0.00 mW)                 ; |epRISC_iocontroller|epRISC_controlRAM:bmem|altsyncram:rContents_rtl_0|altsyncram_0ec1:auto_generated ;
+;             |altsyncram_7td1:auto_generated  ; 0.00 mW (0.00 mW)                    ; 0.00 mW (0.00 mW)               ; --                                ; 0.00 mW (0.00 mW)                 ; |epRISC_iocontroller|epRISC_controlRAM:bmem|altsyncram:rContents_rtl_0|altsyncram_7td1:auto_generated ;
 ;     |epRISC_SPI:bspi                         ; 0.00 mW (0.00 mW)                    ; 0.00 mW (0.00 mW)               ; --                                ; 0.00 mW (0.00 mW)                 ; |epRISC_iocontroller|epRISC_SPI:bspi                                                                  ;
 ;     |OnChipPLL:clock                         ; 0.00 mW (0.00 mW)                    ; 0.00 mW (0.00 mW)               ; --                                ; 0.00 mW (0.00 mW)                 ; |epRISC_iocontroller|OnChipPLL:clock                                                                  ;
 ;         |altpll:altpll_component             ; 0.00 mW (0.00 mW)                    ; 0.00 mW (0.00 mW)               ; --                                ; 0.00 mW (0.00 mW)                 ; |epRISC_iocontroller|OnChipPLL:clock|altpll:altpll_component                                          ;
@@ -280,19 +303,19 @@ agreement for further details.
 ;                                                                                        ;             ;            ;              ;               ;
 ; Node, entity or clock assignment                                                       ;             ;            ;              ;               ;
 ;     -- Number of signals with Toggle Rate from Node, entity or clock assignment        ; 0 (0.0%)    ; 0 (0.0%)   ; 0 (0.0%)     ; 0 (0.0%)      ;
-;     -- Number of signals with Static Probability from Node, entity or clock assignment ; 2 (0.2%)    ; 0 (0.0%)   ; 0 (0.0%)     ; 2 (0.4%)      ;
+;     -- Number of signals with Static Probability from Node, entity or clock assignment ; 5 (0.5%)    ; 0 (0.0%)   ; 0 (0.0%)     ; 5 (0.8%)      ;
 ;                                                                                        ;             ;            ;              ;               ;
 ; Vectorless estimation                                                                  ;             ;            ;              ;               ;
-;     -- Number of signals with Toggle Rate from Vectorless estimation                   ; 811 (93.0%) ; 61 (50.4%) ; 210 (100.0%) ; 540 (99.8%)   ;
-;     -- Number of signals with Zero toggle rate, from Vectorless estimation             ; 114 (13.1%) ; 34 (28.1%) ; 0 (0.0%)     ; 80 (14.8%)    ;
-;     -- Number of signals with Static Probability from Vectorless estimation            ; 809 (92.8%) ; 61 (50.4%) ; 210 (100.0%) ; 538 (99.4%)   ;
+;     -- Number of signals with Toggle Rate from Vectorless estimation                   ; 920 (94.0%) ; 64 (52.9%) ; 266 (100.0%) ; 590 (99.7%)   ;
+;     -- Number of signals with Zero toggle rate, from Vectorless estimation             ; 134 (13.7%) ; 29 (24.0%) ; 0 (0.0%)     ; 105 (17.7%)   ;
+;     -- Number of signals with Static Probability from Vectorless estimation            ; 915 (93.5%) ; 64 (52.9%) ; 266 (100.0%) ; 585 (98.8%)   ;
 ;                                                                                        ;             ;            ;              ;               ;
 ; Default assignment                                                                     ;             ;            ;              ;               ;
 ;     -- Number of signals with Toggle Rate from Default assignment                      ; 0 (0.0%)    ; 0 (0.0%)   ; 0 (0.0%)     ; 0 (0.0%)      ;
-;     -- Number of signals with Static Probability from Default assignment               ; 61 (7.0%)   ; 60 (49.6%) ; 0 (0.0%)     ; 1 (0.2%)      ;
+;     -- Number of signals with Static Probability from Default assignment               ; 59 (6.0%)   ; 57 (47.1%) ; 0 (0.0%)     ; 2 (0.3%)      ;
 ;                                                                                        ;             ;            ;              ;               ;
 ; Assumed 0                                                                              ;             ;            ;              ;               ;
-;     -- Number of signals with Toggle Rate assumed 0                                    ; 61 (7.0%)   ; 60 (49.6%) ; 0 (0.0%)     ; 1 (0.2%)      ;
+;     -- Number of signals with Toggle Rate assumed 0                                    ; 59 (6.0%)   ; 57 (47.1%) ; 0 (0.0%)     ; 2 (0.3%)      ;
 +----------------------------------------------------------------------------------------+-------------+------------+--------------+---------------+
 
 
@@ -310,18 +333,20 @@ agreement for further details.
 Info: *******************************************************************
 Info: Running Quartus Prime PowerPlay Power Analyzer
     Info: Version 16.0.0 Build 211 04/27/2016 SJ Lite Edition
-    Info: Processing started: Thu Apr  6 11:29:54 2017
+    Info: Processing started: Thu May 25 20:27:30 2017
 Info: Command: quartus_pow --read_settings_files=off --write_settings_files=off epRISC_Auxiliary -c epRISC_Controller
+Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (21077): Low junction temperature is 0 degrees C
 Info (21077): High junction temperature is 85 degrees C
 Critical Warning (332012): Synopsys Design Constraints File file not found: 'epRISC_Controller.sdc'. A Synopsys Design Constraints File is required by the TimeQuest Timing Analyzer to get proper timing constraints. Without it, the Compiler will not properly optimize the design.
 Warning (332060): Node: iBusClock was determined to be a clock but was found without an associated clock assignment.
     Info (13166): Register epRISC_GPIO:gpio|oInterrupt is being clocked by iBusClock
 Warning (332060): Node: iBoardClock was determined to be a clock but was found without an associated clock assignment.
-    Info (13166): Register epRISC_UART:uart|rRecvCountAck[4] is being clocked by iBoardClock
+    Info (13166): Register epRISC_SPI:bspi|rState[0] is being clocked by iBoardClock
 Warning (332068): No clocks defined in design.
 Warning (332056): PLL cross checking found inconsistent PLL clock settings:
     Warning (332056): Node: clock|altpll_component|auto_generated|pll1|clk[0] was found missing 1 generated clock that corresponds to a base clock with a period of: 20.000
+    Warning (332056): Node: clock|altpll_component|auto_generated|pll1|clk[1] was found missing 1 generated clock that corresponds to a base clock with a period of: 20.000
 Info (223000): Starting Vectorless Power Activity Estimation
 Warning (222013): Relative toggle rates could not be calculated because no clock domain could be identified for some nodes
 Info (223001): Completed Vectorless Power Activity Estimation
@@ -329,11 +354,11 @@ Info (218000): Using Advanced I/O Power to simulate I/O buffers with the specifi
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
 Info (215049): Average toggle rate for this design is 0.000 millions of transitions / sec
-Info (215031): Total thermal power estimate for the design is 232.93 mW
-Info: Quartus Prime PowerPlay Power Analyzer was successful. 0 errors, 7 warnings
-    Info: Peak virtual memory: 1133 megabytes
-    Info: Processing ended: Thu Apr  6 11:29:58 2017
-    Info: Elapsed time: 00:00:04
-    Info: Total CPU time (on all processors): 00:00:04
+Info (215031): Total thermal power estimate for the design is 232.92 mW
+Info: Quartus Prime PowerPlay Power Analyzer was successful. 0 errors, 9 warnings
+    Info: Peak virtual memory: 1251 megabytes
+    Info: Processing ended: Thu May 25 20:27:32 2017
+    Info: Elapsed time: 00:00:02
+    Info: Total CPU time (on all processors): 00:00:03
 
 

@@ -116,7 +116,7 @@ set_location_assignment PIN_50 -to bGPIO6
 set_location_assignment PIN_84 -to iTTLSerialRX
 set_location_assignment PIN_38 -to oBusMISO[5]
 set_location_assignment PIN_39 -to oBusMISO[6]
-set_location_assignment PIN_59 -to oSPISelect[2]
+set_location_assignment PIN_45 -to oSPISelect[2]
 set_location_assignment PIN_60 -to oSPIClock
 set_location_assignment PIN_41 -to oBusMISO[7]
 set_location_assignment PIN_44 -to oSPIMOSI
@@ -143,8 +143,8 @@ set_location_assignment PIN_118 -to oExtBusClock
 set_location_assignment PIN_119 -to iExtBusInterrupt
 set_location_assignment PIN_113 -to bGPIO14
 set_location_assignment PIN_114 -to bGPIO15
-set_location_assignment PIN_45 -to oSPISelect[0]
-set_location_assignment PIN_48 -to oSPISelect[1]
+set_location_assignment PIN_48 -to oSPISelect[0]
+set_location_assignment PIN_59 -to oSPISelect[1]
 set_location_assignment PIN_81 -to oSerialRTS
 set_global_assignment -name QIP_FILE OnChipPLL.qip
 set_global_assignment -name AUTO_MERGE_PLLS ON

@@ -47,7 +47,7 @@ module EmulatedIOPLL(iIn, oOutUART, oOutSPI);
     input iIn;
     output reg oOutUART, oOutSPI;
 
-    reg [2:0] rClockSplit;
+    reg [6:0] rClockSplit;
 
     initial begin
         rClockSplit <= 0;
@@ -58,10 +58,10 @@ module EmulatedIOPLL(iIn, oOutUART, oOutSPI);
     always @(posedge iIn) begin
         rClockSplit <= rClockSplit + 1;
 
-        if(rClockSplit == 2'h3)
+        if(rClockSplit[3] == 1)
             oOutUART = !oOutUART;
             
-        if(rClockSplit == 2'h1)
+        if(rClockSplit == 5'd27)
             oOutSPI = !oOutSPI;
     end
 
@@ -115,7 +115,7 @@ module epRISC_iocontroller(iBusClock, iBusSelect, iBusMOSI, oBusInterrupt, oBusM
     wire [31:0] wInternalMISO;
 
     // Internal bus definitions
-    wire mBusWrite, mBusReset;
+    wire mBusWrite, mBusReset, wInternalReset;
     wire [14:0] mBusAddress;
     wire [15:0] mBusData;
     
@@ -126,16 +126,19 @@ module epRISC_iocontroller(iBusClock, iBusSelect, iBusMOSI, oBusInterrupt, oBusM
     // Pipeline controller registers
     reg [3:0] rPipeState, rPipePrevState, rPipeNextState;
 
+    //assign oSPISelect = 0;
+    assign wInternalReset = !iBoardReset || iBusSelect == 2'h0;
+    
     // Bus assign statements
     assign mBusAddress = rInternalMOSI[30:16];
     assign mBusData = rInternalMOSI[15:0];
     assign mBusWrite = (rPipeState == `sPipeStore && rInternalMOSI[31]) ? 1'h1 : 1'h0;
-    assign mBusReset = (!iBoardReset || (iBusSelect == 2'h0 && iBusClock == 1'h0)) ? 1'h1 : 1'h0;
+    assign mBusReset = (!iBoardReset || (rPipeState == `sPipeLoad && mBusAddress == 15'h7FFF && rInternalMOSI[31])) ? 1'h1 : 1'h0;
     
-    assign wEnableGPIO = (mBusAddress >= 15'h0 && mBusAddress < 15'hFF) ? 1'h1 : 1'h0;
-    assign wEnableUART = (mBusAddress >= 15'h100 && mBusAddress < 15'h1FF) ? 1'h1 : 1'h0;
-    assign wEnableSPI = (mBusAddress >= 15'h200 && mBusAddress < 15'h2FF) ? 1'h1 : 1'h0;
-    assign wEnableRAM = (mBusAddress >= 15'h300 && mBusAddress < 15'h3FF) ? 1'h1 : 1'h0;
+    assign wEnableGPIO = (mBusAddress >= 15'h100 && mBusAddress < 15'h200) ? 1'h1 : 1'h0;
+    assign wEnableUART = (mBusAddress >= 15'h000 && mBusAddress < 15'h100) ? 1'h1 : 1'h0;
+    assign wEnableSPI = (mBusAddress >= 15'h200 && mBusAddress < 15'h300) ? 1'h1 : 1'h0;
+    assign wEnableRAM = (mBusAddress >= 15'h300 && mBusAddress < 15'h400) ? 1'h1 : 1'h0;
 
     assign oBusMISO = (rPipeState == `sPipeLoLo) ? wInternalMISO[7:0] :
                       (rPipeState == `sPipeLo) ? wInternalMISO[15:8] :
@@ -160,8 +163,8 @@ module epRISC_iocontroller(iBusClock, iBusSelect, iBusMOSI, oBusInterrupt, oBusM
 
 
     // Pipeline controller
-    always @(posedge iBusClock) begin
-        if(!iBoardReset || iBusSelect == 2'h0) begin
+    always @(posedge iBusClock or posedge wInternalReset) begin
+        if(wInternalReset) begin
             rPipePrevState <= `sPipeLoad;
             rPipeState <= `sPipeLoad;
         end else begin
@@ -182,8 +185,8 @@ module epRISC_iocontroller(iBusClock, iBusSelect, iBusMOSI, oBusInterrupt, oBusM
         endcase
     end
     
-    always @(negedge iBusClock) begin
-        if(!iBoardReset) begin
+    always @(negedge iBusClock or posedge wInternalReset) begin
+        if(wInternalReset) begin
             rInternalMOSI <= 0;
         end else begin
             if(rPipeState == `sPipeLoLo)

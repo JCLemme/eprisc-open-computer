@@ -132,6 +132,7 @@
                 call.s  a:lemon_putc
                 pops.r  d:%Yw                                       ; Drop down a line
                 brch.o  r:REG_CURADDR l:%SVSK                       ; Call routine at current address
+                addr.v  d:REG_INDXPTR a:REG_INDXPTR v:#h01          ; Increment index pointer
                 brch.a  a:.mainloop                                 ; Jump to top
                 
 :.notrun        cmpr.v  a:REG_CHARBUF v:CHR_WRITE                   ; Is character a ':'?

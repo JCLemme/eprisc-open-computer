@@ -39,11 +39,14 @@ module epRISC_SPI(iClk, iRst, oInt, iAddr, iData, oData, iWrite, iEnable, iTxClk
 
     assign oMOSI = (rState > 7) ? 1 : rDataIn[rState];
     assign oSS = ~rControl[6:3];
-    assign oSCLK = (rState < 8) ? iTxClk : 1;
+    assign oSCLK = (rState < 8) ? iTxClk : 0;
     
     assign oData = (!iEnable) ? 16'bz : (iAddr==0)?((rState!=`sIdle)?rControl|16'h80:rControl):((iAddr==1)?rDataIn:((iAddr==2)?rDataOut:16'b1));
 
-    always @(negedge iTxClk) begin
+    wire tmpClock;
+    assign tmpClock = (rState == `sIdle) ? iClk : iTxClk;
+    
+    always @(negedge iTxClk or posedge iRst) begin
         if(iRst) begin
             rPrevState <= `sIdle;
             rState <= `sIdle;
@@ -52,12 +55,12 @@ module epRISC_SPI(iClk, iRst, oInt, iAddr, iData, oData, iWrite, iEnable, iTxClk
             rPrevState <= rState;
             rState <= rNextState;
 
-            if(rState == `sBit0)
+            if(rState == `sDisableSS)
                 rLockAck <= rLockAck + 5'h1;
         end
     end
     
-    always @(posedge iClk) begin
+    always @(posedge iClk or posedge iRst) begin
         if(iRst) begin
             rControl <= 0;
             rLockSto <= 0;
@@ -71,7 +74,7 @@ module epRISC_SPI(iClk, iRst, oInt, iAddr, iData, oData, iWrite, iEnable, iTxClk
         end
     end
     
-    always @(posedge iClk) begin
+    always @(posedge iClk or posedge iRst) begin
         if(iRst) begin
             rDataIn <= 0;
         end else begin  
@@ -81,16 +84,16 @@ module epRISC_SPI(iClk, iRst, oInt, iAddr, iData, oData, iWrite, iEnable, iTxClk
         end
     end
     
-    always @(posedge iClk) begin
+    always @(posedge iTxClk or posedge iRst) begin
         if(iRst) begin
             rDataOut <= 0;
         end else begin       
-            if(rPrevState == `sDummy)
+            if(rState == `sDummy)
                 rDataOut[7:0] <= rDataBuf;
         end
     end 
     
-    always @(negedge iTxClk) begin
+    always @(posedge iTxClk or posedge iRst) begin
         if(iRst) begin
             rDataBuf <= 0;
         end else begin

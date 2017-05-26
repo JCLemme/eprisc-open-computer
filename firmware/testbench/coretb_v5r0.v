@@ -32,8 +32,9 @@ module epRISC_coreTB();
     wire oExtBusClock;
     wire [1:0] oExtBusSS;
     wire [3:0] oExtBusMOSI;
-                           
-    wire iSPIMISO, iSPIDetect0, iSPIDetect1, iSPIWrite0, iSPIWrite1;
+        
+    reg iSPIMISO;                   
+    wire iSPIDetect0, iSPIDetect1, iSPIWrite0, iSPIWrite1;
     wire oSPIMOSI, oSPISelect, oSPIClock;
                            
     wire oVGAHorizontal, oVGAVertical;
@@ -64,6 +65,7 @@ module epRISC_coreTB();
         iBoardClock = 0;
         iBoardReset = 1;
         iTTLSerialRX <= 1;
+        iSPIMISO <= 1;
     end
     
     initial #5 begin

@@ -65,6 +65,7 @@
                 call.s  a:ioc_recv
                 pops.r  d:REG_WORK                                  ; Get current configuration register
                 
+;                move.v  d:REG_RESP v:#h00
                 orbt.v  d:REG_RESP a:REG_RESP v:#h80                ; Calculate mask
                 
                 push.r  s:REG_WORK
@@ -78,6 +79,8 @@
 :.chkloop       call.s  a:ioc_recv
                 test.v  a:REG_RESP v:#h80
                 brch.a  c:%NEQ a:.chkloop
+                
+                pops.r  d:REG_WORK 
                 
                 move.v  d:REG_WORK v:SPI_MISO_ADDRESS
                 push.r  s:REG_WORK
@@ -93,8 +96,7 @@
 !def    REG_WORK    %Zx
 !def    REG_RESP    %Zz
 
-:spi_recv       push.r  s:REG_WORK
-                subr.v  d:%SP a:%SP v:#h02                          ; Set up the stack
+:spi_recv       push.r  s:REG_WORK                                  ; Set up the stack
                 
                 move.v  d:REG_WORK v:SPI_MOSI_ADDRESS
                 push.r  s:REG_WORK
@@ -122,6 +124,8 @@
 :.chkloop       call.s  a:ioc_recv
                 test.v  a:REG_RESP v:#h80
                 brch.a  c:%NEQ a:.chkloop
+                
+                pops.r  d:REG_WORK 
                 
                 move.v  d:REG_WORK v:SPI_MISO_ADDRESS
                 push.r  s:REG_WORK

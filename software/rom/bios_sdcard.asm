@@ -100,17 +100,20 @@
                 pops.r  d:REG_AWORK                                 ; Disable all SPI devices
                 
                 ; If SPI clock frequency change is added, enable slow mode here
+                call.s  a:dbg_note
                 
                 move.v  d:REG_AWORK v:#h0B
-:.startloop     call.s  a:spi_recv
+:.startloop     call.s  a:dbg_note
+                call.s  a:spi_recv                                  
                 subr.v  d:REG_AWORK a:REG_AWORK v:#h01              ; Card needs >74 "dead" cycles to start up
                 cmpr.v  a:REG_AWORK v:#h00                          ; We're gonna do 88
                 brch.a  c:%NEQ a:.startloop                         ; Loop until the card's good
-                
+
                 move.v  d:REG_AWORK v:SDC_CARD_A                    
                 push.r  s:REG_AWORK
                 call.s  a:spi_addr
                 pops.r  d:REG_AWORK                                 ; Initialize card A - gonna add selector later
+                call.s  a:dbg_note
                 
                 move.v  d:REG_AWORK v:CMD_GO_IDLE_STATE
                 push.r  s:REG_AWORK                                 ; Store an R1 command
@@ -120,13 +123,18 @@
                 arsl.v  d:REG_BWORK a:REG_BWORK v:R1_IDLE_STATE     ; Calculate the expected response
                 move.v  d:REG_CWORK v:#h00                          ; Clear the counter
                 
-:.aliveloop     call.s  a:sdc_scmd                                  ; Let's see if the card woke up
+                call.s  a:dbg_note
+                
+:.aliveloop     call.s  a:dbg_note
+                call.s  a:sdc_scmd                                  ; Let's see if the card woke up
                 cmpr.r  a:REG_RESP b:REG_BWORK                      ; Did we get the expected response?
                 brch.a  c:%EQL a:.itsalive                          ; If so, break   
                 addr.v  d:REG_CWORK a:REG_CWORK v:#h01              ; Add to the counter
                 cmpr.v  a:REG_CWORK v:#h02 s:#h04                   ; Have we tried for >512 cycles?
-                brch.a  c:%EQL a:.deadcard                          ; If so, give up
+                brch.a  c:%EQL a:.deadalive                         ; If so, give up
                 brch.a  a:.aliveloop                                ; Loop back to top
+                
+                call.s  a:dbg_note
                 
 :.itsalive      pops.r  d:REG_AWORK
                 pops.r  d:REG_AWORK                                 ; Restore the stack
@@ -138,18 +146,25 @@
                 call.s  a:sdc_scmd
                 pops.r  d:REG_AWORK
                 pops.r  d:REG_AWORK                                 ; Check for voltage range (3.3v) and test pattern?
+                call.s  a:dbg_note
                 
                 move.v  d:REG_BWORK v:#h01
                 arsl.v  d:REG_BWORK a:REG_BWORK v:R1_ILL_COMMAND    ; Calculate ill command check byte
                 
                 test.r  a:REG_RESP b:REG_BWORK                      ; Is the command invalid?
-                brch.a  c:%EQL a:.notsdhc                           ; If not, it's an SD1 card
+                brch.a  c:%NEQ a:.notsdhc                           ; If not, it's an SD1 card
                 call.s  a:spi_recv
                 call.s  a:spi_recv                                  ; Waste some cycles
                 call.s  a:spi_recv                                  ; This one's legit though
+                push.r  s:REG_RESP
+                call.s  a:str_hnum
+                pops.r  d:REG_RESP
                 test.v  a:REG_RESP v:#h01                           ; Is the voltage range correct?
                 brch.a  c:%EQL a:.deadcard                          ; If not, give up
                 call.s  a:spi_recv                                  ; This one's legit too
+                push.r  s:REG_RESP
+                call.s  a:str_hnum
+                pops.r  d:REG_RESP
                 cmpr.v  a:REG_RESP v:#haa                           ; Is the test pattern correct?
                 brch.a  c:%NEQ a:.deadcard                          ; If not, give up
                 move.v  d:REG_CWORK v:#h01
@@ -174,13 +189,15 @@
                 pops.r  d:REG_AWORK                                 ; Send another one to get the type
                 
                 move.v  d:REG_CWORK v:#h00                          ; Default type is MMC
-                cmpr.r  a:REG_AWORK b:REG_BWORK                     ; Is the command invalid?
+                cmpr.r  a:REG_RESP b:REG_BWORK                      ; Is the command invalid?
                 brch.a  c:%NEQ a:.typegood                          ; If it is, it's MMC and we don't need to do anything else
                 move.v  d:REG_CWORK v:#h01
                 arsl.v  d:REG_CWORK a:REG_CWORK v:SD_RAW_SPEC_1     ; Else, set the type to SD1 and we're out
 
 :.typegood      move.v  d:REG_BWORK v:#h00                          ; Counter for the upcoming loop
 
+                ;call.s  a:dbg_note
+                
 :.preploop      test.v  a:REG_CWORK v:#h03                          ; Is this an SD card?
                 brch.a  c:%EQL a:.itsmmc                            ; If not, go do some MMC stuff
                 
@@ -228,9 +245,12 @@
                 call.s  a:sdc_scmd
                 pops.r  d:REG_AWORK
                 pops.r  d:REG_AWORK                                 ; Send a command
-                cmpr.v  a:REG_AWORK v:#h00                          ; Did we get back a zero?
+                cmpr.v  a:REG_RESP v:#h00                           ; Did we get back a zero?
                 brch.a  c:%NEQ a:.deadcard                          ; If not, give up
                 call.s  a:spi_recv
+                push.r  s:REG_RESP
+                call.s  a:str_hnum
+                pops.r  d:REG_RESP
                 test.v  a:REG_RESP v:#h40                           ; Is the argument gonna be h04000000?
                 brch.a  c:%EQL a:.sdhcdone                          ; If not, finish here and converge
                 move.v  d:REG_AWORK v:#h01
@@ -251,6 +271,11 @@
                 brch.a  c:%NEQ a:.deadcard                          ; If not, assume failure
                 brch.a  a:.livecard
                 
+                call.s  a:dbg_note
+                
+:.deadalive     pops.r  d:REG_AWORK
+                pops.r  d:REG_AWORK                                 ; Gotta restore those
+                                
 :.deadcard      move.v  d:REG_AWORK v:#h00                    
                 push.r  s:REG_AWORK
                 call.s  a:spi_addr
@@ -316,11 +341,11 @@
                 
                 pops.r  d:REG_COMD                                  ; Restore command
                 
-                cmpr.v  a:REG_COMD v:CMD_GO_IDLE_STATE              ; Is this R1?
+                cmpr.v  a:REG_COMD v:#h40                           ; Is this R1?
                 brch.a  c:%NEQ a:.notgoid                           ; If not, loop down a few
                 move.v  d:REG_ARGM v:#h95       
                 brch.a  a:.sendcrc                                  ; Converge
-:.notgoid       cmpr.v  a:REG_COMD v:CMD_SEND_IF_COND               ; Is this conditional?
+:.notgoid       cmpr.v  a:REG_COMD v:#h48                           ; Is this conditional?
                 brch.a  c:%NEQ a:.notcond                           ; If not, loop down a few
                 move.v  d:REG_ARGM v:#h87       
                 brch.a  a:.sendcrc                                  ; Converge
@@ -333,12 +358,16 @@
                 move.v  d:REG_ARGM v:#h0A
 :.resploop      call.s  a:spi_recv
                 cmpr.v  a:REG_RESP v:#hFF
-                brch.a  c:%NEQ a:.exitloop
+                brch.a  c:%NEQ a:.printloop
                 subr.v  d:REG_ARGM a:REG_ARGM v:#h01
                 cmpr.v  a:REG_ARGM v:#h00
                 brch.a  c:%EQL a:.exitloop
                 brch.a  a:.resploop                                 ; Wait ten cycles for a response
 
+:.printloop     push.r  s:REG_RESP
+                call.s  a:str_hnum
+                pops.r  d:REG_RESP
+                
 :.exitloop      pops.r  d:REG_ARGM
                 pops.r  d:REG_COMD
                 rtrn.s                                              ; And return

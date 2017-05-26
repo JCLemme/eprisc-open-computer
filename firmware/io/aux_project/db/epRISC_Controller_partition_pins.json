@@ -48,6 +48,26 @@
 					"strict" : false
 				},
 				{
+					"name" : "oSPISelect[0]",
+					"strict" : false
+				},
+				{
+					"name" : "oSPISelect[1]",
+					"strict" : false
+				},
+				{
+					"name" : "oSPISelect[2]",
+					"strict" : false
+				},
+				{
+					"name" : "oSPISelect[3]",
+					"strict" : false
+				},
+				{
+					"name" : "oSPIClock",
+					"strict" : false
+				},
+				{
 					"name" : "bGPIO0",
 					"strict" : false
 				},
@@ -120,11 +140,11 @@
 					"strict" : false
 				},
 				{
-					"name" : "iBusSelect[0]",
+					"name" : "iBusMOSI[0]",
 					"strict" : false
 				},
 				{
-					"name" : "iBusSelect[1]",
+					"name" : "iBusMOSI[1]",
 					"strict" : false
 				},
 				{
@@ -144,14 +164,6 @@
 					"strict" : false
 				},
 				{
-					"name" : "iBusMOSI[1]",
-					"strict" : false
-				},
-				{
-					"name" : "iBusMOSI[0]",
-					"strict" : false
-				},
-				{
 					"name" : "iBusMOSI[6]",
 					"strict" : false
 				},
@@ -160,7 +172,19 @@
 					"strict" : false
 				},
 				{
+					"name" : "iBusSelect[0]",
+					"strict" : false
+				},
+				{
+					"name" : "iBusSelect[1]",
+					"strict" : false
+				},
+				{
 					"name" : "iTTLSerialRX",
+					"strict" : false
+				},
+				{
+					"name" : "iSPIMISO",
 					"strict" : false
 				}
 			]

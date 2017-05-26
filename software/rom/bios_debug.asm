@@ -31,6 +31,36 @@
                 
                 halt.i                              ; Stop    
 
+
+:dbg_note       push.r  s:%Zz
+
+                move.v  d:%Zz v:.str_return
+                push.r  s:%Zz
+                call.s  a:str_puts
+                pops.r  d:%Zz                       ; Print called-from message
+                
+                move.v  d:%Zz v:#hF0
+:.subrloop      subr.v  d:%Zz a:%Zz v:#h01
+                cmpr.v  a:%Zz v:#h00
+                brch.a  c:%NEQ a:.subrloop
+                
+                subr.v  d:%SP a:%SP v:#h01
+                call.s  a:str_hnum                  ; Print called-from address
+                addr.v  d:%SP a:%SP v:#h01
+                
+                move.v  d:%Zz v:#h0A                  
+                push.r  s:%Zz
+                call.s  a:lemon_putc
+                pops.r  d:%Zz                                   
+                move.v  d:%Zz v:#h0D                  
+                push.r  s:%Zz
+                call.s  a:lemon_putc
+                pops.r  d:%Zz                       ; Drop down a line
+                
+                pops.r  d:%Zz
+                rtrn.s
+                
+                
 :dbg_trac       rtrn.s
 
 :dbg_regs       rtrn.s

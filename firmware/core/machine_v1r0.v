@@ -106,8 +106,8 @@ module epRISC_machine(iBoardClock, iBoardReset, iBoardSense, oBoardAcknowledge, 
     assign wCoreBusReset = !iBoardReset;
     assign wCoreBusNMInterrupt = 0;
 
-    assign wEnableROM = (wCoreBusAddress >= 32'h0 && wCoreBusAddress < 32'hFFF) ? 1'h1 : 1'h0;
-    assign wEnableRAM = (wCoreBusAddress >= 32'h1000 && wCoreBusAddress < 32'h1FFF) ? 1'h1 : 1'h0;
+    assign wEnableROM = (wCoreBusAddress >= 32'h0 && wCoreBusAddress < 32'h1000) ? 1'h1 : 1'h0;
+    assign wEnableRAM = (wCoreBusAddress >= 32'h1000 && wCoreBusAddress < 32'h2000) ? 1'h1 : 1'h0;
     assign wEnableBusControl = (wCoreBusAddress >= 32'h2000 && wCoreBusAddress < 32'h2010) ? 1'h1 : 1'h0;
     assign wDisableExtra = (wCoreBusAddress >= 32'h2010) ? 1'h1 : 1'h0;
     

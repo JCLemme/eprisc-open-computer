@@ -1,11 +1,11 @@
-PowerPlay Power Analyzer Status : Successful - Thu Apr  6 11:29:58 2017
+PowerPlay Power Analyzer Status : Successful - Thu May 25 20:27:32 2017
 Quartus Prime Version : 16.0.0 Build 211 04/27/2016 SJ Lite Edition
 Revision Name : epRISC_Controller
 Top-level Entity Name : epRISC_iocontroller
 Family : MAX 10
 Device : 10M16SCE144C8G
 Power Models : Final
-Total Thermal Power Dissipation : 232.93 mW
+Total Thermal Power Dissipation : 232.92 mW
 Core Dynamic Thermal Power Dissipation : 0.00 mW
 Core Static Thermal Power Dissipation : 226.30 mW
 I/O Thermal Power Dissipation : 6.63 mW

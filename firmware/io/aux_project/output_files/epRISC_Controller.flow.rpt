@@ -1,5 +1,5 @@
 Flow report for epRISC_Controller
-Thu Apr  6 11:30:02 2017
+Thu May 25 20:27:37 2017
 Quartus Prime Version 16.0.0 Build 211 04/27/2016 SJ Lite Edition
 
 
@@ -41,17 +41,17 @@ agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Thu Apr  6 11:29:58 2017       ;
+; Flow Status                        ; Successful - Thu May 25 20:27:32 2017       ;
 ; Quartus Prime Version              ; 16.0.0 Build 211 04/27/2016 SJ Lite Edition ;
 ; Revision Name                      ; epRISC_Controller                           ;
 ; Top-level Entity Name              ; epRISC_iocontroller                         ;
 ; Family                             ; MAX 10                                      ;
 ; Device                             ; 10M16SCE144C8G                              ;
 ; Timing Models                      ; Final                                       ;
-; Total logic elements               ; 420 / 15,840 ( 3 % )                        ;
-;     Total combinational functions  ; 372 / 15,840 ( 2 % )                        ;
-;     Dedicated logic registers      ; 210 / 15,840 ( 1 % )                        ;
-; Total registers                    ; 210                                         ;
+; Total logic elements               ; 476 / 15,840 ( 3 % )                        ;
+;     Total combinational functions  ; 401 / 15,840 ( 3 % )                        ;
+;     Dedicated logic registers      ; 266 / 15,840 ( 2 % )                        ;
+; Total registers                    ; 266                                         ;
 ; Total pins                         ; 89 / 101 ( 88 % )                           ;
 ; Total virtual pins                 ; 0                                           ;
 ; Total memory bits                  ; 8,192 / 562,176 ( 1 % )                     ;
@@ -67,7 +67,7 @@ agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 04/06/2017 11:29:19 ;
+; Start date & time ; 05/25/2017 20:27:04 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; epRISC_Controller   ;
 +-------------------+---------------------+
@@ -78,7 +78,7 @@ agreement for further details.
 +-------------------------------------+---------------------------------------+-------------------+---------------------+------------+
 ; Assignment Name                     ; Value                                 ; Default Value     ; Entity Name         ; Section Id ;
 +-------------------------------------+---------------------------------------+-------------------+---------------------+------------+
-; COMPILER_SIGNATURE_ID               ; 0.149149255916474                     ; --                ; --                  ; --         ;
+; COMPILER_SIGNATURE_ID               ; 0.149575842414742                     ; --                ; --                  ; --         ;
 ; FIT_ATTEMPTS_TO_SKIP                ; 0                                     ; 0.0               ; --                  ; --         ;
 ; FLOW_ENABLE_POWER_ANALYZER          ; On                                    ; Off               ; --                  ; --         ;
 ; MAX_CORE_JUNCTION_TEMP              ; 85                                    ; --                ; --                  ; --         ;
@@ -101,12 +101,12 @@ agreement for further details.
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name               ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis      ; 00:00:17     ; 1.0                     ; 1236 MB             ; 00:00:40                           ;
-; Fitter                    ; 00:00:15     ; 1.0                     ; 1453 MB             ; 00:00:15                           ;
-; Assembler                 ; 00:00:02     ; 1.0                     ; 1065 MB             ; 00:00:01                           ;
-; PowerPlay Power Analyzer  ; 00:00:04     ; 1.0                     ; 1133 MB             ; 00:00:03                           ;
-; TimeQuest Timing Analyzer ; 00:00:03     ; 1.0                     ; 1107 MB             ; 00:00:04                           ;
-; Total                     ; 00:00:41     ; --                      ; --                  ; 00:01:03                           ;
+; Analysis & Synthesis      ; 00:00:09     ; 1.0                     ; 1310 MB             ; 00:00:21                           ;
+; Fitter                    ; 00:00:08     ; 1.2                     ; 1597 MB             ; 00:00:11                           ;
+; Assembler                 ; 00:00:01     ; 1.0                     ; 1114 MB             ; 00:00:01                           ;
+; PowerPlay Power Analyzer  ; 00:00:02     ; 1.4                     ; 1251 MB             ; 00:00:02                           ;
+; TimeQuest Timing Analyzer ; 00:00:02     ; 1.4                     ; 1206 MB             ; 00:00:03                           ;
+; Total                     ; 00:00:22     ; --                      ; --                  ; 00:00:38                           ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
@@ -115,11 +115,11 @@ agreement for further details.
 +---------------------------+------------------+--------------+------------+----------------+
 ; Module Name               ; Machine Hostname ; OS Name      ; OS Version ; Processor type ;
 +---------------------------+------------------+--------------+------------+----------------+
-; Analysis & Synthesis      ; insight          ; Ubuntu 16.10 ; 16         ; x86_64         ;
-; Fitter                    ; insight          ; Ubuntu 16.10 ; 16         ; x86_64         ;
-; Assembler                 ; insight          ; Ubuntu 16.10 ; 16         ; x86_64         ;
-; PowerPlay Power Analyzer  ; insight          ; Ubuntu 16.10 ; 16         ; x86_64         ;
-; TimeQuest Timing Analyzer ; insight          ; Ubuntu 16.10 ; 16         ; x86_64         ;
+; Analysis & Synthesis      ; phoenix          ; Ubuntu 17.04 ; 17         ; x86_64         ;
+; Fitter                    ; phoenix          ; Ubuntu 17.04 ; 17         ; x86_64         ;
+; Assembler                 ; phoenix          ; Ubuntu 17.04 ; 17         ; x86_64         ;
+; PowerPlay Power Analyzer  ; phoenix          ; Ubuntu 17.04 ; 17         ; x86_64         ;
+; TimeQuest Timing Analyzer ; phoenix          ; Ubuntu 17.04 ; 17         ; x86_64         ;
 +---------------------------+------------------+--------------+------------+----------------+
 
 
