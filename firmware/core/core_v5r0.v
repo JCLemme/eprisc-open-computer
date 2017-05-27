@@ -65,7 +65,7 @@ endmodule
 
 // Synthesizable, non-pipelined version of the CPU. Mostly working as of this commit.
 
-module epRISC_core(iClk, iRst, oAddr, bData, oWrite, iMaskInt, iNonMaskInt, oHalt, oFlg);  
+module epRISC_core(iClk, iRst, oAddr, bData, oWrite, iMaskInt, iNonMaskInt, oHalt, oFlg, oAccess, iReady);  
            
     // System control signals        
     input iClk, iRst;
@@ -81,6 +81,10 @@ module epRISC_core(iClk, iRst, oAddr, bData, oWrite, iMaskInt, iNonMaskInt, oHal
     // Debugging signals
     output wire oFlg;
     output reg oHalt;  
+    
+    // Memory control signals
+    input iReady;
+    output wire oAccess;
     
     // System registers
     reg [31:0] rRegIP, rRegSP, rRegCS, rRegGL;
@@ -135,6 +139,8 @@ module epRISC_core(iClk, iRst, oAddr, bData, oWrite, iMaskInt, iNonMaskInt, oHal
     
     assign wClkInt = iClk;
     assign wALUOperation = (mALU) ? (fALUOperation) : ((mDirect && mDirectOR) ? (3) : (0));
+    
+    assign oAccess = ((rPipeState == `sPipeMemory || rPipeState == `sPipeFetch) && iClk == 0) ? 1'h1 : 1'h0;
     
     // Assignment - instruction flags
     assign mBranch = (rInst[31] == 1'b1) ? 1'b1 : 1'b0;
@@ -221,10 +227,10 @@ module epRISC_core(iClk, iRst, oAddr, bData, oWrite, iMaskInt, iNonMaskInt, oHal
     
     always @(*) begin
         case(rPipeState)
-            `sPipeFetch: rPipeNextState = `sPipeDecode;
+            `sPipeFetch: rPipeNextState = (iReady) ? `sPipeDecode : `sPipeFetch;
             `sPipeDecode: rPipeNextState = `sPipeArithmetic; 
             `sPipeArithmetic: rPipeNextState = `sPipeMemory; 
-            `sPipeMemory: rPipeNextState = (rExec) ? `sPipeWriteback : `sPipeWriteSkip; 
+            `sPipeMemory: rPipeNextState = (iReady) ? ((rExec) ? `sPipeWriteback : `sPipeWriteSkip) : `sPipeMemory; 
             `sPipeWriteback: rPipeNextState = ((mCore && fCoreOperation == 6'h2) ? `sPipeHalt : ((iMaskInt && fCSInterruptEn) || iNonMaskInt) ? `sPipeInterrupt : `sPipeFetch);
             
             `sPipeInterrupt: rPipeNextState = `sPipeFetch;
