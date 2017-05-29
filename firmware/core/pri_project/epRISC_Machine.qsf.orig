@@ -1,0 +1,164 @@
+# -------------------------------------------------------------------------- #
+#
+# Copyright (C) 1991-2016 Altera Corporation. All rights reserved.
+# Your use of Altera Corporation's design tools, logic functions 
+# and other software and tools, and its AMPP partner logic 
+# functions, and any output files from any of the foregoing 
+# (including device programming or simulation files), and any 
+# associated documentation or information are expressly subject 
+# to the terms and conditions of the Altera Program License 
+# Subscription Agreement, the Altera Quartus Prime License Agreement,
+# the Altera MegaCore Function License Agreement, or other 
+# applicable license agreement, including, without limitation, 
+# that your use is for the sole purpose of programming logic 
+# devices manufactured by Altera and sold by Altera or its 
+# authorized distributors.  Please refer to the applicable 
+# agreement for further details.
+#
+# -------------------------------------------------------------------------- #
+#
+# Quartus Prime
+# Version 16.0.0 Build 211 04/27/2016 SJ Lite Edition
+# Date created = 08:55:19  March 06, 2017
+#
+# -------------------------------------------------------------------------- #
+#
+# Notes:
+#
+# 1) The default values for assignments are stored in the file:
+#		epRISC_Machine_assignment_defaults.qdf
+#    If this file doesn't exist, see file:
+#		assignment_defaults.qdf
+#
+# 2) Altera recommends that you do not modify this file. This
+#    file is updated automatically by the Quartus Prime software
+#    and any changes you make may be lost or overwritten.
+#
+# -------------------------------------------------------------------------- #
+
+
+set_global_assignment -name FAMILY "MAX 10"
+set_global_assignment -name DEVICE 10M16SCE144C8G
+set_global_assignment -name TOP_LEVEL_ENTITY epRISC_machine
+set_global_assignment -name ORIGINAL_QUARTUS_VERSION 16.0.0
+set_global_assignment -name PROJECT_CREATION_TIME_DATE "08:55:19  MARCH 06, 2017"
+set_global_assignment -name LAST_QUARTUS_VERSION 16.0.0
+set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
+set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
+set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
+set_global_assignment -name DEVICE_FILTER_PACKAGE EQFP
+set_global_assignment -name DEVICE_FILTER_PIN_COUNT 144
+set_global_assignment -name DEVICE_FILTER_SPEED_GRADE 8
+set_global_assignment -name ERROR_CHECK_FREQUENCY_DIVISOR 256
+set_global_assignment -name VERILOG_FILE ../machine_v1r0.v
+set_global_assignment -name VERILOG_FILE ../sysx_v1r0.v
+set_global_assignment -name VERILOG_FILE ../rom_v1r0.v
+set_global_assignment -name VERILOG_FILE ../core_v5r0.v
+set_global_assignment -name QIP_FILE OnChipPLL.qip
+set_global_assignment -name QIP_FILE OnChipRAM.qip
+set_global_assignment -name QIP_FILE OnChipRegs.qip
+set_global_assignment -name QIP_FILE OnChipBuffer.qip
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
+set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_global_assignment -name FLOW_ENABLE_POWER_ANALYZER ON
+set_global_assignment -name POWER_DEFAULT_INPUT_IO_TOGGLE_RATE "12.5 %"
+set_location_assignment PIN_24 -to iBoardSense
+set_location_assignment PIN_17 -to bBoardDebug0
+set_location_assignment PIN_22 -to bBoardDebug3
+set_location_assignment PIN_141 -to oBusMOSI[0]
+set_location_assignment PIN_140 -to oBusMOSI[1]
+set_location_assignment PIN_8 -to oBusMOSI[2]
+set_location_assignment PIN_10 -to oBusMOSI[3]
+set_location_assignment PIN_11 -to oBusMOSI[4]
+set_location_assignment PIN_12 -to oBusMOSI[5]
+set_location_assignment PIN_13 -to oBusMOSI[6]
+set_location_assignment PIN_14 -to oBusMOSI[7]
+set_location_assignment PIN_120 -to iBusMISO[7]
+set_location_assignment PIN_124 -to iBusMISO[6]
+set_location_assignment PIN_127 -to iBusMISO[5]
+set_location_assignment PIN_132 -to iBusMISO[4]
+set_location_assignment PIN_131 -to iBusMISO[3]
+set_location_assignment PIN_130 -to iBusMISO[2]
+set_location_assignment PIN_7 -to iBusMISO[1]
+set_location_assignment PIN_6 -to iBusMISO[0]
+set_location_assignment PIN_135 -to iBusInterrupt
+set_location_assignment PIN_123 -to oBusSelect[0]
+set_location_assignment PIN_26 -to iBoardClock
+set_location_assignment PIN_66 -to oBoardTransmit
+set_location_assignment PIN_33 -to oBusClock
+set_location_assignment PIN_62 -to oBoardAcknowledge
+set_location_assignment PIN_54 -to bBoardDebug4
+set_location_assignment PIN_113 -to bBoardDebug2
+set_location_assignment PIN_114 -to bBoardDebug5
+set_location_assignment PIN_118 -to iBoardReceive
+set_location_assignment PIN_119 -to oBusSelect[1]
+set_location_assignment PIN_112 -to bMemoryData[23]
+set_location_assignment PIN_111 -to bMemoryData[22]
+set_location_assignment PIN_110 -to bMemoryData[21]
+set_location_assignment PIN_106 -to bMemoryData[20]
+set_location_assignment PIN_105 -to bMemoryData[19]
+set_location_assignment PIN_102 -to bMemoryData[18]
+set_location_assignment PIN_101 -to bMemoryData[17]
+set_location_assignment PIN_100 -to bMemoryData[16]
+set_location_assignment PIN_97 -to oMemoryAddress[1]
+set_location_assignment PIN_98 -to oMemoryAddress[2]
+set_location_assignment PIN_96 -to oMemoryAddress[0]
+set_location_assignment PIN_93 -to oMemoryAddress[10]
+set_location_assignment PIN_92 -to oMemoryBank[1]
+set_location_assignment PIN_91 -to bMemoryData[24]
+set_location_assignment PIN_90 -to bMemoryData[25]
+set_location_assignment PIN_89 -to bMemoryData[26]
+set_location_assignment PIN_88 -to bMemoryData[27]
+set_location_assignment PIN_45 -to oMemoryWE
+set_location_assignment PIN_48 -to oMemoryCS
+set_location_assignment PIN_44 -to oMemoryDQM[0]
+set_location_assignment PIN_47 -to oMemoryRAS
+set_location_assignment PIN_46 -to oMemoryCAS
+set_location_assignment PIN_43 -to bMemoryData[7]
+set_location_assignment PIN_41 -to bMemoryData[6]
+set_location_assignment PIN_39 -to bMemoryData[5]
+set_location_assignment PIN_38 -to bMemoryData[4]
+set_location_assignment PIN_52 -to oMemoryBank[0]
+set_location_assignment PIN_50 -to oMemoryAddress[11]
+set_location_assignment PIN_58 -to bMemoryData[12]
+set_location_assignment PIN_59 -to bMemoryData[11]
+set_location_assignment PIN_60 -to bMemoryData[10]
+set_location_assignment PIN_55 -to bMemoryData[15]
+set_location_assignment PIN_56 -to bMemoryData[14]
+set_location_assignment PIN_57 -to bMemoryData[13]
+set_location_assignment PIN_75 -to oMemoryAddress[8]
+set_location_assignment PIN_77 -to oMemoryAddress[6]
+set_location_assignment PIN_74 -to oMemoryAddress[9]
+set_location_assignment PIN_76 -to oMemoryAddress[7]
+set_location_assignment PIN_78 -to oMemoryAddress[5]
+set_location_assignment PIN_80 -to oMemoryAddress[3]
+set_location_assignment PIN_79 -to oMemoryAddress[4]
+set_location_assignment PIN_81 -to oMemoryDQM[3]
+set_location_assignment PIN_86 -to bMemoryData[29]
+set_location_assignment PIN_84 -to bMemoryData[31]
+set_location_assignment PIN_87 -to bMemoryData[28]
+set_location_assignment PIN_85 -to bMemoryData[30]
+set_location_assignment PIN_64 -to bMemoryData[8]
+set_location_assignment PIN_61 -to bMemoryData[9]
+set_location_assignment PIN_69 -to oMemoryCLK
+set_location_assignment PIN_70 -to oMemoryCKE
+set_location_assignment PIN_65 -to oMemoryDQM[1]
+set_location_assignment PIN_28 -to bMemoryData[0]
+set_location_assignment PIN_29 -to bMemoryData[1]
+set_location_assignment PIN_30 -to bMemoryData[2]
+set_location_assignment PIN_32 -to bMemoryData[3]
+set_location_assignment PIN_99 -to oMemoryDQM[2]
+
+set_location_assignment PIN_25 -to iBoardReset
+set_global_assignment -name ENABLE_SIGNALTAP ON
+set_global_assignment -name USE_SIGNALTAP_FILE ../../io/aux_project/output_files/stp1.stp
+set_global_assignment -name SIGNALTAP_FILE ../../io/aux_project/output_files/stp1.stp
+<<<<<<< HEAD
+=======
+set_global_assignment -name CDF_FILE ../../io/aux_project/output_files/Chain1.cdf
+>>>>>>> 7c7b9ea2e7eaabc647f3182d858b71191d4f109c
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
+set_global_assignment -name SLD_FILE db/stp1_auto_stripped.stp
