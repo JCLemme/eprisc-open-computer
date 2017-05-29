@@ -26,9 +26,9 @@
                 push.r  s:%Xw
                 call.s  a:str_puts
                 pops.r  d:%Xw                                       ; Print the welcome message
-                
-                
-                
+            
+
+
                 move.v  d:%Xw v:bios_str.str_postbgn
                 push.r  s:%Xw
                 call.s  a:str_puts
@@ -41,7 +41,12 @@
                 
                 
                 
-                move.v  d:%Xw v:bios_str.str_postbgn
+                move.v  d:%Xw v:#h41
+                push.r  s:%Xw
+                call.s  a:spi_send
+                pops.r  d:%Xw                                       ; Send a garbage byte to "warm up" the SPI core
+                
+                move.v  d:%Xw v:bios_str.str_mountda
                 push.r  s:%Xw
                 call.s  a:str_puts
                 pops.r  d:%Xw                                       ; Announce that we're trying to mount the first SD card
@@ -57,6 +62,13 @@
                 pops.r  d:%Xw                                       ; Print the correct string
                 
                 
+                move.v  d:%Xw v:#h80
+                push.r  s:%Xw
+                move.v  d:%Xw v:#hFF48
+                push.r  s:%Xw
+                call.s  a:ioc_send
+                pops.r  d:%Xw
+                pops.r  d:%Xw                                       ; Send a garbage byte to "warm up" the SPI core
                 
                 move.v  d:%Xw v:bios_str.str_monitor
                 push.r  s:%Xw
@@ -104,11 +116,11 @@
 :.str_postser   !str "  UART            \0"
 :.str_postspi   !str "  SPI             \0"
 :.str_postsys   !str "  sysX Bus        \0"
-:.str_postmem   !str "  I/O Controller  \0"
+:.str_postioc   !str "  I/O Controller  \0"
 :.str_postokt   !str "OK\n\r\0"
 :.str_postnot   !str "FAIL\n\r\0"
-:.str_postgud   !str "POST successful.\n\r\0"
-:.str_postfal   !str "POST unsuccessful.\n\r\0"
+:.str_postgud   !str "POST successful.\n\r\n\r\0"
+:.str_postfal   !str "POST unsuccessful.\n\r\n\r\0"
 :.str_monitor   !str "Entering monitor...\n\r\n\r\0"
 
 !include    "../../rom/bios_bus.asm"

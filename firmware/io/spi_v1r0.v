@@ -23,30 +23,43 @@
 `define sDummy          11
 `define sDummyTwo       12
 
-module epRISC_SPI(iClk, iRst, oInt, iAddr, iData, oData, iWrite, iEnable, iTxClk, iMISO, oMOSI, oSS, oSCLK);
+module epRISC_SPI(iClk, iRst, oInt, iAddr, iData, oData, iWrite, iEnable, iMasterClk, iMISO, oMOSI, oSS, oSCLK);
 
-    input iClk, iRst, iWrite, iEnable, iTxClk, iMISO;
+    input iClk, iRst, iWrite, iEnable, iMasterClk, iMISO;
     input [1:0] iAddr;
     input [15:0] iData;
     output wire oInt, oMOSI, oSCLK;
     output wire [3:0] oSS;
     output wire [15:0] oData;
     
+    reg rTxClk;
+    reg [1:0] rClkDivide;
     reg [3:0] rState, rPrevState, rNextState;
     reg [4:0] rLockSto, rLockAck;
     reg [7:0] rDataBuf;
     reg [15:0] rControl, rDataIn, rDataOut;
-
+    
     assign oMOSI = (rState > 7) ? 1 : rDataIn[rState];
     assign oSS = ~rControl[6:3];
-    assign oSCLK = (rState < 8) ? iTxClk : 0;
+    assign oSCLK = (rState < 8) ? rTxClk : 0;
     
     assign oData = (!iEnable) ? 16'bz : (iAddr==0)?((rState!=`sIdle)?rControl|16'h80:rControl):((iAddr==1)?rDataIn:((iAddr==2)?rDataOut:16'b1));
 
     wire tmpClock;
-    assign tmpClock = (rState == `sIdle) ? iClk : iTxClk;
+    assign tmpClock = (rState == `sIdle) ? iClk : rTxClk;
     
-    always @(negedge iTxClk or posedge iRst) begin
+    always @(posedge iMasterClk or posedge iRst) begin
+        if(iRst) begin
+            rClkDivide <= 0;
+            rTxClk <= 0;
+         end else begin
+            rClkDivide <= rClkDivide + 1;
+            if(rClkDivide == 3)
+                rTxClk <= !rTxClk;
+         end
+    end
+    
+    always @(negedge rTxClk or posedge iRst) begin
         if(iRst) begin
             rPrevState <= `sIdle;
             rState <= `sIdle;
@@ -84,7 +97,7 @@ module epRISC_SPI(iClk, iRst, oInt, iAddr, iData, oData, iWrite, iEnable, iTxClk
         end
     end
     
-    always @(posedge iTxClk or posedge iRst) begin
+    always @(posedge rTxClk or posedge iRst) begin
         if(iRst) begin
             rDataOut <= 0;
         end else begin       
@@ -93,7 +106,7 @@ module epRISC_SPI(iClk, iRst, oInt, iAddr, iData, oData, iWrite, iEnable, iTxClk
         end
     end 
     
-    always @(posedge iTxClk or posedge iRst) begin
+    always @(posedge rTxClk or posedge iRst) begin
         if(iRst) begin
             rDataBuf <= 0;
         end else begin

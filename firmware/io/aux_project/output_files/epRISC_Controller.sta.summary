@@ -3,22 +3,38 @@ TimeQuest Timing Analyzer Summary
 ------------------------------------------------------------
 
 Type  : Slow 1200mV 85C Model Setup 'iBusClock'
-Slack : -9.674
-TNS   : -726.484
+Slack : -7.440
+TNS   : -752.796
+
+Type  : Slow 1200mV 85C Model Setup 'clock|altpll_component|auto_generated|pll1|clk[2]'
+Slack : -7.297
+TNS   : -481.374
 
 Type  : Slow 1200mV 85C Model Setup 'clock|altpll_component|auto_generated|pll1|clk[0]'
-Slack : -6.985
-TNS   : -221.220
+Slack : -7.100
+TNS   : -220.247
+
+Type  : Slow 1200mV 85C Model Setup 'epRISC_SPI:bspi|rTxClk'
+Slack : -2.811
+TNS   : -44.318
 
 Type  : Slow 1200mV 85C Model Setup 'clock|altpll_component|auto_generated|pll1|clk[1]'
-Slack : -5.949
-TNS   : -23.484
+Slack : -0.593
+TNS   : -0.593
+
+Type  : Slow 1200mV 85C Model Setup 'clock|altpll_component|auto_generated|pll1|clk[3]'
+Slack : 0.301
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Hold 'clock|altpll_component|auto_generated|pll1|clk[1]'
+Slack : -0.096
+TNS   : -0.096
 
 Type  : Slow 1200mV 85C Model Hold 'clock|altpll_component|auto_generated|pll1|clk[0]'
 Slack : 0.343
 TNS   : 0.000
 
-Type  : Slow 1200mV 85C Model Hold 'clock|altpll_component|auto_generated|pll1|clk[1]'
+Type  : Slow 1200mV 85C Model Hold 'clock|altpll_component|auto_generated|pll1|clk[2]'
 Slack : 0.344
 TNS   : 0.000
 
@@ -26,63 +42,107 @@ Type  : Slow 1200mV 85C Model Hold 'iBusClock'
 Slack : 0.362
 TNS   : 0.000
 
-Type  : Slow 1200mV 85C Model Recovery 'clock|altpll_component|auto_generated|pll1|clk[0]'
-Slack : -8.492
-TNS   : -210.987
-
-Type  : Slow 1200mV 85C Model Recovery 'clock|altpll_component|auto_generated|pll1|clk[1]'
-Slack : -8.338
-TNS   : -205.090
-
-Type  : Slow 1200mV 85C Model Recovery 'iBusClock'
-Slack : -5.092
-TNS   : -377.306
-
-Type  : Slow 1200mV 85C Model Removal 'iBusClock'
-Slack : 3.035
+Type  : Slow 1200mV 85C Model Hold 'epRISC_SPI:bspi|rTxClk'
+Slack : 0.363
 TNS   : 0.000
 
-Type  : Slow 1200mV 85C Model Removal 'clock|altpll_component|auto_generated|pll1|clk[1]'
-Slack : 6.535
+Type  : Slow 1200mV 85C Model Hold 'clock|altpll_component|auto_generated|pll1|clk[3]'
+Slack : 1.259
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Recovery 'clock|altpll_component|auto_generated|pll1|clk[0]'
+Slack : -9.841
+TNS   : -252.706
+
+Type  : Slow 1200mV 85C Model Recovery 'clock|altpll_component|auto_generated|pll1|clk[1]'
+Slack : -9.834
+TNS   : -28.587
+
+Type  : Slow 1200mV 85C Model Recovery 'epRISC_SPI:bspi|rTxClk'
+Slack : -6.995
+TNS   : -170.156
+
+Type  : Slow 1200mV 85C Model Recovery 'iBusClock'
+Slack : -6.570
+TNS   : -500.711
+
+Type  : Slow 1200mV 85C Model Removal 'iBusClock'
+Slack : 4.120
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Removal 'epRISC_SPI:bspi|rTxClk'
+Slack : 4.906
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Removal 'clock|altpll_component|auto_generated|pll1|clk[0]'
-Slack : 6.703
+Slack : 7.591
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Removal 'clock|altpll_component|auto_generated|pll1|clk[1]'
+Slack : 7.591
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Minimum Pulse Width 'iBusClock'
 Slack : -3.901
-TNS   : -302.621
+TNS   : -396.245
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'epRISC_SPI:bspi|rTxClk'
+Slack : -1.487
+TNS   : -37.175
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'clock|altpll_component|auto_generated|pll1|clk[3]'
+Slack : 4.700
+TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Minimum Pulse Width 'iBoardClock'
 Slack : 9.905
 TNS   : 0.000
 
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'clock|altpll_component|auto_generated|pll1|clk[2]'
+Slack : 19.716
+TNS   : 0.000
+
 Type  : Slow 1200mV 85C Model Minimum Pulse Width 'clock|altpll_component|auto_generated|pll1|clk[1]'
-Slack : 2499.719
+Slack : 499.715
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Minimum Pulse Width 'clock|altpll_component|auto_generated|pll1|clk[0]'
-Slack : 3124.718
+Slack : 3124.711
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Setup 'iBusClock'
-Slack : -9.290
-TNS   : -675.607
+Slack : -7.021
+TNS   : -701.595
+
+Type  : Slow 1200mV 0C Model Setup 'clock|altpll_component|auto_generated|pll1|clk[2]'
+Slack : -6.596
+TNS   : -437.598
 
 Type  : Slow 1200mV 0C Model Setup 'clock|altpll_component|auto_generated|pll1|clk[0]'
-Slack : -6.359
-TNS   : -201.346
+Slack : -6.395
+TNS   : -200.072
+
+Type  : Slow 1200mV 0C Model Setup 'epRISC_SPI:bspi|rTxClk'
+Slack : -2.690
+TNS   : -40.091
 
 Type  : Slow 1200mV 0C Model Setup 'clock|altpll_component|auto_generated|pll1|clk[1]'
-Slack : -5.460
-TNS   : -21.532
+Slack : -0.457
+TNS   : -0.457
 
-Type  : Slow 1200mV 0C Model Hold 'clock|altpll_component|auto_generated|pll1|clk[0]'
-Slack : 0.305
+Type  : Slow 1200mV 0C Model Setup 'clock|altpll_component|auto_generated|pll1|clk[3]'
+Slack : 0.832
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Hold 'clock|altpll_component|auto_generated|pll1|clk[1]'
+Slack : -0.145
+TNS   : -0.145
+
+Type  : Slow 1200mV 0C Model Hold 'clock|altpll_component|auto_generated|pll1|clk[0]'
+Slack : 0.307
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Hold 'clock|altpll_component|auto_generated|pll1|clk[2]'
 Slack : 0.307
 TNS   : 0.000
 
@@ -90,108 +150,180 @@ Type  : Slow 1200mV 0C Model Hold 'iBusClock'
 Slack : 0.325
 TNS   : 0.000
 
+Type  : Slow 1200mV 0C Model Hold 'epRISC_SPI:bspi|rTxClk'
+Slack : 0.326
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Hold 'clock|altpll_component|auto_generated|pll1|clk[3]'
+Slack : 1.124
+TNS   : 0.000
+
 Type  : Slow 1200mV 0C Model Recovery 'clock|altpll_component|auto_generated|pll1|clk[0]'
-Slack : -7.666
-TNS   : -190.071
+Slack : -8.909
+TNS   : -228.691
 
 Type  : Slow 1200mV 0C Model Recovery 'clock|altpll_component|auto_generated|pll1|clk[1]'
-Slack : -7.525
-TNS   : -184.737
+Slack : -8.904
+TNS   : -25.856
+
+Type  : Slow 1200mV 0C Model Recovery 'epRISC_SPI:bspi|rTxClk'
+Slack : -6.382
+TNS   : -155.271
 
 Type  : Slow 1200mV 0C Model Recovery 'iBusClock'
-Slack : -4.607
-TNS   : -340.464
+Slack : -5.981
+TNS   : -455.419
 
 Type  : Slow 1200mV 0C Model Removal 'iBusClock'
-Slack : 2.749
+Slack : 3.694
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Removal 'epRISC_SPI:bspi|rTxClk'
+Slack : 4.437
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Removal 'clock|altpll_component|auto_generated|pll1|clk[1]'
-Slack : 5.963
+Slack : 6.880
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Removal 'clock|altpll_component|auto_generated|pll1|clk[0]'
-Slack : 6.128
+Slack : 6.883
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Minimum Pulse Width 'iBusClock'
 Slack : -3.901
-TNS   : -302.621
+TNS   : -396.245
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'epRISC_SPI:bspi|rTxClk'
+Slack : -1.487
+TNS   : -37.175
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'clock|altpll_component|auto_generated|pll1|clk[3]'
+Slack : 4.681
+TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Minimum Pulse Width 'iBoardClock'
 Slack : 9.776
 TNS   : 0.000
 
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'clock|altpll_component|auto_generated|pll1|clk[2]'
+Slack : 19.695
+TNS   : 0.000
+
 Type  : Slow 1200mV 0C Model Minimum Pulse Width 'clock|altpll_component|auto_generated|pll1|clk[1]'
-Slack : 2499.691
+Slack : 499.688
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Minimum Pulse Width 'clock|altpll_component|auto_generated|pll1|clk[0]'
-Slack : 3124.687
+Slack : 3124.693
 TNS   : 0.000
 
-Type  : Fast 1200mV 0C Model Setup 'iBusClock'
-Slack : -3.510
-TNS   : -263.113
+Type  : Fast 1200mV 0C Model Setup 'clock|altpll_component|auto_generated|pll1|clk[2]'
+Slack : -3.023
+TNS   : -201.355
 
 Type  : Fast 1200mV 0C Model Setup 'clock|altpll_component|auto_generated|pll1|clk[0]'
-Slack : -2.941
-TNS   : -97.157
+Slack : -2.991
+TNS   : -93.680
+
+Type  : Fast 1200mV 0C Model Setup 'iBusClock'
+Slack : -2.420
+TNS   : -281.819
+
+Type  : Fast 1200mV 0C Model Setup 'epRISC_SPI:bspi|rTxClk'
+Slack : -0.749
+TNS   : -10.145
 
 Type  : Fast 1200mV 0C Model Setup 'clock|altpll_component|auto_generated|pll1|clk[1]'
-Slack : -2.436
-TNS   : -9.627
+Slack : -0.209
+TNS   : -0.209
+
+Type  : Fast 1200mV 0C Model Setup 'clock|altpll_component|auto_generated|pll1|clk[3]'
+Slack : 6.045
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Hold 'clock|altpll_component|auto_generated|pll1|clk[1]'
+Slack : -0.006
+TNS   : -0.006
 
 Type  : Fast 1200mV 0C Model Hold 'clock|altpll_component|auto_generated|pll1|clk[0]'
 Slack : 0.145
 TNS   : 0.000
 
-Type  : Fast 1200mV 0C Model Hold 'clock|altpll_component|auto_generated|pll1|clk[1]'
-Slack : 0.145
+Type  : Fast 1200mV 0C Model Hold 'clock|altpll_component|auto_generated|pll1|clk[2]'
+Slack : 0.146
 TNS   : 0.000
 
-Type  : Fast 1200mV 0C Model Hold 'iBusClock'
+Type  : Fast 1200mV 0C Model Hold 'epRISC_SPI:bspi|rTxClk'
 Slack : 0.152
 TNS   : 0.000
 
+Type  : Fast 1200mV 0C Model Hold 'iBusClock'
+Slack : 0.153
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Hold 'clock|altpll_component|auto_generated|pll1|clk[3]'
+Slack : 0.485
+TNS   : 0.000
+
 Type  : Fast 1200mV 0C Model Recovery 'clock|altpll_component|auto_generated|pll1|clk[0]'
-Slack : -3.776
-TNS   : -94.448
+Slack : -4.237
+TNS   : -108.959
 
 Type  : Fast 1200mV 0C Model Recovery 'clock|altpll_component|auto_generated|pll1|clk[1]'
-Slack : -3.610
-TNS   : -88.718
+Slack : -4.232
+TNS   : -12.347
+
+Type  : Fast 1200mV 0C Model Recovery 'epRISC_SPI:bspi|rTxClk'
+Slack : -3.003
+TNS   : -69.819
 
 Type  : Fast 1200mV 0C Model Recovery 'iBusClock'
-Slack : -2.206
-TNS   : -164.521
+Slack : -2.808
+TNS   : -214.652
 
 Type  : Fast 1200mV 0C Model Removal 'iBusClock'
-Slack : 1.330
+Slack : 1.796
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Removal 'epRISC_SPI:bspi|rTxClk'
+Slack : 2.069
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Removal 'clock|altpll_component|auto_generated|pll1|clk[1]'
-Slack : 3.244
+Slack : 3.686
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Removal 'clock|altpll_component|auto_generated|pll1|clk[0]'
-Slack : 3.412
+Slack : 3.688
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'iBusClock'
 Slack : -3.000
-TNS   : -209.626
+TNS   : -235.735
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'epRISC_SPI:bspi|rTxClk'
+Slack : -1.000
+TNS   : -25.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'clock|altpll_component|auto_generated|pll1|clk[3]'
+Slack : 4.716
+TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'iBoardClock'
 Slack : 9.663
 TNS   : 0.000
 
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'clock|altpll_component|auto_generated|pll1|clk[2]'
+Slack : 19.740
+TNS   : 0.000
+
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'clock|altpll_component|auto_generated|pll1|clk[1]'
-Slack : 2499.741
+Slack : 499.742
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'clock|altpll_component|auto_generated|pll1|clk[0]'
-Slack : 3124.740
+Slack : 3124.738
 TNS   : 0.000
 
 ------------------------------------------------------------

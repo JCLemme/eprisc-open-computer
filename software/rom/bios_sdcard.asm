@@ -100,10 +100,10 @@
                 pops.r  d:REG_AWORK                                 ; Disable all SPI devices
                 
                 ; If SPI clock frequency change is added, enable slow mode here
-                call.s  a:dbg_note
+                ;call.s  a:dbg_note
                 
                 move.v  d:REG_AWORK v:#h0B
-:.startloop     call.s  a:dbg_note
+:.startloop     ;call.s  a:dbg_note
                 call.s  a:spi_recv                                  
                 subr.v  d:REG_AWORK a:REG_AWORK v:#h01              ; Card needs >74 "dead" cycles to start up
                 cmpr.v  a:REG_AWORK v:#h00                          ; We're gonna do 88
@@ -113,7 +113,7 @@
                 push.r  s:REG_AWORK
                 call.s  a:spi_addr
                 pops.r  d:REG_AWORK                                 ; Initialize card A - gonna add selector later
-                call.s  a:dbg_note
+                ;call.s  a:dbg_note
                 
                 move.v  d:REG_AWORK v:CMD_GO_IDLE_STATE
                 push.r  s:REG_AWORK                                 ; Store an R1 command
@@ -123,9 +123,9 @@
                 arsl.v  d:REG_BWORK a:REG_BWORK v:R1_IDLE_STATE     ; Calculate the expected response
                 move.v  d:REG_CWORK v:#h00                          ; Clear the counter
                 
-                call.s  a:dbg_note
+                ;call.s  a:dbg_note
                 
-:.aliveloop     call.s  a:dbg_note
+:.aliveloop     ;call.s  a:dbg_note
                 call.s  a:sdc_scmd                                  ; Let's see if the card woke up
                 cmpr.r  a:REG_RESP b:REG_BWORK                      ; Did we get the expected response?
                 brch.a  c:%EQL a:.itsalive                          ; If so, break   
@@ -134,7 +134,7 @@
                 brch.a  c:%EQL a:.deadalive                         ; If so, give up
                 brch.a  a:.aliveloop                                ; Loop back to top
                 
-                call.s  a:dbg_note
+                ;call.s  a:dbg_note
                 
 :.itsalive      pops.r  d:REG_AWORK
                 pops.r  d:REG_AWORK                                 ; Restore the stack
@@ -146,7 +146,7 @@
                 call.s  a:sdc_scmd
                 pops.r  d:REG_AWORK
                 pops.r  d:REG_AWORK                                 ; Check for voltage range (3.3v) and test pattern?
-                call.s  a:dbg_note
+                ;call.s  a:dbg_note
                 
                 move.v  d:REG_BWORK v:#h01
                 arsl.v  d:REG_BWORK a:REG_BWORK v:R1_ILL_COMMAND    ; Calculate ill command check byte
@@ -156,15 +156,15 @@
                 call.s  a:spi_recv
                 call.s  a:spi_recv                                  ; Waste some cycles
                 call.s  a:spi_recv                                  ; This one's legit though
-                push.r  s:REG_RESP
-                call.s  a:str_hnum
-                pops.r  d:REG_RESP
+                ;push.r  s:REG_RESP
+                ;call.s  a:str_hnum
+                ;pops.r  d:REG_RESP
                 test.v  a:REG_RESP v:#h01                           ; Is the voltage range correct?
                 brch.a  c:%EQL a:.deadcard                          ; If not, give up
                 call.s  a:spi_recv                                  ; This one's legit too
-                push.r  s:REG_RESP
-                call.s  a:str_hnum
-                pops.r  d:REG_RESP
+                ;push.r  s:REG_RESP
+                ;call.s  a:str_hnum
+                ;pops.r  d:REG_RESP
                 cmpr.v  a:REG_RESP v:#haa                           ; Is the test pattern correct?
                 brch.a  c:%NEQ a:.deadcard                          ; If not, give up
                 move.v  d:REG_CWORK v:#h01
@@ -248,9 +248,9 @@
                 cmpr.v  a:REG_RESP v:#h00                           ; Did we get back a zero?
                 brch.a  c:%NEQ a:.deadcard                          ; If not, give up
                 call.s  a:spi_recv
-                push.r  s:REG_RESP
-                call.s  a:str_hnum
-                pops.r  d:REG_RESP
+                ;push.r  s:REG_RESP
+                ;call.s  a:str_hnum
+                ;pops.r  d:REG_RESP
                 test.v  a:REG_RESP v:#h40                           ; Is the argument gonna be h04000000?
                 brch.a  c:%EQL a:.sdhcdone                          ; If not, finish here and converge
                 move.v  d:REG_AWORK v:#h01
@@ -364,11 +364,171 @@
                 brch.a  c:%EQL a:.exitloop
                 brch.a  a:.resploop                                 ; Wait ten cycles for a response
 
-:.printloop     push.r  s:REG_RESP
-                call.s  a:str_hnum
-                pops.r  d:REG_RESP
+:.printloop     ;push.r  s:REG_RESP
+                ;call.s  a:str_hnum
+                ;pops.r  d:REG_RESP
                 
 :.exitloop      pops.r  d:REG_ARGM
                 pops.r  d:REG_COMD
+                rtrn.s                                              ; And return
+
+
+
+!zone   sdc_read
+!def    REG_ADDR    %Zw
+!def    REG_BLOK    %Zx
+!def    REG_RESP    %Zz
+
+:sdc_read       push.r  s:REG_ADDR
+                push.r  s:REG_BLOK
+                subr.v  d:%SP a:%SP v:#h03                          ; Set up the stack
+                pops.r  d:REG_BLOK                                  ; Get argument
+                pops.r  d:REG_ADDR                                  ; Get command
+                addr.v  d:%SP a:%SP v:#h05                          ; Set up the stack
+                
+uint8_t sd_raw_read(offset_t offset, uint8_t* buffer, uintptr_t length)
+{
+    offset_t block_address;
+    uint16_t block_offset;
+    uint16_t read_length;
+    while(length > 0)
+    {
+        /* determine byte count to read at once */
+        block_offset = offset & 0x01ff;
+        block_address = offset - block_offset;
+        read_length = 512 - block_offset; /* read up to block border */
+        if(read_length > length)
+            read_length = length;
+        
+        {
+
+            /* address card */
+            select_card();
+
+            /* send single block request */
+            if(sd_raw_send_command(CMD_READ_SINGLE_BLOCK, (sd_raw_card_type & (1 << SD_RAW_SPEC_SDHC) ? block_address / 512 : block_address)))
+            {
+                unselect_card();
+                return 0;
+            }
+
+            /* wait for data block (start byte 0xfe) */
+            while(sd_raw_rec_byte() != 0xfe);
+
+            /* read byte block */
+            uint8_t* cache = raw_block;
+            for(uint16_t i = 0; i < 512; ++i)
+                *cache++ = sd_raw_rec_byte();
+            raw_block_address = block_address;
+
+            memcpy(buffer, raw_block + block_offset, read_length);
+            buffer += read_length;
+            
+            /* read crc16 */
+            sd_raw_rec_byte();
+            sd_raw_rec_byte();
+            
+            /* deaddress card */
+            unselect_card();
+
+            /* let card some time to finish */
+            sd_raw_rec_byte();
+        }
+
+        length -= read_length;
+        offset += read_length;
+    }
+
+    return 1;
+}
+:.exitloop      pops.r  d:REG_BLOK
+                pops.r  d:REG_ADDR
+                rtrn.s                                              ; And return
+
+
+
+
+!zone   sdc_writ
+!def    REG_ADDR    %Zw
+!def    REG_BLOK    %Zx
+!def    REG_RESP    %Zz
+
+:sdc_writ       push.r  s:REG_ADDR
+                push.r  s:REG_BLOK
+                subr.v  d:%SP a:%SP v:#h03                          ; Set up the stack
+                pops.r  d:REG_BLOK                                  ; Get argument
+                pops.r  d:REG_ADDR                                  ; Get command
+                addr.v  d:%SP a:%SP v:#h05                          ; Set up the stack
+uint8_t sd_raw_write(offset_t offset, const uint8_t* buffer, uintptr_t length)
+{
+    offset_t block_address;
+    uint16_t block_offset;
+    uint16_t write_length;
+    while(length > 0)
+    {
+        /* determine byte count to write at once */
+        block_offset = offset & 0x01ff;
+        block_address = offset - block_offset;
+        write_length = 512 - block_offset; /* write up to block border */
+        if(write_length > length)
+            write_length = length;
+        
+        /* Merge the data to write with the content of the block.
+         * Use the cached block if available.
+         */
+        if(block_address != raw_block_address)
+        {
+            if(block_offset || write_length < 512)
+            {
+                if(!sd_raw_read(block_address, raw_block, sizeof(raw_block)))
+                    return 0;
+            }
+            raw_block_address = block_address;
+        }
+
+        if(buffer != raw_block)
+        {
+            memcpy(raw_block + block_offset, buffer, write_length);
+        }
+
+        /* address card */
+        select_card();
+
+        /* send single block request */
+        if(sd_raw_send_command(CMD_WRITE_SINGLE_BLOCK, (sd_raw_card_type & (1 << SD_RAW_SPEC_SDHC) ? block_address / 512 : block_address)))
+        {
+            unselect_card();
+            return 0;
+        }
+
+        /* send start byte */
+        sd_raw_send_byte(0xfe);
+
+        /* write byte block */
+        uint8_t* cache = raw_block;
+        for(uint16_t i = 0; i < 512; ++i)
+            sd_raw_send_byte(*cache++);
+
+        /* write dummy crc16 */
+        sd_raw_send_byte(0xff);
+        sd_raw_send_byte(0xff);
+
+        /* wait while card is busy */
+        while(sd_raw_rec_byte() != 0xff);
+        sd_raw_rec_byte();
+
+        /* deaddress card */
+        unselect_card();
+
+        buffer += write_length;
+        offset += write_length;
+        length -= write_length;
+    }
+
+    return 1;
+}
+
+:.exitloop      pops.r  d:REG_BLOK
+                pops.r  d:REG_ADDR
                 rtrn.s                                              ; And return
 

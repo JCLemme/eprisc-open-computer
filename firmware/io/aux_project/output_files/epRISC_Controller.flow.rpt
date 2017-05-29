@@ -1,5 +1,5 @@
 Flow report for epRISC_Controller
-Thu May 25 20:27:37 2017
+Sun May 28 02:15:43 2017
 Quartus Prime Version 16.0.0 Build 211 04/27/2016 SJ Lite Edition
 
 
@@ -41,20 +41,20 @@ agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Thu May 25 20:27:32 2017       ;
+; Flow Status                        ; Successful - Sun May 28 02:15:37 2017       ;
 ; Quartus Prime Version              ; 16.0.0 Build 211 04/27/2016 SJ Lite Edition ;
 ; Revision Name                      ; epRISC_Controller                           ;
 ; Top-level Entity Name              ; epRISC_iocontroller                         ;
 ; Family                             ; MAX 10                                      ;
 ; Device                             ; 10M16SCE144C8G                              ;
 ; Timing Models                      ; Final                                       ;
-; Total logic elements               ; 476 / 15,840 ( 3 % )                        ;
-;     Total combinational functions  ; 401 / 15,840 ( 3 % )                        ;
-;     Dedicated logic registers      ; 266 / 15,840 ( 2 % )                        ;
-; Total registers                    ; 266                                         ;
+; Total logic elements               ; 1,540 / 15,840 ( 10 % )                     ;
+;     Total combinational functions  ; 1,473 / 15,840 ( 9 % )                      ;
+;     Dedicated logic registers      ; 346 / 15,840 ( 2 % )                        ;
+; Total registers                    ; 346                                         ;
 ; Total pins                         ; 89 / 101 ( 88 % )                           ;
 ; Total virtual pins                 ; 0                                           ;
-; Total memory bits                  ; 8,192 / 562,176 ( 1 % )                     ;
+; Total memory bits                  ; 73,728 / 562,176 ( 13 % )                   ;
 ; Embedded Multiplier 9-bit elements ; 0 / 90 ( 0 % )                              ;
 ; Total PLLs                         ; 1 / 1 ( 100 % )                             ;
 ; UFM blocks                         ; 0 / 1 ( 0 % )                               ;
@@ -67,7 +67,7 @@ agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 05/25/2017 20:27:04 ;
+; Start date & time ; 05/28/2017 02:14:59 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; epRISC_Controller   ;
 +-------------------+---------------------+
@@ -78,13 +78,14 @@ agreement for further details.
 +-------------------------------------+---------------------------------------+-------------------+---------------------+------------+
 ; Assignment Name                     ; Value                                 ; Default Value     ; Entity Name         ; Section Id ;
 +-------------------------------------+---------------------------------------+-------------------+---------------------+------------+
-; COMPILER_SIGNATURE_ID               ; 0.149575842414742                     ; --                ; --                  ; --         ;
+; COMPILER_SIGNATURE_ID               ; 0.149595209918773                     ; --                ; --                  ; --         ;
 ; FIT_ATTEMPTS_TO_SKIP                ; 0                                     ; 0.0               ; --                  ; --         ;
 ; FLOW_ENABLE_POWER_ANALYZER          ; On                                    ; Off               ; --                  ; --         ;
 ; MAX_CORE_JUNCTION_TEMP              ; 85                                    ; --                ; --                  ; --         ;
 ; MIN_CORE_JUNCTION_TEMP              ; 0                                     ; --                ; --                  ; --         ;
 ; MISC_FILE                           ; OnChipPLL_bb.v                        ; --                ; --                  ; --         ;
 ; MISC_FILE                           ; OnChipPLL.ppf                         ; --                ; --                  ; --         ;
+; MISC_FILE                           ; ChipVideoRAM_bb.v                     ; --                ; --                  ; --         ;
 ; PARTITION_COLOR                     ; 16764057                              ; --                ; epRISC_iocontroller ; Top        ;
 ; PARTITION_FITTER_PRESERVATION_LEVEL ; PLACEMENT_AND_ROUTING                 ; --                ; epRISC_iocontroller ; Top        ;
 ; PARTITION_NETLIST_TYPE              ; SOURCE                                ; --                ; epRISC_iocontroller ; Top        ;
@@ -101,12 +102,12 @@ agreement for further details.
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name               ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis      ; 00:00:09     ; 1.0                     ; 1310 MB             ; 00:00:21                           ;
-; Fitter                    ; 00:00:08     ; 1.2                     ; 1597 MB             ; 00:00:11                           ;
-; Assembler                 ; 00:00:01     ; 1.0                     ; 1114 MB             ; 00:00:01                           ;
-; PowerPlay Power Analyzer  ; 00:00:02     ; 1.4                     ; 1251 MB             ; 00:00:02                           ;
-; TimeQuest Timing Analyzer ; 00:00:02     ; 1.4                     ; 1206 MB             ; 00:00:03                           ;
-; Total                     ; 00:00:22     ; --                      ; --                  ; 00:00:38                           ;
+; Analysis & Synthesis      ; 00:00:14     ; 1.0                     ; 1313 MB             ; 00:00:26                           ;
+; Fitter                    ; 00:00:12     ; 1.4                     ; 1628 MB             ; 00:00:19                           ;
+; Assembler                 ; 00:00:01     ; 1.0                     ; 1119 MB             ; 00:00:01                           ;
+; PowerPlay Power Analyzer  ; 00:00:02     ; 1.7                     ; 1267 MB             ; 00:00:04                           ;
+; TimeQuest Timing Analyzer ; 00:00:03     ; 1.7                     ; 1230 MB             ; 00:00:04                           ;
+; Total                     ; 00:00:32     ; --                      ; --                  ; 00:00:54                           ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 

@@ -43,16 +43,20 @@ module epRISC_controlRAM(iClk, iRst, iAddr, iData, oData, iWrite, iEnable);
     
 endmodule
 
-module EmulatedIOPLL(iIn, oOutUART, oOutSPI);
+module EmulatedIOPLL(iIn, oOutUART, oOutSPI, oOutVGA, oOutFast);
     input iIn;
-    output reg oOutUART, oOutSPI;
+    output reg oOutUART, oOutSPI, oOutVGA;
+    output wire oOutFast;
 
     reg [6:0] rClockSplit;
 
+    assign oOutFast = iIn;
+    
     initial begin
         rClockSplit <= 0;
         oOutUART <= 0;
         oOutSPI <= 0;
+        oOutVGA <= 0;
     end
 
     always @(posedge iIn) begin
@@ -60,6 +64,9 @@ module EmulatedIOPLL(iIn, oOutUART, oOutSPI);
 
         if(rClockSplit[3] == 1)
             oOutUART = !oOutUART;
+            
+        if(rClockSplit == 5'd2)
+            oOutVGA = !oOutVGA;
             
         if(rClockSplit == 5'd27)
             oOutSPI = !oOutSPI;
@@ -121,7 +128,7 @@ module epRISC_iocontroller(iBusClock, iBusSelect, iBusMOSI, oBusInterrupt, oBusM
     
     wire wEnableGPIO, wEnableUART, wEnableSPI, wEnableVideo, wEnablePS2, wEnableRAM;
 
-    wire wSerialClock, wSPIClock;
+    wire wSerialClock, wSPIClock, wVGAClock, wFastClock;
     
     // Pipeline controller registers
     reg [3:0] rPipeState, rPipePrevState, rPipeNextState;
@@ -135,11 +142,12 @@ module epRISC_iocontroller(iBusClock, iBusSelect, iBusMOSI, oBusInterrupt, oBusM
     assign mBusWrite = (rPipeState == `sPipeStore && rInternalMOSI[31]) ? 1'h1 : 1'h0;
     assign mBusReset = (!iBoardReset || (rPipeState == `sPipeLoad && mBusAddress == 15'h7FFF && rInternalMOSI[31])) ? 1'h1 : 1'h0;
     
-    assign wEnableGPIO = (mBusAddress >= 15'h100 && mBusAddress < 15'h200) ? 1'h1 : 1'h0;
-    assign wEnableUART = (mBusAddress >= 15'h000 && mBusAddress < 15'h100) ? 1'h1 : 1'h0;
-    assign wEnableSPI = (mBusAddress >= 15'h200 && mBusAddress < 15'h300) ? 1'h1 : 1'h0;
-    assign wEnableRAM = (mBusAddress >= 15'h300 && mBusAddress < 15'h400) ? 1'h1 : 1'h0;
-
+    assign wEnableGPIO = (mBusAddress >= 15'h0 && mBusAddress < 15'h10) ? 1'h1 : 1'h0;
+    assign wEnableUART = (mBusAddress >= 15'h10 && mBusAddress < 15'h20) ? 1'h1 : 1'h0;
+    assign wEnableSPI = (mBusAddress >= 15'h20 && mBusAddress < 15'h30) ? 1'h1 : 1'h0;
+    assign wEnableRAM = (mBusAddress >= 15'h30 && mBusAddress < 15'h80) ? 1'h1 : 1'h0;
+    assign wEnableVideo = (mBusAddress >= 15'h80 && mBusAddress < 15'h100) ? 1'h1 : 1'h0;
+    
     assign oBusMISO = (rPipeState == `sPipeLoLo) ? wInternalMISO[7:0] :
                       (rPipeState == `sPipeLo) ? wInternalMISO[15:8] :
                       (rPipeState == `sPipeHi) ? wInternalMISO[23:16] :
@@ -147,9 +155,9 @@ module epRISC_iocontroller(iBusClock, iBusSelect, iBusMOSI, oBusInterrupt, oBusM
 
 
     `ifdef EMULATED
-    EmulatedIOPLL       clock(iBoardClock, wSerialClock, wSPIClock);
+    EmulatedIOPLL       clock(iBoardClock, wSerialClock, wSPIClock, wVGAClock, wFastClock);
     `else
-    OnChipPLL           clock(iBoardClock, wSerialClock, wSPIClock);
+    OnChipPLL           clock(iBoardClock, wSerialClock, wSPIClock, wVGAClock, wFastClock);
     `endif
 
     epRISC_GPIO         gpio(iBusClock, mBusReset, oBusInterrupt, mBusAddress, mBusData, wInternalMISO, mBusWrite, wEnableGPIO, 
@@ -159,6 +167,8 @@ module epRISC_iocontroller(iBusClock, iBusSelect, iBusMOSI, oBusInterrupt, oBusM
     
     epRISC_SPI          bspi(iBusClock, mBusReset, oBrusInterrupt, mBusAddress, mBusData, wInternalMISO, mBusWrite, wEnableSPI, wSPIClock, iSPIMISO, oSPIMOSI, oSPISelect, oSPIClock);
     
+    epRISC_VideoTerm    bvga(iBusClock, mBusReset, mBusAddress, mBusData, wInternalMISO, mBusWrite, wEnableVideo, wFastClock, wVGAClock, oVGAColor, oVGAHorizontal, oVGAVertical);
+
     epRISC_controlRAM   bmem(iBusClock, mBusReset, mBusAddress, rInternalMOSI, wInternalMISO, mBusWrite, wEnableRAM);
 
 

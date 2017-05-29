@@ -6,9 +6,9 @@
 ; These routines command the onboard I/O controller's SPI bus master. Will be optimized later.
 
 
-!def    SPI_CONF_ADDRESS    #h200
-!def    SPI_MOSI_ADDRESS    #h201
-!def    SPI_MISO_ADDRESS    #h202
+!def    SPI_CONF_ADDRESS    #h020
+!def    SPI_MOSI_ADDRESS    #h021
+!def    SPI_MISO_ADDRESS    #h022
 
 
 !zone   spi_addr

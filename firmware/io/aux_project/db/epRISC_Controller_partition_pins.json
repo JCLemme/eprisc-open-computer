@@ -68,6 +68,46 @@
 					"strict" : false
 				},
 				{
+					"name" : "oVGAColor[0]",
+					"strict" : false
+				},
+				{
+					"name" : "oVGAColor[1]",
+					"strict" : false
+				},
+				{
+					"name" : "oVGAColor[2]",
+					"strict" : false
+				},
+				{
+					"name" : "oVGAColor[3]",
+					"strict" : false
+				},
+				{
+					"name" : "oVGAColor[4]",
+					"strict" : false
+				},
+				{
+					"name" : "oVGAColor[5]",
+					"strict" : false
+				},
+				{
+					"name" : "oVGAColor[6]",
+					"strict" : false
+				},
+				{
+					"name" : "oVGAColor[7]",
+					"strict" : false
+				},
+				{
+					"name" : "oVGAHorizontal",
+					"strict" : false
+				},
+				{
+					"name" : "oVGAVertical",
+					"strict" : false
+				},
+				{
 					"name" : "bGPIO0",
 					"strict" : false
 				},
@@ -140,35 +180,7 @@
 					"strict" : false
 				},
 				{
-					"name" : "iBusMOSI[0]",
-					"strict" : false
-				},
-				{
-					"name" : "iBusMOSI[1]",
-					"strict" : false
-				},
-				{
 					"name" : "iBusMOSI[2]",
-					"strict" : false
-				},
-				{
-					"name" : "iBusMOSI[3]",
-					"strict" : false
-				},
-				{
-					"name" : "iBusMOSI[4]",
-					"strict" : false
-				},
-				{
-					"name" : "iBusMOSI[5]",
-					"strict" : false
-				},
-				{
-					"name" : "iBusMOSI[6]",
-					"strict" : false
-				},
-				{
-					"name" : "iBusMOSI[7]",
 					"strict" : false
 				},
 				{
@@ -180,11 +192,39 @@
 					"strict" : false
 				},
 				{
-					"name" : "iTTLSerialRX",
+					"name" : "iBusMOSI[1]",
+					"strict" : false
+				},
+				{
+					"name" : "iBusMOSI[0]",
+					"strict" : false
+				},
+				{
+					"name" : "iBusMOSI[5]",
+					"strict" : false
+				},
+				{
+					"name" : "iBusMOSI[7]",
+					"strict" : false
+				},
+				{
+					"name" : "iBusMOSI[6]",
+					"strict" : false
+				},
+				{
+					"name" : "iBusMOSI[4]",
+					"strict" : false
+				},
+				{
+					"name" : "iBusMOSI[3]",
 					"strict" : false
 				},
 				{
 					"name" : "iSPIMISO",
+					"strict" : false
+				},
+				{
+					"name" : "iTTLSerialRX",
 					"strict" : false
 				}
 			]
