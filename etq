@@ -1,0 +1,63 @@
+[33mda104ec[m HEAD@{0}: reset: moving to origin/master
+[33m814e900[m HEAD@{1}: commit: SD card start
+[33mda104ec[m HEAD@{2}: commit: Lemon block requests are OK
+[33m875ba0f[m HEAD@{3}: commit: Lemon more done
+[33m7a7879c[m HEAD@{4}: pull: Fast-forward
+[33m7a6758d[m HEAD@{5}: commit: Lemon done?
+[33md949fa7[m HEAD@{6}: pull: Fast-forward
+[33m7c7b9ea[m HEAD@{7}: commit: Computer breaking, backing up now
+[33m1b354eb[m HEAD@{8}: commit: Readme update
+[33ma65ffca[m HEAD@{9}: reset: moving to origin/master
+[33m21727e3[m HEAD@{10}: commit: I think I finally fixed the UART acknowledge bug
+[33mda2924f[m HEAD@{11}: reset: moving to origin/master
+[33m03562b2[m HEAD@{12}: pull: Fast-forward
+[33mb269bfe[m HEAD@{13}: pull: Fast-forward
+[33mf091008[m HEAD@{14}: commit: Transfer commit
+[33m3b57ad9[m HEAD@{15}: commit: Fix project
+[33mfe9968d[m HEAD@{16}: commit: Added Quartus project for primary FPGA
+[33m37fd021[m HEAD@{17}: commit: Added Quartus project for primary FPGA
+[33m460abd5[m HEAD@{18}: commit: Added Quartus project for primary FPGA
+[33medea4f4[m HEAD@{19}: commit: Added Quartus project for primary FPGA
+[33md24a137[m HEAD@{20}: commit: Core modifications for synthesis
+[33mb322461[m HEAD@{21}: pull: Fast-forward
+[33m05d3a86[m HEAD@{22}: pull: Fast-forward
+[33m616fff9[m HEAD@{23}: commit: Bus controller done 2?
+[33m0b70ce9[m HEAD@{24}: commit: Bus controller done?
+[33me40482c[m HEAD@{25}: pull: Fast-forward
+[33m9f7b816[m HEAD@{26}: pull: Fast-forward
+[33mfcb4d5b[m HEAD@{27}: pull: Fast-forward
+[33m855e369[m HEAD@{28}: commit: Added that one file
+[33m567d80b[m HEAD@{29}: commit: Machine:
+[33m32ab25c[m HEAD@{30}: commit: Something, but I forget what
+[33md351815[m HEAD@{31}: pull: Fast-forward
+[33ma8c9a3f[m HEAD@{32}: commit: Roadmap update
+[33m3237e7c[m HEAD@{33}: commit: Added to-do list
+[33mb53ec41[m HEAD@{34}: commit: Added build instructions to the README
+[33m9563d50[m HEAD@{35}: commit: Documentation cleanup, assembly/sysX spec, added spasm to repo
+[33ma3c58af[m HEAD@{36}: commit: Removing single-step on processor (for now at least)
+[33m1c0a2b6[m HEAD@{37}: commit: Interrupts are a go
+[33m88f5ec8[m HEAD@{38}: commit: Actually fixed it this time
+[33me72bcad[m HEAD@{39}: commit: Fixed issue with pop load instruction
+[33m7461669[m HEAD@{40}: commit: Fixed makefile
+[33m85e113a[m HEAD@{41}: commit: Tidying core directory for machine
+[33m20f47b2[m HEAD@{42}: commit: Created testbench makefile, moved directories
+[33m1010788[m HEAD@{43}: commit: Fixed register swap issue
+[33m55cf4ac[m HEAD@{44}: commit: Core implementation: branching, no-op OK
+[33m30069e2[m HEAD@{45}: commit: Added testbench for core
+[33m0fccb90[m HEAD@{46}: commit: Almost finished with core
+[33m7ca89ec[m HEAD@{47}: commit: More changes
+[33m886a32e[m HEAD@{48}: commit: Still at it
+[33m069cfe6[m HEAD@{49}: commit: Definitions for v5 implementation plus doc cleanup
+[33m0a7c115[m HEAD@{50}: commit: Filename changes, plus template for new core
+[33m20264b3[m HEAD@{51}: commit: Interrupts will be finished later - using a simpler version for now
+[33m3fa069f[m HEAD@{52}: commit: Interrupts will be finished later - using a simpler version for now
+[33m2a084fc[m HEAD@{53}: commit: Progress
+[33m04c7bd8[m HEAD@{54}: commit: Undefined is a nice word
+[33m75ee4ac[m HEAD@{55}: commit: Interrupt behavior better defined
+[33m089f1e7[m HEAD@{56}: pull: Fast-forward
+[33m45e4c2a[m HEAD@{57}: commit: Working on new ISA
+[33m7d43e04[m HEAD@{58}: pull: Fast-forward
+[33mbb566fc[m HEAD@{59}: commit: License updates
+[33mdceeb7d[m HEAD@{60}: commit: License updates
+[33m685202c[m HEAD@{61}: pull origin master: Fast-forward
+[33mc7d442d[m HEAD@{62}: commit (initial): Initial file upload

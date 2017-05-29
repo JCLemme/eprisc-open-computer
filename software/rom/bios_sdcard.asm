@@ -377,71 +377,76 @@
 !zone   sdc_read
 !def    REG_ADDR    %Zw
 !def    REG_BLOK    %Zx
+!def    REG_WCNT    %Zy
 !def    REG_RESP    %Zz
 
 :sdc_read       push.r  s:REG_ADDR
                 push.r  s:REG_BLOK
-                subr.v  d:%SP a:%SP v:#h03                          ; Set up the stack
+                push.r  s:REG_WCNT
+                subr.v  d:%SP a:%SP v:#h04                          ; Set up the stack
                 pops.r  d:REG_BLOK                                  ; Get argument
                 pops.r  d:REG_ADDR                                  ; Get command
-                addr.v  d:%SP a:%SP v:#h05                          ; Set up the stack
+                addr.v  d:%SP a:%SP v:#h06                          ; Set up the stack
                 
-uint8_t sd_raw_read(offset_t offset, uint8_t* buffer, uintptr_t length)
-{
-    offset_t block_address;
-    uint16_t block_offset;
-    uint16_t read_length;
-    while(length > 0)
-    {
-        /* determine byte count to read at once */
-        block_offset = offset & 0x01ff;
-        block_address = offset - block_offset;
-        read_length = 512 - block_offset; /* read up to block border */
-        if(read_length > length)
-            read_length = length;
-        
-        {
+                move.v  d:REG_RESP v:SDC_CARD_A                    
+                push.r  s:REG_RESP
+                call.s  a:spi_addr
+                pops.r  d:REG_RESP                                 ; Initialize card A - gonna add selector later
 
-            /* address card */
-            select_card();
+                move.v  d:REG_RESP v:CMD_READ_SINGLE_BLOCK
+                push.r  s:REG_RESP
+                push.r  s:REG_BLOK
+                call.s  a:sdc_scmd
+                subr.v  d:%SP a:%SP v:#h02                          ; Request a block read
+                
+                cmpr.v  a:REG_RESP v:#h00                           ; Did the card respond with a zero?
+                brch.a  c:%NEQ a:.deadcard                          ; If not, give up
+                
+:.readyloop     call.s  a:spi_recv                                  ; Get bytes
+                cmpr.v  a:REG_RESP v:#hFE                           ; Did we get a start-of-frame?
+                brch.a  c:%NEQ a:.readyloop                         ; If not, loop up a few
+                
+                move.v  d:REG_WCNT v:#h80                           ; Block size is 512, so we'll end up with 128 words
+                move.v  d:REG_BLOK v:#h00                           ; We'll need that 
+                
+:.readloop      call.s  a:spi_recv
+                arsl.v  d:REG_BLOK a:REG_RESP v:#h18
+                call.s  a:spi_recv
+                arsl.v  d:REG_RESP a:REG_RESP v:#h10
+                orbt.r  d:REG_BLOK a:REG_BLOK b:REG_RESP
+                call.s  a:spi_recv
+                arsl.v  d:REG_RESP a:REG_RESP v:#h08
+                orbt.r  d:REG_BLOK a:REG_BLOK b:REG_RESP
+                call.s  a:spi_recv
+                orbt.r  d:REG_BLOK a:REG_BLOK b:REG_RESP            ; Get a full word from the SD card
+                stor.o  r:REG_ADDR s:REG_BLOK                       ; And store it
+                
+                addr.v  d:REG_ADDR a:REG_ADDR v:#h01                ; Increment the destination address...
+                subr.v  d:REG_WCNT a:REG_WCNT v:#h01                ; ...and decrement the word counter
+                cmpr.v  a:REG_WCNT v:#h00                           ; Are we done?
+                brch.a  c:%NEQ a:.readloop                          ; If not, loop up a few
 
-            /* send single block request */
-            if(sd_raw_send_command(CMD_READ_SINGLE_BLOCK, (sd_raw_card_type & (1 << SD_RAW_SPEC_SDHC) ? block_address / 512 : block_address)))
-            {
-                unselect_card();
-                return 0;
-            }
-
-            /* wait for data block (start byte 0xfe) */
-            while(sd_raw_rec_byte() != 0xfe);
-
-            /* read byte block */
-            uint8_t* cache = raw_block;
-            for(uint16_t i = 0; i < 512; ++i)
-                *cache++ = sd_raw_rec_byte();
-            raw_block_address = block_address;
-
-            memcpy(buffer, raw_block + block_offset, read_length);
-            buffer += read_length;
+                call.s  a:spi_recv
+                call.s  a:spi_recv                                  ; Receive the CRC, and throw it out
             
-            /* read crc16 */
-            sd_raw_rec_byte();
-            sd_raw_rec_byte();
-            
-            /* deaddress card */
-            unselect_card();
+                move.v  d:REG_RESP v:#h00                    
+                push.r  s:REG_RESP
+                call.s  a:spi_addr 
+                pops.r  d:REG_RESP                                  ; Deselect the card
 
-            /* let card some time to finish */
-            sd_raw_rec_byte();
-        }
+                call.s  a:spi_recv                                  ; Kill some time
+                move.v  d:REG_RESP v:#h00                           ; It's good
+                brch.a  a:.exitread                                 ; Converge 
+                
+:.deadcard      move.v  d:REG_RESP v:#h00                    
+                push.r  s:REG_RESP
+                call.s  a:spi_addr
+                pops.r  d:REG_RESP                                  ; Deselect the card
 
-        length -= read_length;
-        offset += read_length;
-    }
-
-    return 1;
-}
-:.exitloop      pops.r  d:REG_BLOK
+                move.v  d:REG_RESP v:#hFF                           ; CRASH
+                
+:.exitread      pops.r  d:REG_WCNT
+                pops.r  d:REG_BLOK
                 pops.r  d:REG_ADDR
                 rtrn.s                                              ; And return
 
@@ -451,84 +456,98 @@ uint8_t sd_raw_read(offset_t offset, uint8_t* buffer, uintptr_t length)
 !zone   sdc_writ
 !def    REG_ADDR    %Zw
 !def    REG_BLOK    %Zx
+!def    REG_WCNT    %Zy
 !def    REG_RESP    %Zz
 
 :sdc_writ       push.r  s:REG_ADDR
                 push.r  s:REG_BLOK
-                subr.v  d:%SP a:%SP v:#h03                          ; Set up the stack
+                push.r  s:REG_WCNT
+                subr.v  d:%SP a:%SP v:#h04                          ; Set up the stack
                 pops.r  d:REG_BLOK                                  ; Get argument
                 pops.r  d:REG_ADDR                                  ; Get command
-                addr.v  d:%SP a:%SP v:#h05                          ; Set up the stack
-uint8_t sd_raw_write(offset_t offset, const uint8_t* buffer, uintptr_t length)
-{
-    offset_t block_address;
-    uint16_t block_offset;
-    uint16_t write_length;
-    while(length > 0)
-    {
-        /* determine byte count to write at once */
-        block_offset = offset & 0x01ff;
-        block_address = offset - block_offset;
-        write_length = 512 - block_offset; /* write up to block border */
-        if(write_length > length)
-            write_length = length;
-        
-        /* Merge the data to write with the content of the block.
-         * Use the cached block if available.
-         */
-        if(block_address != raw_block_address)
-        {
-            if(block_offset || write_length < 512)
-            {
-                if(!sd_raw_read(block_address, raw_block, sizeof(raw_block)))
-                    return 0;
-            }
-            raw_block_address = block_address;
-        }
+                addr.v  d:%SP a:%SP v:#h06                          ; Set up the stack
 
-        if(buffer != raw_block)
-        {
-            memcpy(raw_block + block_offset, buffer, write_length);
-        }
+                move.v  d:REG_RESP v:SDC_CARD_A                    
+                push.r  s:REG_RESP
+                call.s  a:spi_addr
+                pops.r  d:REG_RESP                                  ; Initialize card A - gonna add selector later
 
-        /* address card */
-        select_card();
+                move.v  d:REG_RESP v:CMD_WRITE_SINGLE_BLOCK
+                push.r  s:REG_RESP
+                push.r  s:REG_BLOK
+                call.s  a:sdc_scmd
+                subr.v  d:%SP a:%SP v:#h02                          ; Request a block write
+                
+                cmpr.v  a:REG_RESP v:#h00                           ; Did the card respond with a zero?
+                brch.a  c:%NEQ a:.deadcard                          ; If not, give up
+                
+                move.v  d:REG_RESP v:#hFE
+                push.r  s:REG_RESP 
+                call.s  a:spi_send
+                pops.r  d:REG_RESP                                  ; Send the start byte
 
-        /* send single block request */
-        if(sd_raw_send_command(CMD_WRITE_SINGLE_BLOCK, (sd_raw_card_type & (1 << SD_RAW_SPEC_SDHC) ? block_address / 512 : block_address)))
-        {
-            unselect_card();
-            return 0;
-        }
+                move.v  d:REG_WCNT v:#h80                           ; 512 bytes, 128 words
 
-        /* send start byte */
-        sd_raw_send_byte(0xfe);
+:.writeloop     load.o  r:REG_ADDR d:REG_BLOK
+                push.r  s:REG_ADDR
+                
+                andb.v  d:REG_ADDR a:REG_BLOK v:#hFF s:#h0C
+                losr.v  d:REG_BLOK a:REG_BLOK v:#h18
+                push.r  s:REG_BLOK
+                call.s  a:spi_send
+                pops.r  d:REG_BLOK
+                
+                andb.v  d:REG_ADDR a:REG_BLOK v:#hFF s:#h08
+                losr.v  d:REG_BLOK a:REG_BLOK v:#h10
+                push.r  s:REG_BLOK
+                call.s  a:spi_send
+                pops.r  d:REG_BLOK
+                
+                andb.v  d:REG_ADDR a:REG_BLOK v:#hFF s:#h04
+                losr.v  d:REG_BLOK a:REG_BLOK v:#h08
+                push.r  s:REG_BLOK
+                call.s  a:spi_send
+                pops.r  d:REG_BLOK
+                
+                andb.v  d:REG_ADDR a:REG_BLOK v:#hFF s:#h00
+                push.r  s:REG_BLOK
+                call.s  a:spi_send
+                pops.r  d:REG_BLOK
+                
+                pops.r  d:REG_ADDR                                  ; Send a word to the SD card
 
-        /* write byte block */
-        uint8_t* cache = raw_block;
-        for(uint16_t i = 0; i < 512; ++i)
-            sd_raw_send_byte(*cache++);
+                addr.v  d:REG_ADDR a:REG_ADDR v:#h01                ; Increment the destination address...
+                subr.v  d:REG_WCNT a:REG_WCNT v:#h01                ; ...and decrement the word counter
+                cmpr.v  a:REG_WCNT v:#h00                           ; Are we done?
+                brch.a  c:%NEQ a:.writeloop                         ; If not, loop up a few
+                
+                move.v  d:REG_RESP v:#hFF
+                push.r  s:REG_RESP
+                call.s  a:spi_send
+                call.s  a:spi_send
+                pops.r  d:REG_RESP                                  ; Send a dummy CRC
 
-        /* write dummy crc16 */
-        sd_raw_send_byte(0xff);
-        sd_raw_send_byte(0xff);
+:.readyloop     call.s  a:spi_recv                                  ; Get bytes
+                cmpr.v  a:REG_RESP v:#hFF                           ; Did we get an idle?
+                brch.a  c:%NEQ a:.readyloop                         ; If not, loop up a few
 
-        /* wait while card is busy */
-        while(sd_raw_rec_byte() != 0xff);
-        sd_raw_rec_byte();
+                move.v  d:REG_RESP v:#h00                    
+                push.r  s:REG_RESP
+                call.s  a:spi_addr
+                pops.r  d:REG_RESP                                  ; Deselect the card
 
-        /* deaddress card */
-        unselect_card();
+                move.v  d:REG_RESP v:#h00                           ; It's good
+                brch.a  a:.exitwrite                                ; Converge 
+                
+:.deadcard      move.v  d:REG_RESP v:#h00                    
+                push.r  s:REG_RESP
+                call.s  a:spi_addr
+                pops.r  d:REG_RESP                                  ; Deselect the card
 
-        buffer += write_length;
-        offset += write_length;
-        length -= write_length;
-    }
-
-    return 1;
-}
-
-:.exitloop      pops.r  d:REG_BLOK
+                move.v  d:REG_RESP v:#hFF                           ; CRASH
+                
+:.exitwrite     pops.r  d:REG_WCNT
+                pops.r  d:REG_BLOK
                 pops.r  d:REG_ADDR
                 rtrn.s                                              ; And return
 

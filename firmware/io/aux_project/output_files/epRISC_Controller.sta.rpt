@@ -1,5 +1,5 @@
 TimeQuest Timing Analyzer report for epRISC_Controller
-Sun May 28 02:15:43 2017
+Mon May 29 14:13:13 2017
 Quartus Prime Version 16.0.0 Build 211 04/27/2016 SJ Lite Edition
 
 
@@ -86,23 +86,15 @@ agreement for further details.
 +-----------------------+-----------------------------------------------------+
 
 
-+------------------------------------------+
-; Parallel Compilation                     ;
-+----------------------------+-------------+
-; Processors                 ; Number      ;
-+----------------------------+-------------+
-; Number detected on machine ; 8           ;
-; Maximum allowed            ; 4           ;
-;                            ;             ;
-; Average used               ; 1.70        ;
-; Maximum used               ; 4           ;
-;                            ;             ;
-; Usage by Processor         ; % Time Used ;
-;     Processor 1            ; 100.0%      ;
-;     Processor 2            ;  23.5%      ;
-;     Processor 3            ;  23.2%      ;
-;     Processor 4            ;  23.2%      ;
-+----------------------------+-------------+
+Parallel compilation was disabled, but you have multiple processors available. Enable parallel compilation to reduce compilation time.
++-------------------------------------+
+; Parallel Compilation                ;
++----------------------------+--------+
+; Processors                 ; Number ;
++----------------------------+--------+
+; Number detected on machine ; 4      ;
+; Maximum allowed            ; 1      ;
++----------------------------+--------+
 
 
 +----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -120,18 +112,18 @@ agreement for further details.
 +---------------------------------------------------+-----------+----------+------------+-------+----------+------------+-----------+-------------+-------+--------+-----------+------------+----------+-------------+-----------------------------------------------------+-------------------------------------------------------+
 
 
-+-----------------------------------------------------------------------------------------+
-; Slow 1200mV 85C Model Fmax Summary                                                      ;
-+------------+-----------------+---------------------------------------------------+------+
-; Fmax       ; Restricted Fmax ; Clock Name                                        ; Note ;
-+------------+-----------------+---------------------------------------------------+------+
-; 51.81 MHz  ; 51.81 MHz       ; clock|altpll_component|auto_generated|pll1|clk[2] ;      ;
-; 99.42 MHz  ; 99.42 MHz       ; iBusClock                                         ;      ;
-; 103.1 MHz  ; 103.1 MHz       ; clock|altpll_component|auto_generated|pll1|clk[3] ;      ;
-; 111.77 MHz ; 111.77 MHz      ; clock|altpll_component|auto_generated|pll1|clk[0] ;      ;
-; 221.43 MHz ; 221.43 MHz      ; epRISC_SPI:bspi|rTxClk                            ;      ;
-; 246.31 MHz ; 246.31 MHz      ; clock|altpll_component|auto_generated|pll1|clk[1] ;      ;
-+------------+-----------------+---------------------------------------------------+------+
++-----------------------------------------------------------------------------------------------------------------------------------+
+; Slow 1200mV 85C Model Fmax Summary                                                                                                ;
++------------+-----------------+---------------------------------------------------+------------------------------------------------+
+; Fmax       ; Restricted Fmax ; Clock Name                                        ; Note                                           ;
++------------+-----------------+---------------------------------------------------+------------------------------------------------+
+; 47.51 MHz  ; 47.51 MHz       ; clock|altpll_component|auto_generated|pll1|clk[2] ;                                                ;
+; 86.55 MHz  ; 86.55 MHz       ; iBusClock                                         ;                                                ;
+; 99.23 MHz  ; 99.23 MHz       ; clock|altpll_component|auto_generated|pll1|clk[3] ;                                                ;
+; 101.46 MHz ; 101.46 MHz      ; clock|altpll_component|auto_generated|pll1|clk[0] ;                                                ;
+; 212.77 MHz ; 212.77 MHz      ; epRISC_SPI:bspi|rTxClk                            ;                                                ;
+; 433.46 MHz ; 402.09 MHz      ; clock|altpll_component|auto_generated|pll1|clk[1] ; limit due to minimum period restriction (tmin) ;
++------------+-----------------+---------------------------------------------------+------------------------------------------------+
 This panel reports FMAX for every clock in the design, regardless of the user-specified clock periods.  FMAX is only computed for paths where the source and destination registers or ports are driven by the same clock.  Paths of different clocks, including generated clocks, are ignored.  For paths between a clock and its inversion, FMAX is computed as if the rising and falling edges are scaled along with FMAX, such that the duty cycle (in terms of a percentage) is maintained. Altera recommends that you always use clock constraints and other slack reports for sign-off analysis.
 
 
@@ -140,12 +132,12 @@ This panel reports FMAX for every clock in the design, regardless of the user-sp
 +---------------------------------------------------+--------+---------------+
 ; Clock                                             ; Slack  ; End Point TNS ;
 +---------------------------------------------------+--------+---------------+
-; iBusClock                                         ; -7.440 ; -752.796      ;
-; clock|altpll_component|auto_generated|pll1|clk[2] ; -7.297 ; -481.374      ;
-; clock|altpll_component|auto_generated|pll1|clk[0] ; -7.100 ; -220.247      ;
-; epRISC_SPI:bspi|rTxClk                            ; -2.811 ; -44.318       ;
-; clock|altpll_component|auto_generated|pll1|clk[1] ; -0.593 ; -0.593        ;
-; clock|altpll_component|auto_generated|pll1|clk[3] ; 0.301  ; 0.000         ;
+; clock|altpll_component|auto_generated|pll1|clk[2] ; -8.358 ; -519.301      ;
+; iBusClock                                         ; -8.155 ; -929.311      ;
+; clock|altpll_component|auto_generated|pll1|clk[0] ; -7.179 ; -221.221      ;
+; epRISC_SPI:bspi|rTxClk                            ; -2.842 ; -47.307       ;
+; clock|altpll_component|auto_generated|pll1|clk[1] ; -0.613 ; -0.613        ;
+; clock|altpll_component|auto_generated|pll1|clk[3] ; -0.078 ; -0.078        ;
 +---------------------------------------------------+--------+---------------+
 
 
@@ -154,12 +146,12 @@ This panel reports FMAX for every clock in the design, regardless of the user-sp
 +---------------------------------------------------+--------+---------------+
 ; Clock                                             ; Slack  ; End Point TNS ;
 +---------------------------------------------------+--------+---------------+
-; clock|altpll_component|auto_generated|pll1|clk[1] ; -0.096 ; -0.096        ;
+; clock|altpll_component|auto_generated|pll1|clk[1] ; -0.075 ; -0.075        ;
 ; clock|altpll_component|auto_generated|pll1|clk[0] ; 0.343  ; 0.000         ;
 ; clock|altpll_component|auto_generated|pll1|clk[2] ; 0.344  ; 0.000         ;
 ; iBusClock                                         ; 0.362  ; 0.000         ;
-; epRISC_SPI:bspi|rTxClk                            ; 0.363  ; 0.000         ;
-; clock|altpll_component|auto_generated|pll1|clk[3] ; 1.259  ; 0.000         ;
+; epRISC_SPI:bspi|rTxClk                            ; 0.364  ; 0.000         ;
+; clock|altpll_component|auto_generated|pll1|clk[3] ; 0.915  ; 0.000         ;
 +---------------------------------------------------+--------+---------------+
 
 
@@ -168,10 +160,10 @@ This panel reports FMAX for every clock in the design, regardless of the user-sp
 +---------------------------------------------------+--------+---------------+
 ; Clock                                             ; Slack  ; End Point TNS ;
 +---------------------------------------------------+--------+---------------+
-; clock|altpll_component|auto_generated|pll1|clk[0] ; -9.841 ; -252.706      ;
-; clock|altpll_component|auto_generated|pll1|clk[1] ; -9.834 ; -28.587       ;
-; epRISC_SPI:bspi|rTxClk                            ; -6.995 ; -170.156      ;
-; iBusClock                                         ; -6.570 ; -500.711      ;
+; clock|altpll_component|auto_generated|pll1|clk[0] ; -9.607 ; -245.766      ;
+; clock|altpll_component|auto_generated|pll1|clk[1] ; -9.593 ; -27.873       ;
+; epRISC_SPI:bspi|rTxClk                            ; -6.791 ; -165.160      ;
+; iBusClock                                         ; -6.756 ; -472.990      ;
 +---------------------------------------------------+--------+---------------+
 
 
@@ -180,10 +172,10 @@ This panel reports FMAX for every clock in the design, regardless of the user-sp
 +---------------------------------------------------+-------+---------------+
 ; Clock                                             ; Slack ; End Point TNS ;
 +---------------------------------------------------+-------+---------------+
-; iBusClock                                         ; 4.120 ; 0.000         ;
-; epRISC_SPI:bspi|rTxClk                            ; 4.906 ; 0.000         ;
-; clock|altpll_component|auto_generated|pll1|clk[0] ; 7.591 ; 0.000         ;
-; clock|altpll_component|auto_generated|pll1|clk[1] ; 7.591 ; 0.000         ;
+; iBusClock                                         ; 3.343 ; 0.000         ;
+; epRISC_SPI:bspi|rTxClk                            ; 4.156 ; 0.000         ;
+; clock|altpll_component|auto_generated|pll1|clk[1] ; 6.806 ; 0.000         ;
+; clock|altpll_component|auto_generated|pll1|clk[0] ; 6.814 ; 0.000         ;
 +---------------------------------------------------+-------+---------------+
 
 
@@ -192,13 +184,13 @@ This panel reports FMAX for every clock in the design, regardless of the user-sp
 +---------------------------------------------------+----------+---------------+
 ; Clock                                             ; Slack    ; End Point TNS ;
 +---------------------------------------------------+----------+---------------+
-; iBusClock                                         ; -3.901   ; -396.245      ;
+; iBusClock                                         ; -3.901   ; -420.037      ;
 ; epRISC_SPI:bspi|rTxClk                            ; -1.487   ; -37.175       ;
 ; clock|altpll_component|auto_generated|pll1|clk[3] ; 4.700    ; 0.000         ;
 ; iBoardClock                                       ; 9.905    ; 0.000         ;
-; clock|altpll_component|auto_generated|pll1|clk[2] ; 19.716   ; 0.000         ;
-; clock|altpll_component|auto_generated|pll1|clk[1] ; 499.715  ; 0.000         ;
-; clock|altpll_component|auto_generated|pll1|clk[0] ; 3124.711 ; 0.000         ;
+; clock|altpll_component|auto_generated|pll1|clk[2] ; 19.710   ; 0.000         ;
+; clock|altpll_component|auto_generated|pll1|clk[1] ; 499.720  ; 0.000         ;
+; clock|altpll_component|auto_generated|pll1|clk[0] ; 3124.709 ; 0.000         ;
 +---------------------------------------------------+----------+---------------+
 
 
@@ -208,18 +200,18 @@ This panel reports FMAX for every clock in the design, regardless of the user-sp
 No synchronizer chains to report.
 
 
-+-----------------------------------------------------------------------------------------+
-; Slow 1200mV 0C Model Fmax Summary                                                       ;
-+------------+-----------------+---------------------------------------------------+------+
-; Fmax       ; Restricted Fmax ; Clock Name                                        ; Note ;
-+------------+-----------------+---------------------------------------------------+------+
-; 56.34 MHz  ; 56.34 MHz       ; clock|altpll_component|auto_generated|pll1|clk[2] ;      ;
-; 105.84 MHz ; 105.84 MHz      ; iBusClock                                         ;      ;
-; 109.08 MHz ; 109.08 MHz      ; clock|altpll_component|auto_generated|pll1|clk[3] ;      ;
-; 116.59 MHz ; 116.59 MHz      ; clock|altpll_component|auto_generated|pll1|clk[0] ;      ;
-; 241.66 MHz ; 241.66 MHz      ; epRISC_SPI:bspi|rTxClk                            ;      ;
-; 257.93 MHz ; 257.93 MHz      ; clock|altpll_component|auto_generated|pll1|clk[1] ;      ;
-+------------+-----------------+---------------------------------------------------+------+
++-----------------------------------------------------------------------------------------------------------------------------------+
+; Slow 1200mV 0C Model Fmax Summary                                                                                                 ;
++------------+-----------------+---------------------------------------------------+------------------------------------------------+
+; Fmax       ; Restricted Fmax ; Clock Name                                        ; Note                                           ;
++------------+-----------------+---------------------------------------------------+------------------------------------------------+
+; 51.41 MHz  ; 51.41 MHz       ; clock|altpll_component|auto_generated|pll1|clk[2] ;                                                ;
+; 91.61 MHz  ; 91.61 MHz       ; iBusClock                                         ;                                                ;
+; 105.42 MHz ; 105.42 MHz      ; clock|altpll_component|auto_generated|pll1|clk[3] ;                                                ;
+; 105.76 MHz ; 105.76 MHz      ; clock|altpll_component|auto_generated|pll1|clk[0] ;                                                ;
+; 228.1 MHz  ; 228.1 MHz       ; epRISC_SPI:bspi|rTxClk                            ;                                                ;
+; 455.79 MHz ; 402.09 MHz      ; clock|altpll_component|auto_generated|pll1|clk[1] ; limit due to minimum period restriction (tmin) ;
++------------+-----------------+---------------------------------------------------+------------------------------------------------+
 This panel reports FMAX for every clock in the design, regardless of the user-specified clock periods.  FMAX is only computed for paths where the source and destination registers or ports are driven by the same clock.  Paths of different clocks, including generated clocks, are ignored.  For paths between a clock and its inversion, FMAX is computed as if the rising and falling edges are scaled along with FMAX, such that the duty cycle (in terms of a percentage) is maintained. Altera recommends that you always use clock constraints and other slack reports for sign-off analysis.
 
 
@@ -228,12 +220,12 @@ This panel reports FMAX for every clock in the design, regardless of the user-sp
 +---------------------------------------------------+--------+---------------+
 ; Clock                                             ; Slack  ; End Point TNS ;
 +---------------------------------------------------+--------+---------------+
-; iBusClock                                         ; -7.021 ; -701.595      ;
-; clock|altpll_component|auto_generated|pll1|clk[2] ; -6.596 ; -437.598      ;
-; clock|altpll_component|auto_generated|pll1|clk[0] ; -6.395 ; -200.072      ;
-; epRISC_SPI:bspi|rTxClk                            ; -2.690 ; -40.091       ;
-; clock|altpll_component|auto_generated|pll1|clk[1] ; -0.457 ; -0.457        ;
-; clock|altpll_component|auto_generated|pll1|clk[3] ; 0.832  ; 0.000         ;
+; iBusClock                                         ; -7.816 ; -870.189      ;
+; clock|altpll_component|auto_generated|pll1|clk[2] ; -7.673 ; -474.651      ;
+; clock|altpll_component|auto_generated|pll1|clk[0] ; -6.562 ; -201.731      ;
+; epRISC_SPI:bspi|rTxClk                            ; -2.741 ; -43.274       ;
+; clock|altpll_component|auto_generated|pll1|clk[1] ; -0.478 ; -0.478        ;
+; clock|altpll_component|auto_generated|pll1|clk[3] ; 0.514  ; 0.000         ;
 +---------------------------------------------------+--------+---------------+
 
 
@@ -242,12 +234,12 @@ This panel reports FMAX for every clock in the design, regardless of the user-sp
 +---------------------------------------------------+--------+---------------+
 ; Clock                                             ; Slack  ; End Point TNS ;
 +---------------------------------------------------+--------+---------------+
-; clock|altpll_component|auto_generated|pll1|clk[1] ; -0.145 ; -0.145        ;
+; clock|altpll_component|auto_generated|pll1|clk[1] ; -0.123 ; -0.123        ;
 ; clock|altpll_component|auto_generated|pll1|clk[0] ; 0.307  ; 0.000         ;
-; clock|altpll_component|auto_generated|pll1|clk[2] ; 0.307  ; 0.000         ;
-; iBusClock                                         ; 0.325  ; 0.000         ;
+; clock|altpll_component|auto_generated|pll1|clk[2] ; 0.308  ; 0.000         ;
+; iBusClock                                         ; 0.324  ; 0.000         ;
 ; epRISC_SPI:bspi|rTxClk                            ; 0.326  ; 0.000         ;
-; clock|altpll_component|auto_generated|pll1|clk[3] ; 1.124  ; 0.000         ;
+; clock|altpll_component|auto_generated|pll1|clk[3] ; 0.805  ; 0.000         ;
 +---------------------------------------------------+--------+---------------+
 
 
@@ -256,10 +248,10 @@ This panel reports FMAX for every clock in the design, regardless of the user-sp
 +---------------------------------------------------+--------+---------------+
 ; Clock                                             ; Slack  ; End Point TNS ;
 +---------------------------------------------------+--------+---------------+
-; clock|altpll_component|auto_generated|pll1|clk[0] ; -8.909 ; -228.691      ;
-; clock|altpll_component|auto_generated|pll1|clk[1] ; -8.904 ; -25.856       ;
-; epRISC_SPI:bspi|rTxClk                            ; -6.382 ; -155.271      ;
-; iBusClock                                         ; -5.981 ; -455.419      ;
+; clock|altpll_component|auto_generated|pll1|clk[0] ; -8.775 ; -224.190      ;
+; clock|altpll_component|auto_generated|pll1|clk[1] ; -8.767 ; -25.454       ;
+; epRISC_SPI:bspi|rTxClk                            ; -6.274 ; -152.656      ;
+; iBusClock                                         ; -6.206 ; -436.380      ;
 +---------------------------------------------------+--------+---------------+
 
 
@@ -268,10 +260,10 @@ This panel reports FMAX for every clock in the design, regardless of the user-sp
 +---------------------------------------------------+-------+---------------+
 ; Clock                                             ; Slack ; End Point TNS ;
 +---------------------------------------------------+-------+---------------+
-; iBusClock                                         ; 3.694 ; 0.000         ;
-; epRISC_SPI:bspi|rTxClk                            ; 4.437 ; 0.000         ;
-; clock|altpll_component|auto_generated|pll1|clk[1] ; 6.880 ; 0.000         ;
-; clock|altpll_component|auto_generated|pll1|clk[0] ; 6.883 ; 0.000         ;
+; iBusClock                                         ; 3.002 ; 0.000         ;
+; epRISC_SPI:bspi|rTxClk                            ; 3.754 ; 0.000         ;
+; clock|altpll_component|auto_generated|pll1|clk[1] ; 6.175 ; 0.000         ;
+; clock|altpll_component|auto_generated|pll1|clk[0] ; 6.184 ; 0.000         ;
 +---------------------------------------------------+-------+---------------+
 
 
@@ -280,13 +272,13 @@ This panel reports FMAX for every clock in the design, regardless of the user-sp
 +---------------------------------------------------+----------+---------------+
 ; Clock                                             ; Slack    ; End Point TNS ;
 +---------------------------------------------------+----------+---------------+
-; iBusClock                                         ; -3.901   ; -396.245      ;
+; iBusClock                                         ; -3.901   ; -420.037      ;
 ; epRISC_SPI:bspi|rTxClk                            ; -1.487   ; -37.175       ;
-; clock|altpll_component|auto_generated|pll1|clk[3] ; 4.681    ; 0.000         ;
+; clock|altpll_component|auto_generated|pll1|clk[3] ; 4.718    ; 0.000         ;
 ; iBoardClock                                       ; 9.776    ; 0.000         ;
-; clock|altpll_component|auto_generated|pll1|clk[2] ; 19.695   ; 0.000         ;
-; clock|altpll_component|auto_generated|pll1|clk[1] ; 499.688  ; 0.000         ;
-; clock|altpll_component|auto_generated|pll1|clk[0] ; 3124.693 ; 0.000         ;
+; clock|altpll_component|auto_generated|pll1|clk[2] ; 19.690   ; 0.000         ;
+; clock|altpll_component|auto_generated|pll1|clk[1] ; 499.693  ; 0.000         ;
+; clock|altpll_component|auto_generated|pll1|clk[0] ; 3124.690 ; 0.000         ;
 +---------------------------------------------------+----------+---------------+
 
 
@@ -301,27 +293,27 @@ No synchronizer chains to report.
 +---------------------------------------------------+--------+---------------+
 ; Clock                                             ; Slack  ; End Point TNS ;
 +---------------------------------------------------+--------+---------------+
-; clock|altpll_component|auto_generated|pll1|clk[2] ; -3.023 ; -201.355      ;
-; clock|altpll_component|auto_generated|pll1|clk[0] ; -2.991 ; -93.680       ;
-; iBusClock                                         ; -2.420 ; -281.819      ;
-; epRISC_SPI:bspi|rTxClk                            ; -0.749 ; -10.145       ;
-; clock|altpll_component|auto_generated|pll1|clk[1] ; -0.209 ; -0.209        ;
-; clock|altpll_component|auto_generated|pll1|clk[3] ; 6.045  ; 0.000         ;
+; clock|altpll_component|auto_generated|pll1|clk[2] ; -3.420 ; -214.575      ;
+; clock|altpll_component|auto_generated|pll1|clk[0] ; -3.016 ; -93.928       ;
+; iBusClock                                         ; -2.849 ; -346.431      ;
+; epRISC_SPI:bspi|rTxClk                            ; -0.778 ; -11.597       ;
+; clock|altpll_component|auto_generated|pll1|clk[1] ; -0.221 ; -0.221        ;
+; clock|altpll_component|auto_generated|pll1|clk[3] ; 5.893  ; 0.000         ;
 +---------------------------------------------------+--------+---------------+
 
 
-+----------------------------------------------------------------------------+
-; Fast 1200mV 0C Model Hold Summary                                          ;
-+---------------------------------------------------+--------+---------------+
-; Clock                                             ; Slack  ; End Point TNS ;
-+---------------------------------------------------+--------+---------------+
-; clock|altpll_component|auto_generated|pll1|clk[1] ; -0.006 ; -0.006        ;
-; clock|altpll_component|auto_generated|pll1|clk[0] ; 0.145  ; 0.000         ;
-; clock|altpll_component|auto_generated|pll1|clk[2] ; 0.146  ; 0.000         ;
-; epRISC_SPI:bspi|rTxClk                            ; 0.152  ; 0.000         ;
-; iBusClock                                         ; 0.153  ; 0.000         ;
-; clock|altpll_component|auto_generated|pll1|clk[3] ; 0.485  ; 0.000         ;
-+---------------------------------------------------+--------+---------------+
++---------------------------------------------------------------------------+
+; Fast 1200mV 0C Model Hold Summary                                         ;
++---------------------------------------------------+-------+---------------+
+; Clock                                             ; Slack ; End Point TNS ;
++---------------------------------------------------+-------+---------------+
+; clock|altpll_component|auto_generated|pll1|clk[1] ; 0.006 ; 0.000         ;
+; clock|altpll_component|auto_generated|pll1|clk[2] ; 0.122 ; 0.000         ;
+; clock|altpll_component|auto_generated|pll1|clk[0] ; 0.145 ; 0.000         ;
+; epRISC_SPI:bspi|rTxClk                            ; 0.152 ; 0.000         ;
+; iBusClock                                         ; 0.153 ; 0.000         ;
+; clock|altpll_component|auto_generated|pll1|clk[3] ; 0.311 ; 0.000         ;
++---------------------------------------------------+-------+---------------+
 
 
 +----------------------------------------------------------------------------+
@@ -329,10 +321,10 @@ No synchronizer chains to report.
 +---------------------------------------------------+--------+---------------+
 ; Clock                                             ; Slack  ; End Point TNS ;
 +---------------------------------------------------+--------+---------------+
-; clock|altpll_component|auto_generated|pll1|clk[0] ; -4.237 ; -108.959      ;
-; clock|altpll_component|auto_generated|pll1|clk[1] ; -4.232 ; -12.347       ;
-; epRISC_SPI:bspi|rTxClk                            ; -3.003 ; -69.819       ;
-; iBusClock                                         ; -2.808 ; -214.652      ;
+; clock|altpll_component|auto_generated|pll1|clk[0] ; -4.169 ; -106.804      ;
+; clock|altpll_component|auto_generated|pll1|clk[1] ; -4.157 ; -12.126       ;
+; epRISC_SPI:bspi|rTxClk                            ; -2.957 ; -68.680       ;
+; iBusClock                                         ; -2.896 ; -205.350      ;
 +---------------------------------------------------+--------+---------------+
 
 
@@ -341,10 +333,10 @@ No synchronizer chains to report.
 +---------------------------------------------------+-------+---------------+
 ; Clock                                             ; Slack ; End Point TNS ;
 +---------------------------------------------------+-------+---------------+
-; iBusClock                                         ; 1.796 ; 0.000         ;
-; epRISC_SPI:bspi|rTxClk                            ; 2.069 ; 0.000         ;
-; clock|altpll_component|auto_generated|pll1|clk[1] ; 3.686 ; 0.000         ;
-; clock|altpll_component|auto_generated|pll1|clk[0] ; 3.688 ; 0.000         ;
+; iBusClock                                         ; 1.483 ; 0.000         ;
+; epRISC_SPI:bspi|rTxClk                            ; 1.786 ; 0.000         ;
+; clock|altpll_component|auto_generated|pll1|clk[1] ; 3.376 ; 0.000         ;
+; clock|altpll_component|auto_generated|pll1|clk[0] ; 3.384 ; 0.000         ;
 +---------------------------------------------------+-------+---------------+
 
 
@@ -353,13 +345,13 @@ No synchronizer chains to report.
 +---------------------------------------------------+----------+---------------+
 ; Clock                                             ; Slack    ; End Point TNS ;
 +---------------------------------------------------+----------+---------------+
-; iBusClock                                         ; -3.000   ; -235.735      ;
+; iBusClock                                         ; -3.000   ; -253.375      ;
 ; epRISC_SPI:bspi|rTxClk                            ; -1.000   ; -25.000       ;
 ; clock|altpll_component|auto_generated|pll1|clk[3] ; 4.716    ; 0.000         ;
 ; iBoardClock                                       ; 9.663    ; 0.000         ;
 ; clock|altpll_component|auto_generated|pll1|clk[2] ; 19.740   ; 0.000         ;
-; clock|altpll_component|auto_generated|pll1|clk[1] ; 499.742  ; 0.000         ;
-; clock|altpll_component|auto_generated|pll1|clk[0] ; 3124.738 ; 0.000         ;
+; clock|altpll_component|auto_generated|pll1|clk[1] ; 499.740  ; 0.000         ;
+; clock|altpll_component|auto_generated|pll1|clk[0] ; 3124.741 ; 0.000         ;
 +---------------------------------------------------+----------+---------------+
 
 
@@ -374,22 +366,22 @@ No synchronizer chains to report.
 +----------------------------------------------------+-----------+--------+----------+---------+---------------------+
 ; Clock                                              ; Setup     ; Hold   ; Recovery ; Removal ; Minimum Pulse Width ;
 +----------------------------------------------------+-----------+--------+----------+---------+---------------------+
-; Worst-case Slack                                   ; -7.440    ; -0.145 ; -9.841   ; 1.796   ; -3.901              ;
-;  clock|altpll_component|auto_generated|pll1|clk[0] ; -7.100    ; 0.145  ; -9.841   ; 3.688   ; 3124.693            ;
-;  clock|altpll_component|auto_generated|pll1|clk[1] ; -0.593    ; -0.145 ; -9.834   ; 3.686   ; 499.688             ;
-;  clock|altpll_component|auto_generated|pll1|clk[2] ; -7.297    ; 0.146  ; N/A      ; N/A     ; 19.695              ;
-;  clock|altpll_component|auto_generated|pll1|clk[3] ; 0.301     ; 0.485  ; N/A      ; N/A     ; 4.681               ;
-;  epRISC_SPI:bspi|rTxClk                            ; -2.811    ; 0.152  ; -6.995   ; 2.069   ; -1.487              ;
+; Worst-case Slack                                   ; -8.358    ; -0.123 ; -9.607   ; 1.483   ; -3.901              ;
+;  clock|altpll_component|auto_generated|pll1|clk[0] ; -7.179    ; 0.145  ; -9.607   ; 3.384   ; 3124.690            ;
+;  clock|altpll_component|auto_generated|pll1|clk[1] ; -0.613    ; -0.123 ; -9.593   ; 3.376   ; 499.693             ;
+;  clock|altpll_component|auto_generated|pll1|clk[2] ; -8.358    ; 0.122  ; N/A      ; N/A     ; 19.690              ;
+;  clock|altpll_component|auto_generated|pll1|clk[3] ; -0.078    ; 0.311  ; N/A      ; N/A     ; 4.700               ;
+;  epRISC_SPI:bspi|rTxClk                            ; -2.842    ; 0.152  ; -6.791   ; 1.786   ; -1.487              ;
 ;  iBoardClock                                       ; N/A       ; N/A    ; N/A      ; N/A     ; 9.663               ;
-;  iBusClock                                         ; -7.440    ; 0.153  ; -6.570   ; 1.796   ; -3.901              ;
-; Design-wide TNS                                    ; -1499.328 ; -0.145 ; -952.16  ; 0.0     ; -433.42             ;
-;  clock|altpll_component|auto_generated|pll1|clk[0] ; -220.247  ; 0.000  ; -252.706 ; 0.000   ; 0.000               ;
-;  clock|altpll_component|auto_generated|pll1|clk[1] ; -0.593    ; -0.145 ; -28.587  ; 0.000   ; 0.000               ;
-;  clock|altpll_component|auto_generated|pll1|clk[2] ; -481.374  ; 0.000  ; N/A      ; N/A     ; 0.000               ;
-;  clock|altpll_component|auto_generated|pll1|clk[3] ; 0.000     ; 0.000  ; N/A      ; N/A     ; 0.000               ;
-;  epRISC_SPI:bspi|rTxClk                            ; -44.318   ; 0.000  ; -170.156 ; 0.000   ; -37.175             ;
+;  iBusClock                                         ; -8.155    ; 0.153  ; -6.756   ; 1.483   ; -3.901              ;
+; Design-wide TNS                                    ; -1717.831 ; -0.123 ; -911.789 ; 0.0     ; -457.212            ;
+;  clock|altpll_component|auto_generated|pll1|clk[0] ; -221.221  ; 0.000  ; -245.766 ; 0.000   ; 0.000               ;
+;  clock|altpll_component|auto_generated|pll1|clk[1] ; -0.613    ; -0.123 ; -27.873  ; 0.000   ; 0.000               ;
+;  clock|altpll_component|auto_generated|pll1|clk[2] ; -519.301  ; 0.000  ; N/A      ; N/A     ; 0.000               ;
+;  clock|altpll_component|auto_generated|pll1|clk[3] ; -0.078    ; 0.000  ; N/A      ; N/A     ; 0.000               ;
+;  epRISC_SPI:bspi|rTxClk                            ; -47.307   ; 0.000  ; -165.160 ; 0.000   ; -37.175             ;
 ;  iBoardClock                                       ; N/A       ; N/A    ; N/A      ; N/A     ; 0.000               ;
-;  iBusClock                                         ; -752.796  ; 0.000  ; -500.711 ; 0.000   ; -396.245            ;
+;  iBusClock                                         ; -929.311  ; 0.000  ; -472.990 ; 0.000   ; -420.037            ;
 +----------------------------------------------------+-----------+--------+----------+---------+---------------------+
 
 
@@ -507,16 +499,16 @@ No synchronizer chains to report.
 ; bGPIO15             ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
 ; iBusClock           ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
 ; iBoardReset         ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
-; iBusMOSI[2]         ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
 ; iBusSelect[0]       ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
 ; iBusSelect[1]       ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
-; iBusMOSI[1]         ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
-; iBusMOSI[0]         ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
 ; iBusMOSI[5]         ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
 ; iBusMOSI[7]         ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
 ; iBusMOSI[6]         ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
-; iBusMOSI[4]         ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
+; iBusMOSI[2]         ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
+; iBusMOSI[1]         ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
+; iBusMOSI[0]         ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
 ; iBusMOSI[3]         ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
+; iBusMOSI[4]         ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
 ; iBoardClock         ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
 ; iSPIMISO            ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
 ; iTTLSerialRX        ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
@@ -571,9 +563,9 @@ No synchronizer chains to report.
 ; oVGAColor[7]   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.47e-09 V                   ; 2.4 V               ; -0.0932 V           ; 0.135 V                              ; 0.16 V                               ; 4.43e-10 s                  ; 4.36e-10 s                  ; No                         ; Yes                        ; 2.32 V                      ; 4.47e-09 V                  ; 2.4 V              ; -0.0932 V          ; 0.135 V                             ; 0.16 V                              ; 4.43e-10 s                 ; 4.36e-10 s                 ; No                        ; Yes                       ;
 ; oVGAHorizontal ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.47e-09 V                   ; 2.4 V               ; -0.0932 V           ; 0.135 V                              ; 0.16 V                               ; 4.43e-10 s                  ; 4.36e-10 s                  ; No                         ; Yes                        ; 2.32 V                      ; 4.47e-09 V                  ; 2.4 V              ; -0.0932 V          ; 0.135 V                             ; 0.16 V                              ; 4.43e-10 s                 ; 4.36e-10 s                 ; No                        ; Yes                       ;
 ; oVGAVertical   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.47e-09 V                   ; 2.4 V               ; -0.0932 V           ; 0.135 V                              ; 0.16 V                               ; 4.43e-10 s                  ; 4.36e-10 s                  ; No                         ; Yes                        ; 2.32 V                      ; 4.47e-09 V                  ; 2.4 V              ; -0.0932 V          ; 0.135 V                             ; 0.16 V                              ; 4.43e-10 s                 ; 4.36e-10 s                 ; No                        ; Yes                       ;
-; bBoardDebug0   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.47e-09 V                   ; 2.4 V               ; -0.0905 V           ; 0.135 V                              ; 0.167 V                              ; 4.43e-10 s                  ; 4.36e-10 s                  ; No                         ; Yes                        ; 2.32 V                      ; 4.47e-09 V                  ; 2.4 V              ; -0.0905 V          ; 0.135 V                             ; 0.167 V                             ; 4.43e-10 s                 ; 4.36e-10 s                 ; No                        ; Yes                       ;
+; bBoardDebug0   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.47e-09 V                   ; 2.4 V               ; -0.0932 V           ; 0.135 V                              ; 0.16 V                               ; 4.43e-10 s                  ; 4.36e-10 s                  ; No                         ; Yes                        ; 2.32 V                      ; 4.47e-09 V                  ; 2.4 V              ; -0.0932 V          ; 0.135 V                             ; 0.16 V                              ; 4.43e-10 s                 ; 4.36e-10 s                 ; No                        ; Yes                       ;
 ; bBoardDebug1   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.47e-09 V                   ; 2.4 V               ; -0.0905 V           ; 0.135 V                              ; 0.167 V                              ; 4.43e-10 s                  ; 4.36e-10 s                  ; No                         ; Yes                        ; 2.32 V                      ; 4.47e-09 V                  ; 2.4 V              ; -0.0905 V          ; 0.135 V                             ; 0.167 V                             ; 4.43e-10 s                 ; 4.36e-10 s                 ; No                        ; Yes                       ;
-; bBoardDebug2   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.47e-09 V                   ; 2.33 V              ; -0.00562 V          ; 0.232 V                              ; 0.19 V                               ; 4.14e-09 s                  ; 3.92e-09 s                  ; No                         ; Yes                        ; 2.32 V                      ; 4.47e-09 V                  ; 2.33 V             ; -0.00562 V         ; 0.232 V                             ; 0.19 V                              ; 4.14e-09 s                 ; 3.92e-09 s                 ; No                        ; Yes                       ;
+; bBoardDebug2   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.47e-09 V                   ; 2.4 V               ; -0.0932 V           ; 0.135 V                              ; 0.16 V                               ; 4.43e-10 s                  ; 4.36e-10 s                  ; No                         ; Yes                        ; 2.32 V                      ; 4.47e-09 V                  ; 2.4 V              ; -0.0932 V          ; 0.135 V                             ; 0.16 V                              ; 4.43e-10 s                 ; 4.36e-10 s                 ; No                        ; Yes                       ;
 ; bBoardDebug3   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.47e-09 V                   ; 2.4 V               ; -0.0932 V           ; 0.135 V                              ; 0.16 V                               ; 4.43e-10 s                  ; 4.36e-10 s                  ; No                         ; Yes                        ; 2.32 V                      ; 4.47e-09 V                  ; 2.4 V              ; -0.0932 V          ; 0.135 V                             ; 0.16 V                              ; 4.43e-10 s                 ; 4.36e-10 s                 ; No                        ; Yes                       ;
 ; bBoardDebug4   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.47e-09 V                   ; 2.4 V               ; -0.0932 V           ; 0.135 V                              ; 0.16 V                               ; 4.43e-10 s                  ; 4.36e-10 s                  ; No                         ; Yes                        ; 2.32 V                      ; 4.47e-09 V                  ; 2.4 V              ; -0.0932 V          ; 0.135 V                             ; 0.16 V                              ; 4.43e-10 s                 ; 4.36e-10 s                 ; No                        ; Yes                       ;
 ; bBoardDebug5   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.47e-09 V                   ; 2.4 V               ; -0.0932 V           ; 0.135 V                              ; 0.16 V                               ; 4.43e-10 s                  ; 4.36e-10 s                  ; No                         ; Yes                        ; 2.32 V                      ; 4.47e-09 V                  ; 2.4 V              ; -0.0932 V          ; 0.135 V                             ; 0.16 V                              ; 4.43e-10 s                 ; 4.36e-10 s                 ; No                        ; Yes                       ;
@@ -640,9 +632,9 @@ No synchronizer chains to report.
 ; oVGAColor[7]   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.66e-07 V                   ; 2.37 V              ; -0.0521 V           ; 0.17 V                               ; 0.231 V                              ; 4.74e-10 s                  ; 4.79e-10 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 4.66e-07 V                  ; 2.37 V             ; -0.0521 V          ; 0.17 V                              ; 0.231 V                             ; 4.74e-10 s                 ; 4.79e-10 s                 ; Yes                       ; Yes                       ;
 ; oVGAHorizontal ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.66e-07 V                   ; 2.37 V              ; -0.0521 V           ; 0.17 V                               ; 0.231 V                              ; 4.74e-10 s                  ; 4.79e-10 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 4.66e-07 V                  ; 2.37 V             ; -0.0521 V          ; 0.17 V                              ; 0.231 V                             ; 4.74e-10 s                 ; 4.79e-10 s                 ; Yes                       ; Yes                       ;
 ; oVGAVertical   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.66e-07 V                   ; 2.37 V              ; -0.0521 V           ; 0.17 V                               ; 0.231 V                              ; 4.74e-10 s                  ; 4.79e-10 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 4.66e-07 V                  ; 2.37 V             ; -0.0521 V          ; 0.17 V                              ; 0.231 V                             ; 4.74e-10 s                 ; 4.79e-10 s                 ; Yes                       ; Yes                       ;
-; bBoardDebug0   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.66e-07 V                   ; 2.37 V              ; -0.0526 V           ; 0.169 V                              ; 0.23 V                               ; 4.75e-10 s                  ; 4.8e-10 s                   ; Yes                        ; Yes                        ; 2.32 V                      ; 4.66e-07 V                  ; 2.37 V             ; -0.0526 V          ; 0.169 V                             ; 0.23 V                              ; 4.75e-10 s                 ; 4.8e-10 s                  ; Yes                       ; Yes                       ;
+; bBoardDebug0   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.66e-07 V                   ; 2.37 V              ; -0.0521 V           ; 0.17 V                               ; 0.231 V                              ; 4.74e-10 s                  ; 4.79e-10 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 4.66e-07 V                  ; 2.37 V             ; -0.0521 V          ; 0.17 V                              ; 0.231 V                             ; 4.74e-10 s                 ; 4.79e-10 s                 ; Yes                       ; Yes                       ;
 ; bBoardDebug1   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.66e-07 V                   ; 2.37 V              ; -0.0526 V           ; 0.169 V                              ; 0.23 V                               ; 4.75e-10 s                  ; 4.8e-10 s                   ; Yes                        ; Yes                        ; 2.32 V                      ; 4.66e-07 V                  ; 2.37 V             ; -0.0526 V          ; 0.169 V                             ; 0.23 V                              ; 4.75e-10 s                 ; 4.8e-10 s                  ; Yes                       ; Yes                       ;
-; bBoardDebug2   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.66e-07 V                   ; 2.33 V              ; -0.00284 V          ; 0.214 V                              ; 0.149 V                              ; 5.03e-09 s                  ; 4.66e-09 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 4.66e-07 V                  ; 2.33 V             ; -0.00284 V         ; 0.214 V                             ; 0.149 V                             ; 5.03e-09 s                 ; 4.66e-09 s                 ; Yes                       ; Yes                       ;
+; bBoardDebug2   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.66e-07 V                   ; 2.37 V              ; -0.0521 V           ; 0.17 V                               ; 0.231 V                              ; 4.74e-10 s                  ; 4.79e-10 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 4.66e-07 V                  ; 2.37 V             ; -0.0521 V          ; 0.17 V                              ; 0.231 V                             ; 4.74e-10 s                 ; 4.79e-10 s                 ; Yes                       ; Yes                       ;
 ; bBoardDebug3   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.66e-07 V                   ; 2.37 V              ; -0.0521 V           ; 0.17 V                               ; 0.231 V                              ; 4.74e-10 s                  ; 4.79e-10 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 4.66e-07 V                  ; 2.37 V             ; -0.0521 V          ; 0.17 V                              ; 0.231 V                             ; 4.74e-10 s                 ; 4.79e-10 s                 ; Yes                       ; Yes                       ;
 ; bBoardDebug4   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.66e-07 V                   ; 2.37 V              ; -0.0521 V           ; 0.17 V                               ; 0.231 V                              ; 4.74e-10 s                  ; 4.79e-10 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 4.66e-07 V                  ; 2.37 V             ; -0.0521 V          ; 0.17 V                              ; 0.231 V                             ; 4.74e-10 s                 ; 4.79e-10 s                 ; Yes                       ; Yes                       ;
 ; bBoardDebug5   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 4.66e-07 V                   ; 2.37 V              ; -0.0521 V           ; 0.17 V                               ; 0.231 V                              ; 4.74e-10 s                  ; 4.79e-10 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 4.66e-07 V                  ; 2.37 V             ; -0.0521 V          ; 0.17 V                              ; 0.231 V                             ; 4.74e-10 s                 ; 4.79e-10 s                 ; Yes                       ; Yes                       ;
@@ -709,9 +701,9 @@ No synchronizer chains to report.
 ; oVGAColor[7]   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 9.95e-08 V                   ; 2.78 V              ; -0.0452 V           ; 0.248 V                              ; 0.108 V                              ; 2.67e-10 s                  ; 2.75e-10 s                  ; No                         ; Yes                        ; 2.62 V                      ; 9.95e-08 V                  ; 2.78 V             ; -0.0452 V          ; 0.248 V                             ; 0.108 V                             ; 2.67e-10 s                 ; 2.75e-10 s                 ; No                        ; Yes                       ;
 ; oVGAHorizontal ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 9.95e-08 V                   ; 2.78 V              ; -0.0452 V           ; 0.248 V                              ; 0.108 V                              ; 2.67e-10 s                  ; 2.75e-10 s                  ; No                         ; Yes                        ; 2.62 V                      ; 9.95e-08 V                  ; 2.78 V             ; -0.0452 V          ; 0.248 V                             ; 0.108 V                             ; 2.67e-10 s                 ; 2.75e-10 s                 ; No                        ; Yes                       ;
 ; oVGAVertical   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 9.95e-08 V                   ; 2.78 V              ; -0.0452 V           ; 0.248 V                              ; 0.108 V                              ; 2.67e-10 s                  ; 2.75e-10 s                  ; No                         ; Yes                        ; 2.62 V                      ; 9.95e-08 V                  ; 2.78 V             ; -0.0452 V          ; 0.248 V                             ; 0.108 V                             ; 2.67e-10 s                 ; 2.75e-10 s                 ; No                        ; Yes                       ;
-; bBoardDebug0   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 9.94e-08 V                   ; 2.78 V              ; -0.0444 V           ; 0.25 V                               ; 0.107 V                              ; 2.67e-10 s                  ; 2.75e-10 s                  ; No                         ; Yes                        ; 2.62 V                      ; 9.94e-08 V                  ; 2.78 V             ; -0.0444 V          ; 0.25 V                              ; 0.107 V                             ; 2.67e-10 s                 ; 2.75e-10 s                 ; No                        ; Yes                       ;
+; bBoardDebug0   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 9.95e-08 V                   ; 2.78 V              ; -0.0452 V           ; 0.248 V                              ; 0.108 V                              ; 2.67e-10 s                  ; 2.75e-10 s                  ; No                         ; Yes                        ; 2.62 V                      ; 9.95e-08 V                  ; 2.78 V             ; -0.0452 V          ; 0.248 V                             ; 0.108 V                             ; 2.67e-10 s                 ; 2.75e-10 s                 ; No                        ; Yes                       ;
 ; bBoardDebug1   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 9.94e-08 V                   ; 2.78 V              ; -0.0444 V           ; 0.25 V                               ; 0.107 V                              ; 2.67e-10 s                  ; 2.75e-10 s                  ; No                         ; Yes                        ; 2.62 V                      ; 9.94e-08 V                  ; 2.78 V             ; -0.0444 V          ; 0.25 V                              ; 0.107 V                             ; 2.67e-10 s                 ; 2.75e-10 s                 ; No                        ; Yes                       ;
-; bBoardDebug2   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 9.95e-08 V                   ; 2.64 V              ; -0.00893 V          ; 0.249 V                              ; 0.203 V                              ; 3.12e-09 s                  ; 3.02e-09 s                  ; No                         ; Yes                        ; 2.62 V                      ; 9.95e-08 V                  ; 2.64 V             ; -0.00893 V         ; 0.249 V                             ; 0.203 V                             ; 3.12e-09 s                 ; 3.02e-09 s                 ; No                        ; Yes                       ;
+; bBoardDebug2   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 9.95e-08 V                   ; 2.78 V              ; -0.0452 V           ; 0.248 V                              ; 0.108 V                              ; 2.67e-10 s                  ; 2.75e-10 s                  ; No                         ; Yes                        ; 2.62 V                      ; 9.95e-08 V                  ; 2.78 V             ; -0.0452 V          ; 0.248 V                             ; 0.108 V                             ; 2.67e-10 s                 ; 2.75e-10 s                 ; No                        ; Yes                       ;
 ; bBoardDebug3   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 9.95e-08 V                   ; 2.78 V              ; -0.0452 V           ; 0.248 V                              ; 0.108 V                              ; 2.67e-10 s                  ; 2.75e-10 s                  ; No                         ; Yes                        ; 2.62 V                      ; 9.95e-08 V                  ; 2.78 V             ; -0.0452 V          ; 0.248 V                             ; 0.108 V                             ; 2.67e-10 s                 ; 2.75e-10 s                 ; No                        ; Yes                       ;
 ; bBoardDebug4   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 9.95e-08 V                   ; 2.78 V              ; -0.0452 V           ; 0.248 V                              ; 0.108 V                              ; 2.67e-10 s                  ; 2.75e-10 s                  ; No                         ; Yes                        ; 2.62 V                      ; 9.95e-08 V                  ; 2.78 V             ; -0.0452 V          ; 0.248 V                             ; 0.108 V                             ; 2.67e-10 s                 ; 2.75e-10 s                 ; No                        ; Yes                       ;
 ; bBoardDebug5   ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 9.95e-08 V                   ; 2.78 V              ; -0.0452 V           ; 0.248 V                              ; 0.108 V                              ; 2.67e-10 s                  ; 2.75e-10 s                  ; No                         ; Yes                        ; 2.62 V                      ; 9.95e-08 V                  ; 2.78 V             ; -0.0452 V          ; 0.248 V                             ; 0.108 V                             ; 2.67e-10 s                 ; 2.75e-10 s                 ; No                        ; Yes                       ;
@@ -749,13 +741,13 @@ No synchronizer chains to report.
 ; clock|altpll_component|auto_generated|pll1|clk[2] ; clock|altpll_component|auto_generated|pll1|clk[2] ; 5225486  ; 0        ; 0        ; 0        ;
 ; clock|altpll_component|auto_generated|pll1|clk[3] ; clock|altpll_component|auto_generated|pll1|clk[2] ; 16       ; 0        ; 0        ; 0        ;
 ; iBusClock                                         ; clock|altpll_component|auto_generated|pll1|clk[2] ; 77       ; 1232     ; 0        ; 0        ;
-; clock|altpll_component|auto_generated|pll1|clk[2] ; clock|altpll_component|auto_generated|pll1|clk[3] ; 905      ; 0        ; 0        ; 0        ;
-; clock|altpll_component|auto_generated|pll1|clk[3] ; clock|altpll_component|auto_generated|pll1|clk[3] ; 1917     ; 0        ; 0        ; 0        ;
-; epRISC_SPI:bspi|rTxClk                            ; epRISC_SPI:bspi|rTxClk                            ; 16       ; 64       ; 0        ; 78       ;
+; clock|altpll_component|auto_generated|pll1|clk[2] ; clock|altpll_component|auto_generated|pll1|clk[3] ; 901      ; 0        ; 0        ; 0        ;
+; clock|altpll_component|auto_generated|pll1|clk[3] ; clock|altpll_component|auto_generated|pll1|clk[3] ; 1924     ; 0        ; 0        ; 0        ;
+; epRISC_SPI:bspi|rTxClk                            ; epRISC_SPI:bspi|rTxClk                            ; 16       ; 70       ; 0        ; 82       ;
 ; iBusClock                                         ; epRISC_SPI:bspi|rTxClk                            ; 0        ; 0        ; 24       ; 0        ;
 ; clock|altpll_component|auto_generated|pll1|clk[0] ; iBusClock                                         ; 148      ; 0        ; 0        ; 0        ;
 ; epRISC_SPI:bspi|rTxClk                            ; iBusClock                                         ; 0        ; 83       ; 0        ; 0        ;
-; iBusClock                                         ; iBusClock                                         ; 569      ; 4058     ; 34       ; 0        ;
+; iBusClock                                         ; iBusClock                                         ; 1235     ; 5290     ; 34       ; 0        ;
 +---------------------------------------------------+---------------------------------------------------+----------+----------+----------+----------+
 Entries labeled "false path" only account for clock-to-clock false paths and not path-based false paths. As a result, actual path counts may be lower than reported.
 
@@ -772,13 +764,13 @@ Entries labeled "false path" only account for clock-to-clock false paths and not
 ; clock|altpll_component|auto_generated|pll1|clk[2] ; clock|altpll_component|auto_generated|pll1|clk[2] ; 5225486  ; 0        ; 0        ; 0        ;
 ; clock|altpll_component|auto_generated|pll1|clk[3] ; clock|altpll_component|auto_generated|pll1|clk[2] ; 16       ; 0        ; 0        ; 0        ;
 ; iBusClock                                         ; clock|altpll_component|auto_generated|pll1|clk[2] ; 77       ; 1232     ; 0        ; 0        ;
-; clock|altpll_component|auto_generated|pll1|clk[2] ; clock|altpll_component|auto_generated|pll1|clk[3] ; 905      ; 0        ; 0        ; 0        ;
-; clock|altpll_component|auto_generated|pll1|clk[3] ; clock|altpll_component|auto_generated|pll1|clk[3] ; 1917     ; 0        ; 0        ; 0        ;
-; epRISC_SPI:bspi|rTxClk                            ; epRISC_SPI:bspi|rTxClk                            ; 16       ; 64       ; 0        ; 78       ;
+; clock|altpll_component|auto_generated|pll1|clk[2] ; clock|altpll_component|auto_generated|pll1|clk[3] ; 901      ; 0        ; 0        ; 0        ;
+; clock|altpll_component|auto_generated|pll1|clk[3] ; clock|altpll_component|auto_generated|pll1|clk[3] ; 1924     ; 0        ; 0        ; 0        ;
+; epRISC_SPI:bspi|rTxClk                            ; epRISC_SPI:bspi|rTxClk                            ; 16       ; 70       ; 0        ; 82       ;
 ; iBusClock                                         ; epRISC_SPI:bspi|rTxClk                            ; 0        ; 0        ; 24       ; 0        ;
 ; clock|altpll_component|auto_generated|pll1|clk[0] ; iBusClock                                         ; 148      ; 0        ; 0        ; 0        ;
 ; epRISC_SPI:bspi|rTxClk                            ; iBusClock                                         ; 0        ; 83       ; 0        ; 0        ;
-; iBusClock                                         ; iBusClock                                         ; 569      ; 4058     ; 34       ; 0        ;
+; iBusClock                                         ; iBusClock                                         ; 1235     ; 5290     ; 34       ; 0        ;
 +---------------------------------------------------+---------------------------------------------------+----------+----------+----------+----------+
 Entries labeled "false path" only account for clock-to-clock false paths and not path-based false paths. As a result, actual path counts may be lower than reported.
 
@@ -829,9 +821,9 @@ No non-DPA dedicated SERDES Receiver circuitry present in device or used in desi
 ; Illegal Clocks                  ; 0     ; 0    ;
 ; Unconstrained Clocks            ; 0     ; 0    ;
 ; Unconstrained Input Ports       ; 29    ; 29   ;
-; Unconstrained Input Port Paths  ; 484   ; 484  ;
+; Unconstrained Input Port Paths  ; 500   ; 500  ;
 ; Unconstrained Output Ports      ; 42    ; 42   ;
-; Unconstrained Output Port Paths ; 633   ; 633  ;
+; Unconstrained Output Port Paths ; 649   ; 649  ;
 +---------------------------------+-------+------+
 
 
@@ -1030,11 +1022,10 @@ No non-DPA dedicated SERDES Receiver circuitry present in device or used in desi
 Info: *******************************************************************
 Info: Running Quartus Prime TimeQuest Timing Analyzer
     Info: Version 16.0.0 Build 211 04/27/2016 SJ Lite Edition
-    Info: Processing started: Sun May 28 02:15:40 2017
+    Info: Processing started: Mon May 29 14:13:07 2017
 Info: Command: quartus_sta epRISC_Auxiliary -c epRISC_Controller
-Info (P0): qsta_default_script.tcl version: #1
-Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
-Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
+Info: qsta_default_script.tcl version: #1
+Warning (20028): Parallel compilation is not licensed and has been disabled
 Info (21077): Low junction temperature is 0 degrees C
 Info (21077): High junction temperature is 85 degrees C
 Critical Warning (332012): Synopsys Design Constraints File file not found: 'epRISC_Controller.sdc'. A Synopsys Design Constraints File is required by the TimeQuest Timing Analyzer to get proper timing constraints. Without it, the Compiler will not properly optimize the design.
@@ -1051,150 +1042,150 @@ Info (332105): Deriving Clocks
     Info (332105): create_clock -period 1.000 -name epRISC_SPI:bspi|rTxClk epRISC_SPI:bspi|rTxClk
 Info (332143): No user constrained clock uncertainty found in the design. Calling "derive_clock_uncertainty"
 Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in TimeQuest to see clock uncertainties.
-Info (P0): Found TIMEQUEST_REPORT_SCRIPT_INCLUDE_DEFAULT_ANALYSIS = ON
-Info (P0): Analyzing Slow 1200mV 85C Model
-Info (P0): Can't run Report Timing Closure Recommendations. The current device family is not supported.
+Info: Found TIMEQUEST_REPORT_SCRIPT_INCLUDE_DEFAULT_ANALYSIS = ON
+Info: Analyzing Slow 1200mV 85C Model
+Info: Can't run Report Timing Closure Recommendations. The current device family is not supported.
 Critical Warning (332148): Timing requirements not met
-Info (332146): Worst-case setup slack is -7.440
+Info (332146): Worst-case setup slack is -8.358
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    -7.440            -752.796 iBusClock 
-    Info (332119):    -7.297            -481.374 clock|altpll_component|auto_generated|pll1|clk[2] 
-    Info (332119):    -7.100            -220.247 clock|altpll_component|auto_generated|pll1|clk[0] 
-    Info (332119):    -2.811             -44.318 epRISC_SPI:bspi|rTxClk 
-    Info (332119):    -0.593              -0.593 clock|altpll_component|auto_generated|pll1|clk[1] 
-    Info (332119):     0.301               0.000 clock|altpll_component|auto_generated|pll1|clk[3] 
-Info (332146): Worst-case hold slack is -0.096
+    Info (332119):    -8.358            -519.301 clock|altpll_component|auto_generated|pll1|clk[2] 
+    Info (332119):    -8.155            -929.311 iBusClock 
+    Info (332119):    -7.179            -221.221 clock|altpll_component|auto_generated|pll1|clk[0] 
+    Info (332119):    -2.842             -47.307 epRISC_SPI:bspi|rTxClk 
+    Info (332119):    -0.613              -0.613 clock|altpll_component|auto_generated|pll1|clk[1] 
+    Info (332119):    -0.078              -0.078 clock|altpll_component|auto_generated|pll1|clk[3] 
+Info (332146): Worst-case hold slack is -0.075
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    -0.096              -0.096 clock|altpll_component|auto_generated|pll1|clk[1] 
+    Info (332119):    -0.075              -0.075 clock|altpll_component|auto_generated|pll1|clk[1] 
     Info (332119):     0.343               0.000 clock|altpll_component|auto_generated|pll1|clk[0] 
     Info (332119):     0.344               0.000 clock|altpll_component|auto_generated|pll1|clk[2] 
     Info (332119):     0.362               0.000 iBusClock 
-    Info (332119):     0.363               0.000 epRISC_SPI:bspi|rTxClk 
-    Info (332119):     1.259               0.000 clock|altpll_component|auto_generated|pll1|clk[3] 
-Info (332146): Worst-case recovery slack is -9.841
+    Info (332119):     0.364               0.000 epRISC_SPI:bspi|rTxClk 
+    Info (332119):     0.915               0.000 clock|altpll_component|auto_generated|pll1|clk[3] 
+Info (332146): Worst-case recovery slack is -9.607
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    -9.841            -252.706 clock|altpll_component|auto_generated|pll1|clk[0] 
-    Info (332119):    -9.834             -28.587 clock|altpll_component|auto_generated|pll1|clk[1] 
-    Info (332119):    -6.995            -170.156 epRISC_SPI:bspi|rTxClk 
-    Info (332119):    -6.570            -500.711 iBusClock 
-Info (332146): Worst-case removal slack is 4.120
+    Info (332119):    -9.607            -245.766 clock|altpll_component|auto_generated|pll1|clk[0] 
+    Info (332119):    -9.593             -27.873 clock|altpll_component|auto_generated|pll1|clk[1] 
+    Info (332119):    -6.791            -165.160 epRISC_SPI:bspi|rTxClk 
+    Info (332119):    -6.756            -472.990 iBusClock 
+Info (332146): Worst-case removal slack is 3.343
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):     4.120               0.000 iBusClock 
-    Info (332119):     4.906               0.000 epRISC_SPI:bspi|rTxClk 
-    Info (332119):     7.591               0.000 clock|altpll_component|auto_generated|pll1|clk[0] 
-    Info (332119):     7.591               0.000 clock|altpll_component|auto_generated|pll1|clk[1] 
+    Info (332119):     3.343               0.000 iBusClock 
+    Info (332119):     4.156               0.000 epRISC_SPI:bspi|rTxClk 
+    Info (332119):     6.806               0.000 clock|altpll_component|auto_generated|pll1|clk[1] 
+    Info (332119):     6.814               0.000 clock|altpll_component|auto_generated|pll1|clk[0] 
 Info (332146): Worst-case minimum pulse width slack is -3.901
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    -3.901            -396.245 iBusClock 
+    Info (332119):    -3.901            -420.037 iBusClock 
     Info (332119):    -1.487             -37.175 epRISC_SPI:bspi|rTxClk 
     Info (332119):     4.700               0.000 clock|altpll_component|auto_generated|pll1|clk[3] 
     Info (332119):     9.905               0.000 iBoardClock 
-    Info (332119):    19.716               0.000 clock|altpll_component|auto_generated|pll1|clk[2] 
-    Info (332119):   499.715               0.000 clock|altpll_component|auto_generated|pll1|clk[1] 
-    Info (332119):  3124.711               0.000 clock|altpll_component|auto_generated|pll1|clk[0] 
-Info (P0): Analyzing Slow 1200mV 0C Model
+    Info (332119):    19.710               0.000 clock|altpll_component|auto_generated|pll1|clk[2] 
+    Info (332119):   499.720               0.000 clock|altpll_component|auto_generated|pll1|clk[1] 
+    Info (332119):  3124.709               0.000 clock|altpll_component|auto_generated|pll1|clk[0] 
+Info: Analyzing Slow 1200mV 0C Model
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
 Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in TimeQuest to see clock uncertainties.
 Critical Warning (332148): Timing requirements not met
-Info (332146): Worst-case setup slack is -7.021
+Info (332146): Worst-case setup slack is -7.816
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    -7.021            -701.595 iBusClock 
-    Info (332119):    -6.596            -437.598 clock|altpll_component|auto_generated|pll1|clk[2] 
-    Info (332119):    -6.395            -200.072 clock|altpll_component|auto_generated|pll1|clk[0] 
-    Info (332119):    -2.690             -40.091 epRISC_SPI:bspi|rTxClk 
-    Info (332119):    -0.457              -0.457 clock|altpll_component|auto_generated|pll1|clk[1] 
-    Info (332119):     0.832               0.000 clock|altpll_component|auto_generated|pll1|clk[3] 
-Info (332146): Worst-case hold slack is -0.145
+    Info (332119):    -7.816            -870.189 iBusClock 
+    Info (332119):    -7.673            -474.651 clock|altpll_component|auto_generated|pll1|clk[2] 
+    Info (332119):    -6.562            -201.731 clock|altpll_component|auto_generated|pll1|clk[0] 
+    Info (332119):    -2.741             -43.274 epRISC_SPI:bspi|rTxClk 
+    Info (332119):    -0.478              -0.478 clock|altpll_component|auto_generated|pll1|clk[1] 
+    Info (332119):     0.514               0.000 clock|altpll_component|auto_generated|pll1|clk[3] 
+Info (332146): Worst-case hold slack is -0.123
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    -0.145              -0.145 clock|altpll_component|auto_generated|pll1|clk[1] 
+    Info (332119):    -0.123              -0.123 clock|altpll_component|auto_generated|pll1|clk[1] 
     Info (332119):     0.307               0.000 clock|altpll_component|auto_generated|pll1|clk[0] 
-    Info (332119):     0.307               0.000 clock|altpll_component|auto_generated|pll1|clk[2] 
-    Info (332119):     0.325               0.000 iBusClock 
+    Info (332119):     0.308               0.000 clock|altpll_component|auto_generated|pll1|clk[2] 
+    Info (332119):     0.324               0.000 iBusClock 
     Info (332119):     0.326               0.000 epRISC_SPI:bspi|rTxClk 
-    Info (332119):     1.124               0.000 clock|altpll_component|auto_generated|pll1|clk[3] 
-Info (332146): Worst-case recovery slack is -8.909
+    Info (332119):     0.805               0.000 clock|altpll_component|auto_generated|pll1|clk[3] 
+Info (332146): Worst-case recovery slack is -8.775
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    -8.909            -228.691 clock|altpll_component|auto_generated|pll1|clk[0] 
-    Info (332119):    -8.904             -25.856 clock|altpll_component|auto_generated|pll1|clk[1] 
-    Info (332119):    -6.382            -155.271 epRISC_SPI:bspi|rTxClk 
-    Info (332119):    -5.981            -455.419 iBusClock 
-Info (332146): Worst-case removal slack is 3.694
+    Info (332119):    -8.775            -224.190 clock|altpll_component|auto_generated|pll1|clk[0] 
+    Info (332119):    -8.767             -25.454 clock|altpll_component|auto_generated|pll1|clk[1] 
+    Info (332119):    -6.274            -152.656 epRISC_SPI:bspi|rTxClk 
+    Info (332119):    -6.206            -436.380 iBusClock 
+Info (332146): Worst-case removal slack is 3.002
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):     3.694               0.000 iBusClock 
-    Info (332119):     4.437               0.000 epRISC_SPI:bspi|rTxClk 
-    Info (332119):     6.880               0.000 clock|altpll_component|auto_generated|pll1|clk[1] 
-    Info (332119):     6.883               0.000 clock|altpll_component|auto_generated|pll1|clk[0] 
+    Info (332119):     3.002               0.000 iBusClock 
+    Info (332119):     3.754               0.000 epRISC_SPI:bspi|rTxClk 
+    Info (332119):     6.175               0.000 clock|altpll_component|auto_generated|pll1|clk[1] 
+    Info (332119):     6.184               0.000 clock|altpll_component|auto_generated|pll1|clk[0] 
 Info (332146): Worst-case minimum pulse width slack is -3.901
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    -3.901            -396.245 iBusClock 
+    Info (332119):    -3.901            -420.037 iBusClock 
     Info (332119):    -1.487             -37.175 epRISC_SPI:bspi|rTxClk 
-    Info (332119):     4.681               0.000 clock|altpll_component|auto_generated|pll1|clk[3] 
+    Info (332119):     4.718               0.000 clock|altpll_component|auto_generated|pll1|clk[3] 
     Info (332119):     9.776               0.000 iBoardClock 
-    Info (332119):    19.695               0.000 clock|altpll_component|auto_generated|pll1|clk[2] 
-    Info (332119):   499.688               0.000 clock|altpll_component|auto_generated|pll1|clk[1] 
-    Info (332119):  3124.693               0.000 clock|altpll_component|auto_generated|pll1|clk[0] 
-Info (P0): Analyzing Fast 1200mV 0C Model
+    Info (332119):    19.690               0.000 clock|altpll_component|auto_generated|pll1|clk[2] 
+    Info (332119):   499.693               0.000 clock|altpll_component|auto_generated|pll1|clk[1] 
+    Info (332119):  3124.690               0.000 clock|altpll_component|auto_generated|pll1|clk[0] 
+Info: Analyzing Fast 1200mV 0C Model
 Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in TimeQuest to see clock uncertainties.
 Critical Warning (332148): Timing requirements not met
-Info (332146): Worst-case setup slack is -3.023
+Info (332146): Worst-case setup slack is -3.420
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    -3.023            -201.355 clock|altpll_component|auto_generated|pll1|clk[2] 
-    Info (332119):    -2.991             -93.680 clock|altpll_component|auto_generated|pll1|clk[0] 
-    Info (332119):    -2.420            -281.819 iBusClock 
-    Info (332119):    -0.749             -10.145 epRISC_SPI:bspi|rTxClk 
-    Info (332119):    -0.209              -0.209 clock|altpll_component|auto_generated|pll1|clk[1] 
-    Info (332119):     6.045               0.000 clock|altpll_component|auto_generated|pll1|clk[3] 
-Info (332146): Worst-case hold slack is -0.006
+    Info (332119):    -3.420            -214.575 clock|altpll_component|auto_generated|pll1|clk[2] 
+    Info (332119):    -3.016             -93.928 clock|altpll_component|auto_generated|pll1|clk[0] 
+    Info (332119):    -2.849            -346.431 iBusClock 
+    Info (332119):    -0.778             -11.597 epRISC_SPI:bspi|rTxClk 
+    Info (332119):    -0.221              -0.221 clock|altpll_component|auto_generated|pll1|clk[1] 
+    Info (332119):     5.893               0.000 clock|altpll_component|auto_generated|pll1|clk[3] 
+Info (332146): Worst-case hold slack is 0.006
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    -0.006              -0.006 clock|altpll_component|auto_generated|pll1|clk[1] 
+    Info (332119):     0.006               0.000 clock|altpll_component|auto_generated|pll1|clk[1] 
+    Info (332119):     0.122               0.000 clock|altpll_component|auto_generated|pll1|clk[2] 
     Info (332119):     0.145               0.000 clock|altpll_component|auto_generated|pll1|clk[0] 
-    Info (332119):     0.146               0.000 clock|altpll_component|auto_generated|pll1|clk[2] 
     Info (332119):     0.152               0.000 epRISC_SPI:bspi|rTxClk 
     Info (332119):     0.153               0.000 iBusClock 
-    Info (332119):     0.485               0.000 clock|altpll_component|auto_generated|pll1|clk[3] 
-Info (332146): Worst-case recovery slack is -4.237
+    Info (332119):     0.311               0.000 clock|altpll_component|auto_generated|pll1|clk[3] 
+Info (332146): Worst-case recovery slack is -4.169
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    -4.237            -108.959 clock|altpll_component|auto_generated|pll1|clk[0] 
-    Info (332119):    -4.232             -12.347 clock|altpll_component|auto_generated|pll1|clk[1] 
-    Info (332119):    -3.003             -69.819 epRISC_SPI:bspi|rTxClk 
-    Info (332119):    -2.808            -214.652 iBusClock 
-Info (332146): Worst-case removal slack is 1.796
+    Info (332119):    -4.169            -106.804 clock|altpll_component|auto_generated|pll1|clk[0] 
+    Info (332119):    -4.157             -12.126 clock|altpll_component|auto_generated|pll1|clk[1] 
+    Info (332119):    -2.957             -68.680 epRISC_SPI:bspi|rTxClk 
+    Info (332119):    -2.896            -205.350 iBusClock 
+Info (332146): Worst-case removal slack is 1.483
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):     1.796               0.000 iBusClock 
-    Info (332119):     2.069               0.000 epRISC_SPI:bspi|rTxClk 
-    Info (332119):     3.686               0.000 clock|altpll_component|auto_generated|pll1|clk[1] 
-    Info (332119):     3.688               0.000 clock|altpll_component|auto_generated|pll1|clk[0] 
+    Info (332119):     1.483               0.000 iBusClock 
+    Info (332119):     1.786               0.000 epRISC_SPI:bspi|rTxClk 
+    Info (332119):     3.376               0.000 clock|altpll_component|auto_generated|pll1|clk[1] 
+    Info (332119):     3.384               0.000 clock|altpll_component|auto_generated|pll1|clk[0] 
 Info (332146): Worst-case minimum pulse width slack is -3.000
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    -3.000            -235.735 iBusClock 
+    Info (332119):    -3.000            -253.375 iBusClock 
     Info (332119):    -1.000             -25.000 epRISC_SPI:bspi|rTxClk 
     Info (332119):     4.716               0.000 clock|altpll_component|auto_generated|pll1|clk[3] 
     Info (332119):     9.663               0.000 iBoardClock 
     Info (332119):    19.740               0.000 clock|altpll_component|auto_generated|pll1|clk[2] 
-    Info (332119):   499.742               0.000 clock|altpll_component|auto_generated|pll1|clk[1] 
-    Info (332119):  3124.738               0.000 clock|altpll_component|auto_generated|pll1|clk[0] 
+    Info (332119):   499.740               0.000 clock|altpll_component|auto_generated|pll1|clk[1] 
+    Info (332119):  3124.741               0.000 clock|altpll_component|auto_generated|pll1|clk[0] 
 Info (332102): Design is not fully constrained for setup requirements
 Info (332102): Design is not fully constrained for hold requirements
 Info: Quartus Prime TimeQuest Timing Analyzer was successful. 0 errors, 5 warnings
-    Info: Peak virtual memory: 1230 megabytes
-    Info: Processing ended: Sun May 28 02:15:43 2017
-    Info: Elapsed time: 00:00:03
-    Info: Total CPU time (on all processors): 00:00:04
+    Info: Peak virtual memory: 1122 megabytes
+    Info: Processing ended: Mon May 29 14:13:13 2017
+    Info: Elapsed time: 00:00:06
+    Info: Total CPU time (on all processors): 00:00:06
 
 

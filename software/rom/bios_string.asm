@@ -94,6 +94,7 @@
                 
                 push.r  s:%Zz
                 call.s  a:ser_send
+                call.s  a:vid_putc
                 pops.r  d:%Zz                                       ; Print it
                 
                 addr.v  d:REG_CONT a:REG_CONT v:#h01                ; Increment counter

@@ -1,7 +1,7 @@
 module epRISC_VideoTerm(iClk, iRst, iAddr, iData, oData, iWrite, iEnable, iMemClk, iVideoClk, oColor, oHS, oVS);
 
     input iClk, iRst, iWrite, iEnable, iMemClk, iVideoClk;
-    input [9:0] iAddr;
+    input [6:0] iAddr;
     input [15:0] iData;
     output wire [7:0] oColor;
     output reg oHS, oVS;
@@ -33,10 +33,13 @@ module epRISC_VideoTerm(iClk, iRst, iAddr, iData, oData, iWrite, iEnable, iMemCl
     assign wCurrColor = wCharRAMFrame[15:8];
     assign wCurrChar = wCharRAMFrame[7:0];
 
+wire [11:0] debug;
+    assign debug = (rConfig[11:0] + {5'h0, iAddr[6:0]});
+    
     `ifdef EMULATED
-    SoftVideoRAM vram((rConfig[7:0] + iAddr[6:0]), rFramePtr[11:0], iClk, iMemClk, iData, 16'h0, (iWrite&&iEnable)?1:0, 0, wCharRAMData, wCharRAMFrame);
+    SoftVideoRAM vram((rConfig[11:0] + {5'h0, iAddr[6:0]}), rFramePtr[11:0], iClk, iMemClk, iData, 16'h0, (iWrite&&iEnable)?1:0, 0, wCharRAMData, wCharRAMFrame);
     `else
-    ChipVideoRAM vram((rConfig[7:0] + iAddr[6:0]), rFramePtr[11:0], iClk, iMemClk, iData, 16'h0, (iWrite&&iEnable)?1:0, 0, wCharRAMData, wCharRAMFrame);
+    ChipVideoRAM vram((rConfig[11:0] + {5'h0, iAddr[6:0]}), rFramePtr[11:0], iClk, iMemClk, iData, 16'h0, (iWrite&&iEnable)?1:0, 0, wCharRAMData, wCharRAMFrame);
     `endif
     
     VideoROM vrom({rRowSel, wCurrChar}, iMemClk, wFontRow);
