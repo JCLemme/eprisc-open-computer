@@ -180,27 +180,7 @@
 					"strict" : false
 				},
 				{
-					"name" : "iBusSelect[0]",
-					"strict" : false
-				},
-				{
-					"name" : "iBusSelect[1]",
-					"strict" : false
-				},
-				{
-					"name" : "iBusMOSI[5]",
-					"strict" : false
-				},
-				{
-					"name" : "iBusMOSI[7]",
-					"strict" : false
-				},
-				{
-					"name" : "iBusMOSI[6]",
-					"strict" : false
-				},
-				{
-					"name" : "iBusMOSI[2]",
+					"name" : "iBusMOSI[0]",
 					"strict" : false
 				},
 				{
@@ -208,7 +188,7 @@
 					"strict" : false
 				},
 				{
-					"name" : "iBusMOSI[0]",
+					"name" : "iBusMOSI[2]",
 					"strict" : false
 				},
 				{
@@ -220,11 +200,31 @@
 					"strict" : false
 				},
 				{
-					"name" : "iSPIMISO",
+					"name" : "iBusMOSI[5]",
+					"strict" : false
+				},
+				{
+					"name" : "iBusMOSI[6]",
+					"strict" : false
+				},
+				{
+					"name" : "iBusMOSI[7]",
+					"strict" : false
+				},
+				{
+					"name" : "iBusSelect[0]",
+					"strict" : false
+				},
+				{
+					"name" : "iBusSelect[1]",
 					"strict" : false
 				},
 				{
 					"name" : "iTTLSerialRX",
+					"strict" : false
+				},
+				{
+					"name" : "iSPIMISO",
 					"strict" : false
 				}
 			]

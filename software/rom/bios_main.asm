@@ -22,11 +22,10 @@
                 pops.r  d:%Xw
                 pops.r  d:%Xw                                       ; Reset the I/O controller
                             
-                move.v  d:%Xw v:#hFF
-                push.r  s:%Xw
-                call.s  a:vid_init
-                pops.r  d:%Xw                                       ; Start up video
+                call.s  a:vga_init                                  ; Start up video
                 
+
+
                 move.v  d:%Xw v:bios_str.str_welcome
                 push.r  s:%Xw
                 call.s  a:str_puts

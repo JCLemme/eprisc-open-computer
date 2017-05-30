@@ -45,18 +45,18 @@ endmodule
 
 module EmulatedIOPLL(iIn, oOutUART, oOutSPI, oOutVGA, oOutFast);
     input iIn;
-    output reg oOutUART, oOutSPI, oOutVGA;
-    output wire oOutFast;
+    output reg oOutUART, oOutSPI;
+    output wire oOutVGA, oOutFast;
 
     reg [6:0] rClockSplit;
 
     assign oOutFast = iIn;
+    assign oOutVGA = iIn;
     
     initial begin
         rClockSplit <= 0;
         oOutUART <= 0;
         oOutSPI <= 0;
-        oOutVGA <= 0;
     end
 
     always @(posedge iIn) begin
@@ -64,9 +64,6 @@ module EmulatedIOPLL(iIn, oOutUART, oOutSPI, oOutVGA, oOutFast);
 
         if(rClockSplit[3] == 1)
             oOutUART = !oOutUART;
-            
-        if(rClockSplit == 5'd2)
-            oOutVGA = !oOutVGA;
             
         if(rClockSplit == 5'd27)
             oOutSPI = !oOutSPI;
@@ -145,8 +142,8 @@ module epRISC_iocontroller(iBusClock, iBusSelect, iBusMOSI, oBusInterrupt, oBusM
     assign wEnableGPIO = (mBusAddress >= 15'h0 && mBusAddress < 15'h10) ? 1'h1 : 1'h0;
     assign wEnableUART = (mBusAddress >= 15'h10 && mBusAddress < 15'h20) ? 1'h1 : 1'h0;
     assign wEnableSPI = (mBusAddress >= 15'h20 && mBusAddress < 15'h30) ? 1'h1 : 1'h0;
-    assign wEnableRAM = (mBusAddress >= 15'h30 && mBusAddress < 15'h80) ? 1'h1 : 1'h0;
-    assign wEnableVideo = (mBusAddress >= 15'h80 && mBusAddress < 15'h100) ? 1'h1 : 1'h0;
+    assign wEnableVideo = (mBusAddress >= 15'h30 && mBusAddress < 15'h40) ? 1'h1 : 1'h0;
+    assign wEnableRAM = (mBusAddress >= 15'h40 && mBusAddress < 15'hFF) ? 1'h1 : 1'h0;
     
     assign oBusMISO = (rPipeState == `sPipeLoLo) ? wInternalMISO[7:0] :
                       (rPipeState == `sPipeLo) ? wInternalMISO[15:8] :

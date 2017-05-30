@@ -144,7 +144,7 @@ module epRISC_coreTB();
         #1024 iTTLSerialRX <= 1;
     end
     
-    initial #10000000 begin
+    initial #60000000 begin
         $finish;
     end
     

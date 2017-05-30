@@ -1,7 +1,7 @@
 module epRISC_VideoTerm(iClk, iRst, iAddr, iData, oData, iWrite, iEnable, iMemClk, iVideoClk, oColor, oHS, oVS);
 
     input iClk, iRst, iWrite, iEnable, iMemClk, iVideoClk;
-    input [6:0] iAddr;
+    input [1:0] iAddr;
     input [15:0] iData;
     output wire [7:0] oColor;
     output reg oHS, oVS;
@@ -11,14 +11,14 @@ module epRISC_VideoTerm(iClk, iRst, iAddr, iData, oData, iWrite, iEnable, iMemCl
     reg [7:0] rDataOutput, rColorOutput;
     reg [9:0] rPulseX, rPulseY;
     reg [11:0] rTempX, rTempY, rFramePtr;
-    reg [15:0] rConfig;
+    reg [15:0] rConfig, rRow, rColumn;
     
     wire mDrawingValidLine, mDrawingValidFrame, mDrawingValidData;
     wire [7:0] wCurrColor, wCurrChar, wFontRow;
     wire [9:0] wPixelX, wPixelY;
     wire [15:0] wCharRAMData, wCharRAMFrame;
         
-    assign oData = (!iEnable) ? 16'bz : ((iAddr == 7'h7F) ? rConfig : wCharRAMData);
+    assign oData = (!iEnable) ? 16'bz : ((iAddr==0)?rConfig:((iAddr==1)?rColumn:((iAddr==2)?rRow:((iAddr==3)?wCharRAMData:16'b1))));
     
     assign oColor = (rDataOutput[7-wPixelX[2:0]] && mDrawingValidData) ? rColorOutput : 8'h0; //either color or black
     //(mDrawingValidData && ((wPixelX[0] && wPixelY[0]) || (!wPixelX[0] && !wPixelY[0]))) ? 8'hFF : 8'h0; //this is a fine-checkerboard test pattern
@@ -32,14 +32,14 @@ module epRISC_VideoTerm(iClk, iRst, iAddr, iData, oData, iWrite, iEnable, iMemCl
        
     assign wCurrColor = wCharRAMFrame[15:8];
     assign wCurrChar = wCharRAMFrame[7:0];
-
-wire [11:0] debug;
-    assign debug = (rConfig[11:0] + {5'h0, iAddr[6:0]});
+    
+    wire [16:0] debug;
+    assign debug = (rRow<<4)+(rRow<<6)+rColumn;
     
     `ifdef EMULATED
-    SoftVideoRAM vram((rConfig[11:0] + {5'h0, iAddr[6:0]}), rFramePtr[11:0], iClk, iMemClk, iData, 16'h0, (iWrite&&iEnable)?1:0, 0, wCharRAMData, wCharRAMFrame);
+    SoftVideoRAM vram((rRow<<4)+(rRow<<6)+rColumn, rFramePtr[11:0], iClk, iMemClk, iData, 16'h0, (iWrite&&iEnable&&iAddr==3)?1:0, 0, wCharRAMData, wCharRAMFrame);
     `else
-    ChipVideoRAM vram((rConfig[11:0] + {5'h0, iAddr[6:0]}), rFramePtr[11:0], iClk, iMemClk, iData, 16'h0, (iWrite&&iEnable)?1:0, 0, wCharRAMData, wCharRAMFrame);
+    ChipVideoRAM vram((rRow<<4)+(rRow<<6)+rColumn, rFramePtr[11:0], iClk, iMemClk, iData, 16'h0, (iWrite&&iEnable&&iAddr==3)?1:0, 0, wCharRAMData, wCharRAMFrame);
     `endif
     
     VideoROM vrom({rRowSel, wCurrChar}, iMemClk, wFontRow);
@@ -48,11 +48,29 @@ wire [11:0] debug;
         if(iRst) begin
             rConfig <= 16'h0;
         end else begin
-            if(iWrite && iEnable && (iAddr == 7'h7F))
+            if(iWrite && iEnable && (iAddr == 0))
                 rConfig <= iData;
         end
     end
+
+    always @(posedge iClk) begin
+        if(iRst) begin
+            rRow <= 16'h0;
+        end else begin
+            if(iWrite && iEnable && (iAddr == 2))
+                rRow <= iData;
+        end
+    end
     
+    always @(posedge iClk) begin
+        if(iRst) begin
+            rColumn <= 16'h0;
+        end else begin
+            if(iWrite && iEnable && (iAddr == 1))
+                rColumn <= iData;
+        end
+    end
+        
     always @(posedge iVideoClk) begin
         if(iRst) begin
             rPulseX <= 0;
@@ -85,7 +103,7 @@ wire [11:0] debug;
             rDataOutput <= 0;
             rFramePtr <= 0;
         end else begin
-            rFramePtr <= 0;
+            //rFramePtr <= 0;
             
             case(wPixelX[2:0])
                 3'h6: begin
@@ -120,6 +138,9 @@ module SoftVideoRAM(iAddrA, iAddrB, iClkA, iClkB, iDInA, iDInB, iWriteA, iWriteB
     reg [12:0] rClr;
     reg [15:0] rContents[0:4095];
 
+    wire debug;
+    assign debug = (iAddrB > 80) ? 1 : 0;
+    
     initial begin
         for(rClr=0;rClr<4096;rClr=rClr+1)
             rContents[rClr] = 0;

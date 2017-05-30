@@ -29,6 +29,7 @@
                 addr.v  d:REG_WORK a:REG_WORK v:#h07
 :.prest         push.r  s:REG_WORK
                 call.s  a:ser_send
+                call.s  a:vga_putc
                 pops.r  d:REG_WORK                                  ; Print it
                 
                 subr.v  d:REG_CONT a:REG_CONT v:#h01
@@ -94,7 +95,7 @@
                 
                 push.r  s:%Zz
                 call.s  a:ser_send
-                call.s  a:vid_putc
+                call.s  a:vga_putc
                 pops.r  d:%Zz                                       ; Print it
                 
                 addr.v  d:REG_CONT a:REG_CONT v:#h01                ; Increment counter

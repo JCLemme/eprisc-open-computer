@@ -84,9 +84,9 @@ iBusMOSI[3]                  : 11        : input  : 2.5 V             :         
 iBusMOSI[2]                  : 12        : input  : 2.5 V             :         : 1A        : Y              
 oBusMISO[1]                  : 13        : output : 2.5 V             :         : 1A        : Y              
 oBusMISO[0]                  : 14        : output : 2.5 V             :         : 1A        : Y              
-bBoardDebug1                 : 15        : bidir  : 2.5 V             :         : 1B        : N              
+bBoardDebug4                 : 15        : bidir  : 2.5 V             :         : 1B        : N              
 ~ALTERA_TMS~ / RESERVED_INPUT : 16        : input  : 2.5 V Schmitt Trigger :         : 1B        : N              
-RESERVED_INPUT_WITH_WEAK_PULLUP : 17        :        :                   :         : 1B        :                
+bBoardDebug1                 : 17        : bidir  : 2.5 V             :         : 1B        : N              
 ~ALTERA_TCK~ / RESERVED_INPUT : 18        : input  : 2.5 V Schmitt Trigger :         : 1B        : N              
 ~ALTERA_TDI~ / RESERVED_INPUT : 19        : input  : 2.5 V Schmitt Trigger :         : 1B        : N              
 ~ALTERA_TDO~                 : 20        : output : 2.5 V             :         : 1B        : N              
@@ -190,7 +190,7 @@ VCCIO7                       : 117       : power  :                   : 2.5V    
 oExtBusClock                 : 118       : output : 2.5 V             :         : 7         : Y              
 iExtBusInterrupt             : 119       : input  : 2.5 V             :         : 7         : Y              
 bGPIO0                       : 120       : bidir  : 2.5 V             :         : 8         : Y              
-bBoardDebug4                 : 121       : bidir  : 2.5 V             :         : 8         : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : 121       :        :                   :         : 8         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : 122       :        :                   :         : 8         :                
 oSPISelect[3]                : 123       : output : 2.5 V             :         : 8         : Y              
 oBusInterrupt                : 124       : output : 2.5 V             :         : 8         : Y              

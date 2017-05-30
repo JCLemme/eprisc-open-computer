@@ -34,9 +34,17 @@
 
 !zone   lemon_stub
 
-:lemon_putc     brch.a  a:ser_send
-
-
+:lemon_putc     subr.v  d:%SP a:%SP v:#h01
+                pops.r  d:%Zz
+                addr.v  d:%SP a:%SP v:#h02
+                push.r  s:%Zz
+                
+                call.s  a:ser_send
+                call.s  a:vga_putc
+                
+                pops.r  d:%Zz
+                rtrn.s
+                
 :lemon_getc     brch.a  a:ser_srcv
 
 :lemon_putn     brch.a  a:str_hnum
@@ -214,10 +222,10 @@
                 call.s  a:lemon_putc
                 pops.r  d:%Yw         
                     
-                move.v  d:%Yw v:#h20              
-                push.r  s:%Yw
-                call.s  a:lemon_putc
-                pops.r  d:%Yw         
+                ;move.v  d:%Yw v:#h20              
+                ;push.r  s:%Yw
+                ;call.s  a:lemon_putc
+                ;pops.r  d:%Yw         
                 
                 load.o  d:%Yw r:REG_CURADDR
                 push.r  s:%Yw
