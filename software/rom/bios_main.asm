@@ -7,6 +7,10 @@
 
 !ip     h00000000
 !def    BUS_BASE_ADDRESS    h2000
+!def    BIOS_DISKBUF        #h3000
+!def    BIOS_DISKLBL        #h3001
+!def    BIOS_DISKLEN        #h3004
+!def    BIOS_DISKENT        #h3005
 
 !zone   bios_main
 
@@ -56,6 +60,7 @@
                 pops.r  d:%Xw                                       ; Announce that we're trying to mount the first SD card
                 
                 call.s  a:sdc_init                                  ; Initialize the first SD card
+                push.r  s:%Zz                                       ; We'll need this later
                 
                 move.v  d:%Xw v:bios_str.str_mountno
                 cmpr.v  a:%Zz v:#hFF                                ; Did it fail?
@@ -65,15 +70,134 @@
                 call.s  a:str_puts
                 pops.r  d:%Xw                                       ; Print the correct string
                 
-                move.v  d:%Xw v:#h3000
+                pops.r  d:%Zz                                       
+                cmpr.v  a:%Zz v:#hFF
+                brch.a  c:%EQL a:.monitor                           ; No need to look for a filesystem if the disk's dead
+                
+                
+                
+                move.v  d:%Xw v:bios_str.str_diskbgn
+                push.r  s:%Xw
+                call.s  a:str_puts
+                pops.r  d:%Xw                                       ; Time to look for a filesystem
+                
+                move.v  d:%Xw v:BIOS_DISKBUF
                 push.r  s:%Xw 
                 move.v  d:%Xw v:#h0
                 push.r  s:%Xw 
                 call.s  a:sdc_read
                 pops.r  d:%Xw
-                pops.r  d:%Xw                                       ; Testing - load the first block into memory
+                pops.r  d:%Xw                                       ; Load the first block into memory
                 
-                move.v  d:%Xw v:bios_str.str_monitor
+                move.v  d:%Xw v:BIOS_DISKBUF
+                load.o  r:%Xw d:%Zz                                 ; Check the magic
+                cmpr.v  a:%Zz v:#hEA s:#h0C                         ; Is it hEA000000?
+                brch.a  c:%EQL a:.gooddisk                          ; If not, continue
+                move.v  d:%Xw v:bios_str.str_diskerr
+                push.r  s:%Xw
+                call.s  a:str_puts
+                pops.r  d:%Xw                                       ; Disk is corrupt
+                brch.a  a:.monitor                                  ; Give up
+                
+:.gooddisk      move.v  d:%Xw v:bios_str.str_disklba
+                push.r  s:%Xw
+                call.s  a:str_puts
+                pops.r  d:%Xw                                       ; "Found disk"
+                move.v  d:%Xw v:BIOS_DISKLBL
+                push.r  s:%Xw
+                move.v  d:%Xw v:#h0C
+                call.s  a:str_puts
+                pops.r  d:%Xw
+                pops.r  d:%Xw                                       ; Label
+                move.v  d:%Xw v:bios_str.str_disklbb
+                push.r  s:%Xw
+                call.s  a:str_puts
+                pops.r  d:%Xw                                       ; "at block 0"
+                
+                move.v  d:%Xw v:BIOS_DISKBUF
+                load.o  r:%Xw d:%Zz                                 ; Check the length
+                cmpr.v  a:%Zz v:#h00                                ; Are there any entries on the disk?
+                brch.a  c:%NEQ a:.notempty                          ; If not, continue
+                move.v  d:%Xw v:bios_str.str_diskemp
+                push.r  s:%Xw
+                call.s  a:str_puts
+                pops.r  d:%Xw                                       ; Disk is empty
+                brch.a  a:.monitor                                  ; Give up
+                
+:.notempty      move.v  d:%Xw v:bios_str.str_disksza
+                push.r  s:%Xw
+                call.s  a:str_puts
+                pops.r  d:%Xw                                       ; Disk has stuff on it
+                move.v  d:%Xw v:BIOS_DISKBUF
+                load.o  r:%Xw d:%Zz                                 ; Check the length
+                push.r  s:%Zz 
+                move.v  d:%Xw v:#h02
+                push.r  s:%Xw
+                call.s  a:str_lnum
+                pops.r  d:%Xw
+                pops.r  d:%Zz                                       ; Number of entries
+                move.v  d:%Xw v:bios_str.str_diskszb
+                push.r  s:%Xw
+                call.s  a:str_puts
+                pops.r  d:%Xw                                       ; Cool cool
+                
+                move.v  d:%Xw v:bios_str.str_diskchs
+                push.r  s:%Xw
+                call.s  a:str_puts
+                pops.r  d:%Xw                                       ; List the entries
+
+                move.v  d:%Xw v:BIOS_DISKBUF
+                load.o  r:%Xw d:%Xy                                 ; Get loop value
+                arsl.v  d:%Xx a:%Xy v:#h02
+                arsl.v  d:%Xy a:%Xy v:#h01
+                addr.r  d:%Xy a:%Xy b:%Xx                           
+                move.v  d:%Xx v:BIOS_DISKENT
+                addr.r  d:%Xy a:%Xx b:%Xy                           ; Get start address and end address
+                move.v  d:%Xz v:#h00                                ; Just for show
+                
+:.listloop      push.r  s:%Xz
+                move.v  d:%Xw v:#h02
+                push.r  s:%Xw
+                call.s  a:str_lnum
+                pops.r  d:%Xw
+                pops.r  d:%Xz                                       ; Number
+                
+                move.v  d:%Xw v:bios_str.str_diskena
+                push.r  s:%Xw
+                call.s  a:str_puts
+                pops.r  d:%Xw                                       ; "Entry"
+                
+                push.r  s:%Xx 
+                move.v  d:%Xw v:#h0C
+                push.r  s:%Xw
+                call.s  a:str_putsl
+                pops.r  d:%Xw
+                pops.r  d:%Xx
+                addr.v  d:%Xx a:%Xx v:#h03                          ; Entry string
+                
+                move.v  d:%Xw v:bios_str.str_diskenb
+                push.r  s:%Xw
+                call.s  a:str_puts
+                pops.r  d:%Xw                                       ; "start"
+                
+                load.o  r:%Xx d:%Xw
+                push.r  s:%Xw
+                call.s  a:str_hnum
+                pops.r  d:%Xw
+                addr.v  d:%Xx a:%Xx v:#h01                          ; Start block
+                
+                move.v  d:%Xw v:bios_str.str_diskenc
+                push.r  s:%Xw
+                call.s  a:str_puts
+                pops.r  d:%Xw                                       ; "length"
+                
+                move.v  d:%Xw v:bios_str.str_diskend
+                push.r  s:%Xw
+                call.s  a:str_puts
+                pops.r  d:%Xw                                       ; "load"
+                
+                
+:.monitor       move.v  d:%Xw v:bios_str.str_monitor
                 push.r  s:%Xw
                 call.s  a:str_puts  
                 pops.r  d:%Xw                                       ; We're just going to immediately enter the monitor
@@ -123,11 +247,11 @@
 :.str_disksza   !str "  Found \0"
 :.str_diskszb   !str " entries on disk.\n\r\n\r\0"
 :.str_diskchs   !str "Available entries:\n\r\0"
-:.str_diskena   !str "  Entry '\0"
+:.str_diskena   !str ": Entry '\0"
 :.str_diskenb   !str "': start \0"
 :.str_diskenc   !str ", length \0"
 :.str_diskend   !str ", load \n\r\0"
-:.str_diskprm   !str "Select an entry to execute, or type 'm' to enter the monitor:\0"
+:.str_diskprm   !str "Select an entry to execute, or type 'm' to enter the monitor: \0"
 
 :.str_postbgn   !str "Starting POSTs...\n\r\0"
 :.str_postmem   !str "  Memory          \0"
@@ -137,8 +261,8 @@
 :.str_postioc   !str "  I/O Controller  \0"
 :.str_postokt   !str "OK\n\r\0"
 :.str_postnot   !str "FAIL\n\r\0"
-:.str_postgud   !str "POST successful.\n\r\n\r\0"
-:.str_postfal   !str "POST unsuccessful.\n\r\n\r\0"
+:.str_postgud   !str "  POST successful.\n\r\n\r\0"
+:.str_postfal   !str "  POST unsuccessful.\n\r\n\r\0"
 
 :.str_monitor   !str "Entering monitor...\n\r\n\r\0"
 

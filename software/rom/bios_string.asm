@@ -25,7 +25,6 @@
                 addr.v  d:REG_WORK a:REG_WORK v:#h30                ; Make it an ASCII number
                 cmpr.v  a:REG_WORK v:#h3A   
                 brch.a  c:%LOW a:.prest                             ; Hex needs a little more
-                mski.v  d:%CS a:%CS v:#h08                          ; Clear carry!!!
                 addr.v  d:REG_WORK a:REG_WORK v:#h07
 :.prest         push.r  s:REG_WORK
                 call.s  a:ser_send
@@ -42,6 +41,42 @@
                 rtrn.s                                              ; And return
                 
 
+!zone   str_lnum  
+!def    REG_INPT    %Zw
+!def    REG_CONT    %Zx
+!def    REG_WORK    %Zy
+
+:str_lnum       push.r  s:REG_INPT
+                push.r  s:REG_CONT
+                push.r  s:REG_WORK
+                subr.v  d:%SP a:%SP v:#h04                          ; Set up the stack
+                pops.r  d:REG_CONT                                  ; Get the number we're supposed to print
+                pops.r  d:REG_INPT
+                addr.v  d:%SP a:%SP v:#h05                          ; Set up the stack
+                
+:.ploop         andb.v  d:REG_WORK a:REG_INPT v:#hF0 s:#h0C         
+                arsl.v  d:REG_INPT a:REG_INPT v:#h04
+                losr.v  d:REG_WORK a:REG_WORK v:#h1C                ; Grab a nybble
+                
+                addr.v  d:REG_WORK a:REG_WORK v:#h30                ; Make it an ASCII number
+                cmpr.v  a:REG_WORK v:#h3A   
+                brch.a  c:%LOW a:.prest                             ; Hex needs a little more
+                addr.v  d:REG_WORK a:REG_WORK v:#h07
+:.prest         push.r  s:REG_WORK
+                call.s  a:ser_send
+                call.s  a:vga_putc
+                pops.r  d:REG_WORK                                  ; Print it
+                
+                subr.v  d:REG_CONT a:REG_CONT v:#h01
+                cmpr.v  a:REG_CONT v:#h00
+                brch.a  c:%NEQ a:.ploop                             ; Repeat
+                
+                pops.r  d:REG_WORK
+                pops.r  d:REG_CONT
+                pops.r  d:REG_INPT
+                rtrn.s                                              ; And return
+                
+                
 !zone   str_getc
 !def    REG_SADR    %Zw
 !def    REG_WORD    %Zx
@@ -100,6 +135,42 @@
                 
                 addr.v  d:REG_CONT a:REG_CONT v:#h01                ; Increment counter
                 brch.a  a:.strloop                                  ; Jump to top of loop
+                
+:.strend        pops.r  d:REG_SADR
+                pops.r  d:REG_CONT
+                pops.r  d:REG_SADR
+                rtrn.s                                              ; And return
+                
+
+!zone   str_putsl
+!def    REG_SADR    %Zw
+!def    REG_CONT    %Zx
+!def    REG_RTRN    %Zz
+
+:str_putsl      push.r  s:REG_SADR
+                push.r  s:REG_CONT
+                subr.v  d:%SP a:%SP v:#h03                          ; Set up the stack
+                pops.r  d:REG_CONT                                  ; Get the string length
+                pops.r  d:REG_SADR                                  ; Get the string address
+                addr.v  d:%SP a:%SP v:#h05                          ; Set up the stack
+               
+                push.r  s:REG_SADR                                  ; Get the address on the stack
+                
+:.strloop       push.r  s:REG_CONT
+                call.s  a:str_getc                                  
+                pops.r  d:REG_CONT                                  ; Get a character
+                
+                cmpr.v  a:%Zz v:#h00                                ; Is it zero?
+                brch.a  c:%EQL a:.strend                            ; If so, exit
+                
+                push.r  s:%Zz
+                call.s  a:ser_send
+                call.s  a:vga_putc
+                pops.r  d:%Zz                                       ; Print it
+                
+                subr.v  d:REG_CONT a:REG_CONT v:#h01                ; Increment counter
+                cmpr.v  a:REG_CONT v:#h00                           ; Are we done?
+                brch.a  c:%NEQ a:.strloop                           ; If so, jump to top of loop
                 
 :.strend        pops.r  d:REG_SADR
                 pops.r  d:REG_CONT
