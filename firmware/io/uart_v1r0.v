@@ -53,7 +53,7 @@ module epRISC_UART(iClk, iRst, oInt, iAddr, iData, oData, iWrite, iEnable, iSClk
     assign oTX = (rSendState == `sBitStart) ? 0 : ((rSendState == `sIdle || rSendState == `sBitStopA || rSendState == `sBitStopB) ? 1 : rSendDataBuf[rSendState]);
     assign oData = (!iEnable) ? 16'bz : ((iAddr==0)?((rSendState==`sIdle)?rControl:rControl|16'h80):((iAddr==1)?rDataIn:((iAddr==2)?rDataOut:16'b1)));
 
-    always @(posedge iClk or posedge iRst) begin
+    always @(negedge iClk or posedge iRst) begin
         if(iRst) begin
             rControl <= 0;
             rRecvCountSto <= 0;
@@ -74,7 +74,7 @@ module epRISC_UART(iClk, iRst, oInt, iAddr, iData, oData, iWrite, iEnable, iSClk
         end
     end
 
-    always @(posedge iClk or posedge iRst) begin
+    always @(negedge iClk or posedge iRst) begin
         if(iRst) begin
             rDataIn <= 16'h00;
         end else begin  

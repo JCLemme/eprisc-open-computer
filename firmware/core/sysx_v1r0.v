@@ -13,8 +13,9 @@
 `define sPipeLo         3
 `define sPipeHi         4
 `define sPipeHiHi       5
-`define sPipeStore      6
-`define sPipeInvalid    7
+`define sPipeRegister   6
+`define sPipeStore      7
+`define sPipeInvalid    8
 
 module epRISC_sysXBuffer(iAddrA, iAddrB, iClkA, iClkB, iDInA, iDInB, iWriteA, iWriteB, oDOutA, oDOutB);     
 
@@ -78,7 +79,7 @@ module epRISC_sysXMaster(iClock, iReset, iAddress, bData, iWrite, iEnable, oInte
     reg [11:0] rMasterClockCount;
 
     // Pipeline controller registers
-    reg [3:0] rPipeState, rPipePrevState, rPipeNextState;
+    reg [4:0] rPipeState, rPipePrevState, rPipeNextState;
     reg [4:0] rLockAck, rLockSto;
     
     // Memory access registers
@@ -171,7 +172,8 @@ module epRISC_sysXMaster(iClock, iReset, iAddress, bData, iWrite, iEnable, oInte
             `sPipeLoLo: rPipeNextState = `sPipeLo;
             `sPipeLo: rPipeNextState =  `sPipeHi;
             `sPipeHi: rPipeNextState = `sPipeHiHi;
-            `sPipeHiHi: rPipeNextState = `sPipeStore;
+            `sPipeHiHi: rPipeNextState = `sPipeRegister;
+            `sPipeRegister: rPipeNextState = `sPipeStore;
             `sPipeStore: rPipeNextState = (rTransferCount == 8'h0) ? `sPipeIdle : `sPipeLoad;
             default: rPipeNextState = `sPipeIdle;
         endcase

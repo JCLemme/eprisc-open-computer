@@ -95,7 +95,7 @@
                 
                 pops.r  d:REG_RESP
                 cmpr.v  a:REG_RESP v:#h50                           ; Did we go offscreen?
-                brch.a  c:%NEQ a:.loop                              ; If not, jump back up
+                brch.a  c:%LOW a:.loop                              ; If not, jump back up
                 
                 move.v  d:REG_CWRK v:VGA_ADDR_CLMN
                 push.r  s:REG_CWRK
@@ -122,7 +122,7 @@
                 
                 pops.r  d:REG_RESP
                 cmpr.v  a:REG_RESP v:#h28                           ; Did we go offscreen?
-                brch.a  c:%NEQ a:.loop                              ; If not, jump back up
+                brch.a  c:%LOW a:.loop                              ; If not, jump back up
                 
                 move.v  d:REG_CWRK v:VGA_ADDR_CROW
                 push.r  s:REG_CWRK
