@@ -148,8 +148,8 @@ module epRISC_iocontroller(iBusClock, iBusSelect, iBusMOSI, oBusInterrupt, oBusM
     
     assign oBusMISO = (rPipeState == `sPipeLoLo) ? wInternalMISO[7:0] :
                       (rPipeState == `sPipeLo) ? wInternalMISO[15:8] :
-                      (rPipeState == `sPipeHi) ? wInternalMISO[23:16] :
-                      (rPipeState == `sPipeHiHi) ? wInternalMISO[31:24] : 8'h0;
+                      (rPipeState == `sPipeHi) ? 8'h0 :
+                      (rPipeState == `sPipeHiHi) ? 8'h0 : 8'h0;
 
 
     `ifdef EMULATED

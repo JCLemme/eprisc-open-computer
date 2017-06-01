@@ -83,6 +83,10 @@
                 call.s  a:ioc_recv
                 pops.r  d:REG_CWRK                                  ; Get current column
                 
+                ;push.r  s:REG_RESP
+                ;call.s  a:str_hnum
+                ;pops.r  d:REG_RESP 
+                
                 addr.v  d:REG_RESP a:REG_RESP v:#h01                ; Increment column
                 push.r  s:REG_RESP
                 
@@ -95,7 +99,7 @@
                 
                 pops.r  d:REG_RESP
                 cmpr.v  a:REG_RESP v:#h50                           ; Did we go offscreen?
-                brch.a  c:%LOW a:.loop                              ; If not, jump back up
+                brch.a  c:%NEQ a:.loop                              ; If not, jump back up
                 
                 move.v  d:REG_CWRK v:VGA_ADDR_CLMN
                 push.r  s:REG_CWRK
@@ -122,7 +126,7 @@
                 
                 pops.r  d:REG_RESP
                 cmpr.v  a:REG_RESP v:#h28                           ; Did we go offscreen?
-                brch.a  c:%LOW a:.loop                              ; If not, jump back up
+                brch.a  c:%NEQ a:.loop                              ; If not, jump back up
                 
                 move.v  d:REG_CWRK v:VGA_ADDR_CROW
                 push.r  s:REG_CWRK

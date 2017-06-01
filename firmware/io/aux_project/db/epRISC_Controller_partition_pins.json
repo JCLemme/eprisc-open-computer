@@ -180,7 +180,11 @@
 					"strict" : false
 				},
 				{
-					"name" : "iBusMOSI[0]",
+					"name" : "iBusSelect[0]",
+					"strict" : false
+				},
+				{
+					"name" : "iBusSelect[1]",
 					"strict" : false
 				},
 				{
@@ -188,23 +192,7 @@
 					"strict" : false
 				},
 				{
-					"name" : "iBusMOSI[2]",
-					"strict" : false
-				},
-				{
-					"name" : "iBusMOSI[3]",
-					"strict" : false
-				},
-				{
-					"name" : "iBusMOSI[4]",
-					"strict" : false
-				},
-				{
-					"name" : "iBusMOSI[5]",
-					"strict" : false
-				},
-				{
-					"name" : "iBusMOSI[6]",
+					"name" : "iBusMOSI[0]",
 					"strict" : false
 				},
 				{
@@ -212,11 +200,23 @@
 					"strict" : false
 				},
 				{
-					"name" : "iBusSelect[0]",
+					"name" : "iBusMOSI[5]",
 					"strict" : false
 				},
 				{
-					"name" : "iBusSelect[1]",
+					"name" : "iBusMOSI[4]",
+					"strict" : false
+				},
+				{
+					"name" : "iBusMOSI[6]",
+					"strict" : false
+				},
+				{
+					"name" : "iBusMOSI[3]",
+					"strict" : false
+				},
+				{
+					"name" : "iBusMOSI[2]",
 					"strict" : false
 				},
 				{

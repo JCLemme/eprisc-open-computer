@@ -1,18 +1,20 @@
 
 State Machine - |epRISC_iocontroller|rPipeState
-Name rPipeState.0110 rPipeState.0101 rPipeState.0100 rPipeState.0011 rPipeState.0010 rPipeState.0001 
-rPipeState.0001 0 0 0 0 0 0 
-rPipeState.0010 0 0 0 0 1 1 
-rPipeState.0011 0 0 0 1 0 1 
-rPipeState.0100 0 0 1 0 0 1 
-rPipeState.0101 0 1 0 0 0 1 
-rPipeState.0110 1 0 0 0 0 1 
+Name rPipeState.00111 rPipeState.00110 rPipeState.00101 rPipeState.00100 rPipeState.00011 rPipeState.00010 rPipeState.00001 
+rPipeState.00001 0 0 0 0 0 0 0 
+rPipeState.00010 0 0 0 0 0 1 1 
+rPipeState.00011 0 0 0 0 1 0 1 
+rPipeState.00100 0 0 0 1 0 0 1 
+rPipeState.00101 0 0 1 0 0 0 1 
+rPipeState.00110 0 1 0 0 0 0 1 
+rPipeState.00111 1 0 0 0 0 0 1 
 
 State Machine - |epRISC_iocontroller|rPipePrevState
-Name rPipePrevState.0110 rPipePrevState.0101 rPipePrevState.0100 rPipePrevState.0011 rPipePrevState.0010 rPipePrevState.0001 
-rPipePrevState.0001 0 0 0 0 0 0 
-rPipePrevState.0010 0 0 0 0 1 1 
-rPipePrevState.0011 0 0 0 1 0 1 
-rPipePrevState.0100 0 0 1 0 0 1 
-rPipePrevState.0101 0 1 0 0 0 1 
-rPipePrevState.0110 1 0 0 0 0 1 
+Name rPipePrevState.00111 rPipePrevState.00110 rPipePrevState.00101 rPipePrevState.00100 rPipePrevState.00011 rPipePrevState.00010 rPipePrevState.00001 
+rPipePrevState.00001 0 0 0 0 0 0 0 
+rPipePrevState.00010 0 0 0 0 0 1 1 
+rPipePrevState.00011 0 0 0 0 1 0 1 
+rPipePrevState.00100 0 0 0 1 0 0 1 
+rPipePrevState.00101 0 0 1 0 0 0 1 
+rPipePrevState.00110 0 1 0 0 0 0 1 
+rPipePrevState.00111 1 0 0 0 0 0 1 
