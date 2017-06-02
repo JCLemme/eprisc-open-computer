@@ -393,6 +393,7 @@
                 call.s  a:spi_addr
                 pops.r  d:REG_RESP                                 ; Initialize card A - gonna add selector later
 
+                arsl.v  d:REG_BLOK a:REG_BLOK v:#h09
                 move.v  d:REG_RESP v:CMD_READ_SINGLE_BLOCK
                 push.r  s:REG_RESP
                 push.r  s:REG_BLOK
@@ -435,10 +436,18 @@
                 pops.r  d:REG_RESP                                  ; Deselect the card
 
                 call.s  a:spi_recv                                  ; Kill some time
+                call.s  a:spi_recv                                  ; Kill some time
+                call.s  a:spi_recv                                  ; Kill some time
+                call.s  a:spi_recv                                  ; Kill some time
+                call.s  a:spi_recv                                  ; Kill some time
+                call.s  a:spi_recv                                  ; Kill some time
                 move.v  d:REG_RESP v:#h00                           ; It's good
                 brch.a  a:.exitread                                 ; Converge 
                 
-:.deadcard      move.v  d:REG_RESP v:#h00                    
+:.deadcard      push.r  s:REG_RESP
+                call.s  a:str_hnum
+                pops.r  d:REG_RESP
+                move.v  d:REG_RESP v:#h00                    
                 push.r  s:REG_RESP
                 call.s  a:spi_addr
                 pops.r  d:REG_RESP                                  ; Deselect the card

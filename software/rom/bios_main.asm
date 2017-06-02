@@ -98,7 +98,8 @@
                 move.v  d:%Xw v:BIOS_DISKLBL
                 push.r  s:%Xw
                 move.v  d:%Xw v:#h0C
-                call.s  a:str_puts
+                push.r  s:%Xw
+                call.s  a:str_putsl
                 pops.r  d:%Xw
                 pops.r  d:%Xw                                       ; Label
                 move.v  d:%Xw v:bios_str.str_disklbb
@@ -120,7 +121,7 @@
                 push.r  s:%Xw
                 call.s  a:str_puts
                 pops.r  d:%Xw                                       ; Disk has stuff on it
-                move.v  d:%Xw v:BIOS_DISKBUF
+                move.v  d:%Xw v:BIOS_DISKLEN
                 load.o  r:%Xw d:%Zz                                 ; Check the length
                 push.r  s:%Zz 
                 move.v  d:%Xw v:#h02
@@ -138,7 +139,7 @@
                 call.s  a:str_puts
                 pops.r  d:%Xw                                       ; List the entries
 
-                move.v  d:%Xw v:BIOS_DISKBUF
+                move.v  d:%Xw v:BIOS_DISKLEN
                 load.o  r:%Xw d:%Xy                                 ; Get loop value
                 arsl.v  d:%Xx a:%Xy v:#h02
                 arsl.v  d:%Xy a:%Xy v:#h01
@@ -201,7 +202,7 @@
                 addr.v  d:%Xx a:%Xx v:#h01                          ; Load block
                 
                 addr.v  d:%Xz a:%Xz v:#h01                          ; Increment show number
-                cmpr.r  a:%Xx :%Xy                                  ; Are we finished?
+                cmpr.r  a:%Xx b:%Xy                                 ; Are we finished?
                 brch.a  c:%LOW a:.listloop                          ; If not, loop back up
                 
 :.chooseorp     move.v  d:%Xw v:bios_str.str_diskprm
@@ -209,7 +210,7 @@
                 call.s  a:str_puts
                 pops.r  d:%Xw                                       ; Prompt the user to choose an entry
                 
-:.chooseloop    call.s  a:ser_recv                                  ; Get a character
+:.chooseloop    call.s  a:ser_srcv                                  ; Get a character
                 cmpr.v  a:%Zz v:#h47                                ; Is it gonna be a number?
                 brch.a  c:%HOS a:.notnum                            ; If not, run
                 
@@ -263,6 +264,9 @@
                 call.s  a:sdc_read
                 pops.r  d:%Xx
                 pops.r  d:%Xz                                       ; Load the first block
+
+                cmpr.v  a:%Zz v:#h00
+                brch.a  c:%NEQ a:.monitor
                 
                 addr.v  d:%Xx a:%Xx v:#h01                          ; Increment current block
                 addr.v  d:%Xz a:%Xz v:#h80                          ; Increment load address
@@ -273,6 +277,9 @@
                 
 :.runit         call.s  a:vga_sclr                                  ; Clear the screen
                 load.o  r:%Yw d:%Xz o:#h05                          ; Load block
+                push.r  s:%Xz
+                call.s  a:str_hnum
+                pops.r  d:%Xz
                 brch.o  r:%Xz                                       ; Run the program
                 
 :.monitor       move.v  d:%Xw v:bios_str.str_monitor

@@ -1,5 +1,5 @@
 PowerPlay Power Analyzer report for epRISC_Controller
-Wed May 31 23:40:43 2017
+Fri Jun  2 00:11:10 2017
 Quartus Prime Version 16.0.0 Build 211 04/27/2016 SJ Lite Edition
 
 
@@ -53,19 +53,19 @@ agreement for further details.
 ; Number detected on machine ; 8           ;
 ; Maximum allowed            ; 4           ;
 ;                            ;             ;
-; Average used               ; 1.60        ;
+; Average used               ; 1.71        ;
 ; Maximum used               ; 4           ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processors 2-4         ;  20.1%      ;
+;     Processors 2-4         ;  23.5%      ;
 +----------------------------+-------------+
 
 
 +-------------------------------------------------------------------------------------------+
 ; PowerPlay Power Analyzer Summary                                                          ;
 +----------------------------------------+--------------------------------------------------+
-; PowerPlay Power Analyzer Status        ; Successful - Wed May 31 23:40:43 2017            ;
+; PowerPlay Power Analyzer Status        ; Successful - Fri Jun  2 00:11:10 2017            ;
 ; Quartus Prime Version                  ; 16.0.0 Build 211 04/27/2016 SJ Lite Edition      ;
 ; Revision Name                          ; epRISC_Controller                                ;
 ; Top-level Entity Name                  ; epRISC_iocontroller                              ;
@@ -347,7 +347,7 @@ agreement for further details.
 Info: *******************************************************************
 Info: Running Quartus Prime PowerPlay Power Analyzer
     Info: Version 16.0.0 Build 211 04/27/2016 SJ Lite Edition
-    Info: Processing started: Wed May 31 23:40:40 2017
+    Info: Processing started: Fri Jun  2 00:11:07 2017
 Info: Command: quartus_pow --read_settings_files=off --write_settings_files=off epRISC_Auxiliary -c epRISC_Controller
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (21077): Low junction temperature is 0 degrees C
@@ -374,8 +374,8 @@ Info (334004): Delay annotation completed successfully
 Info (215049): Average toggle rate for this design is 0.000 millions of transitions / sec
 Info (215031): Total thermal power estimate for the design is 232.92 mW
 Info: Quartus Prime PowerPlay Power Analyzer was successful. 0 errors, 12 warnings
-    Info: Peak virtual memory: 1268 megabytes
-    Info: Processing ended: Wed May 31 23:40:43 2017
+    Info: Peak virtual memory: 1269 megabytes
+    Info: Processing ended: Fri Jun  2 00:11:10 2017
     Info: Elapsed time: 00:00:03
     Info: Total CPU time (on all processors): 00:00:04
 
