@@ -27,15 +27,11 @@
                 pops.r  d:%Xw                                       ; Reset the I/O controller
                             
                 call.s  a:vga_init                                  ; Start up video
-                
-
 
                 move.v  d:%Xw v:bios_str.str_welcome
                 push.r  s:%Xw
                 call.s  a:str_puts
                 pops.r  d:%Xw                                       ; Print the welcome message
-            
-
 
                 move.v  d:%Xw v:bios_str.str_postbgn
                 push.r  s:%Xw
@@ -46,9 +42,7 @@
                 push.r  s:%Xw
                 call.s  a:str_puts
                 pops.r  d:%Xw                                       ; Temporary - no POSTs yet, so just say we passed and move on
-                
-                
-                
+                                
                 move.v  d:%Xw v:#h41
                 push.r  s:%Xw
                 call.s  a:spi_send
@@ -73,9 +67,7 @@
                 pops.r  d:%Zz                                       
                 cmpr.v  a:%Zz v:#hFF
                 brch.a  c:%EQL a:.monitor                           ; No need to look for a filesystem if the disk's dead
-                
-                
-                
+                       
                 move.v  d:%Xw v:bios_str.str_diskbgn
                 push.r  s:%Xw
                 call.s  a:str_puts
@@ -191,11 +183,97 @@
                 call.s  a:str_puts
                 pops.r  d:%Xw                                       ; "length"
                 
+                load.o  r:%Xx d:%Xw
+                push.r  s:%Xw
+                call.s  a:str_hnum
+                pops.r  d:%Xw
+                addr.v  d:%Xx a:%Xx v:#h01                          ; Length block
+                
                 move.v  d:%Xw v:bios_str.str_diskend
                 push.r  s:%Xw
                 call.s  a:str_puts
                 pops.r  d:%Xw                                       ; "load"
+            
+                load.o  r:%Xx d:%Xw
+                push.r  s:%Xw
+                call.s  a:str_hnum
+                pops.r  d:%Xw
+                addr.v  d:%Xx a:%Xx v:#h01                          ; Load block
                 
+                addr.v  d:%Xz a:%Xz v:#h01                          ; Increment show number
+                cmpr.r  a:%Xx :%Xy                                  ; Are we finished?
+                brch.a  c:%LOW a:.listloop                          ; If not, loop back up
+                
+:.chooseorp     move.v  d:%Xw v:bios_str.str_diskprm
+                push.r  s:%Xw
+                call.s  a:str_puts
+                pops.r  d:%Xw                                       ; Prompt the user to choose an entry
+                
+:.chooseloop    call.s  a:ser_recv                                  ; Get a character
+                cmpr.v  a:%Zz v:#h47                                ; Is it gonna be a number?
+                brch.a  c:%HOS a:.notnum                            ; If not, run
+                
+:.number        subr.v  d:%Zz a:%Zz v:#h30      
+                cmpr.v  a:%Zz v:#h0A
+                brch.a  c:%LOW a:.goodnum
+                subr.v  d:%Zz a:%Zz v:#h07 
+                cmpr.v  a:%Zz v:#h0A
+                brch.a  c:%LOW a:.badnum               
+                cmpr.v  a:%Zz v:#h10
+                brch.a  c:%LOW a:.goodnum                           ; Convert character to hex digit
+
+:.badnum        move.v  d:%Xw v:bios_str.str_dropnxt
+                push.r  s:%Xw
+                call.s  a:str_puts
+                pops.r  d:%Xw                                       ; Drop down a line
+                brch.a  a:.chooseorp                                ; Try again
+                
+:.notnum        push.r  s:%Zz                                       ; We need this
+
+                move.v  d:%Xw v:bios_str.str_dropnxt
+                push.r  s:%Xw
+                call.s  a:str_puts
+                pops.r  d:%Xw                                       ; Drop down a line
+                
+                pops.r  d:%Zz                                       ; Bring it back around
+                
+                cmpr.v  a:%Zz v:#h4D                                ; Is it "M"?
+                brch.a  c:%EQL a:.monitor                           ; If so, jump to the monitor
+                brch.a  a:.chooseorp                                ; Else, try again
+                
+:.goodnum       push.r  s:%Zz
+                move.v  d:%Xw v:bios_str.str_disklod
+                push.r  s:%Xw
+                call.s  a:str_puts
+                pops.r  d:%Xw                                       
+                pops.r  d:%Zz                                       ; Loading message
+                
+                arsl.v  d:%Xx a:%Zz v:#h02
+                arsl.v  d:%Zz a:%Zz v:#h01
+                addr.r  d:%Zz a:%Zz b:%Xx
+                move.v  d:%Xx v:BIOS_DISKENT
+                addr.r  d:%Yw a:%Xx b:%Zz                           ; Calculate the entry location
+                
+                load.o  r:%Yw d:%Xx o:#h03                          ; Start block
+                load.o  r:%Yw d:%Xy o:#h04                          ; Length block
+                load.o  r:%Yw d:%Xz o:#h05                          ; Load block
+                
+:.loadloop      push.r  s:%Xz
+                push.r  s:%Xx
+                call.s  a:sdc_read
+                pops.r  d:%Xx
+                pops.r  d:%Xz                                       ; Load the first block
+                
+                addr.v  d:%Xx a:%Xx v:#h01                          ; Increment current block
+                addr.v  d:%Xz a:%Xz v:#h80                          ; Increment load address
+                subr.v  d:%Xy a:%Xy v:#h01                          ; Decrement length
+                
+                cmpr.v  a:%Xy v:#h00                                ; Are we done?
+                brch.a  c:%NEQ a:.loadloop                          ; If not, loop back up
+                
+:.runit         call.s  a:vga_sclr                                  ; Clear the screen
+                load.o  r:%Yw d:%Xz o:#h05                          ; Load block
+                brch.o  r:%Xz                                       ; Run the program
                 
 :.monitor       move.v  d:%Xw v:bios_str.str_monitor
                 push.r  s:%Xw
@@ -233,7 +311,7 @@
 
 !zone   bios_str
 
-:.str_welcome   !str "epRISC Bootloader v3.2\n\rcopyright 2015-2017 Proportional Labs\n\r\n\r\0"
+:.str_welcome   !str "epRISC Bootloader v3.4\n\rcopyright 2015-2017 Proportional Labs\n\r\n\r\0"
 :.str_mountda   !str "Attempting to mount SD card in slot A...\n\r\0"
 :.str_mountdb   !str "Attempting to mount SD card in slot B...\n\r\0"
 :.str_mountok   !str "  SD card mounted successfully.\n\r\n\r\0"
@@ -251,7 +329,8 @@
 :.str_diskenb   !str "': start \0"
 :.str_diskenc   !str ", length \0"
 :.str_diskend   !str ", load \n\r\0"
-:.str_diskprm   !str "Select an entry to execute, or type 'm' to enter the monitor: \0"
+:.str_diskprm   !str "Select an entry to execute, or type 'M' to enter the monitor: \0"
+:.str_disklod   !str "  Loading entry...\n\r\n\r\0"
 
 :.str_postbgn   !str "Starting POSTs...\n\r\0"
 :.str_postmem   !str "  Memory          \0"
@@ -265,6 +344,7 @@
 :.str_postfal   !str "  POST unsuccessful.\n\r\n\r\0"
 
 :.str_monitor   !str "Entering monitor...\n\r\n\r\0"
+:.str_dropnxt   !str "\n\r\0"
 
 
 !include    "../../rom/bios_bus.asm"

@@ -270,13 +270,14 @@
                 brch.a  a:.datares                                  ; Converge
 :.bigdata       move.v  d:REG_ACROSSL v:#h08                        ; We know it's eight words long here
 :.datares       subr.r  d:REG_TLENGTH a:REG_TLENGTH b:REG_ACROSSL   ; Update total length
-
+                brch.a  a:.blkfent                                  ; Skip the first space so we fit into 80 characters
+                
 :.blkloop       move.v  d:%Yw v:#h20              
                 push.r  s:%Yw
                 call.s  a:lemon_putc
                 pops.r  d:%Yw         
                 
-                load.o  d:%Yw r:REG_CURADDR
+:.blkfent       load.o  d:%Yw r:REG_CURADDR
                 push.r  s:%Yw
                 call.s  a:lemon_putn
                 pops.r  d:%Yw                                       ; Print a data word
