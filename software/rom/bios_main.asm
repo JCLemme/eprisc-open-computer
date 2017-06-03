@@ -148,7 +148,12 @@
                 addr.r  d:%Xy a:%Xx b:%Xy                           ; Get start address and end address
                 move.v  d:%Xz v:#h00                                ; Just for show
                 
-:.listloop      push.r  s:%Xz
+:.listloop      move.v  d:%Xw v:bios_str.str_spacefr        
+                push.r  s:%Xw
+                call.s  a:str_puts
+                pops.r  d:%Xw                                       ; Intentation in front of number
+                
+                push.r  s:%Xz
                 move.v  d:%Xw v:#h02
                 push.r  s:%Xw
                 call.s  a:str_lnum
@@ -200,6 +205,11 @@
                 call.s  a:str_hnum
                 pops.r  d:%Xw
                 addr.v  d:%Xx a:%Xx v:#h01                          ; Load block
+                
+                move.v  d:%Xw v:bios_str.str_dropnxt               
+                push.r  s:%Xw
+                call.s  a:str_puts
+                pops.r  d:%Xw                                       ; Drop down a line
                 
                 addr.v  d:%Xz a:%Xz v:#h01                          ; Increment show number
                 cmpr.r  a:%Xx b:%Xy                                 ; Are we finished?
@@ -335,7 +345,7 @@
 :.str_diskena   !str ": Entry '\0"
 :.str_diskenb   !str "': start \0"
 :.str_diskenc   !str ", length \0"
-:.str_diskend   !str ", load \n\r\0"
+:.str_diskend   !str ", load \0"
 :.str_diskprm   !str "Select an entry to execute, or type 'M' to enter the monitor: \0"
 :.str_disklod   !str "  Loading entry...\n\r\n\r\0"
 
@@ -352,7 +362,7 @@
 
 :.str_monitor   !str "Entering monitor...\n\r\n\r\0"
 :.str_dropnxt   !str "\n\r\0"
-
+:.str_spacefr   !str "  \0"
 
 !include    "../../rom/bios_bus.asm"
 !include    "../../rom/bios_uart.asm"

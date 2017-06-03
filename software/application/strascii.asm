@@ -10,33 +10,33 @@
 !def    REG_PWRK            %Xw
 !def    REG_RESP            %Zz
 
-:entry          call.s  a:ser_recv                          ; Get a character
+:entry          call.s  a:ser_srcv                          ; Get a character
                 push.r  s:REG_RESP
                 
                 move.v  d:REG_PWRK v:#h27
                 push.r  s:REG_PWRK
-                call.s  a:ser_putc
+                call.s  a:ser_send
                 call.s  a:vga_putc
                 pops.r  d:REG_PWRK                          ; '
                 
-                call.s  a:ser_putc
+                call.s  a:ser_send
                 call.s  a:vga_putc                          ; Character
                 
                 move.v  d:REG_PWRK v:#h27
                 push.r  s:REG_PWRK
-                call.s  a:ser_putc
+                call.s  a:ser_send
                 call.s  a:vga_putc
                 pops.r  d:REG_PWRK                          ; '
                 
                 move.v  d:REG_PWRK v:#h3A
                 push.r  s:REG_PWRK
-                call.s  a:ser_putc
+                call.s  a:ser_send
                 call.s  a:vga_putc
                 pops.r  d:REG_PWRK                          ; :
                 
                 move.v  d:REG_PWRK v:#h20
                 push.r  s:REG_PWRK
-                call.s  a:ser_putc
+                call.s  a:ser_send
                 call.s  a:vga_putc
                 pops.r  d:REG_PWRK                          ;                      
 
@@ -47,13 +47,13 @@
                 
                 move.v  d:REG_PWRK v:#h0A
                 push.r  s:REG_PWRK
-                call.s  a:ser_putc
+                call.s  a:ser_send
                 call.s  a:vga_putc
                 pops.r  d:REG_PWRK
                 
                 move.v  d:REG_PWRK v:#h0D
                 push.r  s:REG_PWRK
-                call.s  a:ser_putc
+                call.s  a:ser_send
                 call.s  a:vga_putc
                 pops.r  d:REG_PWRK
                 
@@ -65,4 +65,3 @@
 !include    "../../rom/bios_uart.asm"
 !include    "../../rom/bios_string.asm"
 !include    "../../rom/bios_video.asm"
-!include    "../../rom/bios_debug.asm"

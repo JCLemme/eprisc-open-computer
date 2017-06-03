@@ -18,6 +18,7 @@
 ; copyright notice be included in the source and binary images.
 ; Thanks! 
 ;
+; When life gives you lemons, squeeze them back into life's eyes - Elmer
 ; modified by Daryl Rictor to work over a serial terminal connection, August 2002.
 
 
