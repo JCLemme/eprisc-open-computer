@@ -81,7 +81,7 @@
                 pops.r  d:REG_DATA
                 rtrn.s                                              ; Return from stack
                 
-!zone   ser_recv
+!zone   ser_srcv
 !def    REG_BASE    %Zw
 !def    REG_RESP    %Zz
 

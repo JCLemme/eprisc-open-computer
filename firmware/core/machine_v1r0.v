@@ -94,7 +94,7 @@ module epRISC_machine(iBoardClock, iBoardReset, iBoardSense, oBoardAcknowledge, 
     assign bBoardDebug5 = 1'bz;
 
     // Front-side bus
-    wire wCoreBusClock, wCoreBusMemClock, wCoreBusFastClock, wCoreBusReset, wCoreBusWrite, wCoreBusInterrupt, wCoreBusNMInterrupt, wCoreBusAccess, wCoreBusReady, wSDRAMReady;
+    wire wCoreBusClock, wCoreBusMemClock, wCoreBusFastClock, wCoreBusReset, wCoreBusWrite, wCoreBusInterrupt, wCoreBusNMInterrupt, wCoreBusAccess, wCoreBusReady, wSDRAMReady, wCoreBusAcknowledge;
     wire [0:31] wCoreBusAddress, wCoreBusData, wRAMData, wSDRAMData;
 
     wire wEnableROM, wEnableRAM, wEnableBusControl, wEnableSDRAM, wDisableExtra;
@@ -122,7 +122,7 @@ module epRISC_machine(iBoardClock, iBoardReset, iBoardSense, oBoardAcknowledge, 
     OnChipPLL           clock(iBoardClock, wCoreBusClock, wCoreBusMemClock, wCoreBusFastClock);
     `endif
 
-    epRISC_core         core(wCoreBusClock, wCoreBusReset, wCoreBusAddress, wCoreBusData, wCoreBusWrite, wCoreBusInterrupt, wCoreBusNMInterrupt, wCoreHalt, wCoreFlag, wCoreBusAccess, wCoreBusReady); 
+    epRISC_core         core(wCoreBusClock, wCoreBusReset, wCoreBusAddress, wCoreBusData, wCoreBusWrite, wCoreBusInterrupt, wCoreBusNMInterrupt, wCoreHalt, wCoreFlag, wCoreBusAccess, wCoreBusReady, wCoreBusAcknowledge); 
     epRISC_sysXMaster   bus(wCoreBusMemClock, wCoreBusReset, wCoreBusAddress, wCoreBusData, wCoreBusWrite, wEnableBusControl, wCoreBusInterrupt, wCoreBusMemClock, iBusMISO, oBusMOSI, oBusClock, iBusInterrupt, oBusSelect);
     
     epRISC_embeddedROM  tbrom(wCoreBusMemClock, wCoreBusAddress, wCoreBusData, wEnableROM); 
@@ -143,7 +143,7 @@ module epRISC_machine(iBoardClock, iBoardReset, iBoardSense, oBoardAcknowledge, 
     `else
     epRISC_SDRAM        tbsdram(wCoreBusAddress, wCoreBusData, (wCoreBusAccess && wEnableSDRAM && wCoreBusWrite), 
                                 wCoreBusAddress, wSDRAMData, wSDRAMReady, (wCoreBusAccess && wEnableSDRAM && (!wCoreBusWrite) && (!wSDRAMBusy)), 
-                                wSDRAMBusy, (!wCoreBusReset), wCoreBusFastClock, 
+                                wSDRAMBusy, (!wCoreBusReset), wCoreBusFastClock, wCoreBusAcknowledge,
                                 oMemoryAddress, oMemoryBank, bMemoryData, oMemoryCKE, oMemoryCS, oMemoryRAS, oMemoryCAS, oMemoryWE, oMemoryDQM);
     `endif
     

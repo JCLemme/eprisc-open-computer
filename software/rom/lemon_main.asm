@@ -44,7 +44,11 @@
                 
                 pops.r  d:%Zz
                 rtrn.s
-                
+            
+:lemon_putcs    brch.a  a:ser_send
+
+:lemon_putcv    brch.a  a:vga_putc
+
 :lemon_getc     brch.a  a:ser_srcv
 
 :lemon_putn     brch.a  a:str_hnum
@@ -246,9 +250,14 @@
                 addr.v  d:REG_TLENGTH a:REG_TLENGTH v:#h01          ; Calculate length of run
                 push.r  s:REG_CURADDR                               ; Save original starting address
                 
+                move.v  d:%Yw v:#h0A                  
+                push.r  s:%Yw
+                call.s  a:lemon_putcv
+                pops.r  d:%Yw       
+                
 :.blkdrop       move.v  d:%Yw v:#h0A                  
                 push.r  s:%Yw
-                call.s  a:lemon_putc
+                call.s  a:lemon_putcs
                 pops.r  d:%Yw                                   
                 move.v  d:%Yw v:#h0D                  
                 push.r  s:%Yw

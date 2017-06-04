@@ -394,6 +394,7 @@
                 pops.r  d:REG_RESP                                 ; Initialize card A - gonna add selector later
 
                 arsl.v  d:REG_BLOK a:REG_BLOK v:#h09
+                
                 move.v  d:REG_RESP v:CMD_READ_SINGLE_BLOCK
                 push.r  s:REG_RESP
                 push.r  s:REG_BLOK

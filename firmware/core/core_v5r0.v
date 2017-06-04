@@ -65,7 +65,7 @@ endmodule
 
 // Synthesizable, non-pipelined version of the CPU. Mostly working as of this commit.
 
-module epRISC_core(iClk, iRst, oAddr, bData, oWrite, iMaskInt, iNonMaskInt, oHalt, oFlg, oAccess, iReady);  
+module epRISC_core(iClk, iRst, oAddr, bData, oWrite, iMaskInt, iNonMaskInt, oHalt, oFlg, oAccess, iReady, oAcknowledge);  
            
     // System control signals        
     input iClk, iRst;
@@ -84,7 +84,7 @@ module epRISC_core(iClk, iRst, oAddr, bData, oWrite, iMaskInt, iNonMaskInt, oHal
     
     // Memory control signals
     input iReady;
-    output wire oAccess;
+    output wire oAccess, oAcknowledge;
     
     // System registers
     reg [31:0] rRegIP, rRegSP, rRegCS, rRegGL;
@@ -141,6 +141,7 @@ module epRISC_core(iClk, iRst, oAddr, bData, oWrite, iMaskInt, iNonMaskInt, oHal
     assign wALUOperation = (mALU) ? (fALUOperation) : ((mDirect && mDirectOR) ? (3) : (0));
     
     assign oAccess = ((rPipeState == `sPipeMemory || rPipeState == `sPipeFetch) && iClk == 0) ? 1'h1 : 1'h0;
+    assign oAcknowledge = (rPipeState == `sPipeDecode || rPipeState == `sPipeWriteback) ? 1'h1 : 1'h0;
     
     // Assignment - instruction flags
     assign mBranch = (rInst[31] == 1'b1) ? 1'b1 : 1'b0;

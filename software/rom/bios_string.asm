@@ -54,6 +54,15 @@
                 pops.r  d:REG_INPT
                 addr.v  d:%SP a:%SP v:#h06                          ; Set up the stack
                 
+                push.r  s:REG_CONT
+                push.r  s:REG_INPT
+                move.v  d:REG_INPT v:#h08
+                subr.r  d:REG_CONT a:REG_INPT b:REG_CONT
+                arsl.v  d:REG_CONT a:REG_CONT v:#h02
+                pops.r  d:REG_INPT
+                arsl.r  d:REG_INPT a:REG_INPT b:REG_CONT
+                pops.r  d:REG_CONT                                  ; Preshift for length selection
+                
 :.ploop         andb.v  d:REG_WORK a:REG_INPT v:#hF0 s:#h0C         
                 arsl.v  d:REG_INPT a:REG_INPT v:#h04
                 losr.v  d:REG_WORK a:REG_WORK v:#h1C                ; Grab a nybble

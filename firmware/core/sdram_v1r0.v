@@ -41,7 +41,7 @@ module epRISC_SDRAM (
     rd_ready,
     rd_enable,
 
-    busy, rst_n, clk,
+    busy, rst_n, clk, ack,
 
     /* SDRAM SIDE */
     addr, bank_addr, data, clock_enable, cs_n, ras_n, cas_n, we_n,
@@ -121,6 +121,7 @@ output                     rd_ready;
 output                     busy;
 input                      rst_n;
 input                      clk;
+input                      ack;
 
 /* SDRAM SIDE */
 output [SDRADDR_WIDTH-1:0] addr;
@@ -179,7 +180,7 @@ always @ (posedge clk)
     state <= INIT_NOP1;
     command <= CMD_NOP;
     state_cnt <= 4'hf;
-
+    
     haddr_r <= {HADDR_WIDTH{1'b0}};
     wr_data_r <= 32'b0;
     rd_data_r <= 32'b0;
@@ -205,7 +206,7 @@ always @ (posedge clk)
       rd_ready_r <= 1'b1;
       end
     else
-      rd_ready_r <= 1'b0;
+        rd_ready_r <= 1'b0;
 
     busy <= state[4];
 
