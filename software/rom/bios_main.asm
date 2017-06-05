@@ -75,10 +75,36 @@
                 call.s  a:str_puts
                 pops.r  d:%Xw                                       ; Announce the beginning of the POSTs
                 
-                move.v  d:%Xw v:bios_str.str_postgud
+:.memtest       move.v  d:%Xw v:bios_str.str_postmem
                 push.r  s:%Xw
                 call.s  a:str_puts
-                pops.r  d:%Xw                                       ; Temporary - no POSTs yet, so just say we passed and move on
+                pops.r  d:%Xw                                       ; Test the memory
+                
+                move.v  d:%Xx v:#h3000
+                move.v  d:%Xy v:#h6000
+:.memloop       stor.o  r:%Xx s:%Xx 
+                load.o  r:%Xx d:%Xw 
+                cmpr.r  a:%Xw b:%Xx 
+                brch.a  c:%NEQ a:.memchek
+                move.v  d:%Zz v:#h00
+                stor.o  r:%Xx s:%Zz
+                addr.v  d:%Xx a:%Xx v:#h01
+                cmpr.r  a:%Xx b:%Xy
+                brch.a  c:%EQL a:.memchek
+                brch.a  a:.memloop
+                
+:.memchek       move.v  d:%Xw v:bios_str.str_postnot
+                cmpr.r  a:%Xx b:%Xy
+                brch.a  c:%NEQ a:.memrept
+                move.v  d:%Xw v:bios_str.str_postokt
+:.memrept       push.r  s:%Xw
+                call.s  a:str_puts
+                pops.r  d:%Xw                                       ; Report result
+                
+                move.v  d:%Xw v:bios_str.str_postcmp
+                push.r  s:%Xw
+                call.s  a:str_puts
+                pops.r  d:%Xw                                       ; Report end of POSTs
                                 
                 move.v  d:%Xw v:#h41
                 push.r  s:%Xw
@@ -299,12 +325,13 @@
                 brch.a  c:%EQL a:.monitor                           ; If so, jump to the monitor
                 brch.a  a:.chooseorp                                ; Else, try again
                 
-:.goodnum       move.v  d:%Xw v:bios_str.str_dropnxt
+:.goodnum       push.r  s:%Zz
+
+                move.v  d:%Xw v:bios_str.str_dropnxt
                 push.r  s:%Xw
                 call.s  a:str_puts
                 pops.r  d:%Xw                                       ; Drop down a line
                 
-                push.r  s:%Zz
                 move.v  d:%Xw v:bios_str.str_disklod
                 push.r  s:%Xw
                 call.s  a:str_puts
@@ -339,9 +366,9 @@
                 
 :.runit         call.s  a:vga_sclr                                  ; Clear the screen
                 load.o  r:%Yw d:%Xz o:#h05                          ; Load block
-                push.r  s:%Xz
-                call.s  a:str_hnum
-                pops.r  d:%Xz
+                ;push.r  s:%Xz
+                ;call.s  a:str_hnum
+                ;pops.r  d:%Xz
                 brch.o  r:%Xz                                       ; Run the program
                 
 :.monitor       move.v  d:%Xw v:bios_str.str_monitor
@@ -386,6 +413,7 @@
 :.str_postnot   !str "FAIL\n\r\0"
 :.str_postgud   !str "  POST successful.\n\r\n\r\0"
 :.str_postfal   !str "  POST unsuccessful.\n\r\n\r\0"
+:.str_postcmp   !str "  POSTs complete.\n\r\n\r\0"
 
 :.str_monitor   !str "Entering monitor...\n\r\n\r\0"
 :.str_dropnxt   !str "\n\r\0"
