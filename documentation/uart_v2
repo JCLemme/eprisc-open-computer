@@ -1,0 +1,64 @@
+
+epRISC reference UART specification v2
+
+(c) 2015-2017 John C. Lemme - jclemme (at) proportionallabs (dot) com
+This file is released under the epRISC license. See "license.txt" and "license-eprisc.txt" for details.
+
+-------------------------
+
+Overview
+
+The reference UART provided with the epRISC reference design is a simple, two-wire serial UART with configurable parity, bit length, stop bit, and speed settings.
+
+-------------------------
+
+Registers
+
+The UART contains three registers for data transmission and control:
+
+h00     Control         Controls sending and receiving, and sets protocol settings.
+h01     Data In         Data to be sent from the UART.         
+h02     Data Out        Data received by the UART.
+
+The control register is mapped as follows:
+
+1                 0
+5                 0
+nnnn nnnn nnnn nnnn     16-bit word 
+  ll                    Data length             Represents the length of the data word to be sent, with the formula "8-length" bits.
+     x                  Stop bits               When set by the host, uses two stop bit signaling. When reset by the host, uses one stop bit signaling.
+      p                 Parity enable           When set by the host, enables parity signaling. When reset by the host, disables parity signaling.
+       t                Parity type             When set by the host, enables even parity. When reset by the host, uses odd parity. Only applies if flag "Parity enable" is set.
+        n               Interrupt enable        When set by the host, the UART will emit an interrupt when a character is received.
+          s             Send enable             When set by the host system, begins sending the data in the Data In register. Cleared by the UART during the send cycle.
+           o            Send in progress        When set by the UART, represents a send cycle in progress. Cleared by the UART at the end of the send cycle.
+            r           Receive enable          When set by the host system, allows data reception over the RX line. Cleared by the UART after data has been received.
+             b          Receive in progress     When set by the UART, represents a receive cycle in progress. Cleared by the UART at the end of the receive cycle.
+               iiii     Reserved and unused     Should be set to zero during modifications to the control register. Value during reads is undefined. 
+               
+The settings in the control register apply for both sending and receiving. 
+The control register should not be written to while an operation is in progress. Behavior of the UART after a write is performed in this circumstance is undefined.
+
+-------------------------
+
+Signaling
+
+Sending data is driven by the host system. The general protocol is as follows:
+
+Set the "Send enable" flag
+UART will automatically set the "Send in progress" flag when the send begins
+Poll the control register until the "Send enable" flag is reset
+Poll the control register until the "Send in progress" flag is reset
+
+A timeout system is recommended, in the event that the UART locks up, so that the host system can resume operation without waiting for the UART to complete.
+Before initiating a send, it is recommended to make sure that the "Send enable" and "Send in progress" flags are reset. If they are set, either a send is in progress or there is a problem with the UART>
+
+Receives behave in a different, UART-driven manner:
+
+Set the "Receive enable" flag
+UART waits for a character
+UART resets the "Receive enable" flag when a character is received
+Poll the control register until the "Receive enable" flag is reset
+
+
+
