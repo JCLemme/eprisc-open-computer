@@ -1,5 +1,5 @@
 Analysis & Synthesis report for epRISC_Controller
-Fri Jun  2 00:10:40 2017
+Mon Jul 31 23:45:50 2017
 Quartus Prime Version 16.0.0 Build 211 04/27/2016 SJ Lite Edition
 
 
@@ -67,13 +67,13 @@ agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Fri Jun  2 00:10:40 2017       ;
+; Analysis & Synthesis Status        ; Successful - Mon Jul 31 23:45:50 2017       ;
 ; Quartus Prime Version              ; 16.0.0 Build 211 04/27/2016 SJ Lite Edition ;
 ; Revision Name                      ; epRISC_Controller                           ;
 ; Top-level Entity Name              ; epRISC_iocontroller                         ;
 ; Family                             ; MAX 10                                      ;
 ; Total logic elements               ; 1,753                                       ;
-;     Total combinational functions  ; 1,527                                       ;
+;     Total combinational functions  ; 1,513                                       ;
 ;     Dedicated logic registers      ; 419                                         ;
 ; Total registers                    ; 419                                         ;
 ; Total pins                         ; 89                                          ;
@@ -239,14 +239,14 @@ agreement for further details.
 +---------------------------------------------+---------------------------------------------------------------------------------------------------------------+
 ; Estimated Total logic elements              ; 1,753                                                                                                         ;
 ;                                             ;                                                                                                               ;
-; Total combinational functions               ; 1527                                                                                                          ;
+; Total combinational functions               ; 1513                                                                                                          ;
 ; Logic element usage by number of LUT inputs ;                                                                                                               ;
-;     -- 4 input functions                    ; 1130                                                                                                          ;
-;     -- 3 input functions                    ; 208                                                                                                           ;
-;     -- <=2 input functions                  ; 189                                                                                                           ;
+;     -- 4 input functions                    ; 1095                                                                                                          ;
+;     -- 3 input functions                    ; 222                                                                                                           ;
+;     -- <=2 input functions                  ; 196                                                                                                           ;
 ;                                             ;                                                                                                               ;
 ; Logic elements by mode                      ;                                                                                                               ;
-;     -- normal mode                          ; 1432                                                                                                          ;
+;     -- normal mode                          ; 1418                                                                                                          ;
 ;     -- arithmetic mode                      ; 95                                                                                                            ;
 ;                                             ;                                                                                                               ;
 ; Total registers                             ; 419                                                                                                           ;
@@ -263,8 +263,8 @@ agreement for further details.
 ;                                             ;                                                                                                               ;
 ; Maximum fan-out node                        ; epRISC_VideoTerm:bvga|ChipVideoRAM:vram|altsyncram:altsyncram_component|altsyncram_bdd2:auto_generated|q_a[1] ;
 ; Maximum fan-out                             ; 322                                                                                                           ;
-; Total fan-out                               ; 7927                                                                                                          ;
-; Average fan-out                             ; 3.63                                                                                                          ;
+; Total fan-out                               ; 7838                                                                                                          ;
+; Average fan-out                             ; 3.62                                                                                                          ;
 +---------------------------------------------+---------------------------------------------------------------------------------------------------------------+
 
 
@@ -273,18 +273,18 @@ agreement for further details.
 +----------------------------------------------+-------------------+--------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+--------------------------------------------------------------------------------------------------------------------------------------------+---------------------+--------------+
 ; Compilation Hierarchy Node                   ; LC Combinationals ; LC Registers ; Memory Bits ; UFM Blocks ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; ADC blocks ; Full Hierarchy Name                                                                                                                        ; Entity Name         ; Library Name ;
 +----------------------------------------------+-------------------+--------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+--------------------------------------------------------------------------------------------------------------------------------------------+---------------------+--------------+
-; |epRISC_iocontroller                         ; 1527 (218)        ; 419 (71)     ; 69632       ; 0          ; 0            ; 0       ; 0         ; 89   ; 0            ; 0          ; |epRISC_iocontroller                                                                                                                       ; epRISC_iocontroller ; work         ;
+; |epRISC_iocontroller                         ; 1513 (221)        ; 419 (71)     ; 69632       ; 0          ; 0            ; 0       ; 0         ; 89   ; 0            ; 0          ; |epRISC_iocontroller                                                                                                                       ; epRISC_iocontroller ; work         ;
 ;    |OnChipPLL:clock|                         ; 0 (0)             ; 0 (0)        ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |epRISC_iocontroller|OnChipPLL:clock                                                                                                       ; OnChipPLL           ; work         ;
 ;       |altpll:altpll_component|              ; 0 (0)             ; 0 (0)        ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |epRISC_iocontroller|OnChipPLL:clock|altpll:altpll_component                                                                               ; altpll              ; work         ;
 ;          |OnChipPLL_altpll:auto_generated|   ; 0 (0)             ; 0 (0)        ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |epRISC_iocontroller|OnChipPLL:clock|altpll:altpll_component|OnChipPLL_altpll:auto_generated                                               ; OnChipPLL_altpll    ; work         ;
-;    |epRISC_GPIO:gpio|                        ; 70 (70)           ; 49 (49)      ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |epRISC_iocontroller|epRISC_GPIO:gpio                                                                                                      ; epRISC_GPIO         ; work         ;
-;    |epRISC_SPI:bspi|                         ; 55 (55)           ; 65 (65)      ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |epRISC_iocontroller|epRISC_SPI:bspi                                                                                                       ; epRISC_SPI          ; work         ;
-;    |epRISC_UART:uart|                        ; 114 (114)         ; 92 (92)      ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |epRISC_iocontroller|epRISC_UART:uart                                                                                                      ; epRISC_UART         ; work         ;
-;    |epRISC_VideoTerm:bvga|                   ; 1061 (149)        ; 125 (117)    ; 65536       ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |epRISC_iocontroller|epRISC_VideoTerm:bvga                                                                                                 ; epRISC_VideoTerm    ; work         ;
+;    |epRISC_GPIO:gpio|                        ; 55 (55)           ; 49 (49)      ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |epRISC_iocontroller|epRISC_GPIO:gpio                                                                                                      ; epRISC_GPIO         ; work         ;
+;    |epRISC_SPI:bspi|                         ; 57 (57)           ; 65 (65)      ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |epRISC_iocontroller|epRISC_SPI:bspi                                                                                                       ; epRISC_SPI          ; work         ;
+;    |epRISC_UART:uart|                        ; 115 (115)         ; 92 (92)      ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |epRISC_iocontroller|epRISC_UART:uart                                                                                                      ; epRISC_UART         ; work         ;
+;    |epRISC_VideoTerm:bvga|                   ; 1056 (146)        ; 125 (117)    ; 65536       ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |epRISC_iocontroller|epRISC_VideoTerm:bvga                                                                                                 ; epRISC_VideoTerm    ; work         ;
 ;       |ChipVideoRAM:vram|                    ; 0 (0)             ; 0 (0)        ; 65536       ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |epRISC_iocontroller|epRISC_VideoTerm:bvga|ChipVideoRAM:vram                                                                               ; ChipVideoRAM        ; work         ;
 ;          |altsyncram:altsyncram_component|   ; 0 (0)             ; 0 (0)        ; 65536       ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |epRISC_iocontroller|epRISC_VideoTerm:bvga|ChipVideoRAM:vram|altsyncram:altsyncram_component                                               ; altsyncram          ; work         ;
 ;             |altsyncram_bdd2:auto_generated| ; 0 (0)             ; 0 (0)        ; 65536       ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |epRISC_iocontroller|epRISC_VideoTerm:bvga|ChipVideoRAM:vram|altsyncram:altsyncram_component|altsyncram_bdd2:auto_generated                ; altsyncram_bdd2     ; work         ;
-;       |VideoROM:vrom|                        ; 838 (838)         ; 8 (8)        ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |epRISC_iocontroller|epRISC_VideoTerm:bvga|VideoROM:vrom                                                                                   ; VideoROM            ; work         ;
+;       |VideoROM:vrom|                        ; 836 (836)         ; 8 (8)        ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |epRISC_iocontroller|epRISC_VideoTerm:bvga|VideoROM:vrom                                                                                   ; VideoROM            ; work         ;
 ;       |lpm_divide:Div0|                      ; 74 (0)            ; 0 (0)        ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |epRISC_iocontroller|epRISC_VideoTerm:bvga|lpm_divide:Div0                                                                                 ; lpm_divide          ; work         ;
 ;          |lpm_divide_itl:auto_generated|     ; 74 (0)            ; 0 (0)        ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |epRISC_iocontroller|epRISC_VideoTerm:bvga|lpm_divide:Div0|lpm_divide_itl:auto_generated                                                   ; lpm_divide_itl      ; work         ;
 ;             |sign_div_unsign_klh:divider|    ; 74 (0)            ; 0 (0)        ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |epRISC_iocontroller|epRISC_VideoTerm:bvga|lpm_divide:Div0|lpm_divide_itl:auto_generated|sign_div_unsign_klh:divider                       ; sign_div_unsign_klh ; work         ;
@@ -398,10 +398,10 @@ Encoding Type:  One-Hot
 +----------------------------------------------+-------+
 ; Total registers                              ; 419   ;
 ; Number of registers using Synchronous Clear  ; 57    ;
-; Number of registers using Synchronous Load   ; 27    ;
+; Number of registers using Synchronous Load   ; 28    ;
 ; Number of registers using Asynchronous Clear ; 205   ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 334   ;
+; Number of registers using Clock Enable       ; 328   ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
 
@@ -411,13 +411,13 @@ Encoding Type:  One-Hot
 +----------------------------------------+---------+
 ; Inverted Register                      ; Fan out ;
 +----------------------------------------+---------+
-; epRISC_SPI:bspi|rState[3]              ; 18      ;
-; epRISC_UART:uart|rSendState[0]         ; 15      ;
-; epRISC_UART:uart|rSendState[2]         ; 10      ;
+; epRISC_SPI:bspi|rState[3]              ; 17      ;
+; epRISC_UART:uart|rSendState[0]         ; 13      ;
 ; epRISC_UART:uart|rSendState[3]         ; 12      ;
+; epRISC_UART:uart|rSendState[2]         ; 10      ;
 ; epRISC_UART:uart|rRecvState[3]         ; 15      ;
 ; epRISC_UART:uart|rRecvState[2]         ; 13      ;
-; epRISC_UART:uart|rRecvState[0]         ; 14      ;
+; epRISC_UART:uart|rRecvState[0]         ; 13      ;
 ; Total number of inverted registers = 7 ;         ;
 +----------------------------------------+---------+
 
@@ -428,17 +428,17 @@ Encoding Type:  One-Hot
 ; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------------------------------+
 ; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |epRISC_iocontroller|epRISC_GPIO:gpio|rInterrupt[9]       ;
-; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |epRISC_iocontroller|epRISC_VideoTerm:bvga|rColumn[10]    ;
-; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |epRISC_iocontroller|epRISC_VideoTerm:bvga|rRow[15]       ;
-; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |epRISC_iocontroller|epRISC_VideoTerm:bvga|rConfig[4]     ;
-; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |epRISC_iocontroller|epRISC_VideoTerm:bvga|rDataOutput[0] ;
-; 3:1                ; 10 bits   ; 20 LEs        ; 10 LEs               ; 10 LEs                 ; Yes        ; |epRISC_iocontroller|epRISC_VideoTerm:bvga|rPulseX[2]     ;
-; 3:1                ; 12 bits   ; 24 LEs        ; 12 LEs               ; 12 LEs                 ; Yes        ; |epRISC_iocontroller|epRISC_VideoTerm:bvga|rFramePtr[8]   ;
-; 3:1                ; 8 bits    ; 16 LEs        ; 16 LEs               ; 0 LEs                  ; Yes        ; |epRISC_iocontroller|epRISC_VideoTerm:bvga|rTempX[3]      ;
-; 4:1                ; 10 bits   ; 20 LEs        ; 10 LEs               ; 10 LEs                 ; Yes        ; |epRISC_iocontroller|epRISC_VideoTerm:bvga|rPulseY[0]     ;
-; 4:1                ; 6 bits    ; 12 LEs        ; 12 LEs               ; 0 LEs                  ; Yes        ; |epRISC_iocontroller|epRISC_UART:uart|rRecvDataCnt[5]     ;
-; 5:1                ; 4 bits    ; 12 LEs        ; 4 LEs                ; 8 LEs                  ; Yes        ; |epRISC_iocontroller|epRISC_VideoTerm:bvga|rRowSel[1]     ;
-; 3:1                ; 16 bits   ; 32 LEs        ; 32 LEs               ; 0 LEs                  ; Yes        ; |epRISC_iocontroller|epRISC_GPIO:gpio|rDirection[9]       ;
+; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |epRISC_iocontroller|epRISC_VideoTerm:bvga|rColumn[8]     ;
+; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |epRISC_iocontroller|epRISC_VideoTerm:bvga|rRow[11]       ;
+; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |epRISC_iocontroller|epRISC_VideoTerm:bvga|rConfig[12]    ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |epRISC_iocontroller|epRISC_VideoTerm:bvga|rDataOutput[3] ;
+; 3:1                ; 10 bits   ; 20 LEs        ; 10 LEs               ; 10 LEs                 ; Yes        ; |epRISC_iocontroller|epRISC_VideoTerm:bvga|rPulseX[4]     ;
+; 3:1                ; 12 bits   ; 24 LEs        ; 12 LEs               ; 12 LEs                 ; Yes        ; |epRISC_iocontroller|epRISC_VideoTerm:bvga|rFramePtr[0]   ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 16 LEs               ; 0 LEs                  ; Yes        ; |epRISC_iocontroller|epRISC_VideoTerm:bvga|rTempX[1]      ;
+; 4:1                ; 10 bits   ; 20 LEs        ; 10 LEs               ; 10 LEs                 ; Yes        ; |epRISC_iocontroller|epRISC_VideoTerm:bvga|rPulseY[3]     ;
+; 4:1                ; 6 bits    ; 12 LEs        ; 12 LEs               ; 0 LEs                  ; Yes        ; |epRISC_iocontroller|epRISC_UART:uart|rRecvDataCnt[3]     ;
+; 5:1                ; 4 bits    ; 12 LEs        ; 4 LEs                ; 8 LEs                  ; Yes        ; |epRISC_iocontroller|epRISC_VideoTerm:bvga|rRowSel[3]     ;
+; 3:1                ; 16 bits   ; 32 LEs        ; 32 LEs               ; 0 LEs                  ; Yes        ; |epRISC_iocontroller|epRISC_GPIO:gpio|rDirection[1]       ;
 ; 37:1               ; 7 bits    ; 168 LEs       ; 168 LEs              ; 0 LEs                  ; No         ; |epRISC_iocontroller|oBusMISO                             ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------------------------------+
 
@@ -1108,30 +1108,30 @@ Note: In order to hide this table in the UI and the text report file, please set
 +-----------------------+-----------------------------+
 ; boundary_port         ; 89                          ;
 ; cycloneiii_ff         ; 419                         ;
-;     CLR               ; 27                          ;
-;     CLR SLD           ; 1                           ;
+;     CLR               ; 32                          ;
+;     CLR SLD           ; 2                           ;
 ;     ENA               ; 138                         ;
-;     ENA CLR           ; 177                         ;
+;     ENA CLR           ; 171                         ;
 ;     ENA SCLR          ; 19                          ;
 ;     SCLR              ; 12                          ;
 ;     SCLR SLD          ; 26                          ;
 ;     plain             ; 19                          ;
 ; cycloneiii_io_obuf    ; 24                          ;
-; cycloneiii_lcell_comb ; 1531                        ;
+; cycloneiii_lcell_comb ; 1517                        ;
 ;     arith             ; 95                          ;
 ;         2 data inputs ; 51                          ;
 ;         3 data inputs ; 44                          ;
-;     normal            ; 1436                        ;
+;     normal            ; 1422                        ;
 ;         0 data inputs ; 9                           ;
-;         1 data inputs ; 25                          ;
-;         2 data inputs ; 108                         ;
-;         3 data inputs ; 164                         ;
-;         4 data inputs ; 1130                        ;
+;         1 data inputs ; 26                          ;
+;         2 data inputs ; 114                         ;
+;         3 data inputs ; 178                         ;
+;         4 data inputs ; 1095                        ;
 ; cycloneiii_pll        ; 1                           ;
 ; cycloneiii_ram_block  ; 32                          ;
 ;                       ;                             ;
 ; Max LUT depth         ; 16.70                       ;
-; Average LUT depth     ; 5.72                        ;
+; Average LUT depth     ; 5.71                        ;
 +-----------------------+-----------------------------+
 
 
@@ -1140,7 +1140,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:07     ;
+; Top            ; 00:00:08     ;
 +----------------+--------------+
 
 
@@ -1150,7 +1150,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 16.0.0 Build 211 04/27/2016 SJ Lite Edition
-    Info: Processing started: Fri Jun  2 00:10:24 2017
+    Info: Processing started: Mon Jul 31 23:45:33 2017
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off epRISC_Auxiliary -c epRISC_Controller
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
@@ -1165,9 +1165,9 @@ Info (12021): Found 1 design units, including 1 entities, in source file /home/j
 Warning (10274): Verilog HDL macro warning at spi_v1r0.v(21): overriding existing definition for macro "sIdle", which was defined in "../ps2_v1r0.v", line 24 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/spi_v1r0.v Line: 21
 Info (12021): Found 1 design units, including 1 entities, in source file /home/jclemme/Projects/eprisc-open-computer/firmware/io/spi_v1r0.v
     Info (12023): Found entity 1: epRISC_SPI File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/spi_v1r0.v Line: 26
-Warning (10274): Verilog HDL macro warning at uart_v1r0.v(36): overriding existing definition for macro "sIdle", which was defined in "../ps2_v1r0.v", line 24 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 36
+Warning (10274): Verilog HDL macro warning at uart_v1r0.v(26): overriding existing definition for macro "sIdle", which was defined in "../ps2_v1r0.v", line 24 File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 26
 Info (12021): Found 1 design units, including 1 entities, in source file /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v
-    Info (12023): Found entity 1: epRISC_UART File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 38
+    Info (12023): Found entity 1: epRISC_UART File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 28
 Info (12021): Found 3 design units, including 3 entities, in source file /home/jclemme/Projects/eprisc-open-computer/firmware/io/video_v1r0.v
     Info (12023): Found entity 1: epRISC_VideoTerm File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/video_v1r0.v Line: 1
     Info (12023): Found entity 2: SoftVideoRAM File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/video_v1r0.v Line: 132
@@ -1263,29 +1263,38 @@ Info (12128): Elaborating entity "OnChipPLL_altpll" for hierarchy "OnChipPLL:clo
 Info (12128): Elaborating entity "epRISC_GPIO" for hierarchy "epRISC_GPIO:gpio" File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 162
 Warning (10230): Verilog HDL assignment warning at gpio_v1r0.v(48): truncated value with size 32 to match size of target (1) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/gpio_v1r0.v Line: 48
 Info (12128): Elaborating entity "epRISC_UART" for hierarchy "epRISC_UART:uart" File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 164
-Warning (10036): Verilog HDL or VHDL warning at uart_v1r0.v(47): object "rSendPrevState" assigned a value but never read File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 47
-Warning (10036): Verilog HDL or VHDL warning at uart_v1r0.v(47): object "rRecvPrevState" assigned a value but never read File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 47
-Warning (10230): Verilog HDL assignment warning at uart_v1r0.v(53): truncated value with size 32 to match size of target (1) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 53
-Warning (10240): Verilog HDL Always Construct warning at uart_v1r0.v(87): inferring latch(es) for variable "rDataOut", which holds its previous value in one or more paths through the always construct File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 87
-Warning (10230): Verilog HDL assignment warning at uart_v1r0.v(119): truncated value with size 32 to match size of target (6) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 119
-Warning (10230): Verilog HDL assignment warning at uart_v1r0.v(140): truncated value with size 8 to match size of target (6) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 140
-Warning (10230): Verilog HDL assignment warning at uart_v1r0.v(142): truncated value with size 32 to match size of target (6) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 142
-Warning (10230): Verilog HDL assignment warning at uart_v1r0.v(144): truncated value with size 8 to match size of target (6) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 144
-Warning (10230): Verilog HDL assignment warning at uart_v1r0.v(148): truncated value with size 8 to match size of target (6) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 148
-Warning (10230): Verilog HDL assignment warning at uart_v1r0.v(163): truncated value with size 32 to match size of target (4) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 163
-Warning (10230): Verilog HDL assignment warning at uart_v1r0.v(172): truncated value with size 32 to match size of target (4) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 172
-Warning (10230): Verilog HDL assignment warning at uart_v1r0.v(175): truncated value with size 32 to match size of target (4) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 175
-Warning (10230): Verilog HDL assignment warning at uart_v1r0.v(183): truncated value with size 32 to match size of target (4) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 183
-Warning (10230): Verilog HDL assignment warning at uart_v1r0.v(192): truncated value with size 32 to match size of target (4) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 192
-Warning (10230): Verilog HDL assignment warning at uart_v1r0.v(195): truncated value with size 32 to match size of target (4) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 195
-Info (10041): Inferred latch for "rDataOut[8]" at uart_v1r0.v(87) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 87
-Info (10041): Inferred latch for "rDataOut[9]" at uart_v1r0.v(87) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 87
-Info (10041): Inferred latch for "rDataOut[10]" at uart_v1r0.v(87) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 87
-Info (10041): Inferred latch for "rDataOut[11]" at uart_v1r0.v(87) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 87
-Info (10041): Inferred latch for "rDataOut[12]" at uart_v1r0.v(87) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 87
-Info (10041): Inferred latch for "rDataOut[13]" at uart_v1r0.v(87) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 87
-Info (10041): Inferred latch for "rDataOut[14]" at uart_v1r0.v(87) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 87
-Info (10041): Inferred latch for "rDataOut[15]" at uart_v1r0.v(87) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 87
+Warning (10036): Verilog HDL or VHDL warning at uart_v1r0.v(37): object "rSendPrevState" assigned a value but never read File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 37
+Warning (10036): Verilog HDL or VHDL warning at uart_v1r0.v(37): object "rRecvPrevState" assigned a value but never read File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 37
+Warning (10036): Verilog HDL or VHDL warning at uart_v1r0.v(43): object "fReceiveEnable" assigned a value but never read File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 43
+Warning (10036): Verilog HDL or VHDL warning at uart_v1r0.v(43): object "fReceiveActive" assigned a value but never read File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 43
+Warning (10036): Verilog HDL or VHDL warning at uart_v1r0.v(43): object "fInterruptEnable" assigned a value but never read File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 43
+Warning (10036): Verilog HDL or VHDL warning at uart_v1r0.v(44): object "fSendEnable" assigned a value but never read File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 44
+Warning (10036): Verilog HDL or VHDL warning at uart_v1r0.v(44): object "fSendActive" assigned a value but never read File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 44
+Warning (10036): Verilog HDL or VHDL warning at uart_v1r0.v(45): object "fParityEnable" assigned a value but never read File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 45
+Warning (10036): Verilog HDL or VHDL warning at uart_v1r0.v(45): object "fParityMode" assigned a value but never read File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 45
+Warning (10036): Verilog HDL or VHDL warning at uart_v1r0.v(45): object "fStopBits" assigned a value but never read File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 45
+Warning (10036): Verilog HDL or VHDL warning at uart_v1r0.v(45): object "fWordLength" assigned a value but never read File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 45
+Warning (10230): Verilog HDL assignment warning at uart_v1r0.v(55): truncated value with size 2 to match size of target (1) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 55
+Warning (10230): Verilog HDL assignment warning at uart_v1r0.v(57): truncated value with size 32 to match size of target (1) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 57
+Warning (10240): Verilog HDL Always Construct warning at uart_v1r0.v(105): inferring latch(es) for variable "rDataOut", which holds its previous value in one or more paths through the always construct File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 105
+Warning (10230): Verilog HDL assignment warning at uart_v1r0.v(137): truncated value with size 32 to match size of target (6) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 137
+Warning (10230): Verilog HDL assignment warning at uart_v1r0.v(158): truncated value with size 8 to match size of target (6) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 158
+Warning (10230): Verilog HDL assignment warning at uart_v1r0.v(160): truncated value with size 32 to match size of target (6) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 160
+Warning (10230): Verilog HDL assignment warning at uart_v1r0.v(162): truncated value with size 8 to match size of target (6) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 162
+Warning (10230): Verilog HDL assignment warning at uart_v1r0.v(166): truncated value with size 8 to match size of target (6) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 166
+Warning (10230): Verilog HDL assignment warning at uart_v1r0.v(190): truncated value with size 32 to match size of target (4) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 190
+Warning (10230): Verilog HDL assignment warning at uart_v1r0.v(193): truncated value with size 32 to match size of target (4) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 193
+Warning (10230): Verilog HDL assignment warning at uart_v1r0.v(201): truncated value with size 32 to match size of target (4) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 201
+Warning (10230): Verilog HDL assignment warning at uart_v1r0.v(210): truncated value with size 32 to match size of target (4) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 210
+Warning (10230): Verilog HDL assignment warning at uart_v1r0.v(213): truncated value with size 32 to match size of target (4) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 213
+Info (10041): Inferred latch for "rDataOut[8]" at uart_v1r0.v(105) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 105
+Info (10041): Inferred latch for "rDataOut[9]" at uart_v1r0.v(105) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 105
+Info (10041): Inferred latch for "rDataOut[10]" at uart_v1r0.v(105) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 105
+Info (10041): Inferred latch for "rDataOut[11]" at uart_v1r0.v(105) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 105
+Info (10041): Inferred latch for "rDataOut[12]" at uart_v1r0.v(105) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 105
+Info (10041): Inferred latch for "rDataOut[13]" at uart_v1r0.v(105) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 105
+Info (10041): Inferred latch for "rDataOut[14]" at uart_v1r0.v(105) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 105
+Info (10041): Inferred latch for "rDataOut[15]" at uart_v1r0.v(105) File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 105
 Info (12128): Elaborating entity "epRISC_SPI" for hierarchy "epRISC_SPI:bspi" File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 166
 Warning (10036): Verilog HDL or VHDL warning at spi_v1r0.v(37): object "rPrevState" assigned a value but never read File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/spi_v1r0.v Line: 37
 Warning (10036): Verilog HDL or VHDL warning at spi_v1r0.v(48): object "tmpClock" assigned a value but never read File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/spi_v1r0.v Line: 48
@@ -1434,7 +1443,7 @@ Warning (13039): The following bidirectional pins have no drivers
     Warning (13040): bidirectional pin "bBoardDebug5" has no driver File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 93
     Warning (13040): bidirectional pin "bPS2Data" has no driver File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 116
     Warning (13040): bidirectional pin "bPS2Clock" has no driver File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 116
-Info (13000): Registers with preset signals will power-up high File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/uart_v1r0.v Line: 114
+Info (13000): Registers with preset signals will power-up high File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/spi_v1r0.v Line: 68
 Info (13003): DEV_CLRn pin will set, and not reset, register with preset signal due to NOT Gate Push-Back
 Warning (13024): Output pins are stuck at VCC or GND
     Warning (13410): Pin "oSerialDTR" is stuck at GND File: /home/jclemme/Projects/eprisc-open-computer/firmware/io/controller_v1r0.v Line: 96
@@ -1474,11 +1483,11 @@ Info (21057): Implemented 1907 device resources after synthesis - the final reso
     Info (21061): Implemented 1785 logic cells
     Info (21064): Implemented 32 RAM segments
     Info (21065): Implemented 1 PLLs
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 105 warnings
-    Info: Peak virtual memory: 1361 megabytes
-    Info: Processing ended: Fri Jun  2 00:10:40 2017
-    Info: Elapsed time: 00:00:16
-    Info: Total CPU time (on all processors): 00:00:29
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 114 warnings
+    Info: Peak virtual memory: 1376 megabytes
+    Info: Processing ended: Mon Jul 31 23:45:50 2017
+    Info: Elapsed time: 00:00:17
+    Info: Total CPU time (on all processors): 00:00:31
 
 
 +------------------------------------------+

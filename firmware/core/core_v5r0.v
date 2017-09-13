@@ -17,6 +17,7 @@
 `define sPipeHalt           6
 `define sPipeWriteSkip      7
 `define sPipeInterrupt      8
+`define sPipeMemDebug       9
 `define sUndefined          0
 
 // Registers for use in simulation environments. Can (and should) be replaced with a synchronous, dual-port RAM for synthesis on FPGAs.
@@ -141,7 +142,7 @@ module epRISC_core(iClk, iRst, oAddr, bData, oWrite, iMaskInt, iNonMaskInt, oHal
     assign wALUOperation = (mALU) ? (fALUOperation) : ((mDirect && mDirectOR) ? (3) : (0));
     
     assign oAccess = ((rPipeState == `sPipeMemory || rPipeState == `sPipeFetch) && iClk == 0) ? 1'h1 : 1'h0;
-    assign oAcknowledge = (rPipeState == `sPipeDecode || rPipeState == `sPipeWriteback) ? 1'h1 : 1'h0;
+    assign oAcknowledge = (rRegR[13] == 1) ? 1'h1 : 1'h0;
     
     // Assignment - instruction flags
     assign mBranch = (rInst[31] == 1'b1) ? 1'b1 : 1'b0;

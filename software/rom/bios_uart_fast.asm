@@ -38,14 +38,12 @@
                 test.v  a:REG_RESP v:#h80
                 brch.a  c:%NEQ a:.rloop
          
-                move.v  d:REG_RESP v:#h010
-                push.r  s:REG_RESP
 :.sloop         call.s  a:ioc_recv
                 test.v  a:REG_RESP v:#h40
                 brch.a  c:%NEQ a:.sloop
                 
                 pops.r  d:REG_RESP 
-                                
+                            
                 pops.r  d:REG_BASE
                 pops.r  d:REG_DATA
                 rtrn.s                                              ; Return from stack

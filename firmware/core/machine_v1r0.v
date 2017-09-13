@@ -85,7 +85,7 @@ module epRISC_machine(iBoardClock, iBoardReset, iBoardSense, oBoardAcknowledge, 
     inout [31:0] bMemoryData;
 
     // Temporary assign statements, to make sure I/O is safe when internally disconnected
-    assign oBoardAcknowledge = 1'h1;
+    assign oBoardAcknowledge = wCoreBusAcknowledge;
     assign oBoardTransmit = 1'h1;
     assign bBoardDebug0 = 1'bz;
     assign bBoardDebug2 = 1'bz;
@@ -95,7 +95,7 @@ module epRISC_machine(iBoardClock, iBoardReset, iBoardSense, oBoardAcknowledge, 
 
     // Front-side bus
     wire wCoreBusClock, wCoreBusMemClock, wCoreBusFastClock, wCoreBusReset, wCoreBusWrite, wCoreBusInterrupt, wCoreBusNMInterrupt, wCoreBusAccess, wCoreBusReady, wSDRAMReady, wCoreBusAcknowledge;
-    wire [0:31] wCoreBusAddress, wCoreBusData, wRAMData, wSDRAMData;
+    wire [31:0] wCoreBusAddress, wCoreBusData, wRAMData, wSDRAMData;
 
     wire wEnableROM, wEnableRAM, wEnableBusControl, wEnableSDRAM, wDisableExtra;
 
@@ -123,7 +123,7 @@ module epRISC_machine(iBoardClock, iBoardReset, iBoardSense, oBoardAcknowledge, 
     `endif
 
     epRISC_core         core(wCoreBusClock, wCoreBusReset, wCoreBusAddress, wCoreBusData, wCoreBusWrite, wCoreBusInterrupt, wCoreBusNMInterrupt, wCoreHalt, wCoreFlag, wCoreBusAccess, wCoreBusReady, wCoreBusAcknowledge); 
-    epRISC_sysXMaster   bus(wCoreBusMemClock, wCoreBusReset, wCoreBusAddress, wCoreBusData, wCoreBusWrite, wEnableBusControl, wCoreBusInterrupt, wCoreBusMemClock, iBusMISO, oBusMOSI, oBusClock, iBusInterrupt, oBusSelect);
+    epRISC_sysXMaster   bus(wCoreBusMemClock, wCoreBusReset, wCoreBusAddress, wCoreBusData, wCoreBusWrite, wEnableBusControl, wCoreBusInterrupt, wCoreBusMemClock, iBusMISO, oBusMOSI, oBusClock, iBusInterrupt, oBusSelect, wDebug);
     
     epRISC_embeddedROM  tbrom(wCoreBusMemClock, wCoreBusAddress, wCoreBusData, wEnableROM); 
 

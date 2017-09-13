@@ -9,16 +9,6 @@
 // Gonna need this later
 /* verilator lint_off WIDTH */
 
- /* epRISC UART
-
-Bits            1:0
-Stop bits       2
-Parity          3
-Parity bit      4
-Allow recv      5
-Int recv        6
-Send            7
-Send all        8 */
 
 `define sBit0       0
 `define sBit1       1
@@ -50,8 +40,22 @@ module epRISC_UART(iClk, iRst, oInt, iAddr, iData, oData, iWrite, iEnable, iSClk
     reg [7:0] rSendDataBuf, rRecvDataBuf;
     reg [15:0] rControl, rDataIn, rDataOut;
      
+    wire fReceiveEnable, fReceiveActive, fInterruptEnable;
+    wire fSendEnable, fSendActive;
+    wire fParityEnable, fParityMode, fStopBits, fWordLength;
+    
+    assign fReceiveEnable = rControl[5];
+    assign fReceiveActive = rControl[4];
+    assign fInterruptEnable = rControl[8];
+    assign fSendEnable = rControl[7];
+    assign fSendActive = rControl[6];
+    assign fParityEnable = rControl[10];
+    assign fParityMode = rControl[9];
+    assign fStopBits = rControl[11];
+    assign fWordLength = rControl[13:12];
+        
     assign oTX = (rSendState == `sBitStart) ? 0 : ((rSendState == `sIdle || rSendState == `sBitStopA || rSendState == `sBitStopB) ? 1 : rSendDataBuf[rSendState]);
-    assign oData = (!iEnable) ? 16'bz : ((iAddr==0)?((rSendState==`sIdle)?rControl:rControl|16'h80):((iAddr==1)?rDataIn:((iAddr==2)?rDataOut:16'b1)));
+    assign oData = (!iEnable) ? 16'bz : ((iAddr==0)?((rSendState==`sIdle)?rControl:rControl):((iAddr==1)?rDataIn:((iAddr==2)?rDataOut:16'b1)));
 
     always @(negedge iClk or posedge iRst) begin
         if(iRst) begin
@@ -62,9 +66,23 @@ module epRISC_UART(iClk, iRst, oInt, iAddr, iData, oData, iWrite, iEnable, iSClk
             if(iWrite && iEnable && iAddr == 0)
                 rControl <= iData;
 
+            if(rSendState == `sBitStart)
+                rControl[6] <= 1;
+                
+            if(rSendState == `sIdle)
+                rControl[6] <= 0;
+                
+            if(rSendState == `sBit4)
+                rControl[7] <= 0;
+                
+            if(rSendState == `sIdle)
+                rControl[4] <= 0;
+            else
+                rControl[4] <= 1;
+                
             if((rSendCountAck > rSendCountSto) || (rSendCountAck == 5'h0 && rSendCountSto == 5'h1F)) begin
                 rSendCountSto <= rSendCountAck;
-                rControl[7] <= 0;
+                //rControl[6] <= 0;
             end
             
             if((rRecvCountAck > rRecvCountSto) || (rRecvCountAck == 5'h0 && rRecvCountSto == 5'h1F)) begin
@@ -94,7 +112,7 @@ module epRISC_UART(iClk, iRst, oInt, iAddr, iData, oData, iWrite, iEnable, iSClk
     end
     
     always @(posedge iSClk) begin
-        if(rControl[6] && rRecvState == `sBitStopB)
+        if(rControl[8] && rRecvState == `sBitStopB)
             oInt <= 1;
         else
             oInt <= 0;
@@ -160,7 +178,7 @@ module epRISC_UART(iClk, iRst, oInt, iAddr, iData, oData, iWrite, iEnable, iSClk
     
     always @(*) begin
         case(rSendState)
-            `sBit7: rSendNextState = (rControl[4]) ? `sBitParity : ((rControl[2]) ? `sBitStopA : `sBitStopB);
+            `sBit7: rSendNextState = `sBitStopB; //(rControl[4]) ? `sBitParity : ((rControl[2]) ? `sBitStopA : `sBitStopB);
             `sBit6: rSendNextState = `sBit7;       
             `sBit5: rSendNextState = `sBit6;       
             `sBit4: rSendNextState = `sBit5;       
@@ -168,7 +186,7 @@ module epRISC_UART(iClk, iRst, oInt, iAddr, iData, oData, iWrite, iEnable, iSClk
             `sBit2: rSendNextState = `sBit3;       
             `sBit1: rSendNextState = `sBit2;       
             `sBit0: rSendNextState = `sBit1;
-            `sBitStart: rSendNextState = (rControl[1:0]);
+            `sBitStart: rSendNextState = `sBit0; //(rControl[1:0]);
             `sBitParity: rSendNextState = (rControl[2]) ? `sBitStopA : `sBitStopB;
             `sBitStopA: rSendNextState = `sBitStopB;
             `sBitStopB: rSendNextState = `sIdle;
@@ -177,7 +195,7 @@ module epRISC_UART(iClk, iRst, oInt, iAddr, iData, oData, iWrite, iEnable, iSClk
             default: rSendNextState = `sIdle;
         endcase
     end
- 
+
     always @(*) begin
         case(rRecvState)
             `sBit7: rRecvNextState = (rControl[4]) ? `sBitParity : ((rControl[2]) ? `sBitStopA : `sBitStopB);

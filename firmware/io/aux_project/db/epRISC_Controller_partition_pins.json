@@ -176,15 +176,15 @@
 					"strict" : false
 				},
 				{
-					"name" : "iBoardReset",
-					"strict" : false
-				},
-				{
 					"name" : "iBusSelect[0]",
 					"strict" : false
 				},
 				{
 					"name" : "iBusSelect[1]",
+					"strict" : false
+				},
+				{
+					"name" : "iBoardReset",
 					"strict" : false
 				},
 				{
@@ -204,11 +204,11 @@
 					"strict" : false
 				},
 				{
-					"name" : "iBusMOSI[4]",
+					"name" : "iBusMOSI[6]",
 					"strict" : false
 				},
 				{
-					"name" : "iBusMOSI[6]",
+					"name" : "iBusMOSI[4]",
 					"strict" : false
 				},
 				{

@@ -20,6 +20,11 @@
 :.wloop         load.o  r:REG_BASE d:REG_RESP
                 test.v  a:REG_RESP v:#h01
                 brch.a  c:%NEQ a:.wloop                             ; Wait for send to complete
+
+:.tloop         load.o  r:REG_BASE d:REG_RESP
+                test.v  a:REG_RESP v:#h02
+                brch.a  c:%NEQ a:.tloop                             ; Wait for send to complete
+;halt.i
                 pops.r  d:REG_BASE
                 rtrn.s                                              ; Return from stack
         
@@ -46,9 +51,15 @@
                 stor.o  r:REG_BASE s:REG_RESP o:#h01                ; Store packet in send register
                 move.v  d:REG_RESP v:#h10005
                 stor.o  r:REG_BASE s:REG_RESP                       ; Command send
+                
 :.wloop         load.o  r:REG_BASE d:REG_RESP
                 test.v  a:REG_RESP v:#h01
                 brch.a  c:%NEQ a:.wloop                             ; Wait for send to complete
+
+:.tloop         load.o  r:REG_BASE d:REG_RESP
+                test.v  a:REG_RESP v:#h02
+                brch.a  c:%NEQ a:.tloop                             ; Wait for send to complete
+                                
                 load.o  r:REG_BASE d:REG_RESP o:#h02                ; Load response into register
                 
                 pops.r  d:REG_BASE
@@ -79,7 +90,11 @@
 :.wloop         load.o  r:REG_BASE d:REG_RESP
                 test.v  a:REG_RESP v:#h01
                 brch.a  c:%NEQ a:.wloop                             ; Wait for send to complete
-                                
+           
+:.tloop         load.o  r:REG_BASE d:REG_RESP
+                test.v  a:REG_RESP v:#h02
+                brch.a  c:%NEQ a:.tloop                             ; Wait for send to complete
+                
                 move.v  d:REG_RESP v:#h00 s:#h06
                 orbt.r  d:REG_RESP a:REG_RESP b:REG_ADDR
                 arsl.v  d:REG_RESP a:REG_RESP v:#h10                ; Form read packet at address
@@ -89,6 +104,11 @@
 :.gloop         load.o  r:REG_BASE d:REG_RESP
                 test.v  a:REG_RESP v:#h01
                 brch.a  c:%NEQ a:.gloop                             ; Wait for send to complete
+                
+:.sloop         load.o  r:REG_BASE d:REG_RESP
+                test.v  a:REG_RESP v:#h02
+                brch.a  c:%NEQ a:.sloop                             ; Wait for send to complete
+                
                 load.o  r:REG_BASE d:REG_RESP o:#h02                ; Load response into register
                 
                 pops.r  d:REG_BASE

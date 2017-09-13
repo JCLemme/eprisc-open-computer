@@ -138,7 +138,7 @@ module epRISC_iocontroller(iBusClock, iBusSelect, iBusMOSI, oBusInterrupt, oBusM
     assign mBusAddress = rInternalMOSI[30:16];
     assign mBusData = (rPipeState == `sPipeStore || rPipeState == `sPipeLoad) ? rInternalMOSI[15:0] : 32'h0;
     assign mBusWrite = (rPipeState == `sPipeStore && rInternalMOSI[31]) ? 1'h1 : 1'h0;
-    assign mBusReset = (!iBoardReset || (rPipeState == `sPipeLoad && mBusAddress == 15'h7FFF && rInternalMOSI[31])) ? 1'h1 : 1'h0;
+    assign mBusReset = ( (rPipeState == `sPipeLoad && mBusAddress == 15'h7FFF && rInternalMOSI[31])) ? 1'h1 : 1'h0;
     
     assign wEnableGPIO = (mBusAddress >= 15'h0 && mBusAddress < 15'h10) ? 1'h1 : 1'h0;
     assign wEnableUART = (mBusAddress >= 15'h10 && mBusAddress < 15'h20) ? 1'h1 : 1'h0;

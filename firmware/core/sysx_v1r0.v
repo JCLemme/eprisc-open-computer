@@ -53,13 +53,13 @@ module epRISC_sysXBuffer(iAddrA, iAddrB, iClkA, iClkB, iDInA, iDInB, iWriteA, iW
             
 endmodule
 
-module epRISC_sysXMaster(iClock, iReset, iAddress, bData, iWrite, iEnable, oInterrupt, iMasterClock, iBusMISO, oBusMOSI, oBusClock, iBusInterrupt, oBusSelect);
+module epRISC_sysXMaster(iClock, iReset, iAddress, bData, iWrite, iEnable, oInterrupt, iMasterClock, iBusMISO, oBusMOSI, oBusClock, iBusInterrupt, oBusSelect, oDebug);
 
     // External I/O
     input iClock, iReset, iWrite, iEnable, iMasterClock, iBusInterrupt;
     input [3:0] iAddress;
     input [7:0] iBusMISO;
-    output wire oInterrupt, oBusClock;
+    output wire oInterrupt, oBusClock, oDebug;
     output wire [1:0] oBusSelect;
     output wire [7:0] oBusMOSI;
     inout [31:0] bData;
@@ -97,13 +97,15 @@ module epRISC_sysXMaster(iClock, iReset, iAddress, bData, iWrite, iEnable, oInte
     `endif
 
     assign bData = (iWrite || !iEnable) ? 32'bz :
-                   ((iAddress == 4'h0) ? ((rPipeState==`sPipeIdle)?rConfig:rConfig|32'h1) :
+                   ((iAddress == 4'h0) ? rConfig :
                    (iAddress == 4'h1) ? rDirectMOSI :
                    (iAddress == 4'h2) ? rDirectMISO :
                    (iAddress == 4'h3) ? {24'h0, rCounterMOSI} : 
                    (iAddress == 4'h4) ? wDataMOSI :
                    (iAddress == 4'h5) ? {24'h0, rCounterMISO} :
                    (iAddress == 4'h6) ? wDataMISO : 32'h0BADC0DE);
+    
+    assign oDebug = (iEnable) ? 1 : 0;
     
     assign oBusClock = (rPipeState == `sPipeIdle) ? 1'h1 : rDerivedClock;
     assign oBusSelect = fChipSelect;//(rPipeState == `sPipeIdle) ? 2'h0 : fChipSelect;
@@ -117,10 +119,10 @@ module epRISC_sysXMaster(iClock, iReset, iAddress, bData, iWrite, iEnable, oInte
     assign wDataMISO = (iWrite && iAddress == 4'h6) ? bData : wDataOutMISO;
     assign wDataMOSI = (iWrite && iAddress == 4'h4) ? bData : wDataOutMOSI;
     assign wInternalWriteMISO = (rPipeState == `sPipeStore) ? 1'h1 : 1'h0;
-    assign wDistributionMOSI = (fBeginSingle) ? rDirectMOSI : wInternalDataMOSI;
+    assign wDistributionMOSI = (fBeginSingle || rConfig[1]) ? rDirectMOSI : wInternalDataMOSI;
 
     assign fBeginSingle = rConfig[0];
-    assign fBeginBlock = rConfig[1];
+    assign fBeginBlock = 0;//rConfig[1];
     assign fChipSelect = rConfig[3:2];
     assign fReceive = rConfig[4];
     assign fTransferCount = rConfig[15:8];
@@ -134,7 +136,7 @@ module epRISC_sysXMaster(iClock, iReset, iAddress, bData, iWrite, iEnable, oInte
             if(iAddress == 4'h0 && iWrite && iEnable)
                 rMasterClockCount <= 12'h0;
 
-            else if(rMasterClockCount == fClockStep)
+            else if(rMasterClockCount == 1)
                 rMasterClockCount <= 12'h0;
             else
                 rMasterClockCount <= rMasterClockCount + 12'h1;
@@ -145,13 +147,13 @@ module epRISC_sysXMaster(iClock, iReset, iAddress, bData, iWrite, iEnable, oInte
         if(iReset) begin
             rDerivedClock <= 1'h0;
         end else begin
-            if(rMasterClockCount == fClockStep - 12'h1)
+            if(rMasterClockCount == 0)
                 rDerivedClock <= !rDerivedClock;
         end
     end
 
     // Pipeline controller
-    always @(posedge rDerivedClock or posedge iReset) begin
+    always @(posedge rDerivedClock) begin
         if(iReset) begin
             rPipePrevState <= `sPipeIdle;
             rPipeState <= `sPipeIdle;
@@ -167,14 +169,14 @@ module epRISC_sysXMaster(iClock, iReset, iAddress, bData, iWrite, iEnable, oInte
 
     always @(*) begin
         case(rPipeState)
-            `sPipeIdle: rPipeNextState = ((fBeginSingle || fBeginBlock) && (rLockSto == rLockAck)) ? `sPipeLoad : `sPipeIdle;
+            `sPipeIdle: rPipeNextState = (fBeginSingle) ? `sPipeLoad : `sPipeIdle; //((fBeginSingle) && (rLockSto == rLockAck)) ? `sPipeLoad : `sPipeIdle;
             `sPipeLoad: rPipeNextState = `sPipeLoLo;
             `sPipeLoLo: rPipeNextState = `sPipeLo;
             `sPipeLo: rPipeNextState =  `sPipeHi;
             `sPipeHi: rPipeNextState = `sPipeHiHi;
             `sPipeHiHi: rPipeNextState = `sPipeRegister;
             `sPipeRegister: rPipeNextState = `sPipeStore;
-            `sPipeStore: rPipeNextState = (rTransferCount == 8'h0) ? `sPipeIdle : `sPipeLoad;
+            `sPipeStore: rPipeNextState = `sPipeIdle; //(rTransferCount == 8'h0) ? `sPipeIdle : `sPipeLoad;
             default: rPipeNextState = `sPipeIdle;
         endcase
     end
@@ -222,20 +224,30 @@ module epRISC_sysXMaster(iClock, iReset, iAddress, bData, iWrite, iEnable, oInte
 
     // This needs some kind of "Acknowledge" flag to block that clocking bug
     // from the last system.
-    always @(negedge iClock) begin
+    always @(posedge iClock) begin
         if(iReset) begin
             rConfig <= 32'h0;
             rLockSto <= 5'h0;
         end else begin
-            if(iAddress == 4'h0 && iWrite && iEnable)  
+            if(iAddress == 4'h0 && iWrite && iEnable && rPipeState == `sPipeIdle)  
                 rConfig <= bData;
+                
+            if(rPipeState == `sPipeHiHi)
+                rConfig[0] <= 0;
+                
+            if(rPipeState == `sPipeLoLo)
+                rConfig[1] <= 1;
+                
+            if(rPipeState == `sPipeIdle)
+                rConfig[1] <= 0;
                 
             if(((rLockAck > rLockSto) || (rLockAck == 5'h0 && rLockSto == 5'h1F)) && rPipeState == `sPipeIdle) begin
                 rLockSto <= rLockAck;
-                if(fBeginSingle)
+                /*if(fBeginSingle)
                     rConfig[0] <= 1'h0;
                 if(fBeginBlock)
-                    rConfig[1] <= 1'h0;
+                    rConfig[1] <= 1'h0;*/
+                //rConfig[1] <= 0;
             end
         end
     end
@@ -264,9 +276,9 @@ module epRISC_sysXMaster(iClock, iReset, iAddress, bData, iWrite, iEnable, oInte
         if(iReset) begin
             rDirectMISO <= 32'h0;
         end else begin
-            if(iAddress == 'h2 && iWrite && iEnable)
+            if(iAddress == 4'h2 && iWrite && iEnable)
                 rDirectMISO <= bData;
-            if(fBeginSingle && rPipeState == `sPipeStore)
+            if((rConfig[1] || fBeginSingle) && rPipeState == `sPipeStore)
                 rDirectMISO <= rInternalDataMISO;
         end
     end

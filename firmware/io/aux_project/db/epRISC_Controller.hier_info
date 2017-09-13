@@ -45,7 +45,6 @@ oBusMISO[6] << oBusMISO.DB_MAX_OUTPUT_PORT_TYPE
 oBusMISO[7] << oBusMISO.DB_MAX_OUTPUT_PORT_TYPE
 iBoardClock => iBoardClock.IN1
 iBoardReset => wInternalReset.IN1
-iBoardReset => mBusReset.IN1
 bBoardDebug0 <> <UNC>
 bBoardDebug1 <> <UNC>
 bBoardDebug2 <> <UNC>
@@ -525,10 +524,10 @@ iRst => rRecvDataBuf[2].ENA
 iRst => rRecvDataBuf[1].ENA
 iRst => rRecvDataBuf[0].ENA
 oInt <= oInt~reg0.DB_MAX_OUTPUT_PORT_TYPE
-iAddr[0] => Equal3.IN31
+iAddr[0] => Equal4.IN31
 iAddr[0] => Equal5.IN0
 iAddr[0] => Equal6.IN31
-iAddr[1] => Equal3.IN30
+iAddr[1] => Equal4.IN30
 iAddr[1] => Equal5.IN31
 iAddr[1] => Equal6.IN0
 iData[0] => rControl[0].DATAIN
@@ -539,11 +538,10 @@ iData[2] => rControl[2].DATAIN
 iData[2] => rDataIn[2].DATAIN
 iData[3] => rControl[3].DATAIN
 iData[3] => rDataIn[3].DATAIN
-iData[4] => rControl[4].DATAIN
 iData[4] => rDataIn[4].DATAIN
 iData[5] => rControl.DATAB
 iData[5] => rDataIn[5].DATAIN
-iData[6] => rControl[6].DATAIN
+iData[6] => rControl.DATAB
 iData[6] => rDataIn[6].DATAIN
 iData[7] => rControl.DATAB
 iData[7] => rDataIn[7].DATAIN

@@ -40,7 +40,7 @@
                 push.r  s:%Zz
                 
                 call.s  a:ser_send
-                call.s  a:vga_putc
+                ;call.s  a:vga_putc
                 
                 pops.r  d:%Zz
                 rtrn.s

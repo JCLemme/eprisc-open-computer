@@ -63,7 +63,7 @@
                 pops.r  d:%Xw
                 pops.r  d:%Xw                                       ; Reset the I/O controller
                             
-                call.s  a:vga_init                                  ; Start up video
+                ;call.s  a:vga_init                                  ; Start up video
 
                 move.v  d:%Xw v:bios_str.str_welcome
                 push.r  s:%Xw
@@ -74,7 +74,7 @@
                 push.r  s:%Xw
                 call.s  a:str_puts
                 pops.r  d:%Xw                                       ; Announce the beginning of the POSTs
-                
+
 :.memtest       move.v  d:%Xw v:bios_str.str_postmem
                 push.r  s:%Xw
                 call.s  a:str_puts
@@ -420,7 +420,7 @@
 :.str_dropspc   !str "  \0"
 
 !include    "../../rom/bios_bus.asm"
-!include    "../../rom/bios_uart.asm"
+!include    "../../rom/bios_uart_fast.asm"
 !include    "../../rom/bios_spi.asm"
 !include    "../../rom/bios_string.asm"
 !include    "../../rom/bios_sdcard.asm"
