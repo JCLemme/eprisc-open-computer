@@ -1,0 +1,13 @@
+
+
+# The following assignments have been added by quartus_dse for group dse1_epRISC_Primary
+set_global_assignment -tag dse_compilation -name SEED 2
+set_global_assignment -tag dse_internal -name DSE_SERVER_URL http://127.0.0.1:37287
+set_global_assignment -tag dse_internal -name DSE_SERVER_SEND_REPORTS ON
+set_global_assignment -tag dse_internal -name DSE_SEND_REPORT_PANEL "^TimeQuest Timing Analyzer/Clocks$"
+set_global_assignment -tag dse_internal -name DSE_SEND_REPORT_PANEL "^TimeQuest Timing Analyzer/(Slow|Fast)\\s.*Model/(Slow|Fast)\\s.*Model\\sFmax\\sSummary$"
+set_global_assignment -tag dse_internal -name DSE_SEND_REPORT_PANEL "^TimeQuest Timing Analyzer/(Slow|Fast)\\s.*Model/(Slow|Fast)\\s.*Model\\s(Setup|Hold|Recovery|Removal)\\sSummary$"
+set_global_assignment -tag dse_internal -name DSE_SEND_REPORT_PANEL "Flow Elapsed Time"
+set_global_assignment -tag dse_internal -name DSE_SEND_REPORT_PANEL "Fitter/(Resource Section|Place Stage)/Fitter Resource Usage Summary"
+set_global_assignment -tag dse_internal -name TIMEQUEST_MULTICORNER_ANALYSIS ON
+set_global_assignment -tag dse_internal -name CLOUD_NOTIFY_GROUP_ID dse1_epRISC_Primary

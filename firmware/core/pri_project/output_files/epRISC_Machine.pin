@@ -66,7 +66,7 @@
  ---------------------------------------------------------------------------------
 
 Quartus Prime Version 16.0.0 Build 211 04/27/2016 SJ Lite Edition
-CHIP  "epRISC_Machine"  ASSIGNED TO AN: 10M16SCE144C8G
+CHIP  "epRISC_Machine"  ASSIGNED TO AN: 10M16SCE144A7G
 
 Pin Name/Usage               : Location  : Dir.   : I/O Standard      : Voltage : I/O Bank  : User Assignment
 -------------------------------------------------------------------------------------------------------------
@@ -95,7 +95,7 @@ bBoardDebug3                 : 22        : bidir  : 2.5 V             :         
 VCCIO1B                      : 23        : power  :                   : 2.5V    : 1B        :                
 iBoardSense                  : 24        : input  : 2.5 V             :         : 1B        : Y              
 iBoardReset                  : 25        : input  : 2.5 V             :         : 1B        : Y              
-iBoardClock                  : 26        : input  : 2.5 V             :         : 2         : Y              
+iBoardClock                  : 26        : input  : 2.5 V             :         : 2         : N              
 RESERVED_INPUT_WITH_WEAK_PULLUP : 27        :        :                   :         : 2         :                
 bMemoryData[0]               : 28        : bidir  : 2.5 V             :         : 2         : Y              
 bMemoryData[1]               : 29        : bidir  : 2.5 V             :         : 2         : Y              

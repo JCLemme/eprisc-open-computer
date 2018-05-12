@@ -1,0 +1,335 @@
+`begin_keywords "1800-2012"
+`line 1 "../../../firmware/core/sysx_v1r0.v" 1
+ 
+ 
+
+`line 4 "../../../firmware/core/sysx_v1r0.v" 0
+ 
+ 
+
+`line 7 "../../../firmware/core/sysx_v1r0.v" 0
+ 
+/*verilator lint_off WIDTH*/ 
+
+`line 10 "../../../firmware/core/sysx_v1r0.v" 0
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+`line 20 "../../../firmware/core/sysx_v1r0.v" 0
+module epRISC_sysXBuffer(iAddrA, iAddrB, iClkA, iClkB, iDInA, iDInB, iWriteA, iWriteB, oDOutA, oDOutB);     
+
+`line 22 "../../../firmware/core/sysx_v1r0.v" 0
+    input iClkA, iClkB, iWriteA, iWriteB;
+    input [7:0] iAddrA, iAddrB;
+    input [31:0] iDInA, iDInB;
+    output reg [31:0] oDOutA, oDOutB;
+    
+    reg [7:0] rClr;
+    reg [31:0] rContents[0:255];
+        
+    always @(posedge iClkA) begin
+        if(iWriteA) begin
+            rContents[iAddrA] <= iDInA;
+        end
+    end
+
+`line 36 "../../../firmware/core/sysx_v1r0.v" 0
+    always @(posedge iClkB) begin
+        if(iWriteB) begin
+            rContents[iAddrB] <= iDInB;
+        end
+    end
+    
+    always @(posedge iClkA) begin
+        if(!iWriteA) begin
+            oDOutA <= rContents[iAddrA];
+        end
+    end
+    
+    always @(posedge iClkB) begin
+        if(!iWriteB) begin
+            oDOutB <= rContents[iAddrB];
+        end
+    end
+            
+endmodule
+
+`line 56 "../../../firmware/core/sysx_v1r0.v" 0
+module epRISC_sysXMaster(iClock, iReset, iAddress, bData, iWrite, iEnable, oInterrupt, iMasterClock, iBusMISO, oBusMOSI, oBusClock, iBusInterrupt, oBusSelect, oDebug);
+
+`line 58 "../../../firmware/core/sysx_v1r0.v" 0
+     
+    input iClock, iReset, iWrite, iEnable, iMasterClock, iBusInterrupt;
+    input [3:0] iAddress;
+    input [7:0] iBusMISO;
+    output wire oInterrupt, oBusClock, oDebug;
+    output wire [1:0] oBusSelect;
+    output wire [7:0] oBusMOSI;
+    inout [31:0] bData;
+
+`line 67 "../../../firmware/core/sysx_v1r0.v" 0
+     
+    reg [7:0] rCounterMISO, rCounterMOSI, rInternalCounterMISO, rInternalCounterMOSI, rTransferCount;
+    reg [31:0] rConfig, rDirectMOSI, rDirectMISO;
+    wire [31:0] wDataMOSI, wDataMISO;
+   
+    wire fBeginSingle, fBeginBlock, fReceive;
+    wire [1:0] fChipSelect;
+    wire [7:0] fTransferCount;
+    wire [11:0] fClockStep;
+    
+     
+    reg rDerivedClock;
+    reg [11:0] rMasterClockCount;
+
+`line 81 "../../../firmware/core/sysx_v1r0.v" 0
+     
+    reg [4:0] rPipeState, rPipePrevState, rPipeNextState;
+    reg [4:0] rLockAck, rLockSto;
+    
+     
+    wire wInternalWriteMISO;
+    reg [31:0] rInternalDataMISO;
+    wire [31:0] wInternalDataMOSI, wDistributionMOSI;
+    wire [31:0] wDataOutMISO, wDataOutMOSI, wTrashMISO;
+
+`line 91 "../../../firmware/core/sysx_v1r0.v" 0
+     
+    epRISC_sysXBuffer bufferMISO(rCounterMISO, rInternalCounterMISO, iClock, rDerivedClock, wDataMISO, rInternalDataMISO, (iWrite&&iAddress==4'h6) ? 1'h1 : 1'h0, wInternalWriteMISO, wDataOutMISO, wTrashMISO);
+    epRISC_sysXBuffer bufferMOSI(rCounterMOSI, rInternalCounterMOSI, iClock, rDerivedClock, wDataMOSI, 32'h1BADC0DE, (iWrite&&iAddress==4'h4) ? 1'h1 : 1'h0, 1'h0, wDataOutMOSI, wInternalDataMOSI);
+    
+                       
+                       
+    
+
+`line 99 "../../../firmware/core/sysx_v1r0.v" 0
+    assign bData = (iWrite || !iEnable) ? 32'bz :
+                   ((iAddress == 4'h0) ? rConfig :
+                   (iAddress == 4'h1) ? rDirectMOSI :
+                   (iAddress == 4'h2) ? rDirectMISO :
+                   (iAddress == 4'h3) ? {24'h0, rCounterMOSI} : 
+                   (iAddress == 4'h4) ? wDataMOSI :
+                   (iAddress == 4'h5) ? {24'h0, rCounterMISO} :
+                   (iAddress == 4'h6) ? wDataMISO : 32'h0BADC0DE);
+    
+    assign oDebug = (iEnable) ? 1 : 0;
+    
+    assign oBusClock = (rPipeState == 0) ? 1'h1 : rDerivedClock;
+    assign oBusSelect = fChipSelect; 
+    assign oInterrupt = iBusInterrupt;
+    assign oBusMOSI = (fReceive) ? 8'hFF : 
+                      ((rPipeState == 2) ? wDistributionMOSI[7:0] :
+                      (rPipeState == 3) ? wDistributionMOSI[15:8] :
+                      (rPipeState == 4) ? wDistributionMOSI[23:16] :
+                      (rPipeState == 5) ? wDistributionMOSI[31:24] : 8'h0);
+
+`line 119 "../../../firmware/core/sysx_v1r0.v" 0
+    assign wDataMISO = (iWrite && iAddress == 4'h6) ? bData : wDataOutMISO;
+    assign wDataMOSI = (iWrite && iAddress == 4'h4) ? bData : wDataOutMOSI;
+    assign wInternalWriteMISO = (rPipeState == 7) ? 1'h1 : 1'h0;
+    assign wDistributionMOSI = (fBeginSingle || rConfig[1]) ? rDirectMOSI : wInternalDataMOSI;
+
+`line 124 "../../../firmware/core/sysx_v1r0.v" 0
+    assign fBeginSingle = rConfig[0];
+    assign fBeginBlock = 0; 
+    assign fChipSelect = rConfig[3:2];
+    assign fReceive = rConfig[4];
+    assign fTransferCount = rConfig[15:8];
+    assign fClockStep = rConfig[27:16];
+
+`line 131 "../../../firmware/core/sysx_v1r0.v" 0
+     
+    always @(posedge iMasterClock) begin
+        if(iReset) begin
+            rMasterClockCount <= 12'h0;
+        end else begin
+            if(iAddress == 4'h0 && iWrite && iEnable)
+                rMasterClockCount <= 12'h0;
+
+`line 139 "../../../firmware/core/sysx_v1r0.v" 0
+            else if(rMasterClockCount == 1)
+                rMasterClockCount <= 12'h0;
+            else
+                rMasterClockCount <= rMasterClockCount + 12'h1;
+        end
+    end
+
+`line 146 "../../../firmware/core/sysx_v1r0.v" 0
+    always @(posedge iMasterClock) begin
+        if(iReset) begin
+            rDerivedClock <= 1'h0;
+        end else begin
+            if(rMasterClockCount == 0)
+                rDerivedClock <= !rDerivedClock;
+        end
+    end
+
+`line 155 "../../../firmware/core/sysx_v1r0.v" 0
+     
+    always @(posedge rDerivedClock) begin
+        if(iReset) begin
+            rPipePrevState <= 0;
+            rPipeState <= 0;
+            rLockAck <= 1'h0;
+        end else begin
+            rPipePrevState <= rPipeState;
+            rPipeState <= rPipeNextState;
+            
+            if(rPipeState == 5)
+                rLockAck <= rLockAck + 5'h1;
+        end
+    end
+
+`line 170 "../../../firmware/core/sysx_v1r0.v" 0
+    always @(*) begin
+        case(rPipeState)
+            0: rPipeNextState = (fBeginSingle) ? 1 : 0;  
+            1: rPipeNextState = 2;
+            2: rPipeNextState = 3;
+            3: rPipeNextState =  4;
+            4: rPipeNextState = 5;
+            5: rPipeNextState = 6;
+            6: rPipeNextState = 7;
+            7: rPipeNextState = 0;  
+            default: rPipeNextState = 0;
+        endcase
+    end
+
+`line 184 "../../../firmware/core/sysx_v1r0.v" 0
+     
+    always @(negedge iClock) begin
+        if(iReset) begin
+            rCounterMISO <= 8'h0;
+        end else begin
+            if(iAddress == 4'h5 && iWrite)
+                rCounterMISO <= bData[7:0];
+        end
+    end
+
+`line 194 "../../../firmware/core/sysx_v1r0.v" 0
+    always @(negedge iClock) begin
+        if(iReset) begin
+            rCounterMOSI <= 8'h0;
+        end else begin
+            if(iAddress == 4'h3 && iWrite && iEnable)
+                rCounterMOSI <= bData[7:0];
+        end
+    end
+
+`line 203 "../../../firmware/core/sysx_v1r0.v" 0
+    always @(negedge rDerivedClock) begin
+        if(iReset) begin
+            rInternalCounterMISO <= 8'h0;
+        end else begin
+            if(rPipePrevState == 7 && fBeginBlock)
+                rInternalCounterMISO <= rInternalCounterMISO + 8'h1;
+            else if(rPipeState == 1 && rPipePrevState == 0)
+                rInternalCounterMISO <= rCounterMISO;
+        end
+    end
+
+`line 214 "../../../firmware/core/sysx_v1r0.v" 0
+    always @(negedge rDerivedClock) begin
+        if(iReset) begin
+            rInternalCounterMOSI <= 8'h0;
+        end else begin
+            if(rPipeState == 7 && fBeginBlock)
+                rInternalCounterMOSI <= rInternalCounterMOSI + 8'h1;
+            else if(rPipeState == 1 && rPipePrevState == 0)
+                rInternalCounterMOSI <= rCounterMOSI;
+        end
+    end
+
+`line 225 "../../../firmware/core/sysx_v1r0.v" 0
+     
+     
+    always @(posedge iClock) begin
+        if(iReset) begin
+            rConfig <= 32'h0;
+            rLockSto <= 5'h0;
+        end else begin
+            if(iAddress == 4'h0 && iWrite && iEnable && rPipeState == 0)  
+                rConfig <= bData;
+                
+            if(rPipeState == 5)
+                rConfig[0] <= 0;
+                
+            if(rPipeState == 2)
+                rConfig[1] <= 1;
+                
+            if(rPipeState == 0)
+                rConfig[1] <= 0;
+                
+            if(((rLockAck > rLockSto) || (rLockAck == 5'h0 && rLockSto == 5'h1F)) && rPipeState == 0) begin
+                rLockSto <= rLockAck;
+                
+
+`line 249 "../../../firmware/core/sysx_v1r0.v" 0
+
+`line 249 "../../../firmware/core/sysx_v1r0.v" 0
+ 
+                 
+            end
+        end
+    end
+
+`line 255 "../../../firmware/core/sysx_v1r0.v" 0
+    always @(negedge rDerivedClock) begin
+        if(iReset) begin
+            rTransferCount <= 32'h0;
+        end else begin
+            if(rPipeState == 1 && rPipePrevState == 0)
+                rTransferCount <= rConfig[15:8];
+            if(rPipeState == 3 && fBeginBlock)
+                rTransferCount <= rTransferCount - 8'h1;
+        end
+    end
+
+`line 266 "../../../firmware/core/sysx_v1r0.v" 0
+    always @(negedge iClock) begin
+        if(iReset) begin
+            rDirectMOSI <= 32'h0;
+        end else begin
+            if(iAddress == 4'h1 && iWrite && iEnable) 
+                rDirectMOSI <= bData;
+        end
+    end
+
+`line 275 "../../../firmware/core/sysx_v1r0.v" 0
+    always @(negedge rDerivedClock) begin
+        if(iReset) begin
+            rDirectMISO <= 32'h0;
+        end else begin
+            if(iAddress == 4'h2 && iWrite && iEnable)
+                rDirectMISO <= bData;
+            if((rConfig[1] || fBeginSingle) && rPipeState == 7)
+                rDirectMISO <= rInternalDataMISO;
+        end
+    end
+
+`line 286 "../../../firmware/core/sysx_v1r0.v" 0
+    always @(negedge rDerivedClock) begin
+        if(iReset) begin
+            rInternalDataMISO <= 0;
+        end else begin
+            if(rPipeState == 2)
+                rInternalDataMISO[7:0] <= iBusMISO;
+            if(rPipeState == 3)
+                rInternalDataMISO[15:8] <= iBusMISO;
+            if(rPipeState == 4)
+                rInternalDataMISO[23:16] <= iBusMISO;
+            if(rPipeState == 5)
+                rInternalDataMISO[31:24] <= iBusMISO;
+        end
+    end
+   
+endmodule
+
+`line 303 "../../../firmware/core/sysx_v1r0.v" 2

@@ -14,11 +14,13 @@
 
 // Gonna need this later
 /* verilator lint_off WIDTH */
+/* verilator lint_off UNOPTFLAT */
+/* verilator lint_off INITIALDLY */
 
 module EmulatedPLL(iIn, oOut, oOutNinety, oOutFast);
     input iIn;
-    output reg oOut, oOutNinety;
-    output wire oOutFast;
+    output reg oOut/* verilator clock_enable*/, oOutNinety/* verilator clock_enable*/;
+    output wire oOutFast/* verilator clock_enable*/;
 
     reg [1:0] rClockSplit;
 
@@ -74,7 +76,7 @@ module epRISC_machine(iBoardClock, iBoardReset, iBoardSense, oBoardAcknowledge, 
 
     input iBusInterrupt;
     input [7:0] iBusMISO;
-    output wire oBusClock;
+    output wire oBusClock /*verilator clock_enable*/;
     output wire [1:0] oBusSelect;
     output wire [7:0] oBusMOSI;
 
@@ -105,7 +107,12 @@ module epRISC_machine(iBoardClock, iBoardReset, iBoardSense, oBoardAcknowledge, 
     // FSB assign statements
     assign wCoreBusReset = !iBoardReset;
     assign wCoreBusNMInterrupt = 0;
+    
+    `ifdef EMULATED
+    assign wCoreBusReady = 1'h1;
+    `else
     assign wCoreBusReady = (wEnableSDRAM && !wCoreBusWrite) ? wSDRAMReady : 1'h1;
+    `endif
     
     assign wEnableROM = (wCoreBusAddress >= 32'h0 && wCoreBusAddress < 32'h1000) ? 1'h1 : 1'h0;
     assign wEnableRAM = (wCoreBusAddress >= 32'h1000 && wCoreBusAddress < 32'h2000) ? 1'h1 : 1'h0;
@@ -123,7 +130,7 @@ module epRISC_machine(iBoardClock, iBoardReset, iBoardSense, oBoardAcknowledge, 
     `endif
 
     epRISC_core         core(wCoreBusClock, wCoreBusReset, wCoreBusAddress, wCoreBusData, wCoreBusWrite, wCoreBusInterrupt, wCoreBusNMInterrupt, wCoreHalt, wCoreFlag, wCoreBusAccess, wCoreBusReady, wCoreBusAcknowledge); 
-    epRISC_sysXMaster   bus(wCoreBusMemClock, wCoreBusReset, wCoreBusAddress, wCoreBusData, wCoreBusWrite, wEnableBusControl, wCoreBusInterrupt, wCoreBusMemClock, iBusMISO, oBusMOSI, oBusClock, iBusInterrupt, oBusSelect, wDebug);
+    epRISC_sysXMaster   bus(wCoreBusMemClock, (wCoreBusReset || !iBoardSense), wCoreBusAddress, wCoreBusData, wCoreBusWrite, wEnableBusControl, wCoreBusInterrupt, wCoreBusMemClock, iBusMISO, oBusMOSI, oBusClock, iBusInterrupt, oBusSelect, wDebug);
     
     epRISC_embeddedROM  tbrom(wCoreBusMemClock, wCoreBusAddress, wCoreBusData, wEnableROM); 
 
@@ -139,7 +146,7 @@ module epRISC_machine(iBoardClock, iBoardReset, iBoardSense, oBoardAcknowledge, 
     `endif
 
     `ifdef EMULATED
-    epRISC_testRAM      tbsdram(wCoreBusAddress, wCoreBusMemClock, wCoreBusData, (wCoreBusWrite&&wEnableSDRAM), wSDRAMData); 
+    epRISC_testSDRAM    tbsdram(wCoreBusAddress, wCoreBusMemClock, wCoreBusData, (wCoreBusWrite&&wEnableSDRAM), wSDRAMData); 
     `else
     epRISC_SDRAM        tbsdram(wCoreBusAddress, wCoreBusData, (wCoreBusAccess && wEnableSDRAM && wCoreBusWrite), 
                                 wCoreBusAddress, wSDRAMData, wSDRAMReady, (wCoreBusAccess && wEnableSDRAM && (!wCoreBusWrite) && (!wSDRAMBusy)), 

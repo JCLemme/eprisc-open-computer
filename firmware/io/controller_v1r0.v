@@ -9,6 +9,7 @@
 
 // Gonna need this later
 /* verilator lint_off WIDTH */
+/* verilator lint_off INITIALDLY */
 
 `define pSelectAddress  1
 `define sPipeLoad       1
@@ -33,7 +34,7 @@ module epRISC_controlRAM(iClk, iRst, iAddr, iData, oData, iWrite, iEnable);
     
     always @(posedge iClk) begin
         if(iRst) begin
-            $display("Reset");
+            //$display("Reset"); Ding dong the witch is dead
         end else begin
             if(iWrite)
                 rContents[iAddr] = iData;
@@ -83,7 +84,7 @@ module epRISC_iocontroller(iBusClock, iBusSelect, iBusMOSI, oBusInterrupt, oBusM
                            bPS2Data, bPS2Clock);
 
     // Input/output definitions
-    input iBusClock;
+    input iBusClock /*verilator clock_enable*/;
     input [1:0] iBusSelect;
     input [7:0] iBusMOSI;
     output wire oBusInterrupt;
@@ -117,7 +118,8 @@ module epRISC_iocontroller(iBusClock, iBusSelect, iBusMOSI, oBusInterrupt, oBusM
 
     // Internal register definitions
     reg [31:0] rInternalMOSI, rInternalMOSIBuffer;
-    wire [31:0] wInternalMISO;
+    wire [15:0] wInternalMISO, wGPIOInternalMISO, wUARTInternalMISO, wSPIInternalMISO, wVideoInternalMISO;
+    wire [31:0] wRAMInternalMISO;
 
     // Internal bus definitions
     wire mBusWrite, mBusReset, wInternalReset;
@@ -146,6 +148,7 @@ module epRISC_iocontroller(iBusClock, iBusSelect, iBusMOSI, oBusInterrupt, oBusM
     assign wEnableVideo = (mBusAddress >= 15'h30 && mBusAddress < 15'h40) ? 1'h1 : 1'h0;
     assign wEnableRAM = (mBusAddress >= 15'h40 && mBusAddress < 15'hFF) ? 1'h1 : 1'h0;
     
+    assign wInternalMISO = (wEnableGPIO) ? wGPIOInternalMISO : (wEnableUART) ? wUARTInternalMISO : (wEnableSPI) ? wSPIInternalMISO : (wEnableVideo) ? wVideoInternalMISO : wRAMInternalMISO[15:0];
     assign oBusMISO = (rPipeState == `sPipeLoLo) ? wInternalMISO[7:0] :
                       (rPipeState == `sPipeLo) ? wInternalMISO[15:8] :
                       (rPipeState == `sPipeHi) ? 8'h0 :
@@ -158,16 +161,16 @@ module epRISC_iocontroller(iBusClock, iBusSelect, iBusMOSI, oBusInterrupt, oBusM
     OnChipPLL           clock(iBoardClock, wSerialClock, wSPIClock, wVGAClock, wFastClock);
     `endif
 
-    epRISC_GPIO         gpio(iBusClock, mBusReset, oBusInterrupt, mBusAddress, mBusData, wInternalMISO, mBusWrite, wEnableGPIO, 
+    epRISC_GPIO         gpio(iBusClock, mBusReset, oBusInterrupt, mBusAddress, mBusData, wGPIOInternalMISO, mBusWrite, wEnableGPIO, 
                              bGPIO0, bGPIO1, bGPIO2, bGPIO3, bGPIO4, bGPIO5, bGPIO6, bGPIO7, bGPIO8, bGPIO9, bGPIO10, bGPIO11, bGPIO12, bGPIO13, bGPIO14, bGPIO15);
                              
-    epRISC_UART         uart(iBusClock, mBusReset, oBvusInterrupt, mBusAddress, mBusData, wInternalMISO, mBusWrite, wEnableUART, wSerialClock, iTTLSerialRX, oTTLSerialTX);   
+    epRISC_UART         uart(iBusClock, mBusReset, oBvusInterrupt, mBusAddress, mBusData, wUARTInternalMISO, mBusWrite, wEnableUART, wSerialClock, iTTLSerialRX, oTTLSerialTX);   
     
-    epRISC_SPI          bspi(iBusClock, mBusReset, oBrusInterrupt, mBusAddress, mBusData, wInternalMISO, mBusWrite, wEnableSPI, wSPIClock, iSPIMISO, oSPIMOSI, oSPISelect, oSPIClock);
+    epRISC_SPI          bspi(iBusClock, mBusReset, oBrusInterrupt, mBusAddress, mBusData, wSPIInternalMISO, mBusWrite, wEnableSPI, wSPIClock, iSPIMISO, oSPIMOSI, oSPISelect, oSPIClock);
     
-    epRISC_VideoTerm    bvga(iBusClock, mBusReset, mBusAddress, mBusData, wInternalMISO, mBusWrite, wEnableVideo, wFastClock, wVGAClock, oVGAColor, oVGAHorizontal, oVGAVertical);
+    epRISC_VideoTerm    bvga(iBusClock, mBusReset, mBusAddress, mBusData, wVideoInternalMISO, mBusWrite, wEnableVideo, wFastClock, wVGAClock, oVGAColor, oVGAHorizontal, oVGAVertical);
 
-    epRISC_controlRAM   bmem(iBusClock, mBusReset, mBusAddress, rInternalMOSI, wInternalMISO, mBusWrite, wEnableRAM);
+    epRISC_controlRAM   bmem(iBusClock, mBusReset, mBusAddress, rInternalMOSI, wRAMInternalMISO, mBusWrite, wEnableRAM);
 
 
     // Pipeline controller
@@ -196,7 +199,7 @@ module epRISC_iocontroller(iBusClock, iBusSelect, iBusMOSI, oBusInterrupt, oBusM
     
     always @(negedge iBusClock or posedge wInternalReset) begin
         if(wInternalReset) begin
-            rInternalMOSI <= 0;
+            //rInternalMOSI <= 0;
         end else begin
             if(rPipeState == `sPipeRegister)
                 rInternalMOSI <= rInternalMOSIBuffer;

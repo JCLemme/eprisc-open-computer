@@ -1,0 +1,178 @@
+`begin_keywords "1800-2012"
+`line 1 "../../../firmware/core/machine_v1r0.v" 1
+ 
+
+`line 3 "../../../firmware/core/machine_v1r0.v" 0
+ 
+ 
+
+`line 6 "../../../firmware/core/machine_v1r0.v" 0
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+`line 15 "../../../firmware/core/machine_v1r0.v" 0
+ 
+/*verilator lint_off WIDTH*/ 
+
+`line 18 "../../../firmware/core/machine_v1r0.v" 0
+module EmulatedPLL(iIn, oOut, oOutNinety, oOutFast);
+    input iIn;
+    output reg oOut, oOutNinety;
+    output wire oOutFast;
+
+`line 23 "../../../firmware/core/machine_v1r0.v" 0
+    reg [1:0] rClockSplit;
+
+`line 25 "../../../firmware/core/machine_v1r0.v" 0
+    assign oOutFast = iIn;
+    
+    initial begin
+        rClockSplit <= 0;
+    end
+
+`line 31 "../../../firmware/core/machine_v1r0.v" 0
+    always @(posedge iIn) begin
+        rClockSplit <= rClockSplit + 1;
+        
+        if(rClockSplit == 0)
+            oOut = 1;
+        if(rClockSplit == 1)
+            oOutNinety = 1;
+        if(rClockSplit == 2)
+            oOut = 0;
+        if(rClockSplit == 3)
+            oOutNinety = 0;
+    end
+
+`line 44 "../../../firmware/core/machine_v1r0.v" 0
+endmodule
+
+`line 46 "../../../firmware/core/machine_v1r0.v" 0
+module BusConverter(iEnable, iData, bData);
+    
+    input iEnable;
+    input [31:0] iData;
+    inout [31:0] bData;
+
+`line 52 "../../../firmware/core/machine_v1r0.v" 0
+    assign bData = (iEnable) ? iData : 32'hz;
+
+`line 54 "../../../firmware/core/machine_v1r0.v" 0
+endmodule
+
+`line 56 "../../../firmware/core/machine_v1r0.v" 0
+module BusFiller(iEnable, bData);
+   
+    input iEnable;
+    inout [31:0] bData;
+    
+    assign bData = (iEnable) ? 32'h0 : 32'hz;
+    
+endmodule
+
+`line 65 "../../../firmware/core/machine_v1r0.v" 0
+module epRISC_machine(iBoardClock, iBoardReset, iBoardSense, oBoardAcknowledge, iBoardReceive, oBoardTransmit,
+                      bBoardDebug0, bBoardDebug2, bBoardDebug3, bBoardDebug4, bBoardDebug5,
+                      oBusMOSI, iBusMISO, oBusClock, iBusInterrupt, oBusSelect,
+                      bMemoryData, oMemoryAddress, oMemoryBank, oMemoryDQM, oMemoryCKE, oMemoryCLK, oMemoryWE, oMemoryCAS, oMemoryRAS, oMemoryCS);
+
+`line 70 "../../../firmware/core/machine_v1r0.v" 0
+     
+    input iBoardClock, iBoardReset, iBoardSense, iBoardReceive;
+    output wire oBoardAcknowledge, oBoardTransmit;
+    inout bBoardDebug0, bBoardDebug2, bBoardDebug3, bBoardDebug4, bBoardDebug5;
+
+`line 75 "../../../firmware/core/machine_v1r0.v" 0
+    input iBusInterrupt;
+    input [7:0] iBusMISO;
+    output wire oBusClock;
+    output wire [1:0] oBusSelect;
+    output wire [7:0] oBusMOSI;
+
+`line 81 "../../../firmware/core/machine_v1r0.v" 0
+    output wire oMemoryCKE, oMemoryCLK, oMemoryWE, oMemoryCAS, oMemoryRAS, oMemoryCS;
+    output wire [1:0] oMemoryBank;
+    output wire [3:0] oMemoryDQM;
+    output wire [11:0] oMemoryAddress;
+    inout [31:0] bMemoryData;
+
+`line 87 "../../../firmware/core/machine_v1r0.v" 0
+     
+    assign oBoardAcknowledge = wCoreBusAcknowledge;
+    assign oBoardTransmit = 1'h1;
+    assign bBoardDebug0 = 1'bz;
+    assign bBoardDebug2 = 1'bz;
+    assign bBoardDebug3 = 1'bz;
+    assign bBoardDebug4 = 1'bz;
+    assign bBoardDebug5 = 1'bz;
+
+`line 96 "../../../firmware/core/machine_v1r0.v" 0
+     
+    wire wCoreBusClock, wCoreBusMemClock, wCoreBusFastClock, wCoreBusReset, wCoreBusWrite, wCoreBusInterrupt, wCoreBusNMInterrupt, wCoreBusAccess, wCoreBusReady, wSDRAMReady, wCoreBusAcknowledge;
+    wire [31:0] wCoreBusAddress, wCoreBusData, wRAMData, wSDRAMData;
+
+`line 100 "../../../firmware/core/machine_v1r0.v" 0
+    wire wEnableROM, wEnableRAM, wEnableBusControl, wEnableSDRAM, wDisableExtra;
+
+`line 102 "../../../firmware/core/machine_v1r0.v" 0
+     
+    wire wCoreHalt, wCoreFlag;
+
+`line 105 "../../../firmware/core/machine_v1r0.v" 0
+     
+    assign wCoreBusReset = !iBoardReset;
+    assign wCoreBusNMInterrupt = 0;
+    assign wCoreBusReady = (wEnableSDRAM && !wCoreBusWrite) ? wSDRAMReady : 1'h1;
+    
+    assign wEnableROM = (wCoreBusAddress >= 32'h0 && wCoreBusAddress < 32'h1000) ? 1'h1 : 1'h0;
+    assign wEnableRAM = (wCoreBusAddress >= 32'h1000 && wCoreBusAddress < 32'h2000) ? 1'h1 : 1'h0;
+    assign wEnableBusControl = (wCoreBusAddress >= 32'h2000 && wCoreBusAddress < 32'h3000) ? 1'h1 : 1'h0;
+    assign wEnableSDRAM = (wCoreBusAddress >= 32'h3000 && wCoreBusAddress < 32'h800000) ? 1'h1 : 1'h0;
+    assign wDisableExtra = (wCoreBusAddress >= 32'h800000) ? 1'h1 : 1'h0;
+    
+    assign oMemoryCLK = wCoreBusFastClock;
+   
+     
+     
+    EmulatedPLL         clock(iBoardClock, wCoreBusClock, wCoreBusMemClock, wCoreBusFastClock);
+    
+                  
+    
+
+`line 125 "../../../firmware/core/machine_v1r0.v" 0
+    epRISC_core         core(wCoreBusClock, wCoreBusReset, wCoreBusAddress, wCoreBusData, wCoreBusWrite, wCoreBusInterrupt, wCoreBusNMInterrupt, wCoreHalt, wCoreFlag, wCoreBusAccess, wCoreBusReady, wCoreBusAcknowledge); 
+    epRISC_sysXMaster   bus(wCoreBusMemClock, (wCoreBusReset || !iBoardSense), wCoreBusAddress, wCoreBusData, wCoreBusWrite, wEnableBusControl, wCoreBusInterrupt, wCoreBusMemClock, iBusMISO, oBusMOSI, oBusClock, iBusInterrupt, oBusSelect, wDebug);
+    
+    epRISC_embeddedROM  tbrom(wCoreBusClock, wCoreBusAddress, wCoreBusData, wEnableROM); 
+
+`line 130 "../../../firmware/core/machine_v1r0.v" 0
+    BusConverter        bcram(wEnableRAM&&(!wCoreBusWrite), wRAMData, wCoreBusData);
+    BusConverter        bcsdram(wEnableSDRAM&&(!wCoreBusWrite), wSDRAMData, wCoreBusData);
+    
+    BusFiller           busfill(wDisableExtra, wCoreBusData);
+    
+     
+    epRISC_testRAM      tbram(wCoreBusAddress, wCoreBusMemClock, wCoreBusData, (wCoreBusWrite&&wEnableRAM), wRAMData); 
+    
+                    
+    
+
+`line 141 "../../../firmware/core/machine_v1r0.v" 0
+     
+    epRISC_testRAM      tbsdram(wCoreBusAddress, wCoreBusMemClock, wCoreBusData, (wCoreBusWrite&&wEnableSDRAM), wSDRAMData); 
+    
+                   
+                                          
+                                   
+                                        
+    
+    
+endmodule
+
+`line 152 "../../../firmware/core/machine_v1r0.v" 2

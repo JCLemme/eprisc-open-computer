@@ -14,10 +14,15 @@
 `define sPipeArithmetic     3
 `define sPipeMemory         4
 `define sPipeWriteback      5
+
 `define sPipeHalt           6
 `define sPipeWriteSkip      7
 `define sPipeInterrupt      8
 `define sPipeMemDebug       9
+
+`define sPipeMemDelay       10
+`define sPipeFetchDelay     11
+
 `define sUndefined          0
 
 // Registers for use in simulation environments. Can (and should) be replaced with a synchronous, dual-port RAM for synthesis on FPGAs.
@@ -64,7 +69,7 @@ module epRISC_gpr(iAddrA, iAddrB, iClk, iDInA, iDInB, iWriteA, iWriteB, oDOutA, 
 endmodule
 
 
-// Synthesizable, non-pipelined version of the CPU. Mostly working as of this commit.
+// Synthesizable, non-pipelined version of the CPU. 
 
 module epRISC_core(iClk, iRst, oAddr, bData, oWrite, iMaskInt, iNonMaskInt, oHalt, oFlg, oAccess, iReady, oAcknowledge);  
            
@@ -142,7 +147,7 @@ module epRISC_core(iClk, iRst, oAddr, bData, oWrite, iMaskInt, iNonMaskInt, oHal
     assign wALUOperation = (mALU) ? (fALUOperation) : ((mDirect && mDirectOR) ? (3) : (0));
     
     assign oAccess = ((rPipeState == `sPipeMemory || rPipeState == `sPipeFetch) && iClk == 0) ? 1'h1 : 1'h0;
-    assign oAcknowledge = (rRegR[13] == 1) ? 1'h1 : 1'h0;
+    assign oAcknowledge = (oAddr < 32'h1000) ? 1 : 0; //rRegCS[16]; //(rRegR[13] == 1) ? 1'h1 : 1'h0;
     
     // Assignment - instruction flags
     assign mBranch = (rInst[31] == 1'b1) ? 1'b1 : 1'b0;
@@ -152,18 +157,18 @@ module epRISC_core(iClk, iRst, oAddr, bData, oWrite, iMaskInt, iNonMaskInt, oHal
     assign mBranchLoadStack = (mBranch && rInst[30:28] == 3'b111) ? 1'b1 : 1'b0;
     assign mBranchLoadLink = (mBranch && rInst[30:28] == 3'b110) ? 1'b1 : 1'b0;
     assign mBranchInterrupt = (mBranch && rInst[30:28] == 3'b011) ? 1'b1 : 1'b0;
-    assign mLoad = (rInst[31:30] == 1'b1) ? 1'b1 : 1'b0;
+    assign mLoad = (rInst[31:30] == 2'b1) ? 1'b1 : 1'b0;
     assign mLoadLoad = (mLoad && rInst[29] == 1'b0) ? 1'b1 : 1'b0;
     assign mLoadStore = (mLoad && rInst[29] == 1'b1) ? 1'b1 : 1'b0;
-    assign mDirect = (rInst[31:29] == 1'b1) ? 1'b1 : 1'b0;
+    assign mDirect = (rInst[31:29] == 3'b1) ? 1'b1 : 1'b0;
     assign mDirectOR = (mDirect && rInst[28] == 1'b1) ? 1'b1 : 1'b0;
-    assign mALU = (rInst[31:28] == 1'b1) ? 1'b1 : 1'b0;
+    assign mALU = (rInst[31:28] == 4'b1) ? 1'b1 : 1'b0;
     assign mALURegisters = (mALU && rInst[27] == 1'b0) ? 1'b1 : 1'b0;
     assign mALUDirect = (mALU && rInst[27] == 1'b1) ? 1'b1 : 1'b0;
-    assign mRegister = (rInst[31:27] == 1'b1) ? 1'b1 : 1'b0;
+    assign mRegister = (rInst[31:27] == 5'b1) ? 1'b1 : 1'b0;
     assign mRegisterStandard = (mRegister && rInst[24] == 1'b0) ? 1'b1 : 1'b0;
     assign mRegisterSwap = (mRegister && rInst[24] == 1'b1) ? 1'b1 : 1'b0;
-    assign mCore = (rInst[31:26] == 1'b1) ? 1'b1 : 1'b0;
+    assign mCore = (rInst[31:26] == 6'b1) ? 1'b1 : 1'b0;
     
     // Assignment - instruction fields
     assign fBranchOffset = rInst[19:0];
@@ -202,11 +207,11 @@ module epRISC_core(iClk, iRst, oAddr, bData, oWrite, iMaskInt, iNonMaskInt, oHal
     assign wBusInA = (wBusInAddrA == 0 && !fCSHideRegs) ? rRegIP : ((wBusInAddrA == 1 && !fCSHideRegs) ? ((mLoadLoad && fLoadBase == 4'h2) ? (rRegSP-1) : rRegSP) : ((wBusInAddrA == 2 && !fCSHideRegs) ? rRegCS : ((wBusInAddrA == 3 && !fCSHideRegs) ? rRegGL : ((fCSRegisterPage == 4'hF && wBusInAddrA == 4) ? rRegInterruptBase : wBusRegA))));
     assign wBusInB = (wBusInAddrB == 0 && !fCSHideRegs) ? rRegIP : ((wBusInAddrB == 1 && !fCSHideRegs) ? ((mLoadLoad && fLoadBase == 4'h2) ? (rRegSP-1) : rRegSP) : ((wBusInAddrB == 2 && !fCSHideRegs) ? rRegCS : ((wBusInAddrB == 3 && !fCSHideRegs) ? rRegGL : ((fCSRegisterPage == 4'hF && wBusInAddrB == 4) ? rRegInterruptBase : wBusRegB))));
     assign wBusOutA = (mALU) ? rRegR[31:0] : ((mLoadLoad) ? rRegM : rRegA);
-    assign wBusOutB = (mDirectOR) ? rALUOut : rRegB;
-    assign wBusInAddrA = (mBranch) ? fBranchBase : ((mLoad) ? fLoadBase : ((mDirect) ? fDirectDestination : ((mALU) ? fALUTermA : ((mRegister) ? fRegisterDestination : 8'hFF))));
-    assign wBusInAddrB = (mLoad) ? fLoadTarget : ((mALU) ? fALUTermB : ((mRegister) ? fRegisterSource : 8'hFF));
-    assign wBusOutAddrA = (mRegister) ? fRegisterSource : ((mALU) ? fALUDestination : ((mLoad) ? fLoadTarget : 8'hFF));
-    assign wBusOutAddrB = (mRegister) ? fRegisterDestination : ((mDirect) ? fDirectDestination : 8'hFF);
+    assign wBusOutB = (mDirectOR) ? rALUOut[31:0] : rRegB;
+    assign wBusInAddrA = (mBranch) ? {4'h0, fBranchBase} : ((mLoad) ? {4'h0, fLoadBase} : ((mDirect) ? {4'h0, fDirectDestination} : ((mALU) ? {4'h0, fALUTermA} : ((mRegister) ? {4'h0, fRegisterDestination} : 8'hFF))));
+    assign wBusInAddrB = (mLoad) ? {4'h0, fLoadTarget} : ((mALU) ? {4'h0, fALUTermB} : ((mRegister) ? {4'h0, fRegisterSource} : 8'hFF));
+    assign wBusOutAddrA = (mRegister) ? {4'h0, fRegisterSource} : ((mALU) ? {4'h0, fALUDestination} : ((mLoad) ? {4'h0, fLoadTarget} : 8'hFF));
+    assign wBusOutAddrB = (mRegister) ? {4'h0, fRegisterDestination} : ((mDirect) ? {4'h0, fDirectDestination} : 8'hFF);
     assign wBusOutWriteA = (rPipeState == `sPipeWriteback && (mALU || mRegisterSwap || mLoadLoad)) ? 1'b1 : 1'b0;
     assign wBusOutWriteB = (rPipeState == `sPipeWriteback && (mRegister || mDirect)) ? 1'b1 : 1'b0;
     
@@ -246,9 +251,9 @@ module epRISC_core(iClk, iRst, oAddr, bData, oWrite, iMaskInt, iNonMaskInt, oHal
     
     always @(*) begin
         if(rPipeState == `sPipeHalt)
-            oHalt <= 1'h1;
+            oHalt = 1'h1;
         else
-            oHalt <= 1'h0;
+            oHalt = 1'h0;
     end
     
     // System registers
@@ -433,6 +438,7 @@ module epRISC_core(iClk, iRst, oAddr, bData, oWrite, iMaskInt, iNonMaskInt, oHal
             15: rALUOut = rRegA & rRegB;
             16: rALUOut = (rRegA + rRegB + fCSCarry);
             17: rALUOut = rRegA - (rRegB + fCSCarry);
+            18: rALUOut = {rRegA[7:0], rRegA[15:8], rRegA[23:16], rRegA[31:24]};
             default: rALUOut = 32'hBADC0DE;
         endcase
     end

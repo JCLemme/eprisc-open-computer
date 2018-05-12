@@ -19,6 +19,26 @@ module epRISC_testRAM(iAddr, iClk, iData, iWrite, oData);
     
 endmodule
 
+module epRISC_testSDRAM(iAddr, iClk, iData, iWrite, oData);
+
+    input iClk, iWrite;
+    input [22:0] iAddr;
+    input [31:0] iData;
+    output wire [31:0] oData;
+
+    reg [31:0] rDataOut, rContents[0:8388607];
+    
+    assign oData = rDataOut;
+    
+    always @(posedge iClk) begin
+        if(iWrite)
+            rContents[iAddr] = iData;
+        else
+            rDataOut = rContents[iAddr];
+    end
+    
+endmodule
+
 module epRISC_testROM(iClk, iAddr, oData, iEnable);
 
     input iClk, iEnable;

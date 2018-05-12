@@ -3,7 +3,7 @@
 ; modified by John C. Lemme, jclemme (at) proportionallabs (dot) com
 ; this file is *not* part of the epRISC project, but rather an open-source project that is included here as part of the baseline system - see "license.txt" for details.
 ;
-; Daryl Rictor's port of Peter Jenning's MicroChess. 
+; John Lemme's port of Daryl Rictor's port of Peter Jenning's MicroChess. 
 
 
 ;***********************************************************************

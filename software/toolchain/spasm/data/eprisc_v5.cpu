@@ -404,7 +404,21 @@ core=EPRISC_STD
         S=VALUE:h0
         V=VALUE:h0
     endinst
+
+    inst=ENDX.R  #Subtract with borrow, two registers
+        format=000100010001DDDDAAAABBBBVVVVVVVV
+        D=ENUMT:REGISTER
+        A=ENUMT:REGISTER
+        B=ENUMT:REGISTER
+        V=VALUE:h0
+    endinst
     
+    inst=ENDX.R  #Endian swap
+        format=000100010010DDDDAAAA000000000000
+        D=ENUMT:REGISTER
+        A=ENUMT:REGISTER
+    endinst
+       
     # # # # # # # #
     
     inst=MOVE.R  #Move, two register

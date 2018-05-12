@@ -20,7 +20,7 @@ X Xw (4)   Xx (5)   Xy (6)   Xz (7)
 Y Yw (8)   Yx (9)   Yy (10)  Yz (11)
 Z Zw (12)  Zx (13)  Zy (14)  Zz (15)
 
-Registers Ww, Wx, Wy, and Wz are special; they are mapped to system registers IP, SP, CS, and GL.
+Registers Ww, Wx, Wy, and Wz are generally not visible; they are over-mapped by system registers IP, SP, CS, and GL.
 
 IP      Instruction Pointer     Current location of execution
 SP      Stack Pointer           Current location of the top of the stack
@@ -223,7 +223,7 @@ h0F     Always False                Never executes.
 
 Arithmetic instructions expect a five-bit opcode that defines the operation to be performed. 
 Most arithmetic operations operate on two terms (A and B); however, some operations work on one term (A) or three terms (A, B, and V).
-Only the first eighteen of these operations are currently defined. Behavior of undefined operations is undefined.
+Only the first nineteen of these operations are currently defined. Behavior of undefined operations is undefined.
 
 h00     Add                         (a + b)
 h01     Subtract                    (a - b)
@@ -243,6 +243,7 @@ h0E     Compare                     (a - b) without result store
 h0F     Test                        (a & b) without result store
 h10     Add with carry              (a + b) + carry
 h11     Subtract with borrow        (a - b) + borrow
+h12     Endian swap                 (a), byte order reversed
 
 Core instructions expect a six-bit opcode that defines the operation to be performed, along with a twenty-bit data field.
 Only the first four of these operations are currently defined. Behavior of undefined operations is undefined.

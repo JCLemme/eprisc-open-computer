@@ -1,0 +1,255 @@
+`begin_keywords "1800-2012"
+`line 1 "../../../firmware/io/controller_v1r0.v" 1
+ 
+ 
+
+`line 4 "../../../firmware/io/controller_v1r0.v" 0
+ 
+ 
+
+`line 7 "../../../firmware/io/controller_v1r0.v" 0
+ 
+ 
+
+`line 10 "../../../firmware/io/controller_v1r0.v" 0
+ 
+/*verilator lint_off WIDTH*/ 
+
+`line 13 "../../../firmware/io/controller_v1r0.v" 0
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+`line 23 "../../../firmware/io/controller_v1r0.v" 0
+module epRISC_controlRAM(iClk, iRst, iAddr, iData, oData, iWrite, iEnable);
+
+`line 25 "../../../firmware/io/controller_v1r0.v" 0
+    input iClk, iRst, iWrite, iEnable;
+    input [7:0] iAddr;
+    input [31:0] iData;
+    output wire [31:0] oData;
+
+`line 30 "../../../firmware/io/controller_v1r0.v" 0
+    reg [31:0] rContents[0:255];
+    
+    assign oData = (iWrite || !iEnable) ? 16'hz : rContents[iAddr];
+    
+    always @(posedge iClk) begin
+        if(iRst) begin
+            $display("Reset");
+        end else begin
+            if(iWrite)
+                rContents[iAddr] = iData;
+
+`line 41 "../../../firmware/io/controller_v1r0.v" 0
+             
+        end
+    end
+    
+endmodule
+
+`line 47 "../../../firmware/io/controller_v1r0.v" 0
+module EmulatedIOPLL(iIn, oOutUART, oOutSPI, oOutVGA, oOutFast);
+    input iIn;
+    output reg oOutUART, oOutSPI;
+    output wire oOutVGA, oOutFast;
+
+`line 52 "../../../firmware/io/controller_v1r0.v" 0
+    reg [6:0] rClockSplit;
+
+`line 54 "../../../firmware/io/controller_v1r0.v" 0
+    assign oOutFast = iIn;
+    assign oOutVGA = iIn;
+    
+    initial begin
+        rClockSplit <= 0;
+        oOutUART <= 0;
+        oOutSPI <= 0;
+    end
+
+`line 63 "../../../firmware/io/controller_v1r0.v" 0
+    always @(posedge iIn) begin
+        rClockSplit <= rClockSplit + 1;
+
+`line 66 "../../../firmware/io/controller_v1r0.v" 0
+        if(rClockSplit[3] == 1)
+            oOutUART = !oOutUART;
+            
+        if(rClockSplit == 5'd27)
+            oOutSPI = !oOutSPI;
+    end
+
+`line 73 "../../../firmware/io/controller_v1r0.v" 0
+endmodule
+
+`line 75 "../../../firmware/io/controller_v1r0.v" 0
+module epRISC_iocontroller(iBusClock, iBusSelect, iBusMOSI, oBusInterrupt, oBusMISO,
+                           iBoardClock, iBoardReset, bBoardDebug0, bBoardDebug1, bBoardDebug2, bBoardDebug3, bBoardDebug4, bBoardDebug5,
+                           oSerialDTR, oSerialRTS, oSerialTX, iSerialRX, iSerialCTS, iSerialDCD, iSerialDSR,
+                           oTTLSerialTX, iTTLSerialRX, iTTLSerialRST,
+                           bGPIO0, bGPIO1, bGPIO2, bGPIO3, bGPIO4, bGPIO5, bGPIO6, bGPIO7, bGPIO8, bGPIO9, bGPIO10, bGPIO11, bGPIO12, bGPIO13, bGPIO14, bGPIO15,
+                           oExtBusMOSI, oExtBusSS, oExtBusClock, iExtBusMISO, iExtBusInterrupt,
+                           oSPIMOSI, oSPISelect, oSPIClock, iSPIMISO, iSPIDetect0, iSPIDetect1, iSPIWrite0, iSPIWrite1,
+                           oVGAColor, oVGAHorizontal, oVGAVertical,
+                           bPS2Data, bPS2Clock);
+
+`line 85 "../../../firmware/io/controller_v1r0.v" 0
+     
+    input iBusClock;
+    input [1:0] iBusSelect;
+    input [7:0] iBusMOSI;
+    output wire oBusInterrupt;
+    output wire [7:0] oBusMISO;
+
+`line 92 "../../../firmware/io/controller_v1r0.v" 0
+    input iBoardClock, iBoardReset;
+    inout bBoardDebug0, bBoardDebug1, bBoardDebug2, bBoardDebug3, bBoardDebug4, bBoardDebug5;
+
+`line 95 "../../../firmware/io/controller_v1r0.v" 0
+    input iSerialRX, iSerialCTS, iSerialDCD, iSerialDSR;
+    output wire oSerialDTR, oSerialRTS, oSerialTX;
+
+`line 98 "../../../firmware/io/controller_v1r0.v" 0
+    input iTTLSerialRX, iTTLSerialRST;
+    output wire oTTLSerialTX;
+                          
+    inout bGPIO0, bGPIO1, bGPIO2, bGPIO3, bGPIO4, bGPIO5, bGPIO6, bGPIO7, bGPIO8, bGPIO9, bGPIO10, bGPIO11, bGPIO12, bGPIO13, bGPIO14, bGPIO15;
+                           
+    input iExtBusInterrupt;
+    input [3:0] iExtBusMISO;
+    output wire oExtBusClock;
+    output wire [1:0] oExtBusSS;
+    output wire [3:0] oExtBusMOSI;
+                           
+    input iSPIMISO, iSPIDetect0, iSPIDetect1, iSPIWrite0, iSPIWrite1;
+    output wire oSPIMOSI, oSPIClock;
+    output wire [3:0] oSPISelect;
+	 
+    output wire oVGAHorizontal, oVGAVertical;
+    output wire [7:0] oVGAColor; 
+                           
+    inout bPS2Data, bPS2Clock;
+
+`line 118 "../../../firmware/io/controller_v1r0.v" 0
+     
+    reg [31:0] rInternalMOSI, rInternalMOSIBuffer;
+    wire [15:0] wInternalMISO, wGPIOInternalMISO, wUARTInternalMISO, wSPIInternalMISO, wVideoInternalMISO, wRAMInternalMISO;
+
+`line 122 "../../../firmware/io/controller_v1r0.v" 0
+     
+    wire mBusWrite, mBusReset, wInternalReset;
+    wire [14:0] mBusAddress;
+    wire [15:0] mBusData;
+    
+    wire wEnableGPIO, wEnableUART, wEnableSPI, wEnableVideo, wEnablePS2, wEnableRAM;
+
+`line 129 "../../../firmware/io/controller_v1r0.v" 0
+    wire wSerialClock, wSPIClock, wVGAClock, wFastClock;
+    
+     
+    reg [4:0] rPipeState, rPipePrevState, rPipeNextState;
+
+`line 134 "../../../firmware/io/controller_v1r0.v" 0
+     
+    assign wInternalReset = !iBoardReset || iBusSelect == 2'h0;
+    
+     
+    assign mBusAddress = rInternalMOSI[30:16];
+    assign mBusData = (rPipeState == 7 || rPipeState == 1) ? rInternalMOSI[15:0] : 32'h0;
+    assign mBusWrite = (rPipeState == 7 && rInternalMOSI[31]) ? 1'h1 : 1'h0;
+    assign mBusReset = ( (rPipeState == 1 && mBusAddress == 15'h7FFF && rInternalMOSI[31])) ? 1'h1 : 1'h0;
+    
+    assign wEnableGPIO = (mBusAddress >= 15'h0 && mBusAddress < 15'h10) ? 1'h1 : 1'h0;
+    assign wEnableUART = (mBusAddress >= 15'h10 && mBusAddress < 15'h20) ? 1'h1 : 1'h0;
+    assign wEnableSPI = (mBusAddress >= 15'h20 && mBusAddress < 15'h30) ? 1'h1 : 1'h0;
+    assign wEnableVideo = (mBusAddress >= 15'h30 && mBusAddress < 15'h40) ? 1'h1 : 1'h0;
+    assign wEnableRAM = (mBusAddress >= 15'h40 && mBusAddress < 15'hFF) ? 1'h1 : 1'h0;
+    
+    assign wInternalMISO = (wEnableGPIO) ? wGPIOInternalMISO : (wEnableUART) ? wUARTInternalMISO : (wEnableSPI) ? wSPIInternalMISO : (wEnableVideo) ? wVideoInternalMISO : wRAMInternalMISO;
+    assign oBusMISO = (rPipeState == 2) ? wInternalMISO[7:0] :
+                      (rPipeState == 3) ? wInternalMISO[15:8] :
+                      (rPipeState == 4) ? 8'h0 :
+                      (rPipeState == 5) ? 8'h0 : 8'h0;
+
+
+`line 156 "../../../firmware/io/controller_v1r0.v" 0
+     
+    EmulatedIOPLL       clock(iBoardClock, wSerialClock, wSPIClock, wVGAClock, wFastClock);
+    
+                   
+    
+
+`line 162 "../../../firmware/io/controller_v1r0.v" 0
+    epRISC_GPIO         gpio(iBusClock, mBusReset, oBusInterrupt, mBusAddress, mBusData, wGPIOInternalMISO, mBusWrite, wEnableGPIO, 
+                             bGPIO0, bGPIO1, bGPIO2, bGPIO3, bGPIO4, bGPIO5, bGPIO6, bGPIO7, bGPIO8, bGPIO9, bGPIO10, bGPIO11, bGPIO12, bGPIO13, bGPIO14, bGPIO15);
+                             
+    epRISC_UART         uart(iBusClock, mBusReset, oBvusInterrupt, mBusAddress, mBusData, wUARTInternalMISO, mBusWrite, wEnableUART, wSerialClock, iTTLSerialRX, oTTLSerialTX);   
+    
+    epRISC_SPI          bspi(iBusClock, mBusReset, oBrusInterrupt, mBusAddress, mBusData, wSPIInternalMISO, mBusWrite, wEnableSPI, wSPIClock, iSPIMISO, oSPIMOSI, oSPISelect, oSPIClock);
+    
+    epRISC_VideoTerm    bvga(iBusClock, mBusReset, mBusAddress, mBusData, wVideoInternalMISO, mBusWrite, wEnableVideo, wFastClock, wVGAClock, oVGAColor, oVGAHorizontal, oVGAVertical);
+
+`line 171 "../../../firmware/io/controller_v1r0.v" 0
+    epRISC_controlRAM   bmem(iBusClock, mBusReset, mBusAddress, rInternalMOSI, wRAMInternalMISO, mBusWrite, wEnableRAM);
+
+
+`line 174 "../../../firmware/io/controller_v1r0.v" 0
+     
+    always @(posedge iBusClock or posedge wInternalReset) begin
+        if(wInternalReset) begin
+            rPipePrevState <= 1;
+            rPipeState <= 1;
+        end else begin
+            rPipePrevState <= rPipeState;
+            rPipeState <= rPipeNextState;
+        end
+    end
+
+`line 185 "../../../firmware/io/controller_v1r0.v" 0
+    always @(*) begin
+        case(rPipeState)
+            1: rPipeNextState = 2;
+            2: rPipeNextState = 3;
+            3: rPipeNextState =  4;
+            4: rPipeNextState = 5;
+            5: rPipeNextState = 6;
+            6: rPipeNextState = 7;
+            7: rPipeNextState = 1;
+            default: rPipeNextState = 1;
+        endcase
+    end
+    
+    always @(negedge iBusClock or posedge wInternalReset) begin
+        if(wInternalReset) begin
+             
+        end else begin
+            if(rPipeState == 6)
+                rInternalMOSI <= rInternalMOSIBuffer;
+        end
+    end
+    
+    always @(negedge iBusClock or posedge wInternalReset) begin
+        if(wInternalReset) begin
+            rInternalMOSIBuffer <= 0;
+        end else begin
+            if(rPipeState == 2)
+                rInternalMOSIBuffer[7:0] <= iBusMOSI;
+            if(rPipeState == 3)
+                rInternalMOSIBuffer[15:8] <= iBusMOSI;
+            if(rPipeState == 4)
+                rInternalMOSIBuffer[23:16] <= iBusMOSI;
+            if(rPipeState == 5)
+                rInternalMOSIBuffer[31:24] <= iBusMOSI;
+        end
+    end
+
+`line 222 "../../../firmware/io/controller_v1r0.v" 0
+endmodule
+
+`line 224 "../../../firmware/io/controller_v1r0.v" 2
