@@ -75,7 +75,7 @@ module epRISC_UART(iClk, iRst, oInt, iAddr, iData, oData, iWrite, iEnable, iSClk
             if(rSendState == `sBit4)
                 rControl[7] <= 0;
                 
-            if(rSendState == `sIdle)
+            if(rRecvState == `sIdle)
                 rControl[4] <= 0;
             else
                 rControl[4] <= 1;
@@ -88,7 +88,10 @@ module epRISC_UART(iClk, iRst, oInt, iAddr, iData, oData, iWrite, iEnable, iSClk
             if((rRecvCountAck > rRecvCountSto) || (rRecvCountAck == 5'h0 && rRecvCountSto == 5'h1F)) begin
                 rRecvCountSto <= rRecvCountAck;
                 rControl[5] <= 0;
-            end
+            end 
+            
+            if(((rRecvState == `sBitStopA) || (rRecvState == `sBitStopB)) && rControl[5]) 
+                rControl[5] <= 0;
         end
     end
 
@@ -106,8 +109,9 @@ module epRISC_UART(iClk, iRst, oInt, iAddr, iData, oData, iWrite, iEnable, iSClk
         if(iRst) begin
             rDataOut <= 0;
         end else begin       
-            if(((rRecvState == `sBitStopA) || (rRecvState == `sBitStopB)) && rControl[5])
+            if(((rRecvState == `sBitStopA) || (rRecvState == `sBitStopB)) && rControl[5]) begin
                 rDataOut[7:0] <= rRecvDataBuf;
+            end
         end
     end
     
@@ -198,7 +202,7 @@ module epRISC_UART(iClk, iRst, oInt, iAddr, iData, oData, iWrite, iEnable, iSClk
 
     always @(*) begin
         case(rRecvState)
-            `sBit7: rRecvNextState = (rControl[4]) ? `sBitParity : ((rControl[2]) ? `sBitStopA : `sBitStopB);
+            `sBit7: rRecvNextState = `sBitStopB; //(rControl[4]) ? `sBitParity : ((rControl[2]) ? `sBitStopA : `sBitStopB);
             `sBit6: rRecvNextState = `sBit7;       
             `sBit5: rRecvNextState = `sBit6;       
             `sBit4: rRecvNextState = `sBit5;       

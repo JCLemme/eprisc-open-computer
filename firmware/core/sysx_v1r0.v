@@ -6,6 +6,8 @@
 
 // Gonna need this here too
 /* verilator lint_off WIDTH */
+/* verilator lint_off MULTIDRIVEN */
+
 
 `define sPipeIdle       0
 `define sPipeLoad       1
@@ -56,10 +58,17 @@ endmodule
 module epRISC_sysXMaster(iClock, iReset, iAddress, bData, iWrite, iEnable, oInterrupt, iMasterClock, iBusMISO, oBusMOSI, oBusClock, iBusInterrupt, oBusSelect, oDebug);
 
     // External I/O
-    input iClock, iReset, iWrite, iEnable, iMasterClock, iBusInterrupt;
+    input iClock, iReset, iWrite, iEnable, iMasterClock/* verilator clock_enable*/, iBusInterrupt;
     input [3:0] iAddress;
     input [7:0] iBusMISO;
-    output wire oInterrupt, oBusClock, oDebug;
+    output wire oInterrupt, oDebug; 
+    
+    `ifdef EMULATED
+    output reg oBusClock/* verilator clock_enable*/;
+    `else
+    output wire oBusClock/* verilator clock_enable*/;
+    `endif
+    
     output wire [1:0] oBusSelect;
     output wire [7:0] oBusMOSI;
     inout [31:0] bData;
@@ -75,7 +84,7 @@ module epRISC_sysXMaster(iClock, iReset, iAddress, bData, iWrite, iEnable, oInte
     wire [11:0] fClockStep;
     
     // Bus clock control registers
-    reg rDerivedClock;
+    reg rDerivedClock/* verilator clock_enable*/;
     reg [11:0] rMasterClockCount;
 
     // Pipeline controller registers
@@ -107,8 +116,11 @@ module epRISC_sysXMaster(iClock, iReset, iAddress, bData, iWrite, iEnable, oInte
     
     assign oDebug = (iEnable) ? 1 : 0;
     
+    `ifndef EMULATED
     assign oBusClock = (rPipeState == `sPipeIdle) ? 1'h1 : rDerivedClock;
-    assign oBusSelect = fChipSelect;//(rPipeState == `sPipeIdle) ? 2'h0 : fChipSelect;
+    `endif
+    
+    assign oBusSelect = fChipSelect; //(rPipeState == `sPipeIdle) ? 2'h0 : fChipSelect;
     assign oInterrupt = iBusInterrupt;
     assign oBusMOSI = (fReceive) ? 8'hFF : 
                       ((rPipeState == `sPipeLoLo) ? wDistributionMOSI[7:0] :
@@ -136,21 +148,40 @@ module epRISC_sysXMaster(iClock, iReset, iAddress, bData, iWrite, iEnable, oInte
             if(iAddress == 4'h0 && iWrite && iEnable)
                 rMasterClockCount <= 12'h0;
 
-            else if(rMasterClockCount == 1)
+            else if(rMasterClockCount == 3)
                 rMasterClockCount <= 12'h0;
             else
                 rMasterClockCount <= rMasterClockCount + 12'h1;
         end
     end
 
+
+    `ifdef EMULATED
+    always @(posedge iMasterClock) begin
+        if(iReset) begin
+            rDerivedClock = 1'h0;
+            oBusClock = 1'h1;
+        end else begin
+            if(rMasterClockCount == 0) begin
+                rDerivedClock = !rDerivedClock;
+                if(rPipeState == `sPipeIdle)
+                    oBusClock = 1'h1;
+                else
+                    oBusClock = rDerivedClock;
+            end
+        end
+    end
+    `else
     always @(posedge iMasterClock) begin
         if(iReset) begin
             rDerivedClock <= 1'h0;
         end else begin
-            if(rMasterClockCount == 0)
+            if(rMasterClockCount == 0) begin
                 rDerivedClock <= !rDerivedClock;
         end
     end
+    `endif
+
 
     // Pipeline controller
     always @(posedge rDerivedClock) begin

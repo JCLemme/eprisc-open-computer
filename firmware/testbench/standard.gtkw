@@ -1,12 +1,12 @@
 [*]
-[*] GTKWave Analyzer v3.3.66 (w)1999-2015 BSI
-[*] Thu Mar 23 12:26:07 2017
+[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
+[*] Mon Dec 11 16:14:13 2017
 [*]
 [dumpfile] "/home/jclemme/Projects/eprisc/firmware/testbench/coredump.vcd"
-[dumpfile_mtime] "Thu Mar 23 12:19:22 2017"
-[dumpfile_size] 949282
+[dumpfile_mtime] "Mon Dec 11 16:13:45 2017"
+[dumpfile_size] 346972559
 [savefile] "/home/jclemme/Projects/eprisc/firmware/testbench/standard.gtkw"
-[timestart] 0
+[timestart] 4760
 [size] 1301 744
 [pos] -1 -1
 *-8.000000 49749 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
@@ -21,7 +21,7 @@
 epRISC_coreTB.controller.uart.iClk
 epRISC_coreTB.controller.uart.iSClk
 epRISC_coreTB.controller.uart.iAddr[1:0]
-@23
+@22
 epRISC_coreTB.controller.uart.iData[15:0]
 @28
 epRISC_coreTB.controller.uart.iWrite
@@ -39,7 +39,10 @@ epRISC_coreTB.controller.uart.rRecvState[3:0]
 epRISC_coreTB.controller.uart.rRecvDataBuf[7:0]
 @200
 -
+@29
+epRISC_coreTB.machine.bus.oBusClock
 @28
+epRISC_coreTB.machine.bus.rDerivedClock
 epRISC_coreTB.machine.core.iClk
 @22
 epRISC_coreTB.machine.core.oAddr[31:0]

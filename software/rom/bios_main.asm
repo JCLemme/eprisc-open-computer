@@ -50,9 +50,19 @@
 :mon_init       call.s  a:sdc_init
                 stor.o  s:%Zz r:%GL o:#h1FF5
                 rtrn.s
+         
+;:blinky         move.v  d:%GL v:#hFF s:#h8
+;                move.v  d:%GL v:#hFFFF o:%TRUE                      ; Fill value
+;:.blinkloop     subr.v  d:%GL a:%GL v:#h01
+;                cmpr.v  a:%GL v:#h00
+;                brch.a  c:%NEQ a:.blinkloop
+;                xorb.v  d:%CS a:%CS v:#h01 s:#h08                   ; Invert
+;                brch.a  a:blinky                                    ; Repeat
                 
 :bios           move.v  d:%SP v:#h1100                              ; Put the stack somewhere handy (on the chip RAM)
                 move.v  d:%GL v:#h00                                ; So that monitor control jumps work
+                
+;                brch.a  a:blinky
                 
                 call.s  a:ioc_init
                 move.v  d:%Xw v:#h7FFF
@@ -81,7 +91,7 @@
                 pops.r  d:%Xw                                       ; Test the memory
                 
                 move.v  d:%Xx v:#h3000
-                move.v  d:%Xy v:#h6000
+                move.v  d:%Xy v:#h3010                              ; Go to 6000 normally - cut down to speed testing
 :.memloop       stor.o  r:%Xx s:%Xx 
                 load.o  r:%Xx d:%Xw 
                 cmpr.r  a:%Xw b:%Xx 
@@ -106,6 +116,10 @@
                 call.s  a:str_puts
                 pops.r  d:%Xw                                       ; Report end of POSTs
                                 
+                                
+                brch.a  a:.monitor                           ; The emulator doesn't have an SD card - go right to the monitor
+                                                
+                                                
                 move.v  d:%Xw v:#h41
                 push.r  s:%Xw
                 call.s  a:spi_send

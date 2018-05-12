@@ -1,3 +1,5 @@
+/* verilator lint_off WIDTH */
+
 module epRISC_VideoTerm(iClk, iRst, iAddr, iData, oData, iWrite, iEnable, iMemClk, iVideoClk, oColor, oHS, oVS);
 
     input iClk, iRst, iWrite, iEnable, iMemClk, iVideoClk;

@@ -1,0 +1,148 @@
+`begin_keywords "1800-2012"
+`line 1 "../../../firmware/io/spi_v1r0.v" 1
+ 
+
+`line 3 "../../../firmware/io/spi_v1r0.v" 0
+ 
+ 
+
+`line 6 "../../../firmware/io/spi_v1r0.v" 0
+ 
+ 
+
+`line 9 "../../../firmware/io/spi_v1r0.v" 0
+ 
+/*verilator lint_off WIDTH*/ 
+
+`line 12 "../../../firmware/io/spi_v1r0.v" 0
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+`line 26 "../../../firmware/io/spi_v1r0.v" 0
+module epRISC_SPI(iClk, iRst, oInt, iAddr, iData, oData, iWrite, iEnable, iMasterClk, iMISO, oMOSI, oSS, oSCLK);
+
+`line 28 "../../../firmware/io/spi_v1r0.v" 0
+    input iClk, iRst, iWrite, iEnable, iMasterClk, iMISO;
+    input [1:0] iAddr;
+    input [15:0] iData;
+    output wire oInt, oMOSI, oSCLK;
+    output wire [3:0] oSS;
+    output wire [15:0] oData;
+    
+    reg rTxClk;
+    reg [1:0] rClkDivide;
+    reg [3:0] rState, rPrevState, rNextState;
+    reg [4:0] rLockSto, rLockAck;
+    reg [7:0] rDataBuf;
+    reg [15:0] rControl, rDataIn, rDataOut;
+    
+    assign oMOSI = (rState > 7) ? 1 : rDataIn[rState];
+    assign oSS = ~rControl[6:3];
+    assign oSCLK = (rState < 8) ? rTxClk : 0;
+    
+    assign oData = (!iEnable) ? 16'bz : (iAddr==0)?((rState!=8)?rControl|16'h80:rControl):((iAddr==1)?rDataIn:((iAddr==2)?rDataOut:16'b1));
+
+`line 48 "../../../firmware/io/spi_v1r0.v" 0
+    wire tmpClock;
+    assign tmpClock = (rState == 8) ? iClk : rTxClk;
+    
+    always @(posedge iMasterClk or posedge iRst) begin
+        if(iRst) begin
+            rClkDivide <= 0;
+            rTxClk <= 0;
+         end else begin
+            rClkDivide <= rClkDivide + 1;
+            if(rClkDivide == 3)
+                rTxClk <= !rTxClk;
+         end
+    end
+    
+    always @(negedge rTxClk or posedge iRst) begin
+        if(iRst) begin
+            rPrevState <= 8;
+            rState <= 8;
+            rLockAck <= 0;
+        end else begin
+            rPrevState <= rState;
+            rState <= rNextState;
+
+`line 71 "../../../firmware/io/spi_v1r0.v" 0
+            if(rState == 10)
+                rLockAck <= rLockAck + 5'h1;
+        end
+    end
+    
+    always @(posedge iClk or posedge iRst) begin
+        if(iRst) begin
+            rControl <= 0;
+            rLockSto <= 0;
+        end else begin
+            if(iWrite && iEnable && iAddr == 0)
+                rControl <= iData;
+            if((rLockAck > rLockSto) || (rLockAck == 5'h0 && rLockSto == 5'h1F)) begin
+                rLockSto <= rLockAck;
+                rControl[7] <= 1'h0;
+            end
+        end
+    end
+    
+    always @(posedge iClk or posedge iRst) begin
+        if(iRst) begin
+            rDataIn <= 0;
+        end else begin  
+            if(iWrite && iEnable && iAddr == 1) begin
+                rDataIn <= iData;
+            end
+        end
+    end
+    
+    always @(posedge rTxClk or posedge iRst) begin
+        if(iRst) begin
+            rDataOut <= 0;
+        end else begin       
+            if(rState == 11)
+                rDataOut[7:0] <= rDataBuf;
+        end
+    end 
+    
+    always @(posedge rTxClk or posedge iRst) begin
+        if(iRst) begin
+            rDataBuf <= 0;
+        end else begin
+            if(rState < 8)
+                rDataBuf[rState] <= iMISO;
+        end
+    end
+    
+    always @(*) begin
+        case(rState)
+            8: rNextState = (rControl[7] && (rLockAck == rLockSto)) ? 7 : 8;
+            9: rNextState = 7;
+            7: rNextState = 6;          
+            6: rNextState = 5;
+            5: rNextState = 4;            
+            4: rNextState = 3;            
+            3: rNextState = 2;           
+            2: rNextState = 1;            
+            1: rNextState = 0;            
+            0: rNextState = 11;
+            11: rNextState = 10;
+            10: rNextState = 8;      
+            default: rNextState = 8; 
+        endcase
+    end
+    
+endmodule
+
+`line 138 "../../../firmware/io/spi_v1r0.v" 2

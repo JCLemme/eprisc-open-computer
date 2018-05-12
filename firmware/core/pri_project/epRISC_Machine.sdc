@@ -47,8 +47,8 @@ create_clock -name {epRISC_sysXMaster:bus|rDerivedClock} -period 1.000 -waveform
 # Create Generated Clock
 #**************************************************************
 
-create_generated_clock -name {clock|altpll_component|auto_generated|pll1|clk[0]} -source [get_pins {clock|altpll_component|auto_generated|pll1|inclk[0]}] -duty_cycle 50/1 -multiply_by 22 -divide_by 25 -phase 9/5 -master_clock {iBoardClock} [get_pins {clock|altpll_component|auto_generated|pll1|clk[0]}] 
-create_generated_clock -name {clock|altpll_component|auto_generated|pll1|clk[1]} -source [get_pins {clock|altpll_component|auto_generated|pll1|inclk[0]}] -duty_cycle 50/1 -multiply_by 22 -divide_by 25 -phase 9/5 -master_clock {iBoardClock} [get_pins {clock|altpll_component|auto_generated|pll1|clk[1]}] 
+create_generated_clock -name {clock|altpll_component|auto_generated|pll1|clk[0]} -source [get_pins {clock|altpll_component|auto_generated|pll1|inclk[0]}] -duty_cycle 50/1 -multiply_by 4 -divide_by 5 -phase 9/5 -master_clock {iBoardClock} [get_pins {clock|altpll_component|auto_generated|pll1|clk[0]}] 
+create_generated_clock -name {clock|altpll_component|auto_generated|pll1|clk[1]} -source [get_pins {clock|altpll_component|auto_generated|pll1|inclk[0]}] -duty_cycle 50/1 -multiply_by 4 -divide_by 5 -phase 45/11 -master_clock {iBoardClock} [get_pins {clock|altpll_component|auto_generated|pll1|clk[1]}] 
 create_generated_clock -name {clock|altpll_component|auto_generated|pll1|clk[2]} -source [get_pins {clock|altpll_component|auto_generated|pll1|inclk[0]}] -duty_cycle 50/1 -multiply_by 2 -phase 45/11 -master_clock {iBoardClock} [get_pins {clock|altpll_component|auto_generated|pll1|clk[2]}] 
 
 

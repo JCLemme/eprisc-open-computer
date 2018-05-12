@@ -1,0 +1,233 @@
+`begin_keywords "1800-2012"
+`line 1 "../../../firmware/io/uart_v1r0.v" 1
+ 
+
+`line 3 "../../../firmware/io/uart_v1r0.v" 0
+ 
+ 
+
+`line 6 "../../../firmware/io/uart_v1r0.v" 0
+ 
+ 
+
+`line 9 "../../../firmware/io/uart_v1r0.v" 0
+ 
+/*verilator lint_off WIDTH*/ 
+
+
+`line 13 "../../../firmware/io/uart_v1r0.v" 0
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+`line 28 "../../../firmware/io/uart_v1r0.v" 0
+module epRISC_UART(iClk, iRst, oInt, iAddr, iData, oData, iWrite, iEnable, iSClk, iRX, oTX);
+
+`line 30 "../../../firmware/io/uart_v1r0.v" 0
+    input iClk, iRst, iWrite, iEnable, iSClk, iRX;
+    input [1:0] iAddr;
+    input [15:0] iData;
+    output reg oInt;
+    output wire oTX;
+    output wire [15:0] oData;
+    
+    reg [3:0] rSendState, rSendNextState, rSendPrevState, rRecvState, rRecvNextState, rRecvPrevState;
+    reg [4:0] rRecvCountSto, rRecvCountAck, rSendCountSto, rSendCountAck;
+    reg [5:0] rSendDataCnt, rRecvDataCnt;
+    reg [7:0] rSendDataBuf, rRecvDataBuf;
+    reg [15:0] rControl, rDataIn, rDataOut;
+     
+    wire fReceiveEnable, fReceiveActive, fInterruptEnable;
+    wire fSendEnable, fSendActive;
+    wire fParityEnable, fParityMode, fStopBits, fWordLength;
+    
+    assign fReceiveEnable = rControl[5];
+    assign fReceiveActive = rControl[4];
+    assign fInterruptEnable = rControl[8];
+    assign fSendEnable = rControl[7];
+    assign fSendActive = rControl[6];
+    assign fParityEnable = rControl[10];
+    assign fParityMode = rControl[9];
+    assign fStopBits = rControl[11];
+    assign fWordLength = rControl[13:12];
+        
+    assign oTX = (rSendState == 9) ? 0 : ((rSendState == 13 || rSendState == 11 || rSendState == 12) ? 1 : rSendDataBuf[rSendState]);
+    assign oData = (!iEnable) ? 16'bz : ((iAddr==0)?((rSendState==13)?rControl:rControl):((iAddr==1)?rDataIn:((iAddr==2)?rDataOut:16'b1)));
+
+`line 60 "../../../firmware/io/uart_v1r0.v" 0
+    always @(negedge iClk or posedge iRst) begin
+        if(iRst) begin
+            rControl <= 0;
+            rRecvCountSto <= 0;
+            rSendCountSto <= 0;
+        end else begin
+            if(iWrite && iEnable && iAddr == 0)
+                rControl <= iData;
+
+`line 69 "../../../firmware/io/uart_v1r0.v" 0
+            if(rSendState == 9)
+                rControl[6] <= 1;
+                
+            if(rSendState == 13)
+                rControl[6] <= 0;
+                
+            if(rSendState == 4)
+                rControl[7] <= 0;
+                
+            if(rSendState == 13)
+                rControl[4] <= 0;
+            else
+                rControl[4] <= 1;
+                
+            if((rSendCountAck > rSendCountSto) || (rSendCountAck == 5'h0 && rSendCountSto == 5'h1F)) begin
+                rSendCountSto <= rSendCountAck;
+                 
+            end
+            
+            if((rRecvCountAck > rRecvCountSto) || (rRecvCountAck == 5'h0 && rRecvCountSto == 5'h1F)) begin
+                rRecvCountSto <= rRecvCountAck;
+                rControl[5] <= 0;
+            end
+        end
+    end
+
+`line 95 "../../../firmware/io/uart_v1r0.v" 0
+    always @(negedge iClk or posedge iRst) begin
+        if(iRst) begin
+            rDataIn <= 16'h00;
+        end else begin  
+            if(iWrite && iEnable && iAddr == 1) begin
+                rDataIn <= iData;
+            end
+        end
+    end
+    
+    always @(posedge iSClk or posedge iRst) begin
+        if(iRst) begin
+            rDataOut <= 0;
+        end else begin       
+            if(((rRecvState == 11) || (rRecvState == 12)) && rControl[5])
+                rDataOut[7:0] <= rRecvDataBuf;
+        end
+    end
+    
+    always @(posedge iSClk) begin
+        if(rControl[8] && rRecvState == 12)
+            oInt <= 1;
+        else
+            oInt <= 0;
+    end
+    
+    always @(posedge iSClk) begin
+        if(rSendState == 9)
+            rSendDataBuf <= rDataIn[7:0];
+    end
+    
+    always @(posedge iSClk or posedge iRst) begin
+        if(iRst) begin
+            rSendPrevState <= 13;
+            rSendState <= 13;
+            rSendCountAck <= 0;
+        end else begin
+            if(rSendState == 13) begin
+                rSendPrevState <= rSendState;
+                rSendState <= rSendNextState;
+                rSendDataCnt <= 0;
+            end else begin
+                rSendDataCnt <= rSendDataCnt + 1;
+                if(rSendDataCnt[3:0] == 15) begin
+                    rSendPrevState <= rSendState;
+                    rSendState <= rSendNextState;
+                    
+                    if(rSendState == 12)
+                        rSendCountAck <= rSendCountAck + 5'h1;
+                end
+            end
+        end
+    end
+    
+    always @(posedge iSClk or posedge iRst) begin
+        if(iRst) begin
+            rRecvState <= 13;
+            rRecvPrevState <= 13;
+            rRecvCountAck <= 0;
+        end else begin  
+            if(rRecvState == 13) begin
+                rRecvPrevState <= rRecvState;
+                rRecvState <= rRecvNextState;
+                rRecvDataCnt <= 8'h00;
+            end else begin
+                rRecvDataCnt <= rRecvDataCnt + 1;
+                if(rRecvState == 9 && rRecvDataCnt[3:0] == 7) begin
+                    rRecvDataCnt <= 8'hFF;
+                    rRecvPrevState <= rRecvState;
+                    rRecvState <= rRecvNextState;
+                end else if(rRecvDataCnt[3:0] == 15) begin
+                    rRecvDataCnt <= 8'h00;
+                    rRecvPrevState <= rRecvState;
+                    rRecvState <= rRecvNextState;
+                    if(rRecvState < 8)
+                        rRecvDataBuf[rRecvState] <= iRX;
+                    
+                    if(rRecvState == 12)
+                        rRecvCountAck <= rRecvCountAck + 5'h1;
+                end
+            end
+        end
+    end
+    
+    always @(*) begin
+        case(rSendState)
+            7: rSendNextState = 12;  
+            6: rSendNextState = 7;       
+            5: rSendNextState = 6;       
+            4: rSendNextState = 5;       
+            3: rSendNextState = 4;       
+            2: rSendNextState = 3;       
+            1: rSendNextState = 2;       
+            0: rSendNextState = 1;
+            9: rSendNextState = 0;  
+            10: rSendNextState = (rControl[2]) ? 11 : 12;
+            11: rSendNextState = 12;
+            12: rSendNextState = 13;
+            13: rSendNextState = (rControl[7] && (rSendCountAck == rSendCountSto)) ? 9 : 13;
+            14: rSendNextState = 13;
+            default: rSendNextState = 13;
+        endcase
+    end
+
+`line 199 "../../../firmware/io/uart_v1r0.v" 0
+    always @(*) begin
+        case(rRecvState)
+            7: rRecvNextState = (rControl[4]) ? 10 : ((rControl[2]) ? 11 : 12);
+            6: rRecvNextState = 7;       
+            5: rRecvNextState = 6;       
+            4: rRecvNextState = 5;       
+            3: rRecvNextState = 4;       
+            2: rRecvNextState = 3;       
+            1: rRecvNextState = 2;       
+            0: rRecvNextState = 1;
+            9: rRecvNextState = 14;  
+            10: rRecvNextState = (rControl[2]) ? 11 : 12;
+            11: rRecvNextState = 12;
+            12: rRecvNextState = 13;
+            13: rRecvNextState = (!iRX && rControl[5] && (rRecvCountAck == rRecvCountSto)) ? 9 : 13;
+            14: rRecvNextState = 0;
+            default: rRecvNextState = 13;
+        endcase
+    end
+        
+endmodule
+
+`line 221 "../../../firmware/io/uart_v1r0.v" 2
