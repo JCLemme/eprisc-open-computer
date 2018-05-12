@@ -1,0 +1,8 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: spasm
+Upstream-Contact: John C Lemme <jclemme@proportionallabs.com>
+Source: https://github.com/jclemme/eprisc-open-computer/software/toolchain/spasm
+
+Files: *
+Copyright: 2016-2018 John C Lemme
+License: LGPL-3+
