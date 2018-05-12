@@ -19,7 +19,7 @@ std::vector<uint32_t> Assembler::assemble(std::vector<ProgramToken> file)
         else if(progToken.definesInstruction)
         { 
             if(core->instructions().count(progToken.instructionToken) == 0)
-                log->print("assembler: file \"" + progToken.originalLine.sourceFile + "\": line " + std::to_string(progToken.originalLine.sourceLineNum) + ": no match for instruction token \"" + progToken.instructionToken + "\"", MTYP_EROR);
+                log->print("assembler: file \"" + progToken.originalLine.sourceFile + "\": line " + std::to_string(progToken.originalLine.sourceLineNum) + ":", "no match for instruction token \"" + progToken.instructionToken + "\"", MTYP_EROR);
                 
             Instruction instMatch = core->instructions()[progToken.instructionToken];
             int aCnt;
@@ -41,11 +41,11 @@ std::vector<uint32_t> Assembler::assemble(std::vector<ProgramToken> file)
                             if(argMatch == NULL)
                                 argMatch = &progToken.instructionArguments[iCnt];
                             else
-                                log->print("assembler: file \"" + progToken.originalLine.sourceFile + "\": line " + std::to_string(progToken.originalLine.sourceLineNum) + ": redefinition of ID \"" + instMatch.arguments[aCnt].id + "\"", MTYP_EROR);
+                                log->print("assembler: file \"" + progToken.originalLine.sourceFile + "\": line " + std::to_string(progToken.originalLine.sourceLineNum) + ":", "redefinition of ID \"" + instMatch.arguments[aCnt].id + "\"", MTYP_EROR);
                         }
                         else
                         {
-                            log->print("assembler: file \"" + progToken.originalLine.sourceFile + "\": line " + std::to_string(progToken.originalLine.sourceLineNum) + ": type mismatch for ID \"" + instMatch.arguments[aCnt].id + "\"", MTYP_EROR);
+                            log->print("assembler: file \"" + progToken.originalLine.sourceFile + "\": line " + std::to_string(progToken.originalLine.sourceLineNum) + ":", "type mismatch for ID \"" + instMatch.arguments[aCnt].id + "\"", MTYP_EROR);
                         }
                     }
                 }
@@ -67,7 +67,7 @@ std::vector<uint32_t> Assembler::assemble(std::vector<ProgramToken> file)
                     }
                     else
                     {
-                        log->print("assembler: file \"" + progToken.originalLine.sourceFile + "\": line " + std::to_string(progToken.originalLine.sourceLineNum) + ": no match for ID \"" + instMatch.arguments[aCnt].id + "\"", MTYP_EROR);
+                        log->print("assembler: file \"" + progToken.originalLine.sourceFile + "\": line " + std::to_string(progToken.originalLine.sourceLineNum) + ":", "no match for ID \"" + instMatch.arguments[aCnt].id + "\"", MTYP_EROR);
                     }
                 }
                 
@@ -85,12 +85,12 @@ std::vector<uint32_t> Assembler::assemble(std::vector<ProgramToken> file)
                             }
                             else
                             {
-                                log->print("assembler: file \"" + progToken.originalLine.sourceFile + "\": line " + std::to_string(progToken.originalLine.sourceLineNum) + ": no match for enum value \"" + argMatch->stringData + "\"", MTYP_EROR);
+                                log->print("assembler: file \"" + progToken.originalLine.sourceFile + "\": line " + std::to_string(progToken.originalLine.sourceLineNum) + ":", "no match for enum value \"" + argMatch->stringData + "\"", MTYP_EROR);
                             }
                         }
                         else
                         {
-                            log->print("assembler: file \"" + progToken.originalLine.sourceFile + "\": line " + std::to_string(progToken.originalLine.sourceLineNum) + ": no match for enum \"" + instMatch.arguments[aCnt].spec + "\"", MTYP_EROR);
+                            log->print("assembler: file \"" + progToken.originalLine.sourceFile + "\": line " + std::to_string(progToken.originalLine.sourceLineNum) + ":", "no match for enum \"" + instMatch.arguments[aCnt].spec + "\"", MTYP_EROR);
                         }
                     }
                     break;
@@ -106,7 +106,7 @@ std::vector<uint32_t> Assembler::assemble(std::vector<ProgramToken> file)
                             std::string properLabel = (argMatch->stringData[argMatch->stringData.length()-1] == '\\' || argMatch->stringData[argMatch->stringData.length()-1] == '/') ? argMatch->stringData.substr(0, argMatch->stringData.length()-1) : argMatch->stringData;
 
                             if(labelLookupTable.count(properLabel) == 0)
-                                log->print("assembler: file \"" + progToken.originalLine.sourceFile + "\": line " + std::to_string(progToken.originalLine.sourceLineNum) + ": label \"" + properLabel + "\" not defined", MTYP_EROR);
+                                log->print("assembler: file \"" + progToken.originalLine.sourceFile + "\": line " + std::to_string(progToken.originalLine.sourceLineNum) + ":", "label \"" + properLabel + "\" not defined", MTYP_EROR);
                                 
                             baseValue = labelLookupTable[properLabel];
                             
@@ -118,7 +118,7 @@ std::vector<uint32_t> Assembler::assemble(std::vector<ProgramToken> file)
                         }
                         else
                         {
-                            log->print("assembler: file \"" + progToken.originalLine.sourceFile + "\": line " + std::to_string(progToken.originalLine.sourceLineNum) + ": Argument match with a non-value data type? How did this even happen?", MTYP_EROR);
+                            log->print("assembler: file \"" + progToken.originalLine.sourceFile + "\": line " + std::to_string(progToken.originalLine.sourceLineNum) + ":", "Argument match with a non-value data type? How did this even happen?", MTYP_EROR);
                         }
                     }
                     break;
@@ -134,7 +134,7 @@ std::vector<uint32_t> Assembler::assemble(std::vector<ProgramToken> file)
                             std::string properLabel = (argMatch->stringData[argMatch->stringData.length()-1] == '\\' || argMatch->stringData[argMatch->stringData.length()-1] == '/') ? argMatch->stringData.substr(0, argMatch->stringData.length()-1) : argMatch->stringData;
 
                             if(labelLookupTable.count(properLabel) == 0)
-                                log->print("assembler: file \"" + progToken.originalLine.sourceFile + "\": line " + std::to_string(progToken.originalLine.sourceLineNum) + ": label \"" + properLabel + "\" not defined", MTYP_EROR);
+                                log->print("assembler: file \"" + progToken.originalLine.sourceFile + "\": line " + std::to_string(progToken.originalLine.sourceLineNum) + ":", "label \"" + properLabel + "\" not defined", MTYP_EROR);
                                 
                             baseValue = labelLookupTable[properLabel];
                             
@@ -146,7 +146,7 @@ std::vector<uint32_t> Assembler::assemble(std::vector<ProgramToken> file)
                         }
                         else
                         {
-                            log->print("assembler: file \"" + progToken.originalLine.sourceFile + "\": line " + std::to_string(progToken.originalLine.sourceLineNum) + ": Argument match with a non-address data type? How did this even happen?", MTYP_EROR);
+                            log->print("assembler: file \"" + progToken.originalLine.sourceFile + "\": line " + std::to_string(progToken.originalLine.sourceLineNum) + ":", "Argument match with a non-address data type? How did this even happen?", MTYP_EROR);
                         }
                         
                         int32_t tmpValue = baseValue - progToken.address - ((baseValue <= progToken.address) ? 0 : 0);
@@ -161,7 +161,7 @@ std::vector<uint32_t> Assembler::assemble(std::vector<ProgramToken> file)
                             std::string properLabel = (argMatch->stringData[argMatch->stringData.length()-1] == '\\' || argMatch->stringData[argMatch->stringData.length()-1] == '/') ? argMatch->stringData.substr(0, argMatch->stringData.length()-1) : argMatch->stringData;
 
                             if(labelLookupTable.count(properLabel) == 0)
-                                log->print("assembler: file \"" + progToken.originalLine.sourceFile + "\": line " + std::to_string(progToken.originalLine.sourceLineNum) + ": label \"" + properLabel + "\" not defined", MTYP_EROR);
+                                log->print("assembler: file \"" + progToken.originalLine.sourceFile + "\": line " + std::to_string(progToken.originalLine.sourceLineNum) + ":", "label \"" + properLabel + "\" not defined", MTYP_EROR);
                                 
                             baseValue = labelLookupTable[properLabel];
                             
@@ -173,7 +173,7 @@ std::vector<uint32_t> Assembler::assemble(std::vector<ProgramToken> file)
                         }
                         else
                         {
-                            log->print("assembler: file \"" + progToken.originalLine.sourceFile + "\": line " + std::to_string(progToken.originalLine.sourceLineNum) + ": Argument match with a non-label data type? How did this even happen?", MTYP_EROR);
+                            log->print("assembler: file \"" + progToken.originalLine.sourceFile + "\": line " + std::to_string(progToken.originalLine.sourceLineNum) + ":", "Argument match with a non-label data type? How did this even happen?", MTYP_EROR);
                         }
                     }
                     break;
@@ -184,7 +184,7 @@ std::vector<uint32_t> Assembler::assemble(std::vector<ProgramToken> file)
                 uint32_t formattedValue = baseValue & instMatch.arguments[aCnt].mask;
                 
                 if(formattedValue != baseValue)
-                    log->print("assembler: file \"" + progToken.originalLine.sourceFile + "\": line " + std::to_string(progToken.originalLine.sourceLineNum) + ": value provided for ID \"" + instMatch.arguments[aCnt].id + "\" is wider than specified", MTYP_WARN);
+                    log->print("assembler: file \"" + progToken.originalLine.sourceFile + "\": line " + std::to_string(progToken.originalLine.sourceLineNum) + ":", "value provided for ID \"" + instMatch.arguments[aCnt].id + "\" is wider than specified", MTYP_WARN);
                     
                 baseWord += formattedValue;
             }
@@ -193,7 +193,7 @@ std::vector<uint32_t> Assembler::assemble(std::vector<ProgramToken> file)
         }
         else
         {
-            log->print("assembler: file \"" + progToken.originalLine.sourceFile + "\": line " + std::to_string(progToken.originalLine.sourceLineNum) + ": Somehow, there's a token that defines neither an instruction nor data. Beats me.", MTYP_EROR);
+            log->print("assembler: file \"" + progToken.originalLine.sourceFile + "\": line " + std::to_string(progToken.originalLine.sourceLineNum) + ":", "Somehow, there's a token that defines neither an instruction nor data. Beats me.", MTYP_EROR);
         }       
                 
         if(binFile.size() < progToken.address || binFile.size() < progToken.address+writeWords.size())
@@ -204,7 +204,12 @@ std::vector<uint32_t> Assembler::assemble(std::vector<ProgramToken> file)
         int wCnt;
 
         for(wCnt=0;wCnt<writeWords.size();wCnt++)
+        {
             binFile[progToken.address+wCnt] = writeWords[wCnt];
+            progToken.assembledData.push_back(writeWords[wCnt]);
+        }
+        
+        debugData.push_back(progToken);
     }
     
     return binFile;

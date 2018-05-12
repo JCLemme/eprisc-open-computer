@@ -7,6 +7,8 @@
 #include "spasm_core.h"
 #include "spasm_assembler.h"
 
+#define VERSION "v4.0b"
+
 void parseArguments(int argc, char **argv);
 void printHelp();
 
@@ -19,12 +21,12 @@ int main(int argc, char **argv)
     
     std::string inputFilename = "";
     std::string outputFilename = "a.bin";
-    std::string coreFilename = "eprisc_v5.cpu"; //add in pwd support later
+    std::string coreFilename = "/usr/share/spasm/core/eprisc_v5.cpu"; //add in pwd support later
     std::string coreID = "EPRISC_STD";
     
     int argCnt;
     uint32_t padSize = 0;
-    bool outputText = false;
+    bool outputText = false, color = true, debug = false;
     
     log->setHiddenTypes(MTYP_WARN|MTYP_DEBG);
 
@@ -36,14 +38,16 @@ int main(int argc, char **argv)
             
             if(argv[argCnt][1] == '-')
             {
-                if(argv[argCnt] == "--help") argType = 'h';
-                else if(argv[argCnt] == "--output") argType = 'o';
-                else if(argv[argCnt] == "--text-verilog") argType = 't';
-                else if(argv[argCnt] == "--verbosity") argType = 'v';
-                else if(argv[argCnt] == "--pad-size") argType = 'p';
-                else if(argv[argCnt] == "--core-id") argType = 'c';
-                else if(argv[argCnt] == "--core-file") argType = 'f';
-                else argType = 'x';
+                if(strcmp(argv[argCnt], "--help") == 0) argType = 'h';
+                else if(strcmp(argv[argCnt], "--output") == 0) argType = 'o';
+                else if(strcmp(argv[argCnt], "--debug") == 0) argType = 'g';
+                else if(strcmp(argv[argCnt], "--text-verilog") == 0) argType = 't';
+                else if(strcmp(argv[argCnt], "--verbosity") == 0) argType = 'v';
+                else if(strcmp(argv[argCnt], "--pad-size") == 0) argType = 'p';
+                else if(strcmp(argv[argCnt], "--core-id") == 0) argType = 'c';
+                else if(strcmp(argv[argCnt], "--core-file") == 0) argType = 'f';
+                else if(strcmp(argv[argCnt], "--no-color") == 0) {color = false; argType = '@';}
+                else argType = '!';
             }
             else
             {   
@@ -54,12 +58,14 @@ int main(int argc, char **argv)
             {
                 case('h'): printHelp(); exit(0); break;
                 case('o'): argCnt++; outputFilename = argv[argCnt]; break;
+                case('g'): debug = true; break;
                 case('t'): outputText = true; break;
-                case('v'): argCnt++; log->setHiddenTypes((MessageType)0); break;
+                case('v'): argCnt++; log->setHiddenTypes((MessageType)atoi(argv[argCnt])); break;
                 case('p'): argCnt++; padSize = atoi(argv[argCnt]); break;
-                case('c'): argCnt++; coreID = argv[argCnt]; break;
-                case('f'): argCnt++; coreFilename = argv[argCnt]; break;
-                default: printHelp(); log->print("\nunrecognized argument \"" + std::string(argv[argType]) + "\"", MTYP_EROR); break;
+                case('c'): argCnt++; coreID = argv[argCnt]; log->print("main:", "using core ID \"" + coreID + "\"", MTYP_INFO); break;
+                case('f'): argCnt++; coreFilename = argv[argCnt]; log->print("main:", "using corefile \"" + coreFilename + "\"", MTYP_INFO); break;
+                case('@'): break;
+                default: printHelp(); log->print("", "unrecognized argument \"" + std::string(argv[argCnt]) + "\"", MTYP_EROR); break;
             }
         }
         else
@@ -67,6 +73,8 @@ int main(int argc, char **argv)
             inputFilename = argv[argCnt];
         }
     }
+    
+    log->setColorMode(color);
     
     core->loadCoreDef(coreFilename, coreID);
     
@@ -97,6 +105,11 @@ int main(int argc, char **argv)
     else
         file->saveBinary(outputFilename, outFile);
         
+    if(debug)
+    {
+        file->saveText(outputFilename + ".dbg", asmb->debug());
+    }
+    
     return 0;
 }
 
@@ -104,15 +117,17 @@ void printHelp()
 {
     std::cout << "Usage: spasm [OPTION...] [SOURCEFILE]                                         \n";
     std::cout << "                                                                              \n";
-    std::cout << "spasm - the simple prototypical epRISC assembler                              \n";
+    std::cout << "spasm " << VERSION << " - the simple prototypical epRISC assembler            \n";
     std::cout << "spasm is a cross-assembler for epRISC systems.                                \n";
     std::cout << "                                                                              \n";
     std::cout << "Options:                                                                      \n";
     std::cout << "-h      --help                |   Prints this help.                           \n";
     std::cout << "-o      --output [NAME]       |   Sets the output binary filename.            \n";
+    std::cout << "-g      --debug               |   Outputs debugging symbols for the binary.   \n";
     std::cout << "-t      --text-verilog        |   Saves the program as a Verilog array.       \n";
     std::cout << "-v      --verbosity [LEVEL]   |   Sets the verbosity of the assembler.        \n";
     std::cout << "-p      --pad-size [SIZE]     |   Pads the output binary to a specific size.  \n";
     std::cout << "-c      --core-id [CORE]      |   Specifies the core ID to target.            \n";
     std::cout << "-f      --core-file [NAME]    |   Specifies the file to search for core IDs.  \n";
+    std::cout << "        --no-color            |   Disables color message output.              \n";
 }

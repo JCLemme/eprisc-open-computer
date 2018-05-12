@@ -2,7 +2,7 @@ The epRISC project has components released under several licenses.
 
 A modified MIT license is used for all hardware specified as part of the project, including the epRISC ISA, the sysX protocol, and other related devices. This license is permissive; any of these specifications can be used for any purpose, including commercial, educational, and research purposes, and can be implemented alongside or as part of any other system. To be in compliance with the license, the original copyright notice must be distributed alongside any derivative products, and a reasonable attempt must be made to contact the original developer and current maintainers of the project. 
 
-The example software distributed as part of this project is released under the GNU GPLv3 license. This includes all development software, like assemblers and emulators; implementations of any protocols specified as part of the project, including those of the core; and all target software, including bootloaders, monitors, and operating systems. 
+The example software distributed as part of this project is released under the GNU LGPLv3 license. This includes all development software, like assemblers and emulators; implementations of any protocols specified as part of the project, including those of the core; and all target software, including bootloaders, monitors, and operating systems. 
 
 -----
 
@@ -13,4 +13,4 @@ The example software distributed as part of this project is released under the G
 
 * Do we have to release the source to our implementation of an epRISC technology?
 
-- No - all implementations created by you belong to you, and can be licensed any way you would like. This excludes implementations that are directly derived from the example implementations 
+- No - all implementations created by you belong to you, and can be licensed any way you would like. This excludes implementations that are directly derived from the example implementations.

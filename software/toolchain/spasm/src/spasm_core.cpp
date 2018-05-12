@@ -30,7 +30,7 @@ void Core::loadCoreDef(std::string file, std::string id)
     
     if(error != 0)
     {
-        log->print("core: Error opening core file \"" + file + "\" for reading (error " + std::to_string(error) + ")", MTYP_EROR);
+        log->print("core:", "Error opening core file \"" + file + "\" for reading (error " + std::to_string(error) + ")", MTYP_EROR);
     }
     
     int cFilePtr;
@@ -73,7 +73,7 @@ void Core::loadCoreDef(std::string file, std::string id)
                 if(lineTokens[0] == "CORE" && lineTokens[1] == id)
                 {
                     if(copying == true)
-                        log->print("core: core ID \"" + id + "\" contains a core definition?", MTYP_EROR);
+                        log->print("core:", "core ID \"" + id + "\" contains a core definition?", MTYP_EROR);
                     else
                         copying = true;
                 }
@@ -82,10 +82,10 @@ void Core::loadCoreDef(std::string file, std::string id)
     }
     
     if(copying == true && coreBlock.size() > 0)
-        log->print("core: missing end statement for core ID \"" + id + "\"", MTYP_EROR);
+        log->print("core:", "missing end statement for core ID \"" + id + "\"", MTYP_EROR);
     
     if(copying == false && coreBlock.size() == 0)
-        log->print("core: core ID \"" + id + "\" is not defined in file \"" + file + "\"", MTYP_EROR);
+        log->print("core:", "core ID \"" + id + "\" is not defined in file \"" + file + "\"", MTYP_EROR);
         
     int bPtr;
     bool procInstruction = false;
@@ -113,7 +113,7 @@ void Core::loadCoreDef(std::string file, std::string id)
             }
             else if(lineTokens[0] == "INST")
             {
-                log->print("core: line " + std::to_string(coreBlock[bPtr].lineNum+1) + ": floating inst", MTYP_WARN);       
+                log->print("core: line " + std::to_string(coreBlock[bPtr].lineNum+1) + ":", "floating inst", MTYP_WARN);       
             }
             else
             {
@@ -128,7 +128,7 @@ void Core::loadCoreDef(std::string file, std::string id)
                 boost::split(idTokens, lineTokens[1], boost::is_any_of(":"), boost::token_compress_on);
                 
                 if(idTokens.size() == 0)
-                    log->print("core: line " + std::to_string(coreBlock[bPtr].lineNum+1) + ": no info given for format ID", MTYP_WARN);       
+                    log->print("core: line " + std::to_string(coreBlock[bPtr].lineNum+1) + ":", "no info given for format ID", MTYP_WARN);       
                     
                 if(idTokens[0] == "ENUMT")
                 {
@@ -161,7 +161,7 @@ void Core::loadCoreDef(std::string file, std::string id)
                 }
                 else 
                 {
-                    log->print("core: line " + std::to_string(coreBlock[bPtr].lineNum+1) + ": type mismatch", MTYP_EROR);       
+                    log->print("core: line " + std::to_string(coreBlock[bPtr].lineNum+1) + ":", "type mismatch", MTYP_EROR);       
                 }
                     
                 tmpInst.arguments.push_back(tmpArg);
@@ -176,7 +176,7 @@ void Core::loadCoreDef(std::string file, std::string id)
             }
             else if(lineTokens[0] == "ENDINST")
             {
-                log->print("core: line " + std::to_string(coreBlock[bPtr].lineNum+1) + ": floating endinst", MTYP_WARN);   
+                log->print("core: line " + std::to_string(coreBlock[bPtr].lineNum+1) + ":", "floating endinst", MTYP_WARN);   
             }    
             else
             {
@@ -186,7 +186,7 @@ void Core::loadCoreDef(std::string file, std::string id)
                 if(cmdTokens[0] == "ENUM")
                 {
                     if(coreEnums.count(cmdTokens[1]) > 0)
-                        log->print("core: line " + std::to_string(coreBlock[bPtr].lineNum+1) + ": redefinition of enum \"" + cmdTokens[1] + "\"", MTYP_WARN);       
+                        log->print("core: line " + std::to_string(coreBlock[bPtr].lineNum+1) + ":", "redefinition of enum \"" + cmdTokens[1] + "\"", MTYP_WARN);       
 
                     int ePtr, lastEnumVal;
                     std::vector<std::string> enumTokens;
@@ -198,7 +198,7 @@ void Core::loadCoreDef(std::string file, std::string id)
                         boost::split(defTokens, enumTokens[ePtr], boost::is_any_of(":"), boost::token_compress_on); 
                         
                         if(defTokens.size() > 2)
-                            log->print("core: line " + std::to_string(coreBlock[bPtr].lineNum+1) + ": triple argument definition in enum \"" + cmdTokens[0] + "\"", MTYP_EROR);       
+                            log->print("core: line " + std::to_string(coreBlock[bPtr].lineNum+1) + ":", "triple argument definition in enum \"" + cmdTokens[0] + "\"", MTYP_EROR);       
                             
                         if(defTokens.size() == 1)
                         {
@@ -217,7 +217,7 @@ void Core::loadCoreDef(std::string file, std::string id)
                 }
                 else
                 {
-                    log->print("core: line " + std::to_string(coreBlock[bPtr].lineNum+1) + ": unrecognized keyword in core \"" + id + "\"", MTYP_EROR);
+                    log->print("core: line " + std::to_string(coreBlock[bPtr].lineNum+1) + ":", "unrecognized keyword in core \"" + id + "\"", MTYP_EROR);
                 }
             }
         }
@@ -254,10 +254,10 @@ void Core::loadCoreDef(std::string file, std::string id)
                 }
 
                 if(tmpArgs.size() < 1)
-                    log->print("core: line " + std::to_string(coreBlock[bPtr].lineNum+1) + ": ID without format", MTYP_EROR);
+                    log->print("core: line " + std::to_string(coreBlock[bPtr].lineNum+1) + ":", "ID without format", MTYP_EROR);
                   
                 if(tmpArgs.size() > 1)
-                    log->print("core: line " + std::to_string(coreBlock[bPtr].lineNum+1) + ": multiple definition of ID", MTYP_WARN);  
+                    log->print("core: line " + std::to_string(coreBlock[bPtr].lineNum+1) + ":", "multiple definition of ID", MTYP_WARN);  
                 
                 tmpArgs[0].mask |= 1<<(31-fCnt);
                 tmpArgs[0].shift = (31-fCnt);

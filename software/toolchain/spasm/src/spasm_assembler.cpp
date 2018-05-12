@@ -17,6 +17,7 @@ std::vector<uint32_t> Assembler::assembleSource(std::string filename)
     std::vector<ProcessedLine> pFile = preprocess(filename, std::map<std::string, std::string>(), 4).procdLines;
     std::vector<ProgramToken> tFile = tokenize(pFile);
     std::vector<uint32_t> bFile = assemble(tFile);
+        
     return bFile;
 }
 

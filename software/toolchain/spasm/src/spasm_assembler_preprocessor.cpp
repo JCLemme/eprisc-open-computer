@@ -5,7 +5,7 @@ PreprocessorData Assembler::preprocess(std::string filename, std::map<std::strin
     int err = 0;
     
     if(rec < 0)
-        log->print("preprocessor: file \"" + filename + "\" breaches the include limit", MTYP_EROR);
+        log->print("preprocessor:", "file \"" + filename + "\" breaches the include limit", MTYP_EROR);
     
     std::vector<std::string> rawSourceFile = file->loadText(filename, &err);
     PreprocessorData procdData;
@@ -13,7 +13,7 @@ PreprocessorData Assembler::preprocess(std::string filename, std::map<std::strin
     std::map<std::string, std::string> defineLookupTable = defLook;
     
     if(err != 0)
-        log->print("preprocessor: error opening \"" + filename + "\" for reading", MTYP_EROR);
+        log->print("preprocessor:", "error opening \"" + filename + "\" for reading", MTYP_EROR);
         
     int rCnt;
 
@@ -48,10 +48,10 @@ PreprocessorData Assembler::preprocess(std::string filename, std::map<std::strin
                 if(procLineTokens[0] == "DEF")
                 {
                     if(procLineTokens.size() < 3)
-                        log->print("preprocessor: file \"" + filename + "\": line line " + std::to_string(rCnt+1) + ": too few arguments for define", MTYP_EROR);
+                        log->print("preprocessor: file \"" + filename + "\": line " + std::to_string(rCnt+1) + ":", "too few arguments for define", MTYP_EROR);
                         
                     if(defineLookupTable.count(procLineTokens[1]) == 1)
-                        log->print("preprocessor: file \"" + filename + "\": line line " + std::to_string(rCnt+1) + ": redefinition of label \"" + procLineTokens[1] + "\"", MTYP_WARN);
+                        log->print("preprocessor: file \"" + filename + "\": line " + std::to_string(rCnt+1) + ":", "redefinition of label \"" + procLineTokens[1] + "\"", MTYP_WARN);
 
                     defineLookupTable[procLineTokens[1]] = procLineTokens[2];
                     
@@ -71,7 +71,7 @@ PreprocessorData Assembler::preprocess(std::string filename, std::map<std::strin
                     for(it_str defLkIt = newData.procdDef.begin(); defLkIt != newData.procdDef.end(); defLkIt++) 
                     {
                         if(defineLookupTable.count(defLkIt->first) == 1)
-                            log->print("preprocessor: file \"" + filename + "\": line " + std::to_string(rCnt+1) + ": redefinition of label \"" + defLkIt->first + "\"", MTYP_WARN);
+                            log->print("preprocessor: file \"" + filename + "\": line " + std::to_string(rCnt+1) + ":", "redefinition of label \"" + defLkIt->first + "\"", MTYP_WARN);
                             
                         defineLookupTable[defLkIt->first] = defLkIt->second;
                     }

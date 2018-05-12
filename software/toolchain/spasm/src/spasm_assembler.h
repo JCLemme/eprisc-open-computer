@@ -1,4 +1,6 @@
 #include <iostream>
+#include <sstream>
+#include <iomanip>
 #include <cstdlib>
 #include <cstdint>
 #include <string>
@@ -56,6 +58,8 @@ struct ProgramToken
     bool definesInstruction;
     std::string instructionToken; 
     std::vector<ProgramTokenArgument> instructionArguments;
+    
+    std::vector<uint32_t> assembledData;
 };
 
 class Assembler
@@ -70,6 +74,8 @@ class Assembler
     std::vector<ProgramToken> tokenize(std::vector<ProcessedLine> file);
     std::vector<uint32_t> assemble(std::vector<ProgramToken> file);
     
+    std::vector<std::string> debug();
+    
     uint32_t processNumber(std::string num, bool *err = NULL);
     
     private:
@@ -79,6 +85,8 @@ class Assembler
     
     std::map<std::string, uint32_t> labelLookupTable;
     uint32_t offsetLow;
+    
+    std::vector<ProgramToken> debugData;
 };
 
 #endif

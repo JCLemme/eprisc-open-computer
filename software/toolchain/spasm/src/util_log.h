@@ -20,17 +20,20 @@ class UtilLog
     UtilLog();
     ~UtilLog();
     
+    void setColorMode(bool newColor);
+    
     MessageType getHiddenTypes();
     void setHiddenTypes(MessageType hidden);
     
     MessageType getAbortTypes();
     void setAbortTypes(MessageType aborted);
     
-    void print(std::string message, MessageType type);
+    void print(std::string location, std::string message, MessageType type);
     
     private:
     MessageType quitTypes;
     MessageType hiddenTypes;
+    bool color;
 };
     
 inline MessageType operator|(MessageType a, MessageType b)

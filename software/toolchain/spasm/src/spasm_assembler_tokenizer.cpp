@@ -32,12 +32,12 @@ std::vector<ProgramToken> Assembler::tokenize(std::vector<ProcessedLine> file)
                 sourceLineTokens[0] = currentZone + sourceLineTokens[0];
             
             if(labelLookupTable.count(sourceLineTokens[0]) == 1)
-                log->print("tokenizer: file \"" + procLine.sourceFile + "\": line " + std::to_string(procLine.sourceLineNum) + ": redefinition of label \"" + sourceLineTokens[0] + "\"", MTYP_EROR);
+                log->print("tokenizer: file \"" + procLine.sourceFile + "\": line " + std::to_string(procLine.sourceLineNum) + ":", "redefinition of label \"" + sourceLineTokens[0] + "\"", MTYP_EROR);
 
             labelLookupTable[sourceLineTokens[0]] = programCounter;
             
             if(sourceLineTokens[0][sourceLineTokens[0].length()-1] == '\\' || sourceLineTokens[0][sourceLineTokens[0].length()-1] == '/')
-                log->print("tokenizer: file \"" + procLine.sourceFile + "\": line " + std::to_string(procLine.sourceLineNum) + ": label \"" + sourceLineTokens[0] + "\" ends with an illegal character", MTYP_EROR);   
+                log->print("tokenizer: file \"" + procLine.sourceFile + "\": line " + std::to_string(procLine.sourceLineNum) + ":", "label \"" + sourceLineTokens[0] + "\" ends with an illegal character", MTYP_EROR);   
                 
             sourceLineTokens.erase(sourceLineTokens.begin());
         }
@@ -51,7 +51,7 @@ std::vector<ProgramToken> Assembler::tokenize(std::vector<ProcessedLine> file)
                 if(sourceLineTokens[0] == "ZONE")
                 {
                     if(sourceLineTokens.size() < 2)
-                        log->print("tokenizer: file \"" + procLine.sourceFile + "\": line " + std::to_string(procLine.sourceLineNum) + ": no zone specified", MTYP_EROR);
+                        log->print("tokenizer: file \"" + procLine.sourceFile + "\": line " + std::to_string(procLine.sourceLineNum) + ":", "no zone specified", MTYP_EROR);
                     
                     currentZone = sourceLineTokens[1];
                     addToken = false;
@@ -59,7 +59,7 @@ std::vector<ProgramToken> Assembler::tokenize(std::vector<ProcessedLine> file)
                 else if(sourceLineTokens[0] == "DATA")
                 {
                     if(sourceLineTokens.size() < 2)
-                        log->print("tokenizer: file \"" + procLine.sourceFile + "\": line " + std::to_string(procLine.sourceLineNum) + ": !data directive was not provided with any data", MTYP_WARN);
+                        log->print("tokenizer: file \"" + procLine.sourceFile + "\": line " + std::to_string(procLine.sourceLineNum) + ":", "!data directive was not provided with any data", MTYP_WARN);
                     
                     int dCnt;
                     progToken.definesData = true;
@@ -77,7 +77,7 @@ std::vector<ProgramToken> Assembler::tokenize(std::vector<ProcessedLine> file)
                     tmpStr = tmpStr.substr(tmpStr.find_first_of("\"")+1, tmpStr.find_last_of("\"")-tmpStr.find_first_of("\"")-1);
                     
                     if(tmpStr.length() < 2)
-                        log->print("tokenizer: file \"" + procLine.sourceFile + "\": line " + std::to_string(procLine.sourceLineNum) + ": !str directive was not provided with any character data", MTYP_WARN);
+                        log->print("tokenizer: file \"" + procLine.sourceFile + "\": line " + std::to_string(procLine.sourceLineNum) + ":", "!str directive was not provided with any character data", MTYP_WARN);
                     
                     while(tmpStr.find("\\") != std::string::npos)
                     {
@@ -121,14 +121,14 @@ std::vector<ProgramToken> Assembler::tokenize(std::vector<ProcessedLine> file)
                 else if(sourceLineTokens[0] == "IP")
                 {
                     if(sourceLineTokens.size() < 2)
-                        log->print("tokenizer: file \"" + procLine.sourceFile + "\": line " + std::to_string(procLine.sourceLineNum) + ": !ip directive was not provided with a new address", MTYP_WARN);
+                        log->print("tokenizer: file \"" + procLine.sourceFile + "\": line " + std::to_string(procLine.sourceLineNum) + ":", "!ip directive was not provided with a new address", MTYP_WARN);
                     
                     programCounter = processNumber(sourceLineTokens[1]);
                     addToken = false;
                 }
                 else
                 {
-                    log->print("tokenizer: file \"" + procLine.sourceFile + "\": line " + std::to_string(procLine.sourceLineNum) + ": unrecognized assembler directive \"" + sourceLineTokens[0] + "\"", MTYP_WARN);
+                    log->print("tokenizer: file \"" + procLine.sourceFile + "\": line " + std::to_string(procLine.sourceLineNum) + ":", "unrecognized assembler directive \"" + sourceLineTokens[0] + "\"", MTYP_WARN);
                 }
             }
             else
@@ -145,10 +145,10 @@ std::vector<ProgramToken> Assembler::tokenize(std::vector<ProcessedLine> file)
                     boost::split(instArgTokens, sourceLineTokens[aCnt], boost::is_any_of(":"), boost::token_compress_on);
                     
                     if(instArgTokens.size() < 2)
-                        log->print("tokenizer: file \"" + procLine.sourceFile + "\": line " + std::to_string(procLine.sourceLineNum) + ": missing data for argument " + std::to_string(aCnt), MTYP_EROR);
+                        log->print("tokenizer: file \"" + procLine.sourceFile + "\": line " + std::to_string(procLine.sourceLineNum) + ":", "missing data for argument " + std::to_string(aCnt), MTYP_EROR);
 
                     if(instArgTokens[0].size() > 1)
-                        log->print("tokenizer: file \"" + procLine.sourceFile + "\": line " + std::to_string(procLine.sourceLineNum) + ": ID too long for argument " + std::to_string(aCnt), MTYP_EROR);
+                        log->print("tokenizer: file \"" + procLine.sourceFile + "\": line " + std::to_string(procLine.sourceLineNum) + ":", "ID too long for argument " + std::to_string(aCnt), MTYP_EROR);
                         
                     ProgramTokenArgument tmpArg;
                     tmpArg.id = instArgTokens[0];
